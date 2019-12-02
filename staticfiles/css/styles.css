@@ -1,0 +1,286 @@
+.header.title {
+  width:100%;
+  height:40px;
+  padding:5px;
+  background-color:#4160ae;
+  color:white;
+}
+
+.nav.nav-fill {
+  width:100%;
+  height:60px;
+  font-size:20px;
+}
+
+.container-fluid {
+  /* background-color:#f3faff; */
+  padding:25px;
+}
+
+#navcol-1 {
+  margin-left:100px;
+  padding:5px;
+}
+
+.mapover {
+  position:absolute;
+  right:0;
+  width:30%;
+  height:92%;
+  background-color:#404363;
+  padding:15px;
+}
+
+/*********************************
+   File Uploader Styles
+ *********************************/
+/*** 디자인 괜잫은 1개박스 업로드 ***/
+
+.uploader input {
+  display: none;
+}
+
+.uploader {
+  -webkit-align-items: center;
+  align-items: center;
+  background-color: #efefef;
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  display: -webkit-flex;
+  display: flex;
+  height: 150px;
+  -webkit-justify-content: center;
+  justify-content: center;
+  outline: 3px dashed #ccc;
+  outline-offset: 5px;
+  position: relative;
+  width: 150px;
+}
+
+.uploader img,
+.uploader .icon {
+  pointer-events: none;
+}
+
+.uploader,
+.uploader .icon {
+  -webkit-transition: all 100ms ease-in;
+  -moz-transition: all 100ms ease-in;
+  -ms-transition: all 100ms ease-in;
+  -o-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+}
+
+.uploader .icon {
+  color: #eee;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 5em;
+}
+
+.uploader.dragging {
+  outline-color: orangered;
+}
+
+.uploader.dragging .icon {
+  color: orangered;
+}
+
+.uploader.loaded .icon {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.uploader img {
+  left: 50%;
+  opacity: 0;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  -webkit-transition: all 300ms ease-in;
+  -moz-transition: all 300ms ease-in;
+  -ms-transition: all 300ms ease-in;
+  -o-transition: all 300ms ease-in;
+  transition: all 300ms ease-in;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.uploader img.loaded {
+  opacity: 1;
+}
+
+/*********************************
+   CUSTOM INPUT FILES FOR IMAGES
+ *********************************/
+/*** 4개 박스 놓고 업로드 ***/
+
+/*** CUSTOM FILE INPUT STYE ***/
+.wrap-custom-file {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  margin: 0 0.5rem 1rem;
+  text-align: center;
+}
+.wrap-custom-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0;
+}
+.wrap-custom-file label {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  background-color: #75a8f74d;
+  border-radius: 4px;
+  transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+  transition: transform 0.4s, -webkit-transform 0.4s;
+}
+.wrap-custom-file label span {
+  display: block;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  color: #777;
+  transition: color 0.4s;
+}
+.wrap-custom-file label .fa {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  -webkit-transform: translatex(-50%);
+  transform: translatex(-50%);
+  font-size: 1.5rem;
+  color: lightcoral;
+  transition: color 0.4s;
+}
+.wrap-custom-file label:hover {
+  -webkit-transform: translateY(-1rem);
+  transform: translateY(-1rem);
+}
+.wrap-custom-file label:hover span, .wrap-custom-file label:hover .fa {
+  color: #333;
+}
+.wrap-custom-file label.file-ok {
+  background-size: cover;
+  background-position: center;
+}
+.wrap-custom-file label.file-ok span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.wrap-custom-file label.file-ok .fa {
+  display: none;
+}
+
+/*********************************
+Styling & Customizing File Inputs
+ *********************************/
+/*** 배열로 이미지 업로드 ***/
+
+input {
+  display: none;
+}
+
+.files-wr {
+  padding: 20px;
+}
+.files-wr label {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed #177cca;
+  position: relative;
+  display: inline-block;
+  color: #177cca;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all .2s;
+}
+.files-wr label:after {
+  content: '+';
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+  background-color: #177cca;
+  position: absolute;
+  top: -4px;
+  right: -47px;
+  font-size: 18px;
+  line-height: 32px;
+  color: #fff;
+  text-align: center;
+  transition: all .2s;
+}
+.files-wr label:hover, .files-wr label:active {
+  color: #77c639;
+  border-color: #77c639;
+}
+.files-wr label:hover:after, .files-wr label:active:after {
+  background-color: #77c639;
+}
+.files-wr .one-file ~ .one-file label {
+  display: none;
+}
+.files-wr .one-file.error {
+  border: none;
+}
+.files-wr .one-file.error .file-name {
+  color: #ca4a17;
+}
+.files-wr .file-item {
+  position: relative;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+}
+.files-wr .file-item.hide-btn {
+  display: none;
+}
+.files-wr .file-name {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 26px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+.files-wr .btn-del-file {
+  margin-left: 5px;
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 3px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background-color: #177cca;
+}
+.files-wr .btn-del-file:hover, .files-wr .btn-del-file:focus {
+  background-color: #ca4a17;
+}

@@ -1,0 +1,39 @@
+{% load static %}
+
+  <a href="{% url 'clientend:cmain' %}">
+    <img style="width:80px;margin:20px" src="{% static 'imgs/client/back.png' %}">
+  </a>
+
+  <!-- Section 5 : 상세 페이지 -->
+  <section class="popular-places" id="popular" style="margin:0 30px;">
+      <div class="container-fluid">
+
+          <div class="row">
+
+                <div class="col-md-12" style="width:100%;">
+                    <div style="width:100%;">
+                      <h1> Cheonggyecheon Squre new </h1>
+                    </div>
+                    <div style="width:100%;color:#8d9ea3;">
+                        Place > 1.7km
+                    </div>
+                      <div style="width:100%;color:#1f304d;font-style:italic;">
+                          Must See
+                      </div>
+                      <div class="thumbnail-wrapper" style="width:100%;overflow:hidden;">
+                              <img style="width:100%;" src="{% static 'imgs/client/conts/c01.jpg' %}">
+                      </div>
+                      <div style="width:100%;color:#2c3544;">
+                         Cheonggyecheon is an 8.4 km (5.2 mi)
+                         creek flowing west to east through
+                         downtown Seoul, and then meeting
+                         Jungnangcheon, which connects to the
+                         Han River and empties into the Yellow Sea.
+                         During the presidency of Park Chung-hee,
+                         Cheonggyecheon was covered with concrete for roads.
+                         In 1968, an elevated highway was built over it.
+                      </div>
+                  </div>
+            </div>
+          </div>
+  </section>
