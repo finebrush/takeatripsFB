@@ -9,11 +9,21 @@ class Category(models.Model):
     medium = models.CharField(_('중분류'), max_length=64)
     small = models.CharField(_('소분류'), max_length=64)
 
+    class Meta:
+        verbose_name = _('카테고리')
+        verbose_name_plural = _('카테고리')
+        db_table = 'category'
+
     def __str__(self):
         return self.large
 
 class CLarge(models.Model):
     name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = _('대분류')
+        verbose_name_plural = _('대분류')
+        db_table = 'clarge'
 
     def __str__(self):
         return self.name
@@ -21,6 +31,11 @@ class CLarge(models.Model):
 class CMedium(models.Model):
     categorylarge = models.ForeignKey(CLarge, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = _('중분류')
+        verbose_name_plural = _('중분류')
+        db_table = 'cmedium'
 
     def __str__(self):
         return self.name
@@ -37,6 +52,11 @@ class CSmall(models.Model):
         null=True
         )
     name = models.CharField(max_length=50, verbose_name='categorySmall')
+
+    class Meta:
+        verbose_name = _('소분류')
+        verbose_name_plural = _('소분류')
+        db_table = 'csmall'
 
     def __str__(self):
         return self.name

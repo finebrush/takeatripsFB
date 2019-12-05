@@ -11,6 +11,6 @@ class TCAutocomplete(autocomplete.Select2QuerySetView):
         qs = InfoTravel.objects.all()
 
         if self.q:
-            qs = qs.filter(itname__contains=self.q)
+            qs = qs.filter(companyko__contains=self.q)
 
         return qs

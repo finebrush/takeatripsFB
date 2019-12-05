@@ -1,0 +1,39 @@
+{% extends 'client/base.html'%}
+
+{% block contents %}
+<body>
+<div>
+    <div class="jumbotron" style="padding-top:100px">
+        <h1 class="display-4">
+            <div class="container">
+                 <h1 style="font-weight:600; color:darkslategrey"> Session 12th 게시판 _ FB </h1>
+            </div>
+        </h1>
+        <div class="container">  
+            <p class="lead">안녕하세요 12번째 세션입니다. </p>
+        </div>
+        <div class="container">
+            <hr class="my-4">
+            <p>문의 사항이 있으면 자유롭게 문의 해 주세요.</p>
+            {% if error %}
+            <p style="color:red;">{{error}}</p>
+            {%endif%}
+            <button type="button" class="btn btn-dark"><a href="{% url 'blogapp:new' %}"  style="color:white;" > New Post </a></button>
+        </div>
+    </div>
+</div>
+
+{% for blog in blogs.all %}
+    <div class="container">
+        <div class="card" style="padding:7px" >
+            <div class="card-body">
+            <a href="{% url 'blogapp:detail' blog.id %}"> <h5 class="card-title">{{blog.title}}</h5></a>
+            <h6 class="card-subtitle mb-2 text-muted">{{blog.pub_date}}</h6>
+            <p class="card-text">{{blog.body}}</p>
+            </div>
+        </div>
+    </div>
+<br>
+{% endfor %}
+</body>
+{% endblock %}

@@ -15,7 +15,7 @@ from mapwidgets.widgets import GooglePointFieldWidget, GooglePointFieldInlineWid
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from django.contrib.gis.db import models
-from .models import City, InfoTravel, EatDrinkPart, SeePart, SleepPart, BuyPart, TravelCurator, TCImage, TravelPlan, POIpoint
+from .models import City, InfoTravel, EatDrinkPart, FunPart, SeePart, SleepPart, BuyPart, TravelCurator, TCImage, TravelPlan, POIpoint
 
 
 CUSTOM_MAP_SETTINGS = {
@@ -27,6 +27,10 @@ CUSTOM_MAP_SETTINGS = {
 
 class EatDrinkPartInline(admin.StackedInline):
     model = EatDrinkPart
+    extra = 1
+
+class FunPartInline(admin.StackedInline):
+    model = FunPart
     extra = 1
 
 class SeePartInline(admin.StackedInline):
@@ -82,16 +86,17 @@ class CityAdmin(admin.ModelAdmin):
 class InfoTavelAdmin(admin.ModelAdmin):
     icon_name = 'edit_location'
     # autocomplete_fields = ('ibname', 'city')
-    list_display = ('companyko', 'picture_tag', 'part', 'itdate', 'typeit')
+    list_display = ('companyko', 'picture_tag', 'part', 'itdate', 'typeit', 'categorysmall', 'asset')
     search_fields = ('companyko', 'companyeng', 'companyven',)
-    inlines = [EatDrinkPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
+    inlines = [EatDrinkPartInline, FunPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
     list_per_page = 10
     list_filter = ('part',)
+    # radio_fields = {'asset': admin.VERTICAL} # HORIZONTAL, VERTICAL
 
     fieldsets = [
         ('기본 정보',   {'fields': ['city', 'itdate', 'companyko', 'companyeng', 'companyven']}),
-        ('대표 이미지',  {'fields': ['picture1', 'picture2', 'picture3', 'picture4']}),
-        ('일반 정보',  {'fields': ['part', 'typeit', 'addressko', 'addresseng','addressven', 'categorylarge', 'categorymedium', 'categorysmall',
+        ('대표 이미지',  {'fields': ['picture1', 'picture2', 'picture3', 'picture4', 'picture5', 'picture6', 'picture7', 'picture8', 'picture9', 'picture10']}),
+        ('일반 정보',  {'fields': ['asset', 'part', 'typeit', 'addressko', 'addresseng','addressven', 'categorylarge', 'categorymedium', 'categorysmall',
                                     'linkweb', 'linkinsta', 'linkyoutube', 'trafficko', 'trafficeng', 'trafficven',
                                     'introko', 'introeng', 'introven', 'tagko', 'tageng', 'tagven']}),
         ('위치',       {'fields': ['itlocation']}),
@@ -153,6 +158,15 @@ class POIpointAdmin(admin.ModelAdmin):
         models.PointField: {"widget": GooglePointFieldWidget(settings=CUSTOM_MAP_SETTINGS)}
     }
 
+    # (2) Show thumbnail in changeview..form 에서 이미지 보여줌..
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'picture1' or db_field.name == 'picture2' or db_field.name == 'picture3' or db_field.name == 'picture4':
+            # remove request to avoid "__init__() got an unexpected keyword argument 'request'" error
+            kwargs.pop("request", None)
+            kwargs['widget'] = AdminImageWidget
+            return db_field.formfield(**kwargs)
+        return super(POIpointAdmin,self).formfield_for_dbfield(db_field, **kwargs)
+
 admin.site.register(City, CityAdmin)
 admin.site.register(InfoTravel, InfoTavelAdmin)
 admin.site.register(TravelCurator, TravelCuratorAdmin)
@@ -161,5 +175,5 @@ admin.site.register(TravelPlan, TravelPlanAdmin)
 admin.site.register(POIpoint, POIpointAdmin)
 admin.site.register(TCImage, TCImageAdmin)
 
-admin.site.unregister(Site)
-admin.site.unregister(Tag)
+# admin.site.unregister(Site)
+# admin.site.unregister(Tag)

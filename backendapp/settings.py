@@ -23,7 +23,11 @@ SECRET_KEY = 'f8fkupu8pa%%u$wgk6c!os39el41v7i7^u*8xs3@~]$asffw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    '.takeatrips.com',
+    '15.164.63.68',
+]
 
 # Application definition
 
@@ -45,10 +49,18 @@ INSTALLED_APPS = [
     'mapwidgets',
     'smart_selects',
     'fieldsets_with_inlines',
+    # allauth 등록
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # provider 구글, 페이스북, 카톡, 깃허브 등 소셜로그인 제공 업체
+    'allauth.socialaccount.providers.google',
 
     'backendapp.travels',
     'backendapp.common',
     'clientapp',
+    'blogapp.apps.BlogappConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 
@@ -136,6 +148,7 @@ VALI_CONFIG = {
 #     }
 # }
 
+#-----local Test -------
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -146,6 +159,18 @@ DATABASES = {
     }
 }
 
+# -------amazon DB ---------------
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'HOST': 'takeatrips.cee1z1owr2pr.ap-northeast-2.rds.amazonaws.com',
+#         'PORT': '5432',
+#         'NAME': 'takeatrips',
+#         'USER': 'takebo',
+#         'PASSWORD': 'anfruf88',
+#     }
+# }
+
 MAP_WIDGETS = {
     "GooglePointFieldWidget": (
         ("zoom", 11),
@@ -154,15 +179,15 @@ MAP_WIDGETS = {
     "GOOGLE_MAP_API_KEY": "AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po"
 }
 
-LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (123.41144, 38.96579, 132.28839, 32.75722), # 이 범위 안에서만 드래그 이동이 됨..
-    'DEFAULT_CENTER': (52.00, 20.00), # (-.023, 36.87),
-    'DEFAULT_ZOOM': 8,
-    'MAX_ZOOM': 20,
-    'MIN_ZOOM':3,
-    'SCALE': 'both',
-    'ATTRIBUTION_PREFIX': 'Inspired by Life in Takeatrips'
-}
+# LEAFLET_CONFIG = {
+#     'SPATIAL_EXTENT': (123.41144, 38.96579, 132.28839, 32.75722), # 이 범위 안에서만 드래그 이동이 됨..
+#     'DEFAULT_CENTER': (52.00, 20.00), # (-.023, 36.87),
+#     'DEFAULT_ZOOM': 8,
+#     'MAX_ZOOM': 20,
+#     'MIN_ZOOM':3,
+#     'SCALE': 'both',
+#     'ATTRIBUTION_PREFIX': 'Inspired by Life in Takeatrips'
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -207,6 +232,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

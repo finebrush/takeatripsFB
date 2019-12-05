@@ -11,7 +11,9 @@ app_name = 'clientapp'
 
 # Redirect any request that goes into here to static/index.html
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='client/cintro.html'), name='cbase'),
+    url(r'^$', TemplateView.as_view(template_name='client/index.html'), name='index'),
+    # url(r'^post_like_toggle/<int:post_id>/$', views.post_like_toggle, name="post_like_toggle"),
+    # url(r'^$', TemplateView.as_view(template_name='client/cintro.html'), name='cbase'),
     # url(r'^main/$', TemplateView.as_view(template_name='client/cmain.html'), name='cmain'),
     url(r'^main/$', views.cmain, name='cmain'),
     url(r'^likepoi/$', views.likePOI, name='likepoi'), 

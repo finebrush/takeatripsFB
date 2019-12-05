@@ -1,0 +1,38 @@
+{% extends 'client/base.html' %}
+
+{% block contents %}
+<br>
+<div class="container" style="padding-top:100px;">
+    <div class="card" >
+        <div class="card-body">
+            <h5 class="card-title">{{details.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{details.pub_date}}</h6>
+            <p class="card-text">{{details.body}}</p>
+            <form action="{% url 'blogapp:post_like' details.id%}" method="POST">
+                <!-- form이 실행되면 post 형식으로 details.id(게시물의 id 값)을 담아서 post_like url을 실행해라 -->
+                {% csrf_token %}
+                <button type="submit" value="Like">좋아요</button>
+            </form>
+            <p>좋아요 {{ details.like_count }} 개</p>
+            <!-- 게시물의 좋아요 갯수 -->
+            {% for like_user in details.like_user_set.all %}
+            <!-- 게시물을 좋아요 누른 user들을 각각 like_user에 담고 -->
+                <p>{{ like_user.username }}</p>
+            <!-- like_user에 담긴 유저들의 이름을 나타내라 -->
+            {% endfor %}
+
+            {% if details.author == user %} 
+                <a href="{% url 'blogapp:delete' details.id%}" class="card-link"> 삭제하기 </a>
+                <a href="{% url 'blogapp:update' details.id%}" class="card-link"> 수정하기 </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <br>
+    <button type="button" class="btn btn-dark"><a href="{% url 'blogapp:home' %}"  style="color:white;" > 홈으로 가기 </a></button>
+</div>
+
+{%endblock%}

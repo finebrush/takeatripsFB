@@ -17,7 +17,7 @@ from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, G
 from taggit.models import TaggedItemBase, CommonGenericTaggedItemBase, TagBase, GenericTaggedItemBase
 from backendapp.common.models import CLarge, CMedium, CSmall
 
-from backendapp.travels.choices import SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE
+from backendapp.travels.choices import SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES
 
 class City(models.Model):
     name = models.CharField(_('Name'), max_length=64)
@@ -25,10 +25,10 @@ class City(models.Model):
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128)
     titleven = models.CharField(_('소개타이틀(베트남어)'), max_length=128)
     created = models.DateField(_('Created'))
-    picture1 = models.ImageField(_('Picture1'), null=True, blank=True)
-    picture2 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture3 = models.ImageField(_('Picture3'), null=True, blank=True)
-    picture4 = models.ImageField(_('Picture4'), null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
 
     location = models.PointField(verbose_name='Rocation',srid = 4326, null=True, blank=True)
     objects = GeoManager()
@@ -73,10 +73,17 @@ class InfoTravel(models.Model):
     companyko = models.CharField(_('업체명(한국어)'), max_length=64)
     companyeng = models.CharField(_('업체명(영어)'), max_length=64)
     companyven = models.CharField(_('업체명(베트남어)'), max_length=64)
-    picture1 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture2 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture3 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture4 = models.ImageField(_('Picture2'), null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture5 = models.ImageField(_('Picture5'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture6 = models.ImageField(_('Picture6'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture7 = models.ImageField(_('Picture7'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture8 = models.ImageField(_('Picture8'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture9 = models.ImageField(_('Picture9'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture10 = models.ImageField(_('Picture10'), upload_to="%Y/%m/%d", null=True, blank=True)
+    asset = models.CharField(_('정보형태'), max_length=64, choices=ASSET_CHOICES, null=True)
     part = models.CharField(_('구분'), max_length=64, choices=SELECT_PART)
     typeit = models.IntegerField(_('유형선택'), choices=SELECT_TYPE)
     addressko = models.CharField(_('주소(한국어)'), max_length=128)
@@ -137,8 +144,8 @@ class InfoTravel(models.Model):
         return self.categorysmall_id
 
     class Meta:
-        verbose_name = _('InfoTravel')
-        verbose_name_plural = _('InfoTravels')
+        verbose_name = _('TripGuide')
+        verbose_name_plural = _('TripGuide')
         db_table = 'infotravel'
 
     def __str__(self):
@@ -147,36 +154,45 @@ class InfoTravel(models.Model):
 
 class EatDrinkPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
-    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=64)
-    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=64)
-    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=64)
-    menuko = models.CharField(_('대표메뉴(한국어)'), max_length=64)
-    menueng = models.CharField(_('대표메뉴(영어)'), max_length=64)
-    menuven = models.CharField(_('대표메뉴(베트남어)'), max_length=64)
+    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
+    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
+    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
+    menuko = models.CharField(_('대표메뉴(한국어)'), max_length=128)
+    menueng = models.CharField(_('대표메뉴(영어)'), max_length=128)
+    menuven = models.CharField(_('대표메뉴(베트남어)'), max_length=128)
+
+class FunPart(models.Model):
+    part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
+    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
+    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
+    programko = models.CharField(_('프로그램(한국어)'), max_length=128)
+    programeng = models.CharField(_('프로그램(영어)'), max_length=128)
+    programven = models.CharField(_('프로그램(베트남어)'), max_length=128)
 
 class SeePart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
-    operationtimeko = models.CharField(_('운영시간(한국어)'), max_length=64)
-    operationtimeeng = models.CharField(_('운영시간(영어)'), max_length=64)
-    operationtimeven = models.CharField(_('운영시간(베트남어)'), max_length=64)
+    operationtimeko = models.CharField(_('운영시간(한국어)'), max_length=128)
+    operationtimeeng = models.CharField(_('운영시간(영어)'), max_length=128)
+    operationtimeven = models.CharField(_('운영시간(베트남어)'), max_length=128)
 
 class SleepPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
-    inclusionko = models.CharField(_('포함사항(한국어)'), max_length=64)
-    inclusioneng = models.CharField(_('포함사항(영어)'), max_length=64)
-    inclusionven = models.CharField(_('포함사항(베트남어)'), max_length=64)
-    roomtypeko = models.CharField(_('객실타입(한국어)'), max_length=64)
-    roomtypeeng = models.CharField(_('객실타입(영어)'), max_length=64)
-    roomtypeven = models.CharField(_('객실타입(베트남어)'), max_length=64)
+    inclusionko = models.CharField(_('포함사항(한국어)'), max_length=128)
+    inclusioneng = models.CharField(_('포함사항(영어)'), max_length=128)
+    inclusionven = models.CharField(_('포함사항(베트남어)'), max_length=128)
+    roomtypeko = models.CharField(_('객실타입(한국어)'), max_length=128)
+    roomtypeeng = models.CharField(_('객실타입(영어)'), max_length=128)
+    roomtypeven = models.CharField(_('객실타입(베트남어)'), max_length=128)
 
 class BuyPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
-    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=64)
-    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=64)
-    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=64)
-    saleitemsko = models.CharField(_('판매상품(한국어)'), max_length=64)
-    saleitemseng = models.CharField(_('판매상품(영어)'), max_length=64)
-    saleitemsven = models.CharField(_('판매상품(베트남어)'), max_length=64)
+    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
+    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
+    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
+    saleitemsko = models.CharField(_('판매상품(한국어)'), max_length=128)
+    saleitemseng = models.CharField(_('판매상품(영어)'), max_length=128)
+    saleitemsven = models.CharField(_('판매상품(베트남어)'), max_length=128)
 
 class TravelCurator(models.Model):
     # tcname = models.CharField(_('Name'), max_length=64)
@@ -200,8 +216,8 @@ class TravelCurator(models.Model):
     )
 
     class Meta:
-        verbose_name = _('TravelCurator')
-        verbose_name_plural = _('TravelCurators')
+        verbose_name = _('TripCurator')
+        verbose_name_plural = _('TripCurators')
         db_table = 'travelcurator'
 
     def __str__(self):
@@ -212,7 +228,7 @@ class TCImage(models.Model):
         'travels.TravelCurator', verbose_name=_('TravelCurator'), on_delete=models.CASCADE, null=True, blank=True
     )
     # tcimgtitle = models.CharField(_('Image Title'), max_length=64)
-    tcimg = models.ImageField(_('Trave Image'), null=False, blank=False)
+    tcimg = models.ImageField(_('Trave Image'), upload_to="%Y/%m/%d", null=False, blank=False)
 
     # thumbnail 만들기..
     photo_thumbnail = ImageSpecField(
@@ -256,8 +272,8 @@ class TravelPlan(models.Model):
     inlinecount.short_description = '장소'
 
     class Meta:
-        verbose_name = _('TravelPlan')
-        verbose_name_plural = _('TravelPlan')
+        verbose_name = _('TravelCourse')
+        verbose_name_plural = _('TravelCourse')
         db_table = 'travelplan'
 
     def __str__(self):
@@ -270,10 +286,10 @@ class POIpoint(models.Model):
     pnameko = models.CharField(_('장소명(한국어)'), max_length=40, null=True)
     pnameeng = models.CharField(_('장소명(영어)'), max_length=40, null=True)
     pnameven = models.CharField(_('장소명(베트남어)'), max_length=40, null=True)
-    picture1 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture2 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture3 = models.ImageField(_('Picture2'), null=True, blank=True)
-    picture4 = models.ImageField(_('Picture2'), null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
 
     point = models.PointField(verbose_name='위치', srid=4326, null=True, blank=True)
     objects = GeoManager()
