@@ -1,0 +1,26 @@
+{% extends 'client/base.html'%}
+
+{% block contents %}
+
+    <div class="card p-2 text-dark" style="margin-top: 60px; text-align: center;">
+        <div class="card-body">
+            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/0" class="card-link p-2 text-dark">Trip Guide</a>
+            <a href="#" class="card-link p-2 text-dark">Go to Seoul</a>
+            <a href="#" class="card-link p-2 text-dark">Top 100</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block subcontents %}
+{% endblock %}
+
+<!-- Footer -->
+{% block footers %}
+<footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
+    <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
+        <a href="#"> Take a Trips</a>
+    </div>
+</footer>
+{% endblock %}
+    <!-- Footer -->

@@ -68,7 +68,7 @@ class ThirdTaggedItem(GenericTaggedItemBase):
 
 class InfoTravel(models.Model):
     city = models.ForeignKey(
-        'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True
+        'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True, related_name='city'
     )
     companyko = models.CharField(_('업체명(한국어)'), max_length=64)
     companyeng = models.CharField(_('업체명(영어)'), max_length=64)

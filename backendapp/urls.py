@@ -12,6 +12,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static as static
 from backendapp.travels.views import TCAutocomplete
 
 urlpatterns = [
+    path('', include('clientapp.urls', namespace='clientapp')),
     path('blog/', include('blogapp.urls', namespace='blogapp')),
     path('login/', include('allauth.urls')),
     path('accounts/', include('accounts.urls', namespace='account')),

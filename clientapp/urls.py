@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.urls import path
 from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 
@@ -11,11 +12,15 @@ app_name = 'clientapp'
 
 # Redirect any request that goes into here to static/index.html
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='client/index.html'), name='index'),
+    path('', views.chome, name='chome'),
+    path('citymain/<int:city_id>/', views.citymain, name='citymain'),
+    path('citymain/<int:citydetails_id>/tripguide/<int:partnum>/', views.tripguide, name='tripguide'),
+    path('citymain/<int:citydetails_id>/tripguidedetail/<int:partnum>/<int:tripguide_id>/', views.tripguidedetail, name='tripguidedetail'),
     # url(r'^post_like_toggle/<int:post_id>/$', views.post_like_toggle, name="post_like_toggle"),
     # url(r'^$', TemplateView.as_view(template_name='client/cintro.html'), name='cbase'),
     # url(r'^main/$', TemplateView.as_view(template_name='client/cmain.html'), name='cmain'),
     url(r'^main/$', views.cmain, name='cmain'),
     url(r'^likepoi/$', views.likePOI, name='likepoi'), 
     url(r'^detail/$', TemplateView.as_view(template_name='client/cdetail.html'), name='cdetail'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

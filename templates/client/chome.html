@@ -1,0 +1,26 @@
+{% extends 'client/base.html'%}
+
+{% block contents %}
+<body>
+<div class="jumbotron" style="padding-top:100px; margin:0px;">
+    <h1 class="display-4"></h1>
+    {% for city in citys.all %}
+        <div class="container" style="margin-bottom: 20px; width: 50%;">
+            <div class="card" style="padding:16px; border-radius: 100px; text-align:center;" >
+                <div class="card-body">
+                <h1 style="font-weight:600; color:darkslategrey;"> 
+                    <a href="{% url 'clientapp:citymain' city.id %}"> <h5 class="card-title">{{city.name}}</h5></a>
+                </h1>
+                <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
+                <p class="card-text">{{city.titleko}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </h1>
+</div>
+</body>
+{% endblock %}
+
+{% block footers %}
+{% endblock %}
