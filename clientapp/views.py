@@ -3,18 +3,23 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+import random
 
 from django.http import HttpResponse
 from backendapp.travels.models import POIpoint, City, InfoTravel, TravelCurator, TravelPlan
+from backendapp.arcontent.models import ARTrip
 
 def chome(request):
     citys = City.objects.filter().order_by('id') # 순차적으로 불러오기..
     current_user = request.user
-    return render(request, 'client/chome.html', {'citys': citys ,'current_user': current_user})
+    return render(request, 'client/cindex.html', {'citys': citys ,'current_user': current_user})
 
 def citymain(request, city_id):
     citydetails = get_object_or_404(City, pk=city_id)
     itdetails = InfoTravel.objects.filter(city_id=city_id)
+    artrips = ARTrip.objects.filter(share=True)
+    arcontents = artrips.random(8)
+
     # InfoTravel 에서 part 별 랜덤한 하나의 DB를 전달..
     eat_itdetail = itdetails.filter(part='Eat').first()
     drink_itdetail = itdetails.filter(part='Drink').first()
@@ -23,13 +28,14 @@ def citymain(request, city_id):
     sleep_itdetail = itdetails.filter(part='Sleep').first()
     buy_itdetail = itdetails.filter(part='Buy').first()
     
-    return render(request, 'client/citydetail.html', {'citydetails':citydetails, 'itdetails':itdetails, 'eat_itdetail':eat_itdetail, 
-            'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
+    return render(request, 'client/citydetail.html', {'citydetails':citydetails, 'itdetails':itdetails, 'arcontents':arcontents,
+            'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
             'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail })
 
 def tripguide(request, citydetails_id, partnum):
     itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
-    # print(partnum)
+    city = City.objects.get(id=citydetails_id)
+    # print(city.name)
     eat_itdetails = itdetails.filter(part='Eat')
     drink_itdetails = itdetails.filter(part='Drink')
     fun_itdetails = itdetails.filter(part='Fun')
@@ -52,12 +58,15 @@ def tripguide(request, citydetails_id, partnum):
     elif partnum == 0:
         selected_itdetails = itdetails
 
-    return render(request, 'client/tripguide.html', {'citydetails_id':citydetails_id, 'partnum':partnum, 'selected_itdetails':selected_itdetails})
+    return render(request, 'client/tripguide.html', {'city':city, 'citydetails_id':citydetails_id, 'partnum':partnum, 
+                            'selected_itdetails':selected_itdetails})
 
 def tripguidedetail(request, citydetails_id, partnum, tripguide_id):
+    itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     itdetail = InfoTravel.objects.get(id=tripguide_id)
     # print(itdetail.get_typeit_display)
-    return render(request, 'client/tripguidedetail.html', {'citydetails_id':citydetails_id, 'partnum':partnum, 'itdetail':itdetail})
+    return render(request, 'client/tripguidedetail.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'partnum':partnum, 
+                        'itdetail':itdetail})
 
     # return render(request, 'client/tripguide.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'eat_itdetails':eat_itdetails,
     #         'drink_itdetails':drink_itdetails, 'fun_itdetails':fun_itdetails, 'see_itdetails':see_itdetails, 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+    <body>
+        <div class="card">
+            {% if user.is_authenticated %}
+            <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
+            <li class="nav-item" style="position:absolute; top: 10px; right: 50px; display: flex;">
+                <a class="nav-link" href="#"> {{ current_user }} </a>
+                <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
+            <li class="nav-item" style="position:absolute; top: 10px; right: 100px;">
+                <a class="nav-link" href="{% url 'account:signup' %}">SignUp</a>
+            </li>
+            <li class="nav-item" style="position:absolute; top: 10px; right: 50px;">
+                <a class="nav-link" href="{% url 'account:login' %}">Login</a>
+            </li>
+            {% endif %}
+        </div>
+
+        <div class="jumbotron text-center">
+            <h1 style="font-weight:600; color:darkslategrey;"> 
+                <h2 class="card-title">TAKE A TRIPS</h2></a>
+            </h1>
+        
+            <h6 class="card-subtitle mb-2 text-muted">맛있고 즐거운 도시 자유여행!</h6>
+            <p class="card-subtitle mb-2 text-muted">Take a trips에 오신 것을 환영합니다.</p>
+        </div>
+
+            <div class="container">
+                <div class="row">
+                    {% for city in citys.all %}
+                    <div class="col-sm-6" style="text-align: center;">  
+                        <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.name}}</h1></a>
+                        <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
+                        <p class="card-subtitle mb-2 text-muted">{{city.titleko}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="container" style="padding:0 320; position:absolute; bottom: 20px; text-align:center; font-size: 10px; max-width:1920px;">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-1">
+                    <a href="#"> Take a Trips 소개</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-1">
+                    <a href="#"> 서비스 약관</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-1">
+                    <a href="#"> 개인정보 보호정책</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-1">
+                    <a href="#"> 도움말</a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="#"> | </a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="#"> About TAKEBO</a>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+        <!-- Footer -->
+    </body>
+</html>

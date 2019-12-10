@@ -54,6 +54,7 @@
 </div>
 
 <!-- <div class="jumbotron" style="padding-top:100px; margin:0px;"> -->
+
  <!-- 도시 이름과 설명..  -->
 <div class="card p-1">
     <div class="card-body">
@@ -71,8 +72,11 @@
     </div>
 </div>
 
+
+<h5 class="card-title" style="padding: 1.5em; margin: 0 20;">Trip Guide</h5>
 <!-- 먹다/마시다/놀다/보다 대표 이미지  4개.. -->
-<div class="card-deck p-5">
+<div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 0px!important;">
+    
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/1">
@@ -187,10 +191,47 @@
     </div>
 </div>
 
+<div class="card p-1">
+<h5 class="card-title" style="padding: 1.5em; margin: 0 20;">AR Trip</h5>
+<!-- AR Contents.. -->
+{% for arcontent in arcontents %}
+    {% if forloop.counter == 1 or forloop.counter == 5 %}
+    <div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 100px!important;">
+        <div class="card bg-primary" style="height: 240px;">
+            <div class="card-body text-center p-0">
+                <a href="#">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ arcontent.titleko }}</h4>
+                        <p class="card-text">{{ arcontent.get_category_display }}</p>
+                    </div>
+                </a>
+            </div>
+        </div> 
+    {% else %}
+        <div class="card bg-primary" style="height: 240px;">
+            <div class="card-body text-center p-0">
+                <a href="#">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ arcontent.titleko }}</h4>
+                        <p class="card-text">{{ arcontent.get_category_display }}</p>
+                    </div>
+                </a>
+            </div>
+        </div> 
+    {% endif %}
+
+    {% if forloop.counter == 4 or forloop.counter == 8 %}
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="card p-5">
+<div class="card p-5" style="padding-top: 0px!important; border:0px;">
     <h1 style="font-weight:600; color:darkslategrey;"> 
-        <h5 class="card-title">유사한 여행 정보 보기</h5>
+        <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
     </h1>
     <div class=container style="margin:0px; padding:0px; max-width:1920;">
         <div class=waterfall> 

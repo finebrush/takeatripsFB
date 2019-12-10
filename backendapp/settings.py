@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
     'backendapp.travels',
     'backendapp.common',
+    'backendapp.arcontent',
     'clientapp',
     'blogapp.apps.BlogappConfig',
     'accounts.apps.AccountsConfig',

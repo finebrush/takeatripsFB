@@ -1,3 +1,4 @@
+{% load static %}
 <head>
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -7,9 +8,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
     
     </head>
     <body>
@@ -34,38 +37,225 @@
     
 
         <!-- 대표 이미지 .. -->
-        <div class="card-deck p-5">
+        {% if itdetail.picture1 %}
+        <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
             <div class="card bg-primary" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
                     <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt="Card image">
                 </div>
             </div>
-            <div class="card bg-warning" style="max-height: 450px;">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture2 }}" alt="Card image">
+            {% if itdetail.picture2 %}
+                <div class="card bg-warning" style="max-height: 450px;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture2 }}" alt="Card image">
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="card" style="max-height: 450px; border: 0px;">
+                    <div class="card-body text-center p-0">
+                    </div>
+                </div>
+            {% endif %}
         </div>
-        <div class="card-deck p-5">
+        {% endif %}
+           
+        {% if itdetail.picture3 %}
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
             <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
                     <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture3 }}" alt="Card image">
                 </div>
             </div>
-            <div class="card bg-danger" style="max-height: 450px;">
+            {% if itdetail.picture4 %}
+                <div class="card bg-danger" style="max-height: 450px;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture4 }}" alt="Card image">
+                    </div>
+                </div>
+            {% else %}
+                <div class="card" style="max-height: 450px; border: 0px;">
+                    <div class="card-body text-center p-0">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if itdetail.picture5 %}
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
+            <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture4 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture5 }}" alt="Card image">
                 </div>
             </div>
+            {% if itdetail.picture6 %}
+                <div class="card bg-danger" style="max-height: 450px;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture6 }}" alt="Card image">
+                    </div>
+                </div>
+            {% else %}
+                <div class="card" style="max-height: 450px; border: 0px;">
+                    <div class="card-body text-center p-0">
+                    </div>
+                </div>
+            {% endif %}
         </div>
+        {% endif %}
 
+        {% if itdetail.picture7 %}
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
+            <div class="card bg-success" style="max-height: 450px;">
+                <div class="card-body text-center p-0">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture7 }}" alt="Card image">
+                </div>
+            </div>
+            {% if itdetail.picture8 %}
+                <div class="card bg-danger" style="max-height: 450px;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture8 }}" alt="Card image">
+                    </div>
+                </div>
+            {% else %}
+                <div class="card" style="max-height: 450px; border: 0px;">
+                    <div class="card-body text-center p-0">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
         
+        {% if itdetail.picture9 %}
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
+            <div class="card bg-success" style="max-height: 450px;">
+                <div class="card-body text-center p-0">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture9 }}" alt="Card image">
+                </div>
+            </div>
+            {% if itdetail.picture10 %}
+                <div class="card bg-danger" style="max-height: 450px;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture10 }}" alt="Card image">
+                    </div>
+                </div>
+            {% else %}
+                <div class="card" style="max-height: 450px; border: 0px;">
+                    <div class="card-body text-center p-0">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    <!-- 소개정보 / 일반정보.. -->
+    <div class="card-deck p-5">
+        <div class="card" style="max-height: 450px; border:0px;">
+            <div class="card-body p-0">
+                <h1 style="font-weight:600; color:darkslategrey;"> 
+                    <h5 class="card-title">소개정보</h5>
+                </h1>
+                <hr style="border: solid 0.5px #969696b3;">
+                <p class="card-text"> {{ itdetail.introko }}</p>
+            </div>
+        </div>
         
-      <!-- Footer -->
-      <footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
-          <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
-            <a href="#"> Take a Trips</a>
-          </div>
-      </footer>
-      <!-- Footer -->
+        <div class="card" style="max-height: 450px; border:0px;">
+            <div class="card-body p-0">
+                <h1 style="font-weight:600; color:darkslategrey;"> 
+                    <h5 class="card-title">일반정보</h5>
+                </h1>
+                <hr style="border: solid 0.5px #969696b3;">
+                <p class="card-text"> {{ itdetail.addressko }}</p>
+                <hr style="border: solid 0.5px #969696b3;">
+                <p class="card-text"> 대표메뉴 : </p>
+                <hr style="border: solid 0.5px #969696b3;">
+                <p class="card-text"> 운영시간 : </p>
+                <hr style="border: solid 0.5px #969696b3;">
+                <p class="card-text"> {{ itdetail.trafficko }}</p>
+                <hr style="border: solid 0.5px #969696b3;">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class="card p-5">
+        <h1 style="font-weight:600; color:darkslategrey;"> 
+            <h5 class="card-title">유사한 여행 정보 보기</h5>
+        </h1>
+        <div class=container style="margin:0px; padding:0px; max-width:1920;">
+            <div class=waterfall> 
+            </div>
+        </div>
+    </div>
+    
+    <!-- DB 에서 이미지 가져오기... -->
+    <script id=waterfall-template type=text/template>
+        {% for itdetail in itdetails %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt=""> </a>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
+            </li>
+            <li class="list-group-item">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+    </script>    
+        
+    <!-- Footer -->
+    <footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
+        <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
+        <a href="#"> Take a Trips</a>
+        </div>
+    </footer>
+    <!-- Footer -->
+
+    <script>
+        $('.waterfall')
+            .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+            .on('finishing.mystist.waterfall', function() {
+                setTimeout(function() { // simulate ajax
+                    $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                }, 2000);
+            })
+            .waterfall()
+    
+        // itdetail 클릭시 tripguidedetail 로 넘어가기..
+        function itdetailpath(part, citydetails_id, itdetail_id) {
+            switch(part){
+                case "Eat":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/1/"+itdetail_id;
+                    break;
+                case "Drink":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/2/"+itdetail_id;
+                    break;
+                case "Fun":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/3/"+itdetail_id;
+                    break;
+                case "See":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/4/"+itdetail_id;
+                    break;
+                case "Sleep":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/5/"+itdetail_id;
+                    break;
+                case "Buy":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/6/"+itdetail_id;
+                    break;
+            }
+        }
+    </script>
+
+
     </body>
