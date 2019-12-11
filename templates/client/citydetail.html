@@ -3,7 +3,6 @@
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
-<!-- <script src="{% static 'vendor/vendor.js' %}"></script> -->
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
 {% endblock %}
 
@@ -196,28 +195,28 @@
 <!-- AR Contents.. -->
 {% for arcontent in arcontents %}
     {% if forloop.counter == 1 or forloop.counter == 5 %}
-    <div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 100px!important;">
-        <div class="card bg-primary" style="height: 240px;">
-            <div class="card-body text-center p-0">
-                <a href="#">
+    <div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 0px!important;">
+        <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
+            <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
+                <a href="#layer2" class="btn-example">
                     <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ arcontent.titleko }}</h4>
-                        <p class="card-text">{{ arcontent.get_category_display }}</p>
-                    </div>
                 </a>
+                <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
+                    <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
+                    <p class="card-text" style="font-size: 0.8em;">{{ arcontent.get_category_display }}</p>
+                </div>
             </div>
         </div> 
     {% else %}
-        <div class="card bg-primary" style="height: 240px;">
+        <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
             <div class="card-body text-center p-0">
-                <a href="#">
+                <a href="#layer2" class="btn-example"> <!-- 팝업창 띄우기-->
                     <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ arcontent.titleko }}</h4>
-                        <p class="card-text">{{ arcontent.get_category_display }}</p>
-                    </div>
                 </a>
+                <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
+                    <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
+                    <p class="card-text" style="font-size: 0.8em;">{{ arcontent.get_category_display }}</p>
+                </div>
             </div>
         </div> 
     {% endif %}
@@ -235,6 +234,34 @@
     </h1>
     <div class=container style="margin:0px; padding:0px; max-width:1920;">
         <div class=waterfall> 
+        </div>
+    </div>
+</div>
+
+<!-- 팝업창 띄우기 -->
+<!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+<div class="dim-layer">
+    <div class="dimBg"></div>
+    <div id="layer2" class="pop-layer">
+        <div class="pop-container">
+            <div class="pop-conts">
+                <!--content //-->
+                <h4 style="text-align: center;"> TAKE A TRIPS </h4>
+                <h6 style="text-align: center;">
+                    AR Trip은 Take a trips APP에서 <br> 
+                    실행이 가능한 서비스 입니다.
+                </h6>
+                <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
+                    Take a trips APP을 설치하시겠습니까?
+                </p>
+                <a href="#" class="btn btn-dark btn-block" role="button">Google Play Store</a>
+                <a href="#" class="btn btn-dark btn-block" role="button">Apple App Store</a>
+                
+                <div class="btn-r">
+                    <a href="#" class="btn-layerClose">Close</a>
+                </div>
+                <!--// content-->
+            </div>
         </div>
     </div>
 </div>
@@ -415,6 +442,50 @@
                 location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/6/"+itdetail_id;
                 break;
         }
+    }
+
+    // 팝업창 띄우기..
+    $('.btn-example').click(function(){
+        var $href = $(this).attr('href');
+        layer_popup($href);
+    });
+
+    function layer_popup(el){
+
+        var $el = $(el);        //레이어의 id를 $el 변수에 저장
+        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+        var $elWidth = ~~($el.outerWidth()),
+            $elHeight = ~~($el.outerHeight()),
+            docWidth = $(document).width(),
+            docHeight = $(document).height();
+
+        // 화면의 중앙에 레이어를 띄운다.
+        if ($elHeight < docHeight || $elWidth < docWidth) {
+            $el.css({
+                marginTop: -$elHeight /2,
+                marginLeft: -$elWidth/2
+            })
+        } else {
+            $el.css({top: 0, left: 0});
+        }
+
+        $el.find('a.btn-layerClose').click(function(){
+            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+            return false;
+        });
+
+        // $('.layer .dimBg').click(function(){
+        //     $('.dim-layer').fadeOut();
+        //     return false;
+        // });
+        $('.dimBg').click(function(){
+            $('.dim-layer').fadeOut();
+            return false;
+        });
+
     }
 </script>
 

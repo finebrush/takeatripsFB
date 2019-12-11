@@ -1,41 +1,71 @@
+{% extends 'client/tgbase.html' %}
 {% load static %}
-<head>
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-        <title>TAKE A TRIPS</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel=stylesheet href="{% static 'css/main.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
-    
-    </head>
-    <body>
-        <div class="row" style="padding: 5px; margin: 15px;">
-            <div class="col-sm-1" style="align-self: center;">
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/{{ partnum }}" class="card-link p-2 text-dark"> 뒤로가기 </a>
-            </div>
-            <div class="col-sm-7">
-                <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                    <a href="#" class="card-link text-dark">{{ itdetail.companyko }}</a>
-                    <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;">{{ itdetail.get_typeit_display }}</small> 
-                </h3>
-                <div style="margin-bottom: 0px;"> {{ itdetail.get_part_display }} | {{ itdetail.categorymedium }}</div>
-            </div>
-            <div class="col-sm-4" style="align-self: center;">
-                <a href="#" class="card-link p-2 text-dark">Map</a>
-                <a href="#2" class="card-link p-2 text-dark">youtube</a>
-                <a href="#3" class="card-link p-2 text-dark">Instagram</a>
-                <a href="#4" class="card-link p-2 text-dark">Like</a> 
-            </div>
-        </div>
-    
 
+    {% block headers %}
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <link rel=stylesheet href="{% static 'css/youtubesearch.css' %}">
+        <script src="{% static 'js/youtubesearch.js' %}"></script>
+
+        <style>
+            /* Set the size of the div element that contains the map */
+            #map {
+                height: 400px;  /* The height is 400 pixels */
+                width: 100%;  /* The width is the width of the web page */
+            }
+            /* The popup bubble styling. */
+            .popup-bubble {
+                /* Position the bubble centred-above its parent. */
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -100%);
+                /* Style the bubble. */
+                background-color: white;
+                padding: 5px;
+                border-radius: 5px;
+                font-family: sans-serif;
+                overflow-y: auto;
+                max-height: 60px;
+                box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+            }
+            /* The parent of the bubble. A zero-height div at the top of the tip. */
+            .popup-bubble-anchor {
+                /* Position the div a fixed distance above the tip. */
+                position: absolute;
+                width: 100%;
+                bottom: /* TIP_HEIGHT= */ 8px;
+                left: 0;
+            }
+            /* This element draws the tip. */
+            .popup-bubble-anchor::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                /* Center the tip horizontally. */
+                transform: translate(-50%, 0);
+                /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+                width: 0;
+                height: 0;
+                /* The tip is 8px high, and 12px wide. */
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: /* TIP_HEIGHT= */ 8px solid white;
+            }
+            /* JavaScript will position this div at the bottom of the popup tip. */
+            .popup-container {
+                cursor: auto;
+                height: 0;
+                position: absolute;
+                /* The max width of the info window. */
+                width: 200px;
+            }
+         </style>
+    {% endblock %}
+
+    {% block contents %}
+    <div id="detailbase">
         <!-- 대표 이미지 .. -->
         {% if itdetail.picture1 %}
         <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
@@ -179,9 +209,9 @@
 
 
     <!-- django-waterfall 이미지 들어가는 부분.. -->
-    <div class="card p-5">
+    <div class="card p-5" style="padding-top: 0px!important;">
         <h1 style="font-weight:600; color:darkslategrey;"> 
-            <h5 class="card-title">유사한 여행 정보 보기</h5>
+            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
         </h1>
         <div class=container style="margin:0px; padding:0px; max-width:1920;">
             <div class=waterfall> 
@@ -212,8 +242,64 @@
             </li>
         </ul>
         {% endfor %}
-    </script>    
+    </script>   
+
+    </div>  <!-- end detailbase -->   
+
+
+
+    <!-- googmap.. -->
+    <div id="map" style="height: 80%;"></div>
+    <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:scroll;">
+        <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
+        <p> {{ itdetail.get_part_display }}</p>
+    </div>
+
+
+    <!-- youtube search -->
+    <div id="youtubsearch" style="padding:0 40;">
+        <nav class="navbar navbar-light bg-faded">
+            <div class="row" style="width: 100%;">
+                    <div class="col-sm-2">
+                        <h4 class="logo" style="width: 100%;"><i class="fa fa-youtube yt"></i><span>youtube search</span></h4>
+                    </div>
+                <div class="col-sm-10">
+                    <form class="form-inline " id="search-form" name="search-form" onSubmit="return search()">
+                        <table width="100%">
+                            <tr>
+                                <td width="100%">
+                                    <div class="d3 float-right" style="width:100%;" >	
+                                        <input class="form-control search-field" type="search" id="query" style="width:100%;"  placeholder="Search Youtube">
+                                        <span class="focus-border">
+                                            <i></i>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-danger my-2 my-sm-0 " type="submit" id="search-btn"  name="search-btn" value="">Search</button>
+                                </td>
+                            </tr>                
+                        </table>  
+                    </form>
+                </div>
+            </div>
+            
+        </nav>
         
+        <div class="content-youtube">
+        <div class="container-fluid" id="results">               
+            
+        </div> <!-- ENd of container fluid -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">    <div id="btn-cnt"></div> </div>
+            </div>
+        </div>
+        </div> <!-- End of content -->
+    </div> <!-- Ene of youtubesearch -->
+
+
+
     <!-- Footer -->
     <footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
         <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
@@ -222,7 +308,7 @@
     </footer>
     <!-- Footer -->
 
-    <script>
+    <script type="text/javascript">
         $('.waterfall')
             .data('bootstrap-waterfall-template', $('#waterfall-template').html())
             .on('finishing.mystist.waterfall', function() {
@@ -255,7 +341,36 @@
                     break;
             }
         }
+
+        // Initialize and add the map
+        function initMap() {
+            // console.log("{{ itdetail.itlocation.x }}");
+            
+            // The location of Uluru
+            var uluru = {lat: {{ itdetail.itlocation.y }}, lng: {{ itdetail.itlocation.x }}};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 16, center: uluru});
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: uluru, map: map});
+
+            // Info Window
+            var infoWindow = new google.maps.InfoWindow({
+                    pixelOffset: new google.maps.Size(0,-50),
+                    content: document.getElementById('content')
+            });
+            infoWindow.setPosition(uluru);
+            // infoWindow.setContent("{{ itdetail.companyko }}");
+            infoWindow.open(map);
+        }
+
     </script>
 
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
+    </script>
 
-    </body>
+    {% endblock %}
+
+    {% block footers %}
+    {% endblock %}

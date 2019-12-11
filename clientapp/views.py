@@ -64,16 +64,11 @@ def tripguide(request, citydetails_id, partnum):
 def tripguidedetail(request, citydetails_id, partnum, tripguide_id):
     itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     itdetail = InfoTravel.objects.get(id=tripguide_id)
-    # print(itdetail.get_typeit_display)
+    # print(itdetail.itlocation[0])
     return render(request, 'client/tripguidedetail.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'partnum':partnum, 
                         'itdetail':itdetail})
-
-    # return render(request, 'client/tripguide.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'eat_itdetails':eat_itdetails,
-    #         'drink_itdetails':drink_itdetails, 'fun_itdetails':fun_itdetails, 'see_itdetails':see_itdetails, 
-    #         'sleep_itdetails':sleep_itdetails, 'buy_itdetails':buy_itdetails })
  
 
-# def new(request):
 
 # @login_required
 # def post_like(request, blog_id):
