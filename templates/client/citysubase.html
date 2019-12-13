@@ -4,9 +4,10 @@
 
     <div class="card p-2 text-dark" style="margin-top: 60px; text-align: center;">
         <div class="card-body">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/0" class="card-link p-2 text-dark">Trip Guide</a>
-            <a href="#" class="card-link p-2 text-dark">Go to Seoul</a>
-            <a href="#" class="card-link p-2 text-dark">Top 100</a>
+            <!-- <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/0" class="card-link p-2 text-dark">Trips</a> -->
+            <span class="card-link p-2" style="color:blue;">Trips</span>
+            <a href="{% url 'clientapp:gotocity' citydetails.id %}" class="card-link p-2 text-dark">Go to Seoul</a>
+            <a href="{% url 'clientapp:topbak' citydetails.id %}" class="card-link p-2 text-dark">Top 100</a>
         </div>
     </div>
 

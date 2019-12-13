@@ -219,7 +219,7 @@
         </div>
     </div>
     
-    <!-- DB 에서 이미지 가져오기... -->
+    <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
     <script id=waterfall-template type=text/template>
         {% for itdetail in itdetails %}
         <ul class="list-group">
@@ -227,17 +227,26 @@
                 <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt=""> </a>
             </li>
             <li class="list-group-item">
-                <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
+                <!-- <button type="button" class="btn btn-default btn-xs" title="thumb up">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-xs" title="thumb down">
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                </button> -->
+                <span class="fa fa-heart" style="font-size:16px; float:right;">
+                    <span>{{ itdetail.like_count }}</span>
+                </span>
             </li>
             <li class="list-group-item">
                 <div class="media">
-                    <div class="media-left">
+                    <!-- <div class="media-left">
                         <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                    </div>
+                    </div> -->
                     <div class="media-body">
-                        <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
+                        <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
+                        <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                        <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                    </div>
                 </div>
             </li>
         </ul>

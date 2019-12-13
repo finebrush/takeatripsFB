@@ -8,40 +8,22 @@
 {% endblock %}
 
 {% block contents %}
-<div class="container" style="margin-top: 80px; max-width:1920px;">
-    <div class="row">
-        <div class="col-sm-8" style="display: flex;">
-            <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
-                <!-- <a href="{% url 'clientapp:citymain' citydetails_id %}" class="card-link text-dark">
-                    <h5 class="card-title" style="margin-left: 50px;">{{ citydetails.name }}</h5>
-                </a>
-                <a href="#" class="card-link text-dark" style="margin-left: 0px;">
-                    <h5 class="card-title" style="margin:0 10px;">/</h5>
-                </a> -->
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/0" class="card-link text-dark" style="margin-left: 0px;">
-                    <h5 class="card-title" style="margin-left: 40px;">Trip Guide</h5>
-                </a>
-            </h1>
-        </div>
-        <div class="col-sm-4">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/1" class="card-link p-2 text-dark">먹다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/2" class="card-link p-2 text-dark">마시다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/3" class="card-link p-2 text-dark">놀다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/4" class="card-link p-2 text-dark">보다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/5" class="card-link p-2 text-dark">자다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/6" class="card-link p-2 text-dark">사다</a>
-        </div>
-    </div>
-</div>
-
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class=container style="padding:0 45; max-width:1920;">
+<div class=container style="padding:0 50; max-width:1920; margin-top: 80px;">
+    <div class="row">
+        <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
+            <a href="{% url 'clientapp:tripcourse' citydetails.id %}" class="card-link text-dark" style="margin-left: 0px;">
+                <h5 class="card-title" style="margin-left: 20px;">Trip Course</h5>
+            </a>
+        </h1>
+    </div>
+
     <div class=waterfall> 
     </div>
 </div>
 
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
-<script id=waterfall-template type=text/template>
+<!-- <script id=waterfall-template type=text/template>
     {% for selected_itdetail in selected_itdetails %}
     <ul class="list-group">
         <li class="list-group-item">
@@ -54,9 +36,7 @@
         </li>
         <li class="list-group-item">
             <div class="media">
-                <!-- <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div> -->
+
                 <div class="media-body">
                     <h5 class="media-heading">{{ selected_itdetail.companyko }}</h5> 
                     <small style="color:blue;">{{ selected_itdetail.get_part_display }}</small><br>
@@ -66,10 +46,10 @@
         </li>
     </ul>
     {% endfor %}
-</script>
+</script> -->
 
 <!-- 로컬 images 폴더에 있는 이미지 가져오기 -->
-<!-- <script id=waterfall-template type=text/template>
+<script id=waterfall-template type=text/template>
     <ul class="list-group">
         <li class="list-group-item">
             <a href="javascript:;"> <img src="{% static 'images/1.jpg' %}" /> </a>
@@ -184,7 +164,7 @@
             </div>
         </li>
     </ul>
-</script> -->
+</script>
 
 
 <script>
@@ -211,4 +191,4 @@
     </div>
 </footer>
 {% endblock %}
-    <!-- Footer -->
+<!-- Footer -->

@@ -15,7 +15,8 @@ from mapwidgets.widgets import GooglePointFieldWidget, GooglePointFieldInlineWid
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from django.contrib.gis.db import models
-from .models import City, InfoTravel, EatDrinkPart, FunPart, SeePart, SleepPart, BuyPart, TravelCurator, TCImage, TravelPlan, POIpoint
+from .models import ( City, InfoTravel, EatDrinkPart, FunPart, SeePart, SleepPart, BuyPart, 
+                        TravelCurator, TCImage, TravelPlan, POIpoint, Likeit )
 
 
 CUSTOM_MAP_SETTINGS = {
@@ -175,5 +176,6 @@ admin.site.register(TravelPlan, TravelPlanAdmin)
 admin.site.register(POIpoint, POIpointAdmin)
 admin.site.register(TCImage, TCImageAdmin)
 
+admin.site.register(Likeit)
 # admin.site.unregister(Site)
 # admin.site.unregister(Tag)

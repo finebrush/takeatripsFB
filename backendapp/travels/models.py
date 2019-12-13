@@ -125,6 +125,7 @@ class InfoTravel(models.Model):
     itdate = models.DateField(_('Date'))
     # 지도 위에서 POI 로 지정..
     itlocation = models.PointField(verbose_name='Rocation',srid = 4326, null=True, blank=True)
+    like_infotravel = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_infotravel', through='Likeit')
     objects = GeoManager()
 
     # thumbnail 만들기..
@@ -140,6 +141,11 @@ class InfoTravel(models.Model):
     picture_tag.allow_tags = True
     picture_tag.short_description = 'Image'
 
+    @property
+    # get method 표현..
+    def like_count(self):
+        return self.like_infotravel.count()
+
     def categorysmallvalue(self):
         return self.categorysmall_id
 
@@ -151,6 +157,14 @@ class InfoTravel(models.Model):
     def __str__(self):
         return self.companyko
 
+class Likeit(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    infotravel = models.ForeignKey(InfoTravel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (('user', 'infotravel'))
 
 class EatDrinkPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
@@ -195,6 +209,7 @@ class BuyPart(models.Model):
     saleitemsven = models.CharField(_('판매상품(베트남어)'), max_length=128)
 
 class TravelCurator(models.Model):
+    objects = models.Manager()
     # tcname = models.CharField(_('Name'), max_length=64)
     city = models.ForeignKey(
         'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True
@@ -215,6 +230,14 @@ class TravelCurator(models.Model):
         'travels.InfoTravel', verbose_name=_('여행장소 추가')
     )
 
+    @property
+    def infotravel_count(self):
+        return self.infotravel.count()
+
+    @property
+    def tcimge_total(self):
+        return TCImage.objects.filter(travelcurator_id=self.id)
+
     class Meta:
         verbose_name = _('TripCurator')
         verbose_name_plural = _('TripCurators')
@@ -224,6 +247,7 @@ class TravelCurator(models.Model):
         return self.titleko
 
 class TCImage(models.Model):
+    objects = models.Manager()
     travelcurator = models.ForeignKey(
         'travels.TravelCurator', verbose_name=_('TravelCurator'), on_delete=models.CASCADE, null=True, blank=True
     )

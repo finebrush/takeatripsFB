@@ -2353,7 +2353,7 @@ fieldset[disabled] .btn-link:hover {
 
 .btn-group-xs>.btn,
 .btn-xs {
-    padding: 1px 5px;
+    padding: 2px 2px;
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px

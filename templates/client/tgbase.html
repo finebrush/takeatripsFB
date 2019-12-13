@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     {% block headers %}
     {% endblock %}
@@ -35,14 +36,20 @@
             </h3>
             <div style="margin-bottom: 0px;"> {{ itdetail.get_part_display }} | {{ itdetail.categorymedium }}</div>
         </div>
-        <div class="col-sm-4" style="align-self: center;">
-            <a href="#map" class="card-link p-2 text-dark" id="btnmap">Map</a>
-            <a href="#youtube" class="card-link p-2 text-dark" id="btnyt">youtube</a>
-            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" class="card-link p-2 text-dark" id="btninsta">Instagram</a>
-            <a href="#like" class="card-link p-2 text-dark" id="btnlike">Like</a> 
+        <div class="col-sm-4" style="align-self: center; text-align:right; padding-right: 40px;">
+            <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기"><i class="fas fa-map-marked-alt" style="font-size:24px;"></i></a>
+            <a href="#youtube" class="card-link p-2 text-dark" id="btnyt"><i class="fa fa-youtube" style="font-size:24px;"></i></a>
+            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" class="card-link p-2 text-dark" id="btninsta"><i class="fa fa-instagram" style="font-size:24px;"></i></a>
+            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguidedetail/{{ partnum }}/{{ itdetail.id }}/like" class="card-link p-2 text-dark" id="btnlike">
+                {% if user in itdetail.like_infotravel.all %}
+                    <i class="fa fa-heart" style="font-size:24px; color:red;"></i>
+                {% else %}
+                    <i class="fa fa-heart" style="font-size:24px;"></i>
+                {% endif %}
+            </a> 
         </div>
     </div>
-
+   
     {% block contents %}
     {% endblock %}
 
