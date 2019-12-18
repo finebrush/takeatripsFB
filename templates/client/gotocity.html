@@ -5,6 +5,7 @@
 <link rel=stylesheet href="{% static 'css/main.css' %}">
 <!-- <script src="{% static 'vendor/vendor.js' %}"></script> -->
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 {% endblock %}
 
 {% block contents %}
@@ -14,184 +15,22 @@
         <div class="col-sm-8" style="display: flex;">
             <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
                 
-                <a href="{% url 'clientapp:gotocity' citydetails.id %}" class="card-link text-dark" style="margin-left: 0px;">
-                    <h5 class="card-title" style="margin-left: 40px;">go to {{ citydetails.name }}</h5>
+                <a href="{% url 'clientapp:gotocity' citydetails.gotocity %}" class="card-link text-dark" style="margin-left: 0px;">
+                    <h5 class="card-title" style="margin-left: 40px;">go to {{ citydetails.nameeng }}</h5>
                 </a>
             </h1>
         </div>
         <div class="col-sm-4" style="padding-right: 100px; text-align: right;">
-            {% if citydetails.id == 1 %}
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/1" class="card-link p-2 text-dark">공항철도</a>
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/2" class="card-link p-2 text-dark">버스</a>
-            {% else %}
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/1" class="card-link p-2 text-dark">버스</a>
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/2" class="card-link p-2 text-dark">지하철</a>
+            {% if citydetails.gotocity == 1 %} <!-- 서울특별시 -->
+                <a href="#airplan" id="seoul_airplan" class="card-link p-2 text-dark">공항철도</a>
+                <a href="#bus" id="seoul_bus" class="card-link p-2 text-dark">버스</a>
+            {% elif citydetails.gotocity == 2 %} <!-- 부산광역시 -->
+                <a href="#bus" id="busan_bus" class="card-link p-2 text-dark">버스</a>
+                <a href="#subway" id="busan_subway" class="card-link p-2 text-dark">지하철</a>
             {% endif %}
         </div>
     </div>
 </div>
-
-<!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class=container style="padding:0 45; max-width:1920;">
-    <div class=waterfall> 
-    </div>
-</div>
-
-<!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
-<!-- <script id=waterfall-template type=text/template>
-    {% for selected_itdetail in selected_itdetails %}
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguidedetail/{{ partnum }}/{{ selected_itdetail.id }}"> <img src="http://localhost:8000/media/{{ selected_itdetail.picture1 }}" alt=""> </a>
-        </li>
-        <li class="list-group-item">
-            <span class="fa fa-heart" style="font-size:16px; float:right;">
-                <span>{{ selected_itdetail.like_count }}</span>
-            </span>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-
-                <div class="media-body">
-                    <h5 class="media-heading">{{ selected_itdetail.companyko }}</h5> 
-                    <small style="color:blue;">{{ selected_itdetail.get_part_display }}</small><br>
-                    <small>{{ selected_itdetail.introko|truncatewords:7 }}</small> 
-                </div>
-            </div>
-        </li>
-    </ul>
-    {% endfor %}
-</script> -->
-
-<!-- 로컬 images 폴더에 있는 이미지 가져오기 -->
-<script id=waterfall-template type=text/template>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/1.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/2.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/3.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/4.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>Awesome! I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/5.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>How about this? Awesome! I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/6.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-</script>
-
-
-<script>
-    $('.waterfall')
-        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
-        .on('finishing.mystist.waterfall', function() {
-            setTimeout(function() { // simulate ajax
-                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
-            }, 2000);
-        })
-        .waterfall()
-</script>
 
 {% endblock %}
 
@@ -205,5 +44,56 @@
         <a href="#"> Take a Trips</a>
     </div>
 </footer>
+
+
+<script>
+    
+    $('#detail_seoulairplan').hide();
+    $('#detail_seoulbus').hide();
+    $('#detail_busanbus').hide();
+    $('#detail_busansubway').hide();
+
+    switch ( {{ citydetails.gotocity }} ){
+        case 1:
+            $('#detail_seoulairplan').show();
+            break;
+        case 2:
+            $('#detail_busanbus').show();
+            break;
+        default:
+            
+    }
+    
+    $('#seoul_airplan').click(function(){
+        $('#detail_seoulairplan').show();
+        $('#detail_seoulbus').hide();
+        $('#detail_busanbus').hide();
+        $('#detail_busansubway').hide();
+    });
+
+    $('#seoul_bus').click(function(){
+        $('#detail_seoulairplan').hide();
+        $('#detail_seoulbus').show();
+        $('#detail_busanbus').hide();
+        $('#detail_busansubway').hide();
+        
+    });
+
+    $('#busan_bus').click(function(){
+        $('#detail_seoulairplan').hide();
+        $('#detail_seoulbus').hide();
+        $('#detail_busanbus').show();
+        $('#detail_busansubway').hide();
+    });
+
+    $('#busan_subway').click(function(){
+        $('#detail_seoulairplan').hide();
+        $('#detail_seoulbus').hide();
+        $('#detail_busanbus').hide();
+        $('#detail_busansubway').show();
+    });
+
+</script>
+
 {% endblock %}
 <!-- Footer -->

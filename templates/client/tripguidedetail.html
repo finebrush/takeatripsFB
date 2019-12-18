@@ -71,13 +71,13 @@
         <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
             <div class="card bg-primary" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture1.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture2 %}
                 <div class="card bg-warning" style="max-height: 450px;">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture2 }}" alt="Card image">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture2.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
@@ -93,13 +93,13 @@
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
             <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture3 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture3.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture4 %}
                 <div class="card bg-danger" style="max-height: 450px;">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture4 }}" alt="Card image">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture4.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
@@ -115,13 +115,13 @@
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
             <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture5 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture5.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture6 %}
                 <div class="card bg-danger" style="max-height: 450px;">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture6 }}" alt="Card image">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture6.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
@@ -137,13 +137,13 @@
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
             <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture7 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture7.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture8 %}
                 <div class="card bg-danger" style="max-height: 450px;">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture8 }}" alt="Card image">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture8.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
@@ -159,13 +159,13 @@
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
             <div class="card bg-success" style="max-height: 450px;">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture9 }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture9.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture10 %}
                 <div class="card bg-danger" style="max-height: 450px;">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ itdetail.picture10 }}" alt="Card image">
+                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture10.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
@@ -224,15 +224,9 @@
         {% for itdetail in itdetails %}
         <ul class="list-group">
             <li class="list-group-item">
-                <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt=""> </a>
+                <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="{{ itdetail.picture1.url }}" alt=""> </a>
             </li>
             <li class="list-group-item">
-                <!-- <button type="button" class="btn btn-default btn-xs" title="thumb up">
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                </button>
-                <button type="button" class="btn btn-default btn-xs" title="thumb down">
-                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                </button> -->
                 <span class="fa fa-heart" style="font-size:16px; float:right;">
                     <span>{{ itdetail.like_count }}</span>
                 </span>
@@ -257,7 +251,7 @@
 
 
 
-    <!-- googmap.. -->
+    <!-- googlemap.. -->
     <div id="map" style="height: 80%;"></div>
     <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:scroll;">
         <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>

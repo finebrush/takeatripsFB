@@ -10,7 +10,7 @@ def signup(request):
             #입력한 password1과 password2를 비교 만약 같으면
             user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
             #새로운 회원을 추가한다.
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             #성공적으로 추가되면 바로 로그인시켜주고
             return redirect('blogapp:home')
             #홈으로 돌아가기.

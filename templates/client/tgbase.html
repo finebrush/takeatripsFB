@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
 
     {% block headers %}
     {% endblock %}
@@ -23,10 +23,10 @@
     <div class="row" style="padding: 5px; margin: 15px;">
         <!-- back1 또는 back2 둘중에 하나는 hide -->
         <div class="col-sm-1" id="back1" style="align-self: center;">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/{{ partnum }}" class="card-link p-2 text-dark"> 뒤로가기 </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=partnum %}" class="card-link p-2 text-dark"> 뒤로가기 </a>
         </div>
         <div class="col-sm-1" id="back2" style="align-self: center;">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguidedetail/{{ partnum }}/{{ itdetail.id }}" class="card-link p-2 text-dark"> 뒤로가기 </a>
+            <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link p-2 text-dark"> 뒤로가기 </a>
         </div>
 
         <div class="col-sm-7">
@@ -37,10 +37,16 @@
             <div style="margin-bottom: 0px;"> {{ itdetail.get_part_display }} | {{ itdetail.categorymedium }}</div>
         </div>
         <div class="col-sm-4" style="align-self: center; text-align:right; padding-right: 40px;">
-            <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기"><i class="fas fa-map-marked-alt" style="font-size:24px;"></i></a>
-            <a href="#youtube" class="card-link p-2 text-dark" id="btnyt"><i class="fa fa-youtube" style="font-size:24px;"></i></a>
-            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" class="card-link p-2 text-dark" id="btninsta"><i class="fa fa-instagram" style="font-size:24px;"></i></a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguidedetail/{{ partnum }}/{{ itdetail.id }}/like" class="card-link p-2 text-dark" id="btnlike">
+            <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
+                <i class="fa fa-map-o" style="font-size:24px;"></i>
+            </a>
+            <a href="#youtube" class="card-link p-2 text-dark" id="btnyt">
+                <i class="fa fa-youtube" style="font-size:24px;"></i>
+            </a>
+            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" class="card-link p-2 text-dark" id="btninsta">
+                <i class="fa fa-instagram" style="font-size:24px;"></i>
+            </a>
+            <a href="{% url 'clientapp:tripguide_like' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link p-2 text-dark" id="btnlike">
                 {% if user in itdetail.like_infotravel.all %}
                     <i class="fa fa-heart" style="font-size:24px; color:red;"></i>
                 {% else %}

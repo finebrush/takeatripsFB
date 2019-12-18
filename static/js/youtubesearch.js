@@ -21,7 +21,7 @@ function search() {
 			part: 'snippet, id',
 			q: q,
 			type: 'video',
-			key: 'AIzaSyAShx8QLS_bc-cvTWKPfKdNLq6P79mDifc'}, 
+			key: 'AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po'}, 
 			function(data) {
 				var nextPageToken = data.nextPageToken;
 				var prevPageToken = data.prevPageToken;

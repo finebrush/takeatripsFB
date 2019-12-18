@@ -38,3 +38,8 @@ SELECT_CATEGORY = (
     (10, _('공공')),
     (11, _('Place'))
 )
+
+SELECT_GOTOCITY = (
+    (1, _('Seoul')),
+    (2, _('Busan'))
+)

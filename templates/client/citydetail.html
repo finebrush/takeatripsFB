@@ -12,47 +12,37 @@
 <div class="card-deck p-4">
     <div class="card bg-primary" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture1 }}" alt="Card image">
+            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture1.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">광화문</h4>
-                <!-- <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a> -->
             </div>
         </div>
     </div>
     <div class="card bg-warning" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture2 }}" alt="Card image">
+            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture2.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">경복궁</h4>
-                <!-- <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a> -->
             </div>
         </div>
     </div>
     <div class="card bg-success" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture3 }}" alt="Card image">
+            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture3.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">동대문디자인플라자</h4>
-                <!-- <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a> -->
             </div>
         </div>
     </div>
     <div class="card bg-danger" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture4 }}" alt="Card image">
+            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture4.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">북악스카이웨이</h4>
-                <!-- <p class="card-text">Some example text.</p>
-                <a href="#" class="btn btn-primary">See Profile</a> -->
             </div>
         </div>
     </div>
 </div>
-
-<!-- <div class="jumbotron" style="padding-top:100px; margin:0px;"> -->
 
  <!-- 도시 이름과 설명..  -->
 <div class="card p-1">
@@ -71,63 +61,55 @@
     </div>
 </div>
 
-
+<!-- Trip Guide 시작 -->
 <h5 class="card-title" style="padding: 1.5em; margin: 0 20;">Trip Guide</h5>
 <!-- 먹다/마시다/놀다/보다 대표 이미지  4개.. -->
 <div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 0px!important;">
     
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/1">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ eat_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=1 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                             <h4 class="card-title">먹다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/2">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ drink_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=2 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">마시다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
     <div class="card bg-success" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/3">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ fun_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=3 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">놀다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
     <div class="card bg-danger" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/4">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ see_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=4 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ see_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">보다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
@@ -138,42 +120,36 @@
 <div class="card-deck p-5">
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/5">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ sleep_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=5 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ sleep_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">자다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="http://localhost:8000/citymain/{{ citydetails.id }}/tripguide/6">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ buy_itdetail.picture1 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=6 %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">사다</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
     <div class="card bg-success" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripculator' citydetails.id %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture3 }}" alt="Card image">
+            <a href="{% url 'clientapp:tripcurator' citydetails.id %}">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture3.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
-                        <h4 class="card-title">Trip Culator</h4>
+                        <h4 class="card-title">Trip Curator</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
@@ -181,19 +157,19 @@
     <div class="card bg-danger" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripcourse' citydetails.id %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ citydetails.picture4 }}" alt="Card image">
+                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture4.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">Trip Course</h4>
                     </div>
-                    <!-- <p class="card-text">Some example text.</p>
-                    <a href="#" class="btn btn-primary">See Profile</a> -->
                 </div>
             </a>
         </div>
     </div>
 </div>
 
+
+<!-- AR Trip -->
 <div class="card p-1">
 <h5 class="card-title" style="padding: 1.5em; margin: 0 20;">AR Trip</h5>
 <!-- AR Contents.. -->
@@ -203,7 +179,7 @@
         <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
             <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
                 <a href="#layer2" class="btn-example">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ arcontent.picture.url }}" alt="Card image">
                 </a>
                 <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
                     <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
@@ -215,7 +191,7 @@
         <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
             <div class="card-body text-center p-0">
                 <a href="#layer2" class="btn-example"> <!-- 팝업창 띄우기-->
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="http://localhost:8000/media/{{ arcontent.picture }}" alt="Card image">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ arcontent.picture.url }}" alt="Card image">
                 </a>
                 <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
                     <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
@@ -229,17 +205,6 @@
     </div>
     {% endif %}
 {% endfor %}
-</div>
-
-<!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="card p-5" style="padding-top: 0px!important; border:0px;">
-    <h1 style="font-weight:600; color:darkslategrey;"> 
-        <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
-    </h1>
-    <div class=container style="margin:0px; padding:0px; max-width:1920;">
-        <div class=waterfall> 
-        </div>
-    </div>
 </div>
 
 <!-- 팝업창 띄우기 -->
@@ -270,20 +235,28 @@
     </div>
 </div>
 
+
+<!-- django-waterfall 이미지 들어가는 부분.. -->
+<div class="card p-5" style="padding-top: 0px!important; border:0px;">
+    <h1 style="font-weight:600; color:darkslategrey;"> 
+        <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
+    </h1>
+    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+        <div class=waterfall> 
+        </div>
+    </div>
+</div>
+
+
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for itdetail in itdetails %}
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> <img src="http://localhost:8000/media/{{ itdetail.picture1 }}" alt=""> </a>
+            <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
+                <img src="{{ itdetail.picture1.url }}" alt=""> </a>
         </li>
         <li class="list-group-item">
-            <!-- <button type="button" class="btn btn-default btn-xs" title="thumb up">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-            </button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-            </button> -->
             <span class="fa fa-heart" style="font-size:16px; float:right;">
                 <span>{{ itdetail.like_count }}</span>
             </span>
@@ -304,123 +277,7 @@
     {% endfor %}
 </script>
 
-<!-- 로컬 images 폴더에 있는 이미지 가져오기 -->
-<!-- <script id=waterfall-template type=text/template>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/1.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/2.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/3.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/4.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>Awesome! I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/5.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>How about this? Awesome! I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/6.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-</script> -->
+
 
 
 <script>

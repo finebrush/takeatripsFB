@@ -1,0 +1,82 @@
+{% extends 'client/base.html'%}
+{% load static %}
+
+{% block headers %}
+<link rel=stylesheet href="{% static 'css/main.css' %}">
+<!-- <script src="{% static 'vendor/vendor.js' %}"></script> -->
+<script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+{% endblock %}
+
+{% block contents %}
+<!-- django-waterfall 이미지 들어가는 부분.. -->
+<div class=container style="padding:0 50; max-width:1920; margin-top: 80px;">
+    <div class="row">
+        <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
+            <a href="{% url 'clientapp:tripcurator' citydetails.id %}" class="card-link text-dark" style="margin-left: 0px;">
+                <h5 class="card-title" style="margin-left: 20px;">Trip Curator</h5>
+            </a>
+        </h1>
+    </div>
+
+    <div class=waterfall> 
+    </div>
+</div>
+
+
+<!-- DB 에서 tripcurator(travelcurator) 가져오기... -->
+<script id=waterfall-template type=text/template>
+    {% for travelcurator in travelcurators %}
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{% url 'clientapp:tripcuratordetail' citydetails_id=citydetails.id tripcurator_id=travelcurator.id %}"> 
+                <img src="{{ travelcurator.tcimage_totals.first.tcimg.url }}" alt=""> </a>
+        </li>
+        <li class="list-group-item">
+            <span class="fa fa-heart" style="font-size:16px; float:right;">
+                <span>{{ travelcurator.like_count }}</span>
+            </span>
+            <span class="fa fa-map-marker" style="font-size:16px; float:left;">
+                <span>{{ travelcurator.infotravel_count }}</span>
+            </span>
+        </li>
+        <li class="list-group-item">
+            <div class="media">
+
+                <div class="media-body">
+                    <h5 class="media-heading">{{ travelcurator.titleko }}</h5> 
+                    <small>{{ travelcurator.introko|truncatewords:7 }}</small><br><br>
+                    <small style="font-style:italic;"> 작성자 :</small><small style="color:blue;font-style:italic;"> {{ travelcurator.writter }}</small>
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</script>
+
+
+
+<script>
+    $('.waterfall')
+        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+        .on('finishing.mystist.waterfall', function() {
+            setTimeout(function() { // simulate ajax
+                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+            }, 2000);
+        })
+        .waterfall()
+</script>
+
+{% endblock %}
+
+{% block subcontents %}
+{% endblock %}
+
+<!-- Footer -->
+{% block footers %}
+<footer class="page-footer font-small blue" style="background-color:#212529; margin-top:40px; ">
+    <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
+        <a href="#"> Take a Trips</a>
+    </div>
+</footer>
+{% endblock %}
+<!-- Footer -->

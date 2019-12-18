@@ -1,0 +1,479 @@
+{% extends 'client/tpbase.html' %}
+{% load static %}
+
+    {% block headers %}
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap"></script> -->
+
+        <style>
+            /* Set the size of the div element that contains the map */
+            #map {
+                height: 400px;  /* The height is 400 pixels */
+                width: 100%;  /* The width is the width of the web page */
+            }
+            /* The popup bubble styling. */
+            .popup-bubble {
+                /* Position the bubble centred-above its parent. */
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -100%);
+                /* Style the bubble. */
+                background-color: white;
+                padding: 5px;
+                border-radius: 5px;
+                font-family: sans-serif;
+                overflow-y: auto;
+                max-height: 60px;
+                box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+            }
+            /* The parent of the bubble. A zero-height div at the top of the tip. */
+            .popup-bubble-anchor {
+                /* Position the div a fixed distance above the tip. */
+                position: absolute;
+                width: 100%;
+                bottom: /* TIP_HEIGHT= */ 8px;
+                left: 0;
+            }
+            /* This element draws the tip. */
+            .popup-bubble-anchor::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                /* Center the tip horizontally. */
+                transform: translate(-50%, 0);
+                /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+                width: 0;
+                height: 0;
+                /* The tip is 8px high, and 12px wide. */
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: /* TIP_HEIGHT= */ 8px solid white;
+            }
+            /* JavaScript will position this div at the bottom of the popup tip. */
+            .popup-container {
+                cursor: auto;
+                height: 0;
+                position: absolute;
+                /* The max width of the info window. */
+                width: 200px;
+            }
+            /* 이미지 위에 text.. */
+            .jb-wrap {
+				position: relative;
+                /* width: 50%; */
+			}
+			.jb-wrap img {
+				width: 100%;
+				vertical-align: middle;
+			}
+			.jb-text {
+                font-size: 1em;
+                color: white;
+				text-align: center;
+                position: absolute;
+                top: 70%;
+                left: 50%;
+                transform: translate( -50%, -50% );
+			}
+
+            /* 반응형 테이블..
+            Max width before this PARTICULAR table gets nasty. This query will take effect 
+            for any screen smaller than 760px and also iPads specifically.
+            */
+            @media
+            only screen 
+            and (max-width: 760px), (min-device-width: 768px) 
+            and (max-device-width: 1024px)  {
+
+                /* Force table to not be like tables anymore */
+                table, thead, tbody, th, td, tr {
+                    display: block;
+                }
+
+                /* Hide table headers (but not display: none;, for accessibility) */
+                thead tr {
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                }
+
+            tr {
+            margin: 0 0 1rem 0;
+            }
+            
+            tr:nth-child(odd) {
+            background: #ccc;
+            }
+            
+                td {
+                    /* Behave  like a "row" */
+                    border: none;
+                    border-bottom: 1px solid #eee;
+                    position: relative;
+                    padding-left: 50%;
+                }
+
+                td:before {
+                    /* Now like a table header */
+                    position: absolute;
+                    /* Top/left values mimic padding */
+                    top: 0;
+                    left: 6px;
+                    width: 45%;
+                    padding-right: 10px;
+                    white-space: nowrap;
+                }
+            }
+            </style>
+    {% endblock %}
+
+    {% block contents %}
+    <div id="detailbase">
+        
+    <!-- googlemap.. -->
+    <div id="map" style="height: 60%; width: 93%; left:40px; overflow:scroll; border:solid; border-width: thin;"></div>
+    <div id="msg"></div>
+
+
+    <!-- 소개정보 / 일반정보.. -->
+    <div class="card-deck p-5">
+        <div class="card" style="max-height: 450px; border:0px;">
+            <div class="card-body p-0">
+                <h1 style="font-weight:600; color:darkslategrey;"> 
+                    <h2 class="card-title" style="margin-bottom: 0px;">{{ travelplan.titleko }}</h2>
+                    <small style="font-style:italic;"> 코스타입 :</small>
+                    <small style="color:blue;font-style:italic;"> {{ travelplan.get_course_display }}</small>
+                </h1>
+                <!-- <hr style="border: solid 0.5px #969696b3;"> -->
+                <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoko }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 추천 장소 -->
+    <div class="card p-5" style="padding-top: 0px!important;">
+        <h1 style="font-weight:600; color:darkslategrey;"> 
+            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">코스 정보</h5>
+        </h1>
+        <!-- <div class=container style="margin:0px; padding:0px; max-width:1920;">
+            <div class=waterfall> 
+            </div>
+        </div> -->
+        <table class="table" id="courseinfo-table" border="0" cellspacing="0">
+            <tbody></tbody>
+        </table>
+    </div>
+    
+
+        
+    <!-- 유사한 여행 정보 보기 / django-waterfall 이미지 들어가는 부분.. -->
+    <div class="card p-5" style="padding-top: 0px!important;">
+        <h1 style="font-weight:600; color:darkslategrey;"> 
+            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
+        </h1>
+        <div class=container style="margin:0px; padding:0px; max-width:1920;">
+            <div class=waterfall> 
+            </div>
+        </div>
+    </div>
+    
+    <!-- DB 에서 tripcourse(TravelPlan) 가져오기... -->
+    <script id=waterfall-template type=text/template>
+        {% for travelplan in travelplans %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{% url 'clientapp:tripcoursedetail' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}"> 
+                    <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt=""> </a>
+            </li>
+            <li class="list-group-item">
+                <span class="fa fa-heart" style="font-size:16px; float:right;">
+                    <span>{{ travelplan.like_count }}</span>
+                </span>
+                <span class="fa fa-map-marker" style="font-size:16px; float:left;">
+                    <span>{{ travelplan.inlinecount }}</span>
+                </span>
+            </li>
+            <li class="list-group-item">
+                <div class="media">
+    
+                    <div class="media-body">
+                        <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
+                        <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
+                        <small style="color:blue;">{{ travelplan.get_course_display }}</small> 
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+    </script> 
+
+    </div>  <!-- end detailbase -->   
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
+        <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
+        <a href="#"> Take a Trips</a>
+        </div>
+    </footer>
+    <!-- Footer -->
+
+    <script type="text/javascript">
+        $('.waterfall')
+            .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+            .on('finishing.mystist.waterfall', function() {
+                setTimeout(function() { // simulate ajax
+                    $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                }, 2000);
+            })
+            .waterfall()
+
+        
+        // google map Start..
+        // var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay, directionsService;
+        var map;
+        var polyline;
+
+        var locations = new Array();
+        locations = {{ locations|safe }};
+        // console.log(locations);
+        var numicon= [
+            "{% static 'img/num1.png' %}",
+            "{% static 'img/num2.png' %}",
+            "{% static 'img/num3.png' %}",
+            "{% static 'img/num4.png' %}",
+            "{% static 'img/num5.png' %}",
+            "{% static 'img/num6.png' %}",
+            "{% static 'img/num7.png' %}",
+            "{% static 'img/num8.png' %}",
+            "{% static 'img/num9.png' %}"
+        ]
+
+        // 위경도의 두점 사이의 거리 계산..
+        function haversine_distance(lat1, lat2, lng1, lng2) {
+            var R = 6371.0710; // Radius of the Earth in miles
+            var rlat1 = lat1 * (Math.PI/180); // Convert degrees to radians
+            var rlat2 = lat2 * (Math.PI/180); // Convert degrees to radians
+            var difflat = rlat2-rlat1; // Radian difference (latitudes)
+            var difflon = (lng2-lng1) * (Math.PI/180); // Radian difference (longitudes)
+
+            var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+            return d;
+        }
+
+        // Initialize and add the map
+        function initMap() {
+            directionsService = new google.maps.DirectionsService();
+            // The map, centered at.. 
+            //여러 위치의 중심값을 map의 center 로..
+            var locations_x = 0.0;
+            var locations_y = 0.0;
+
+            for(var i = 0; i < locations.length; i++){
+                locations_x = locations_x + locations[i][1];
+                locations_y = locations_y + locations[i][2];
+            }
+            var locations_avgx = locations_x / locations.length;
+            var locations_avgy = locations_y / locations.length;
+
+            var centerLatLng = {lat: locations_avgy, lng: locations_avgx};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 18, 
+                center: centerLatLng
+            });
+
+            for(var count = 0; count < locations.length; count++){ 
+
+                var contentString = '<div id="content" style="text-align: center;">' + 
+                    '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                
+                var icon = {
+                    url: numicon[count], // url
+                    scaledSize: new google.maps.Size(40, 40), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                    anchor: new google.maps.Point(20, 20) // anchor
+                };
+
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[count][2], locations[count][1]),
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: icon
+                });
+
+                marker.info = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                google.maps.event.addListener(marker, 'click', function() {  
+                    // this = marker
+                    var marker_map = this.getMap();
+                    this.info.open(marker_map, this);
+                    // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+                });
+
+                // 두점 사이의 직선..count가 2가 되면 location[3] 되면서 존재하지 않음으로 문제 됨..
+                if(count != 2){
+                    const firstpoint = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    const secondpoint = new google.maps.LatLng(locations[count+1][2], locations[count+1][1]);
+                    // Draw a line showing the straight distance between the markers
+                    var line = new google.maps.Polyline({
+                        path: [firstpoint, secondpoint], 
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2,
+                        map: map
+                    });
+                    // Calculate and display the distance between markers
+                    var distance = haversine_distance(locations[count][2], locations[count+1][2], locations[count][1], locations[count+1][1]);
+                    // document.getElementById('msg').innerHTML += "Distance between markers: " + distance + " km.";
+                    // console.log(distance);
+
+                    //길찾기 경로 표시 .. TRANSIT 만 됨
+                    // var start = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    // var end = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    // // console.log(start);
+                    
+                    // plotDirections(start, end);
+                }
+            }
+
+            // 테스트로 마포에서 종로까지 경로.. https://jsfiddle.net/upsidown/9jb2nvt8/ 여기서는 잘됨..
+            // var start = new google.maps.LatLng(37.5592722, 126.9281438);
+            // var end = new google.maps.LatLng(37.570016, 126.999006); 
+            // // console.log(start);
+            
+            // plotDirections(start, end);
+
+        }
+
+        // 길 찾기 함수..
+        function plotDirections(start, end) {
+
+            var method = 'TRANSIT'; // DRIVING, BICYCLING, TRANSIT, WALKING -> TRANSIT 만 활성화 됨..
+
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[method],
+                provideRouteAlternatives: true
+            };
+            // console.log(destination);
+
+            directionsService.route(request, function(response, status) {
+
+                if (status == google.maps.DirectionsStatus.OK) {
+
+                    var routes = response.routes;
+                    var colors = ['red', 'green', 'blue', 'orange', 'yellow', 'black'];
+                    var directionsDisplays = [];
+
+                    // Reset the start and end variables to the actual coordinates
+                    start = response.routes[0].legs[0].start_location;
+                    end = response.routes[0].legs[0].end_location;
+
+                        // Loop through each route
+                    for (var i = 0; i < routes.length; i++) {
+                        var directionsDisplay = new google.maps.DirectionsRenderer({
+                            map: map,
+                            directions: response,
+                            routeIndex: i,
+                            draggable: true,
+                            polylineOptions: {
+
+                            strokeColor: colors[i],
+                            strokeWeight: 4,
+                            strokeOpacity: .3
+                            }
+                        });
+
+                        // Push the current renderer to an array
+                        directionsDisplays.push(directionsDisplay);
+
+                        // Listen for the directions_changed event for each route
+                        google.maps.event.addListener(directionsDisplay, 'directions_changed', (function(directionsDisplay, i) {
+                            return function() {
+                                var directions = directionsDisplay.getDirections();
+                                var new_start = directions.routes[0].legs[0].start_location;
+                                var new_end = directions.routes[0].legs[0].end_location;
+
+                                if ((new_start.toString() !== start.toString()) || (new_end.toString() !== end.toString())) {
+                                    // Remove every route from map
+                                    for (var j = 0; j < directionsDisplays.length; j++) {
+                                        directionsDisplays[j].setMap(null);
+                                    }
+                                    // Redraw routes with new start/end coordinates
+                                    plotDirections(new_start, new_end);
+                                }
+                            }
+                        })(directionsDisplay, i)); // End listener
+                    } // End route loop
+                }
+            });
+        }
+
+
+
+        // table 생성..
+        var chknum = {{ travelplan.inlinecount }}; 
+        var pictures = {{ pictures|safe }};
+        
+        for(i = 1; i < chknum+1; i++){
+            var time = new Date().toLocaleTimeString();
+            if( i != chknum){
+                $('#courseinfo-table > tbody:last')
+                .append('<tr><td style="width:3%; text-align:center;border-top: 0;">'+
+                    '<div class="jb-wrap">'+
+                        '<div class="jb-image">'+
+                            '<img src="{% static 'img/circleblue.png' %}" />'+
+                        '</div><div class="jb-text"><p>'+ i + 
+                        '</p></div></div>'+
+                    '</td><td style="width:29%;font-weight: 700;padding-left: 10px;border-top: 0;">' + locations[i-1][0] + 
+                    '</td><td styel="border-top: 0;" rowspan="2">'+ 
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][0]+'" />' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][1]+'" /><br>' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][2]+'" />' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][3]+'" />' + 
+                    '</td></tr>'+
+                    '<tr><td style="text-align:center; vertical-align: middle;border-top: 0;">'+
+                    '<img src="{% static 'img/Lineblue.png' %}" />'+
+                    '</td><td style="border-top: 0;"></td></tr>'); 
+            }else{
+                $('#courseinfo-table > tbody:last')
+                .append('<tr><td style="width:3%; text-align:center;border-top: 0;">'+
+                    '<div class="jb-wrap">'+
+                        '<div class="jb-image">'+
+                            '<img src="{% static 'img/circleblue.png' %}" />'+
+                        '</div><div class="jb-text"><p>'+ i + 
+                        '</p></div></div>'+
+                    '</td><td style="width:29%;font-weight: 700;padding-left: 10px;border-top: 0;">' + locations[i-1][0] + 
+                        '</td><td style="" rowspan="2">'+ 
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][0]+'" />' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][1]+'" /><br>' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][2]+'" />' +
+                        '<img style="width:450px; height:250px; padding:10px;" src="http://localhost:8000/media/'+ pictures[i-1][3]+'" />' + 
+                    '</td></tr>'+
+                    '<tr><td style="text-align:center; vertical-align: middle;border-top: 0;">'+
+                    '</td><td style="border-top: 0;"></td></tr>'); 
+            }  
+        }
+
+        
+
+    </script>
+
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap&libraries=geometry">
+    </script>
+
+    {% endblock %}
+
+    {% block footers %}
+    {% endblock %}

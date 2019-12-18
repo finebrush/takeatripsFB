@@ -41,7 +41,7 @@
                 <div class="row">
                     {% for city in citys.all %}
                     <div class="col-sm-6" style="text-align: center;">  
-                        <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.name}}</h1></a>
+                        <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.nameko}}</h1></a>
                         <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
                         <p class="card-subtitle mb-2 text-muted">{{city.titleko}}</p>
                     </div>

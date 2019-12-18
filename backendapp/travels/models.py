@@ -17,13 +17,17 @@ from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, G
 from taggit.models import TaggedItemBase, CommonGenericTaggedItemBase, TagBase, GenericTaggedItemBase
 from backendapp.common.models import CLarge, CMedium, CSmall
 
-from backendapp.travels.choices import SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES
+from backendapp.travels.choices import SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES, SELECT_GOTOCITY
 
 class City(models.Model):
-    name = models.CharField(_('Name'), max_length=64)
+    nameko = models.CharField(_('Name(한국어)'), max_length=64, default='')
+    nameeng = models.CharField(_('Name(영어)'), max_length=64, null=True, blank=True)
+    nameven = models.CharField(_('Name(베트남어)'), max_length=64, null=True, blank=True)
+    logo = models.ImageField(_('Logo-Image'), upload_to="%Y/%m/%d", null=True, blank=True)
     titleko = models.CharField(_('소개타이틀(한국어)'), max_length=128)
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128)
     titleven = models.CharField(_('소개타이틀(베트남어)'), max_length=128)
+    gotocity = models.PositiveIntegerField(_('Select City'), choices=SELECT_GOTOCITY, null=True)
     created = models.DateField(_('Created'))
     picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
     picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
@@ -49,10 +53,10 @@ class City(models.Model):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
         db_table = 'city'
-        ordering = ('name',)
+        ordering = ('nameko',)
 
     def __str__(self):
-        return self.name
+        return self.nameko
 
 class SecondTag(TagBase):
     pass
@@ -225,6 +229,7 @@ class TravelCurator(models.Model):
     tagko = TaggableManager(_('태그(한국어)'))
     tageng = TaggableManager(_('태그(영어)'), through=SecondTaggedItem)
     tagven = TaggableManager(_('태그(베트남어)'), through=ThirdTaggedItem)
+    like_travelcurator = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_travelcurator', through='Liketc')
 
     infotravel = models.ManyToManyField(
         'travels.InfoTravel', verbose_name=_('여행장소 추가')
@@ -235,8 +240,13 @@ class TravelCurator(models.Model):
         return self.infotravel.count()
 
     @property
-    def tcimge_total(self):
+    def tcimage_totals(self):
         return TCImage.objects.filter(travelcurator_id=self.id)
+
+    @property
+    # get method 표현..
+    def like_count(self):
+        return self.like_travelcurator.count()
 
     class Meta:
         verbose_name = _('TripCurator')
@@ -245,6 +255,15 @@ class TravelCurator(models.Model):
 
     def __str__(self):
         return self.titleko
+
+class Liketc(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    travelcurator = models.ForeignKey(TravelCurator, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (('user', 'travelcurator'))
 
 class TCImage(models.Model):
     objects = models.Manager()
@@ -273,6 +292,7 @@ class TCImage(models.Model):
         db_table = 'tcimage'
 
 class TravelPlan(models.Model):
+    objects = models.Manager()
     city = models.ForeignKey(
         'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True
     )
@@ -287,6 +307,7 @@ class TravelPlan(models.Model):
     tagko = TaggableManager(_('태그(한국어)'))
     tageng = TaggableManager(_('태그(영어)'), through=SecondTaggedItem)
     tagven = TaggableManager(_('태그(베트남어)'), through=ThirdTaggedItem)
+    like_travelplan = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_travelplan', through='Liketp')
 
     # inline(장소) 생성한 개수 -> admin.py 에서 가시화..
     def inlinecount(self):
@@ -295,6 +316,15 @@ class TravelPlan(models.Model):
         return pointc.count()
     inlinecount.short_description = '장소'
 
+    @property
+    def poipoint_totals(self):
+        return POIpoint.objects.filter(travelplan_id=self.id)
+
+    @property
+    # get method 표현..
+    def like_count(self):
+        return self.like_travelplan.count()
+
     class Meta:
         verbose_name = _('TravelCourse')
         verbose_name_plural = _('TravelCourse')
@@ -302,6 +332,15 @@ class TravelPlan(models.Model):
 
     def __str__(self):
         return self.titleko
+
+class Liketp(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    travelplan = models.ForeignKey(TravelPlan, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (('user', 'travelplan'))
 
 class POIpoint(models.Model):
     travelplan = models.ForeignKey(

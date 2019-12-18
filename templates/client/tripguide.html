@@ -18,18 +18,18 @@
                 <a href="#" class="card-link text-dark" style="margin-left: 0px;">
                     <h5 class="card-title" style="margin:0 10px;">/</h5>
                 </a> -->
-                <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/0" class="card-link text-dark" style="margin-left: 0px;">
+                <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=1 %}" class="card-link text-dark" style="margin-left: 0px;">
                     <h5 class="card-title" style="margin-left: 40px;">Trip Guide</h5>
                 </a>
             </h1>
         </div>
         <div class="col-sm-4">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/1" class="card-link p-2 text-dark">먹다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/2" class="card-link p-2 text-dark">마시다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/3" class="card-link p-2 text-dark">놀다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/4" class="card-link p-2 text-dark">보다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/5" class="card-link p-2 text-dark">자다</a>
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguide/6" class="card-link p-2 text-dark">사다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=1 %}" class="card-link p-2 text-dark">먹다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=2 %}" class="card-link p-2 text-dark">마시다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=3 %}" class="card-link p-2 text-dark">놀다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=4 %}" class="card-link p-2 text-dark">보다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=5 %}" class="card-link p-2 text-dark">자다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=6 %}" class="card-link p-2 text-dark">사다</a>
         </div>
     </div>
 </div>
@@ -45,7 +45,8 @@
     {% for selected_itdetail in selected_itdetails %}
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="http://localhost:8000/citymain/{{ citydetails_id }}/tripguidedetail/{{ partnum }}/{{ selected_itdetail.id }}"> <img src="http://localhost:8000/media/{{ selected_itdetail.picture1 }}" alt=""> </a>
+            <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=selected_itdetail.id %}">
+                <img src="{{ selected_itdetail.picture1.url }}" alt=""> </a>
         </li>
         <li class="list-group-item">
             <span class="fa fa-heart" style="font-size:16px; float:right;">
@@ -67,124 +68,6 @@
     </ul>
     {% endfor %}
 </script>
-
-<!-- 로컬 images 폴더에 있는 이미지 가져오기 -->
-<!-- <script id=waterfall-template type=text/template>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/1.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/2.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/3.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/4.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>Awesome! I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/5.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>How about this? Awesome! I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="javascript:;"> <img src="{% static 'images/6.jpg' %}" /> </a>
-        </li>
-        <li class="list-group-item">
-            <button type="button" class="btn btn-default btn-xs" title="thumb up"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-            <button type="button" class="btn btn-default btn-xs" title="thumb down"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <button type="button" class="btn btn-default btn-xs pull-right" title="pin"><span class="glyphicon glyphicon-pushpin"></span></button>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-                <div class="media-left">
-                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                </div>
-                <div class="media-body">
-                    <h5 class="media-heading">Liber</h5> <small>I love this pin!I love this pin!</small> </div>
-            </div>
-        </li>
-    </ul>
-</script> -->
 
 
 <script>

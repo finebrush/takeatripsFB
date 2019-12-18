@@ -1,0 +1,191 @@
+{% extends 'client/tcbase.html' %}
+{% load static %}
+
+    {% block headers %}
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+    {% endblock %}
+
+    {% block contents %}
+    <div id="detailbase">
+        <!-- 대표 이미지 .. -->
+        {% for tcimage_total in travelcurator.tcimage_totals %}
+            <!-- 홀수에서 한줄 div 태그 -->
+            {% if forloop.counter|divisibleby:2 %}
+                
+            {% else %}
+                <!-- 맨 위줄만 padding-top 없애기 -->
+                {% if forloop.counter == 1 %}
+                    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
+                {% else %}
+                    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
+                {% endif %}
+            {% endif %}
+
+        
+            <div class="card bg-primary" style="max-height: 450px;">
+                <div class="card-body text-center p-0">
+                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ tcimage_total.tcimg.url }}" alt="Card image">
+                </div>
+            </div>
+
+            <!-- 짝수에서 한줄 div 태그 닫기 / 한줄에 두개 이미지 넣음.. -->
+            {% if forloop.counter|divisibleby:2 %}
+            </div>
+            {% else %}
+            
+            {% endif %}
+        
+        {% endfor %}
+
+    <!-- 소개정보 / 일반정보.. -->
+    <div class="card-deck p-5">
+        <div class="card" style="max-height: 450px; border:0px;">
+            <div class="card-body p-0">
+                <h1 style="font-weight:600; color:darkslategrey;"> 
+                    <h2 class="card-title" style="margin-bottom: 0px;">{{ travelcurator.titleko }}</h2>
+                    <small style="font-style:italic;"> 작성자 :</small>
+                    <small style="color:blue;font-style:italic;"> {{ travelcurator.writter }}</small>
+                </h1>
+                <!-- <hr style="border: solid 0.5px #969696b3;"> -->
+                <p class="card-text" style="margin-top: 15px;"> {{ travelcurator.introko }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 추천 장소 -->
+    <div class="card p-1">
+        <h5 class="card-title" style="padding: 1.5em; margin: 0 20;">추천 장소</h5>
+        <!-- 추천장소 Contents.. -->
+        {% for addedinfotravel in addedinfotravels %}
+            {% if forloop.counter == 1 or forloop.counter == 5 %}
+            <div class="card-deck p-5" style="padding-top: 0px!important;">
+                <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
+                    <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
+                        <a href="#layer2" class="btn-example">
+                            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
+                        </a>
+                        <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
+                            <h6 class="card-title" style="margin-bottom: 0px;">{{ addedinfotravel.companyko }}</h6>
+                            <p class="card-text" style="font-size: 0.8em; color:blue;margin-bottom: 0.6em;">{{ addedinfotravel.get_part_display }}</p>
+                            <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p>
+                        </div>
+                    </div>
+                </div> 
+            {% else %}
+                <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
+                    <div class="card-body text-center p-0">
+                        <a href="#layer2" class="btn-example"> <!-- 팝업창 띄우기-->
+                            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
+                        </a>
+                        <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
+                            <h6 class="card-title" style="margin-bottom: 0px;">{{ addedinfotravel.companyko }}</h6>
+                            <p class="card-text" style="font-size: 0.8em; color:blue;margin-bottom: 0.6em;">{{ addedinfotravel.get_part_display }}</p>
+                            <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p>
+                        </div>
+                    </div>
+                </div> 
+            {% endif %}
+        
+            {% if forloop.counter == 4 or forloop.counter == 8 %}
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div> <!-- End of 추전 장소 -->
+        
+
+    <!-- 유사한 여행 정보 보기 / django-waterfall 이미지 들어가는 부분.. -->
+    <div class="card p-5" style="padding-top: 0px!important;">
+        <h1 style="font-weight:600; color:darkslategrey;"> 
+            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
+        </h1>
+        <div class=container style="margin:0px; padding:0px; max-width:1920;">
+            <div class=waterfall> 
+            </div>
+        </div>
+    </div>
+    
+    <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+    <script id=waterfall-template type=text/template>
+        {% for searchlist in searchlists %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="javascript:itdetailpath('{{ searchlist.part }}', {{ citydetails_id }}, {{ searchlist.id }});"> <img src="{{ searchlist.picture1.url }}" alt=""> </a>
+            </li>
+            <li class="list-group-item">
+                <span class="fa fa-heart" style="font-size:16px; float:right;">
+                    <span>{{ searchlist.like_count }}</span>
+                </span>
+            </li>
+            <li class="list-group-item">
+                <div class="media">
+                    <!-- <div class="media-left">
+                        <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                    </div> -->
+                    <div class="media-body">
+                        <h5 class="media-heading">{{ searchlist.companyko }}</h5> 
+                        <small style="color:blue;">{{ searchlist.get_part_display }}</small><br>
+                        <small>{{ searchlist.introko|truncatewords:7 }}</small> 
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+    </script>   
+
+    </div>  <!-- end detailbase -->   
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue" style="background-color:#212529; margin-top:0px; ">
+        <div class="footer-copyright text-center py-3" style="color:white">© 2019 Copyright : 
+        <a href="#"> Take a Trips</a>
+        </div>
+    </footer>
+    <!-- Footer -->
+
+    <script type="text/javascript">
+        $('.waterfall')
+            .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+            .on('finishing.mystist.waterfall', function() {
+                setTimeout(function() { // simulate ajax
+                    $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                }, 2000);
+            })
+            .waterfall()
+
+        
+        // itdetail 클릭시 tripguidedetail 로 넘어가기..
+        function itdetailpath(part, citydetails_id, itdetail_id) {
+            switch(part){
+                case "Eat":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/1/"+itdetail_id;
+                    break;
+                case "Drink":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/2/"+itdetail_id;
+                    break;
+                case "Fun":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/3/"+itdetail_id;
+                    break;
+                case "See":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/4/"+itdetail_id;
+                    break;
+                case "Sleep":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/5/"+itdetail_id;
+                    break;
+                case "Buy":
+                    location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/6/"+itdetail_id;
+                    break;
+            }
+        }
+
+
+    </script>
+
+    {% endblock %}
+
+    {% block footers %}
+    {% endblock %}

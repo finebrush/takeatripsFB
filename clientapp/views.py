@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 import random
 
 from django.http import HttpResponse
-from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, TCImage, TravelPlan
+from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, TCImage, TravelPlan, POIpoint
 from backendapp.arcontent.models import ARTrip
 
 def chome(request):
@@ -82,35 +82,143 @@ def tripguide_like(request, citydetails_id, partnum, tripguide_id):
     
     return redirect('/citymain/'+str(citydetails_id)+'/tripguidedetail/'+str(partnum)+'/'+str(tripguide_id))
 
-def tripculator(request, citydetails_id):
+def tripcurator(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     travelcurators = TravelCurator.objects.filter(city_id=citydetails_id)
     
-    return render(request, 'client/tripculator.html', {'citydetails':citydetails, 'current_user': current_user,
+    return render(request, 'client/tripcurator.html', {'citydetails':citydetails, 'current_user': current_user,
                                     'travelcurators':travelcurators })
+
+def tripcuratordetail(request, citydetails_id, tripcurator_id):
+    citydetails = get_object_or_404(City, pk=citydetails_id)
+    current_user = request.user
+    travelcurators = TravelCurator.objects.filter(city_id=citydetails_id)
+    travelcurator = TravelCurator.objects.get(id=tripcurator_id)
+
+    # 제목으로 검색..
+    searchwords=travelcurator.titleko.split(' ')
+    searchlists = InfoTravel.objects.filter(tagko__name__in=searchwords).distinct()
+    # searchlist = ['문화', '연가'] # or 로 하나라도 포함된 걸 검색..
+    # print(InfoTravel.objects.filter(tagko__name__in=searchlist).distinct()) # .distinct() -> 중복 제거..
+
+    # 추천장소 리스트
+    addedinfotravels = travelcurator.infotravel.all() 
+
+    return render(request, 'client/tripcuratordetail.html', {'citydetails':citydetails, 'current_user': current_user,
+                                'travelcurator':travelcurator, 'travelcurators':travelcurators , 'addedinfotravels':addedinfotravels,
+                                'searchlists':searchlists })
+
+@login_required
+def tripcurator_like(request, citydetails_id, tripcurator_id):
+    post = get_object_or_404(TravelCurator, pk=tripcurator_id)
+    # 중간자 모델 Like 를 사용하며, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다..
+    post_liketc, post_liketc_created = post.liketc_set.get_or_create(user=request.user)
+
+    if not post_liketc_created:
+        post_liketc.delete()
+        return redirect('/citymain/'+str(citydetails_id)+'/tripcurator/'+str(tripcurator_id))
+    
+    return redirect('/citymain/'+str(citydetails_id)+'/tripcurator/'+str(tripcurator_id))
+
 
 def tripcourse(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
-    # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+    travelplans = TravelPlan.objects.filter(city_id=citydetails_id)
     
-    return render(request, 'client/tripcourse.html', {'citydetails':citydetails, 'current_user': current_user })
+    return render(request, 'client/tripcourse.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'travelplans':travelplans })
+
+def tripcoursedetail(request, citydetails_id, tripcourse_id):
+    citydetails = get_object_or_404(City, pk=citydetails_id)
+    current_user = request.user
+    travelplans = TravelPlan.objects.filter(city_id=citydetails_id)
+    travelplan = TravelPlan.objects.get(id=tripcourse_id)
+    
+    locations = []
+    for poipoint in travelplan.poipoint_totals:
+        point = []
+        point.append(poipoint.pnameko)
+        point.append(poipoint.point.x)
+        point.append(poipoint.point.y)
+
+        locations.append(point)
+
+    pictures = []
+    for poipoint in travelplan.poipoint_totals:
+        picture = []
+        picture.append(poipoint.picture1.name) # path 저장시 name 으로..
+        picture.append(poipoint.picture2.name)
+        picture.append(poipoint.picture3.name)
+        picture.append(poipoint.picture4.name)
+        # print(picture)
+        pictures.append(picture)
+    # print(pictures)
+
+    return render(request, 'client/tripcoursedetail.html', {'citydetails':citydetails, 'current_user': current_user,
+                                'travelplan':travelplan, 'travelplans':travelplans, 'locations':locations, 'pictures':pictures })
+
+@login_required
+def tripcourse_like(request, citydetails_id, tripcourse_id):
+    post = get_object_or_404(TravelPlan, pk=tripcourse_id)
+    # 중간자 모델 Like 를 사용하며, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다..
+    post_liketp, post_liketp_created = post.liketp_set.get_or_create(user=request.user)
+
+    if not post_liketp_created:
+        post_liketp.delete()
+        return redirect('/citymain/'+str(citydetails_id)+'/tripcourse/'+str(tripcourse_id))
+    
+    return redirect('/citymain/'+str(citydetails_id)+'/tripcourse/'+str(tripcourse_id))
 
 def gotocity(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
-    
-    return render(request, 'client/gotocity.html', {'citydetails':citydetails, 'current_user': current_user })
 
-def topbak(request, citydetails_id):
+    if citydetails_id == 1:
+        return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user })
+    elif citydetails_id == 2:
+        return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user })
+
+def topbak(request, citydetails_id, partnum):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+    itmusts = InfoTravel.objects.filter(typeit=1)
+    # print(itmusts)
+    eat_itmusts = itmusts.filter(part='Eat')
+    drink_itmusts = itmusts.filter(part='Drink')
+    fun_itmusts = itmusts.filter(part='Fun')
+    see_itmusts = itmusts.filter(part='See')
+    sleep_itmusts = itmusts.filter(part='Sleep')
+    buy_itmusts = itmusts.filter(part='Buy')
+
+    if partnum == 1:
+        selected_itmusts = eat_itmusts
+    elif partnum ==2:
+        selected_itmusts = drink_itmusts
+    elif partnum == 3:
+        selected_itmusts = fun_itmusts
+    elif partnum == 4:
+        selected_itmusts = see_itmusts
+    elif partnum == 5:
+        selected_itmusts = sleep_itmusts
+    elif partnum == 6:
+        selected_itmusts = buy_itmusts
+    elif partnum == 0:
+        selected_itmusts = itmusts
     
-    return render(request, 'client/topbak.html', {'citydetails':citydetails, 'current_user': current_user })
+    return render(request, 'client/topbak.html', {'citydetails':citydetails, 'current_user': current_user, 'selected_itmusts':selected_itmusts,
+                                'itmusts':itmusts, 'partnum':partnum })
     
+# def tophund(request, citydetails_id, partnum):
+#     citydetails = get_object_or_404(City, pk=citydetails_id)
+#     current_user = request.user
+#     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+     
+#     return render(request, 'client/topbak.html', {'citydetails':citydetails, 'current_user': current_user, 'partnum':partnum })
+
 
 # @login_required
 # def post_like(request, blog_id):

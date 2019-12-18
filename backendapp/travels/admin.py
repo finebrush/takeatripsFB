@@ -61,13 +61,13 @@ class POIpointInline(admin.StackedInline):
     }
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'titleko', 'titleeng', 'titleven', 'created', 'picture_tag', 'location')
+    list_display = ('nameko', 'titleko', 'titleeng', 'titleven', 'created', 'picture_tag', 'location')
     icon_name = 'location_city'
-    search_fields = ('name',)
+    search_fields = ('nameko',)
     list_per_page = 10
     # inlines = [InfoBasicInline, InfoTravelInline]
     fieldsets = [
-        ('기본 정보',   {'fields': ['name', 'created','titleko', 'titleeng', 'titleven']}),
+        ('기본 정보',   {'fields': ['gotocity', 'nameko', 'nameeng', 'nameven', 'created', 'logo', 'titleko', 'titleeng', 'titleven']}),
         ('대표 이미지',  {'fields': ['picture1', 'picture2', 'picture3', 'picture4']}),
         ('위치',       {'fields': ['location']}),
     ]
@@ -78,7 +78,7 @@ class CityAdmin(admin.ModelAdmin):
 
     # form 안에 이미지 나타내기..
     def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == 'picture1' or db_field.name == 'picture2' or db_field.name == 'picture3' or db_field.name == 'picture4':
+        if db_field.name == 'picture1' or db_field.name == 'picture2' or db_field.name == 'picture3' or db_field.name == 'picture4' or db_field.name == 'logo':
             kwargs.pop("request", None)
             kwargs['widget'] = AdminImageWidget
             return db_field.formfield(**kwargs)
