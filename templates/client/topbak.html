@@ -11,7 +11,7 @@
 <!-- django-waterfall 이미지 들어가는 부분.. -->
 <div class="container" style="margin-top: 80px; max-width:1920px;">
     <div class="row">
-        <div class="col-sm-8" style="display: flex;">
+        <div class="col-sm-7" style="display: flex;">
             <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
                 
                 <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=1 %}" class="card-link text-dark" style="margin-left: 0px;">
@@ -19,7 +19,7 @@
                 </a>
             </h1>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4" style="float: right;">
             <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=1 %}" class="card-link p-2 text-dark">먹다</a>
             <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=2 %}" class="card-link p-2 text-dark">마시다</a>
             <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=3 %}" class="card-link p-2 text-dark">놀다</a>
@@ -39,7 +39,7 @@
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for selected_itmust in selected_itmusts %}
-    <ul class="list-group">
+    <ul class="list-group" style="margin-bottom: 10px;">
         <li class="list-group-item">
             <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails.id partnum=partnum tripguide_id=selected_itmust.id %}"> 
                 <img src="{{ selected_itmust.picture1.url }}" alt=""> </a>

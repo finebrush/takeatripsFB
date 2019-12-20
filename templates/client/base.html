@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,6 +7,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="{% static 'css/slide.css' %}">
+      
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -17,25 +20,28 @@
   <body>
       <nav>
           <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style="border-radius:0px;">
-              <a class="navbar-brand" href="{%url 'clientapp:chome' %}" style="font-weight: 600; font-size:25px; color:orange; ">Take a Trips</a>
+              <a class="navbar-brand" href="{% url 'clientapp:chome' %}" style="font-weight: 600; font-size:25px; color:orange; ">Take a Trips</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <!-- 상단 좌측 메뉴 / 도시이름 -->
-                  <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'clientapp:citymain' citydetails.id %}"> 
-                      <img src="{{ citydetails.logo.url }}" style="width: 24px;" /> {{ citydetails.nameeng }} 
-                      <span class="sr-only">(current)</span>
-                    </a>
-                  </li>
+                
+                  {%if topmenuoff %}
+                    <!-- 상단 좌측 메뉴 / 도시이름 -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'clientapp:citymain' citydetails.id %}"> 
+                        <img src="{{ citydetails.logo.url }}" style="width: 24px;" /> {{ citydetails.nameeng }} 
+                        <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                  {% endif %}
                   
                   <!-- 상단 우측 메뉴 / 로그인,아웃 -->
                   {% if user.is_authenticated %}
                   <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
                   <li class="nav-item" style="position:absolute; top: 10px; right: 50px; display: flex;">
-                    <a class="nav-link" href="#"> {{ current_user }} </a>
+                    <a class="nav-link menu-button" href="#"> {{ current_user }} </a>
                     <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
                   </li>
                   {% else %}
@@ -52,6 +58,20 @@
           </nav>
       </nav>
 
+      <!-- slide menu -->
+      <ul class="menu-bar" style="padding: 20px;">
+          <div style="padding: 20px; font-weight: 600;"> My Trips </div>
+          <li><a href="#">Go to Seoul</a></li>
+          <li><a href="#">먹다</a></li>
+          <li><a href="#">마시다</a></li>
+          <li><a href="#">놀다</a></li>
+          <li><a href="#">보다</a></li>
+          <li><a href="#">자다</a></li>
+          <li><a href="#">사다</a></li>
+          <li><a href="#">보다</a></li>
+      </ul>
+
+
     {% block contents %}
     {% endblock %}
 
@@ -67,5 +87,17 @@
     </footer>
     {% endblock %}
     <!-- Footer -->
+
+
+    <script>
+
+      $(document).ready(function(){
+        $(".menu-button").click(function(){
+          $(".menu-bar").toggleClass( "open" );
+        })
+      })
+    
+    </script>
+
   </body>
 </html>

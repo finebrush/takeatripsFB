@@ -25,7 +25,7 @@
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <!-- <script id=waterfall-template type=text/template>
     {% for selected_itdetail in selected_itdetails %}
-    <ul class="list-group">
+    <ul class="list-group style="margin-bottom: 10px;"">
         <li class="list-group-item">
             <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=selected_itdetail.id %}"> 
                 <img src="{{ selected_itdetail.picture1.url }}" alt=""> </a>
@@ -51,7 +51,7 @@
 
 <!-- 로컬 images 폴더에 있는 이미지 가져오기 -->
 <script id=waterfall-template type=text/template>
-    <ul class="list-group">
+    <ul class="list-group style="margin-bottom: 10px;"">
         <li class="list-group-item">
             <a href="javascript:;"> <img src="{% static 'images/1.jpg' %}" /> </a>
         </li>

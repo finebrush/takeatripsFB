@@ -12,11 +12,13 @@ from backendapp.arcontent.models import ARTrip
 def chome(request):
     citys = City.objects.filter().order_by('id') # 순차적으로 불러오기..
     current_user = request.user
-    return render(request, 'client/cindex.html', {'citys': citys , 'current_user': current_user})
+    topmenuoff = False # 상단 메뉴가 display none..
+    return render(request, 'client/cindex.html', {'citys': citys , 'current_user': current_user, 'topmenuoff':topmenuoff})
 
 def citymain(request, city_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
+    topmenuoff = True
     itdetails = InfoTravel.objects.filter(city_id=city_id)
     artrips = ARTrip.objects.filter(share=True)
     arcontents = artrips.random(8)
@@ -31,11 +33,12 @@ def citymain(request, city_id):
     
     return render(request, 'client/citydetail.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
-            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail })
+            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff })
 
 def tripguide(request, citydetails_id, partnum):
     citydetails = City.objects.get(id=citydetails_id)
     current_user = request.user
+    topmenuoff = True
     itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     # print(city.name)
     eat_itdetails = itdetails.filter(part='Eat')
@@ -61,14 +64,14 @@ def tripguide(request, citydetails_id, partnum):
         selected_itdetails = itdetails
 
     return render(request, 'client/tripguide.html', {'citydetails':citydetails, 'current_user': current_user, 'citydetails_id':citydetails_id, 'partnum':partnum, 
-                            'selected_itdetails':selected_itdetails})
+                            'selected_itdetails':selected_itdetails, 'topmenuoff':topmenuoff })
 
 def tripguidedetail(request, citydetails_id, partnum, tripguide_id):
     itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     itdetail = InfoTravel.objects.get(id=tripguide_id)
     # print(itdetail.like_infotravel.all())
     return render(request, 'client/tripguidedetail.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'partnum':partnum, 
-                        'itdetail':itdetail})
+                        'itdetail':itdetail,})
 
 @login_required
 def tripguide_like(request, citydetails_id, partnum, tripguide_id):
@@ -85,10 +88,11 @@ def tripguide_like(request, citydetails_id, partnum, tripguide_id):
 def tripcurator(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
+    topmenuoff = True
     travelcurators = TravelCurator.objects.filter(city_id=citydetails_id)
     
     return render(request, 'client/tripcurator.html', {'citydetails':citydetails, 'current_user': current_user,
-                                    'travelcurators':travelcurators })
+                                    'travelcurators':travelcurators, 'topmenuoff':topmenuoff })
 
 def tripcuratordetail(request, citydetails_id, tripcurator_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
@@ -125,10 +129,11 @@ def tripcurator_like(request, citydetails_id, tripcurator_id):
 def tripcourse(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
+    topmenuoff = True
     travelplans = TravelPlan.objects.filter(city_id=citydetails_id)
     
     return render(request, 'client/tripcourse.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'travelplans':travelplans })
+                            'travelplans':travelplans, 'topmenuoff':topmenuoff })
 
 def tripcoursedetail(request, citydetails_id, tripcourse_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
@@ -174,16 +179,18 @@ def tripcourse_like(request, citydetails_id, tripcourse_id):
 def gotocity(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
+    topmenuoff = True
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
 
     if citydetails_id == 1:
-        return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user })
+        return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff })
     elif citydetails_id == 2:
-        return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user })
+        return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff })
 
 def topbak(request, citydetails_id, partnum):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
+    topmenuoff = True
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     itmusts = InfoTravel.objects.filter(typeit=1)
     # print(itmusts)
@@ -210,7 +217,7 @@ def topbak(request, citydetails_id, partnum):
         selected_itmusts = itmusts
     
     return render(request, 'client/topbak.html', {'citydetails':citydetails, 'current_user': current_user, 'selected_itmusts':selected_itmusts,
-                                'itmusts':itmusts, 'partnum':partnum })
+                                'itmusts':itmusts, 'partnum':partnum, 'topmenuoff':topmenuoff })
     
 # def tophund(request, citydetails_id, partnum):
 #     citydetails = get_object_or_404(City, pk=citydetails_id)

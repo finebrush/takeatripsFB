@@ -12,7 +12,7 @@
 <div class="card-deck p-4">
     <div class="card bg-primary" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture1.url }}" alt="Card image">
+            <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture1.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">광화문</h4>
             </div>
@@ -20,7 +20,7 @@
     </div>
     <div class="card bg-warning" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture2.url }}" alt="Card image">
+            <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture2.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">경복궁</h4>
             </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="card bg-success" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture3.url }}" alt="Card image">
+            <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture3.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">동대문디자인플라자</h4>
             </div>
@@ -36,7 +36,7 @@
     </div>
     <div class="card bg-danger" style="height: 220px;">
         <div class="card-body text-center p-0">
-            <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture4.url }}" alt="Card image">
+            <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture4.url }}" alt="Card image">
             <div class="card-img-overlay">
                 <h4 class="card-title">북악스카이웨이</h4>
             </div>
@@ -69,7 +69,7 @@
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=1 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                             <h4 class="card-title">먹다</h4>
@@ -81,7 +81,7 @@
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=2 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">마시다</h4>
@@ -93,7 +93,7 @@
     <div class="card bg-success" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=3 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">놀다</h4>
@@ -105,7 +105,7 @@
     <div class="card bg-danger" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=4 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ see_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ see_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">보다</h4>
@@ -121,7 +121,7 @@
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=5 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ sleep_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ sleep_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">자다</h4>
@@ -133,7 +133,7 @@
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=6 %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">사다</h4>
@@ -145,7 +145,7 @@
     <div class="card bg-success" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripcurator' citydetails.id %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture3.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture3.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">Trip Curator</h4>
@@ -157,7 +157,7 @@
     <div class="card bg-danger" style="height: 240px;">
         <div class="card-body text-center p-0">
             <a href="{% url 'clientapp:tripcourse' citydetails.id %}">
-                <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ citydetails.picture4.url }}" alt="Card image">
+                <img class="card-img-top" style="height: 100%;" src="{{ citydetails.picture4.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
                         <h4 class="card-title">Trip Course</h4>
@@ -176,10 +176,10 @@
 {% for arcontent in arcontents %}
     {% if forloop.counter == 1 or forloop.counter == 5 %}
     <div class="card-deck p-5" style="padding-top: 0px!important; padding-bottom: 0px!important;">
-        <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
+        <div class="card" style="border: 0px; height: 240px; margin-bottom: 60px;">
             <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
                 <a href="#layer2" class="btn-example">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ arcontent.picture.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: 100%;" src="{{ arcontent.picture.url }}" alt="Card image">
                 </a>
                 <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
                     <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
@@ -188,10 +188,10 @@
             </div>
         </div> 
     {% else %}
-        <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
+        <div class="card" style="border: 0px; height: 240px; margin-bottom: 60px;">
             <div class="card-body text-center p-0">
                 <a href="#layer2" class="btn-example"> <!-- 팝업창 띄우기-->
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ arcontent.picture.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: 100%;" src="{{ arcontent.picture.url }}" alt="Card image">
                 </a>
                 <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
                     <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
@@ -251,7 +251,7 @@
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for itdetail in itdetails %}
-    <ul class="list-group">
+    <ul class="list-group" style="margin-bottom: 10px;">
         <li class="list-group-item">
             <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
                 <img src="{{ itdetail.picture1.url }}" alt=""> </a>

@@ -132,14 +132,9 @@
 
     {% block contents %}
     <div id="detailbase">
-        
-    <!-- googlemap.. -->
-    <div id="map" style="height: 60%; width: 93%; left:40px; overflow:scroll; border:solid; border-width: thin;"></div>
-    <div id="msg"></div>
-
-
+     
     <!-- 소개정보 / 일반정보.. -->
-    <div class="card-deck p-5">
+    <div class="card-deck p-5" style="padding-top: 0px!important;">
         <div class="card" style="max-height: 450px; border:0px;">
             <div class="card-body p-0">
                 <h1 style="font-weight:600; color:darkslategrey;"> 
@@ -152,6 +147,11 @@
             </div>
         </div>
     </div>
+
+    <!-- googlemap.. -->
+    <div id="map" style="height: 60%; width: 93%; left:40px; overflow:scroll; border:solid; border-width: thin;"></div>
+    <div id="msg"></div>
+
 
 
     <!-- 추천 장소 -->
@@ -184,7 +184,7 @@
     <!-- DB 에서 tripcourse(TravelPlan) 가져오기... -->
     <script id=waterfall-template type=text/template>
         {% for travelplan in travelplans %}
-        <ul class="list-group">
+        <ul class="list-group" style="margin-bottom: 10px;">
             <li class="list-group-item">
                 <a href="{% url 'clientapp:tripcoursedetail' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}"> 
                     <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt=""> </a>

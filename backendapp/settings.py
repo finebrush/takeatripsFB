@@ -27,6 +27,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '.takeatrips.com',
     '15.164.63.68',
+    '11551124.ngrok.io'
 ]
 
 # Application definition

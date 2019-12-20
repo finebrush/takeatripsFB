@@ -26,7 +26,7 @@
 <!-- DB 에서 tripcurator(travelcurator) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for travelcurator in travelcurators %}
-    <ul class="list-group">
+    <ul class="list-group" style="margin-bottom: 10px;">
         <li class="list-group-item">
             <a href="{% url 'clientapp:tripcuratordetail' citydetails_id=citydetails.id tripcurator_id=travelcurator.id %}"> 
                 <img src="{{ travelcurator.tcimage_totals.first.tcimg.url }}" alt=""> </a>

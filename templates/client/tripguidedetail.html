@@ -5,6 +5,8 @@
         <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
         <link rel=stylesheet href="{% static 'css/youtubesearch.css' %}">
+        <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
+
         <script src="{% static 'js/youtubesearch.js' %}"></script>
 
         <style>
@@ -65,23 +67,154 @@
     {% endblock %}
 
     {% block contents %}
+        
     <div id="detailbase">
         <!-- 대표 이미지 .. -->
-        {% if itdetail.picture1 %}
+        
+        <section class="gallery" style="margin: 0 50;">
+            <div class="imgcontainer">
+                <div class="grid">
+                    {% if itdetail.picture1 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p1">
+                                <img class="pict" src="{{ itdetail.picture1.url }}" id="picture1" />
+                            </a>
+                        <!-- <figcaption class="img-content">
+                            <h2 class="title">Smart Watch</h2>
+                            <h3 class="category">Showcase</h3>
+                        </figcaption>
+                        <span class="img-content-hover">
+                            <h2 class="title">Smart Watch</h2>
+                            <h3 class="category">Showcase</h3>
+                        </span> -->
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture2 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p2">
+                                <img class="pict" src="{{ itdetail.picture2.url }}" id="picture2" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture3 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p3">
+                                <img class="pict" src="{{ itdetail.picture3.url }}" id="picture3" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture4 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p4">
+                                <img class="pict" src="{{ itdetail.picture4.url }}" id="picture4" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture5 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p5">
+                                <img class="pict" src="{{ itdetail.picture5.url }}" id="picture5" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture6 %}
+                    <div class="column-xs-12 column-md-4">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p6">
+                                <img class="pict" src="{{ itdetail.picture6.url }}" id="picture6" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture7 %}
+                    <div class="column-xs-12 column-md-6">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p7">
+                                <img class="pict" src="{{ itdetail.picture7.url }}" id="picture7" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture8 %}
+                    <div class="column-xs-12 column-md-6">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p8">
+                                <img class="pict" src="{{ itdetail.picture8.url }}" id="picture8" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture9 %}
+                    <div class="column-xs-12">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p9">
+                                <img class="pict" src="{{ itdetail.picture9.url }}" id="picture9" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                    {% if itdetail.picture10 %}
+                    <div class="column-xs-12">
+                        <figure class="img-container">
+                            <a href="#layer2" class="btn-example" id="p10">
+                                <img class="pict" src="{{ itdetail.picture10.url }}" id="picture10" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- 팝업창 띄우기 -->
+        <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+        <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer" style="width: auto; height: inherit;">
+                <div class="pop-container" style="height: 100%;">
+                    <div class="pop-conts">
+                        <!--content //-->
+                        <a href="#" class="layerClose">
+                            <img src="{{ itdetail.picture1.url }}" style="height: 100%; width: auto;" id="picture" />
+                        </a>
+                        <!--// content-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- {% if itdetail.picture1 %}
         <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-            <div class="card bg-primary" style="max-height: 450px;">
+            <div class="card bg-primary">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture1.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture1.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture2 %}
-                <div class="card bg-warning" style="max-height: 450px;">
+            <div class="card bg-primary">
+                <div class="card-body text-center p-0">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture2.url }}" alt="Card image">
+                </div>
+            </div>
+            {% endif %}
+            {% if itdetail.picture3 %}
+                <div class="card bg-warning">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture2.url }}" alt="Card image">
+                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture3.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
-                <div class="card" style="max-height: 450px; border: 0px;">
+                <div class="card" style="border: 0px;">
                     <div class="card-body text-center p-0">
                     </div>
                 </div>
@@ -89,43 +222,28 @@
         </div>
         {% endif %}
            
-        {% if itdetail.picture3 %}
+        {% if itdetail.picture4 %}
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success" style="max-height: 450px;">
+            <div class="card bg-success">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture3.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture4.url }}" alt="Card image">
                 </div>
             </div>
-            {% if itdetail.picture4 %}
-                <div class="card bg-danger" style="max-height: 450px;">
-                    <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture4.url }}" alt="Card image">
-                    </div>
+            {% if itdetail.picture5 %}
+            <div class="card bg-success">
+                <div class="card-body text-center p-0">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture5.url }}" alt="Card image">
                 </div>
-            {% else %}
-                <div class="card" style="max-height: 450px; border: 0px;">
-                    <div class="card-body text-center p-0">
-                    </div>
-                </div>
+            </div>
             {% endif %}
-        </div>
-        {% endif %}
-
-        {% if itdetail.picture5 %}
-        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success" style="max-height: 450px;">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture5.url }}" alt="Card image">
-                </div>
-            </div>
             {% if itdetail.picture6 %}
-                <div class="card bg-danger" style="max-height: 450px;">
+                <div class="card bg-danger">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture6.url }}" alt="Card image">
+                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture6.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
-                <div class="card" style="max-height: 450px; border: 0px;">
+                <div class="card" style="border: 0px;">
                     <div class="card-body text-center p-0">
                     </div>
                 </div>
@@ -135,77 +253,32 @@
 
         {% if itdetail.picture7 %}
         <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success" style="max-height: 450px;">
+            <div class="card bg-success">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture7.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture7.url }}" alt="Card image">
                 </div>
             </div>
             {% if itdetail.picture8 %}
-                <div class="card bg-danger" style="max-height: 450px;">
-                    <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture8.url }}" alt="Card image">
-                    </div>
-                </div>
-            {% else %}
-                <div class="card" style="max-height: 450px; border: 0px;">
-                    <div class="card-body text-center p-0">
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        
-        {% if itdetail.picture9 %}
-        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success" style="max-height: 450px;">
+            <div class="card bg-success">
                 <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture9.url }}" alt="Card image">
+                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture8.url }}" alt="Card image">
                 </div>
             </div>
-            {% if itdetail.picture10 %}
-                <div class="card bg-danger" style="max-height: 450px;">
+            {% endif %}
+            {% if itdetail.picture9 %}
+                <div class="card bg-danger">
                     <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: -webkit-fill-available;" src="{{ itdetail.picture10.url }}" alt="Card image">
+                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture9.url }}" alt="Card image">
                     </div>
                 </div>
             {% else %}
-                <div class="card" style="max-height: 450px; border: 0px;">
+                <div class="card" style="border: 0px;">
                     <div class="card-body text-center p-0">
                     </div>
                 </div>
             {% endif %}
         </div>
-        {% endif %}
-
-    <!-- 소개정보 / 일반정보.. -->
-    <div class="card-deck p-5">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">소개정보</h5>
-                </h1>
-                <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> {{ itdetail.introko }}</p>
-            </div>
-        </div>
-        
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">일반정보</h5>
-                </h1>
-                <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> {{ itdetail.addressko }}</p>
-                <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> 대표메뉴 : </p>
-                <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> 운영시간 : </p>
-                <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> {{ itdetail.trafficko }}</p>
-                <hr style="border: solid 0.5px #969696b3;">
-            </div>
-        </div>
-    </div>
+        {% endif %} -->
 
 
     <!-- django-waterfall 이미지 들어가는 부분.. -->
@@ -222,7 +295,7 @@
     <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
     <script id=waterfall-template type=text/template>
         {% for itdetail in itdetails %}
-        <ul class="list-group">
+        <ul class="list-group" style="margin-bottom: 10px;">
             <li class="list-group-item">
                 <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="{{ itdetail.picture1.url }}" alt=""> </a>
             </li>
@@ -253,7 +326,7 @@
 
     <!-- googlemap.. -->
     <div id="map" style="height: 80%;"></div>
-    <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:scroll;">
+    <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:hidden;">
         <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
         <p> {{ itdetail.get_part_display }}</p>
     </div>
@@ -293,9 +366,10 @@
         <div class="container-fluid" id="results">               
             
         </div> <!-- ENd of container fluid -->
+
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">    <div id="btn-cnt"></div> </div>
+                <div class="col-sm-12"><div id="btn-cnt"></div> </div>
             </div>
         </div>
         </div> <!-- End of content -->
@@ -365,6 +439,104 @@
             infoWindow.setPosition(uluru);
             // infoWindow.setContent("{{ itdetail.companyko }}");
             infoWindow.open(map);
+        }
+
+        // 이미지 갤러리의 마우스 포인트에 따라 다니는 캡션..
+        // const imgContent = document.querySelectorAll('.img-content-hover');
+
+        // function showImgContent(e) {
+        // for(var i = 0; i < imgContent.length; i++) {
+        //     imgContent[i].style.left = e.pageX + 'px';
+        //     imgContent[i].style.top = e.pageY + 'px';
+        // }
+        // };
+
+        // document.addEventListener('mousemove', showImgContent);
+
+
+        // 팝업창 띄우기..
+        $('.btn-example').click(function(){
+            var $href = $(this).attr('href');
+            layer_popup($href);
+
+            // 클릭한 이미지를 새창으로 띄운다..
+            var $id = $(this).attr('id');
+            // console.log($id);
+            switch($id){
+                case 'p1':
+                    var $picture = $(document.getElementById('picture1')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p2':
+                    var $picture = $(document.getElementById('picture2')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p3':
+                    var $picture = $(document.getElementById('picture3')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p4':
+                    var $picture = $(document.getElementById('picture4')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p5':
+                    var $picture = $(document.getElementById('picture5')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p6':
+                    var $picture = $(document.getElementById('picture6')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p7':
+                    var $picture = $(document.getElementById('picture7')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p8':
+                    var $picture = $(document.getElementById('picture8')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p9':
+                    var $picture = $(document.getElementById('picture9')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+                case 'p10':
+                    var $picture = $(document.getElementById('picture10')).attr('src');
+                    $(document.getElementById('picture')).attr('src', $picture);
+                    break;
+
+            }
+        });
+
+        function layer_popup(el){
+            var $el = $(el);        //레이어의 id를 $el 변수에 저장
+            var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+            
+            isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+            var $elWidth = ~~($el.outerWidth()),
+                $elHeight = ~~($el.outerHeight()),
+                docWidth = $(document).width(),
+                docHeight = $(document).height();
+
+            // 화면의 중앙에 레이어를 띄운다.
+            if ($elHeight < docHeight || $elWidth < docWidth) {
+                $el.css({
+                    marginTop: -$elHeight /2,
+                    marginLeft: -$elWidth/2
+                })
+            } else {
+                $el.css({top: 0, left: 0});
+            }
+
+            $el.find('a.layerClose').click(function(){
+                isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                return false;
+            });
+
+            $('.dimBg').click(function(){
+                $('.dim-layer').fadeOut();
+                return false;
+            });
         }
 
     </script>
