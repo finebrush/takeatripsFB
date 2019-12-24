@@ -6,7 +6,7 @@
         <div class="card-body">
             <span class="card-link p-2" style="color:blue;">Trips</span>
             <a href="{% url 'clientapp:gotocity' citydetails.id %}" class="card-link p-2 text-dark">Go to {{ citydetails.nameeng }}</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=1 %}" class="card-link p-2 text-dark">Top 100</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}" class="card-link p-2 text-dark">Top 100</a>
         </div>
     </div>
 

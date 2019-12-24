@@ -18,18 +18,18 @@
                 <a href="#" class="card-link text-dark" style="margin-left: 0px;">
                     <h5 class="card-title" style="margin:0 10px;">/</h5>
                 </a> -->
-                <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=1 %}" class="card-link text-dark" style="margin-left: 0px;">
+                <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}" class="card-link text-dark" style="margin-left: 0px;">
                     <h5 class="card-title" style="margin-left: 40px;">Trip Guide</h5>
                 </a>
             </h1>
         </div>
         <div class="col-sm-4" style="float: right;">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=1 %}" class="card-link p-2 text-dark">먹다</a>
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=2 %}" class="card-link p-2 text-dark">마시다</a>
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=3 %}" class="card-link p-2 text-dark">놀다</a>
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=4 %}" class="card-link p-2 text-dark">보다</a>
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=5 %}" class="card-link p-2 text-dark">자다</a>
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=6 %}" class="card-link p-2 text-dark">사다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}" class="card-link p-2 text-dark">먹다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}" class="card-link p-2 text-dark">마시다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}" class="card-link p-2 text-dark">놀다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}" class="card-link p-2 text-dark">보다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}" class="card-link p-2 text-dark">자다</a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}" class="card-link p-2 text-dark">사다</a>
         </div>
     </div>
 </div>

@@ -68,7 +68,7 @@
     
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=1 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Eat' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -80,7 +80,7 @@
     </div>
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=2 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Drink' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -92,7 +92,7 @@
     </div>
     <div class="card bg-success" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=3 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Fun' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -104,7 +104,7 @@
     </div>
     <div class="card bg-danger" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=4 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='See' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ see_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -120,7 +120,7 @@
 <div class="card-deck p-5">
     <div class="card bg-primary" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=5 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Sleep' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ sleep_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -132,7 +132,7 @@
     </div>
     <div class="card bg-warning" style="height: 240px;">
         <div class="card-body text-center p-0">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum=6 %}">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Buy' %}">
                 <img class="card-img-top" style="height: 100%;" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
                 <div class="card-img-overlay" style="top:50%; height:50%; margin-top:-5%; padding:0px;">
                     <div style="background-color:#00000080; color:white;">
@@ -294,22 +294,22 @@
     function itdetailpath(part, citydetails_id, itdetail_id) {
         switch(part){
             case "Eat":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/1/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Eat/"+itdetail_id;
                 break;
             case "Drink":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/2/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Drink/"+itdetail_id;
                 break;
             case "Fun":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/3/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Fun/"+itdetail_id;
                 break;
             case "See":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/4/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/See/"+itdetail_id;
                 break;
             case "Sleep":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/5/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Sleep/"+itdetail_id;
                 break;
             case "Buy":
-                location.href = "http://localhost:8000/citymain/"+citydetails_id+"/tripguidedetail/6/"+itdetail_id;
+                location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Buy/"+itdetail_id;
                 break;
         }
     }

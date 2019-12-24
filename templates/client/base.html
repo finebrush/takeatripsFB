@@ -13,6 +13,148 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+      <style>
+        /* search */
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+        .searchbase {
+          width: 100%;
+          position: relative;
+          display: flex;
+        }
+
+        .searchTerm {
+          width: 100%;
+          border: 3px solid #4e595a;
+          border-right: none;
+          padding: 5px;
+          height: 30px;
+          border-radius: 5px 0 0 5px;
+          outline: none;
+          color: #9DBFAF;
+        }
+
+        .searchTerm:focus{
+          color: #00B4CC;
+        }
+
+        .searchButton {
+          width: 40px;
+          height: 30px;
+          border: 1px solid #4e595a;
+          background: #4e595a;
+          text-align: center;
+          color: #fff;
+          border-radius: 0 5px 5px 0;
+          cursor: pointer;
+          font-size: 20px;
+          display: inline-grid;
+        }
+
+        /*Resize the wrap to see the search bar change!*/
+        .wrapsh{
+          width: 500px;
+          position: relative;
+          /* top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); */
+          padding: 6px;
+        }
+
+
+        input {
+          outline: none;
+        }
+        #demo-1 input[type=search] {
+          -webkit-appearance: textfield;
+          -webkit-box-sizing: content-box;
+          font-family: inherit;
+          font-size: 100%;
+          height: 16px;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+          display: none; 
+        }
+        #demo-1 input[type=search] {
+          background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+          border: solid 1px #ccc;
+          padding: 9px 10px 9px 32px;
+          width: 50px;
+          
+          -webkit-border-radius: 10em;
+          -moz-border-radius: 10em;
+          border-radius: 10em;
+          
+          -webkit-transition: all .5s;
+          -moz-transition: all .5s;
+          transition: all .5s;
+        }
+        #demo-1 input[type=search]:focus {
+          width: 200px;
+          background-color: #fff;
+          border-color: #66CC75;
+          
+          -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+          -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+          box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+        #demo-1 input:-moz-placeholder {
+          color: #999;
+        }
+        #demo-1 input::-webkit-input-placeholder {
+          color: #999;
+        }
+
+        /* Demo 2 */
+        #demo-2 input[type=search] {
+          -webkit-appearance: textfield;
+          -webkit-box-sizing: content-box;
+          font-family: inherit;
+          font-size: 100%;
+        }
+        input::-webkit-search-decoration,
+        input::-webkit-search-cancel-button {
+          display: none; 
+        }
+        #demo-2 input[type=search] {
+          background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+          border: solid 1px #ccc;
+          padding: 9px 10px 9px 32px;
+          width: 55px;
+          
+          -webkit-border-radius: 10em;
+          -moz-border-radius: 10em;
+          border-radius: 10em;
+          
+          -webkit-transition: all .5s;
+          -moz-transition: all .5s;
+          transition: all .5s;
+        }
+
+        #demo-2 input[type=search] {
+          width: 15px;
+          padding-left: 10px;
+          color: transparent;
+          cursor: pointer;
+        }
+        #demo-2 input[type=search]:hover {
+          background-color: #fff;
+        }
+        #demo-2 input[type=search]:focus {
+          width: 130px;
+          padding-left: 32px;
+          color: #000;
+          background-color: #fff;
+          cursor: auto;
+        }
+        #demo-2 input:-moz-placeholder {
+          color: transparent;
+        }
+        #demo-2 input::-webkit-input-placeholder {
+          color: transparent;
+        }
+      </style>
       {% block headers %}
       {% endblock %}
 
@@ -29,19 +171,41 @@
                 
                   {%if topmenuoff %}
                     <!-- 상단 좌측 메뉴 / 도시이름 -->
-                    <li class="nav-item active">
+                    <li class="nav-item active" style="padding: 3px;">
                         <a class="nav-link" href="{% url 'clientapp:citymain' citydetails.id %}"> 
                         <img src="{{ citydetails.logo.url }}" style="width: 24px;" /> {{ citydetails.nameeng }} 
                         <span class="sr-only">(current)</span>
                         </a>
                     </li>
+
+                    <!-- searching bar -->
+                    <!-- <div class="wrapsh">
+                      <div class="searchbase">
+                         <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                         <button type="submit" class="searchButton">
+                           <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                   </div> -->
+                   <div style="position: relative; padding: 6px;">
+                    <form id="demo-1" method="POST" action="{% url 'clientapp:searchlist' citydetails.id %}">
+                      {% csrf_token %}
+                      <input type="search" name="srhwd" placeholder="Search Tag">
+                    </form>
+                  </div>
+                    <!-- <form id="demo-2">
+                      <input type="search" placeholder="Search">
+                    </form>  -->
+
                   {% endif %}
                   
                   <!-- 상단 우측 메뉴 / 로그인,아웃 -->
                   {% if user.is_authenticated %}
                   <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
                   <li class="nav-item" style="position:absolute; top: 10px; right: 50px; display: flex;">
-                    <a class="nav-link menu-button" href="#"> {{ current_user }} </a>
+                  
+                      <a class="nav-link menu-button" style="cursor: pointer;"> {{ current_user }} </a>
+                      
                     <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
                   </li>
                   {% else %}
@@ -59,16 +223,37 @@
       </nav>
 
       <!-- slide menu -->
-      <ul class="menu-bar" style="padding: 20px;">
-          <div style="padding: 20px; font-weight: 600;"> My Trips </div>
-          <li><a href="#">Go to Seoul</a></li>
-          <li><a href="#">먹다</a></li>
-          <li><a href="#">마시다</a></li>
-          <li><a href="#">놀다</a></li>
-          <li><a href="#">보다</a></li>
-          <li><a href="#">자다</a></li>
-          <li><a href="#">사다</a></li>
-          <li><a href="#">보다</a></li>
+      <ul class="menu-bar" style="padding: 20px; overflow: scroll;">
+          <div style="padding: 10px; font-weight: 600;"> My Trips </div>
+          <!-- <li><a href="#">Go to Seoul</a></li> -->
+          <!-- <li><a class='menu-buttonin' style='cursor: pointer;'> <div style='font-weight: 600;'>먹다</div> </a></li> -->
+          <li><a style="cursor: pointer;" id="it_eat" onclick=openEat()> <div style='font-weight: 600;'>먹다</div> </a></li>
+          <li><a style="cursor: pointer;" id="it_drink" onclick=openDrink()><div style='font-weight: 600;'>마시다</div></a></li>
+          <li><a style="cursor: pointer;" id="it_fun" onclick=openFun()>  <div style='font-weight: 600;'>놀다</div></a></li>
+          <li><a style="cursor: pointer;" id="it_see" onclick=openSee()>  <div style='font-weight: 600;'>보다</div></a></li>
+          <li><a style="cursor: pointer;" id="it_sleep" onclick=openSleep()><div style='font-weight: 600;'>자다</div></a></li>
+          <li><a style="cursor: pointer;" id="it_buy" onclick=openBuy()>  <div style='font-weight: 600;'>사다</div></a></li>
+      </ul>
+
+      <!-- Eat slide in slide -->
+      <ul class="menu-barin" id="menu-eat" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeEat()> My Trips </a> > 먹다 </div>
+      </ul>
+      <!-- Eat slide in slide -->
+      <ul class="menu-barin" id="menu-drink" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeDrink()> My Trips </a> > 마시다 </div>
+      </ul>
+      <ul class="menu-barin" id="menu-fun" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeFun()> My Trips </a> > 놀다 </div>
+      </ul>
+      <ul class="menu-barin" id="menu-see" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeSee()> My Trips </a> > 보다 </div>
+      </ul>
+      <ul class="menu-barin" id="menu-sleep" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeSleep()> My Trips </a> > 자다 </div>
+      </ul>
+      <ul class="menu-barin" id="menu-buy" style="padding: 20px; overflow: scroll; z-index: 99;">
+          <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeBuy()> My Trips </a> > 사다 </div>
       </ul>
 
 
@@ -91,12 +276,120 @@
 
     <script>
 
+      var city_id; 
+      city_id = {{ citydetails.id }};
+
+      $.ajax({ 
+                type:"GET", 
+                url: "{% url 'clientapp:userlike' %}", 
+                dataType: 'json',
+                data:{ 
+                  city_id: city_id
+                }, 
+                success: function( data ) 
+                { 
+                  // 방법 1..
+                  // console.log(data.Eat); // Eat 개수
+                  // var sr_eat = data.serialized_eat; // eat 문자열 가져옴
+                  // var srj = '{"sr_eat":'+sr_eat+'}';    // Json 구조 로 만듬
+                  // var obj = JSON.parse(srj);    // json 파싱 함
+                  // for(i = 0; i < data.Eat; i++){
+                  //   console.log(obj.sr_eat[i].fields.infotravel); //첫번째 Eat 의 infotravel ID
+                  // }
+                  
+                  // 방법 2..
+                  console.log(data);
+                  document.getElementById("it_eat").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Eat.length + " 개</div>";
+                  document.getElementById("it_drink").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Drink.length + " 개</div>";
+                  document.getElementById("it_fun").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Fun.length + " 개</div>";
+                  document.getElementById("it_see").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.See.length + " 개</div>";
+                  document.getElementById("it_sleep").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Sleep.length + " 개</div>";
+                  document.getElementById("it_buy").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Buy.length + " 개</div>";
+                  
+                  // menu-eat..
+                  for(i = 0; i < data.Eat.length; i++){
+                    document.getElementById("menu-eat").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/Eat/"+data.Eat[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.Eat[i].companyko + "</div></a></li>"
+                  }
+                  // menu-drink..
+                  for(i = 0; i < data.Drink.length; i++){
+                    document.getElementById("menu-drink").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/Drink/"+data.Drink[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.Drink[i].companyko + "</div></a></li>"
+                  }
+                  // menu-fun..
+                  for(i = 0; i < data.Fun.length; i++){
+                    document.getElementById("menu-fun").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/Fun/"+data.Fun[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.Fun[i].companyko + "</div></a></li>"
+                  }
+                  // menu-see..
+                  for(i = 0; i < data.See.length; i++){
+                    document.getElementById("menu-see").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/See/"+data.See[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.See[i].companyko + "</div></a></li>"
+                  }
+                  // menu-sleep..
+                  for(i = 0; i < data.Sleep.length; i++){
+                    document.getElementById("menu-sleep").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/Sleep/"+data.Sleep[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.Sleep[i].companyko + "</div></a></li>"
+                  }
+                  // menu-buy..
+                  for(i = 0; i < data.Buy.length; i++){
+                    document.getElementById("menu-buy").innerHTML += "<li><a href='/citymain/"+city_id+"/tripguidedetail/Buy/"+data.Buy[i].id+"/'><div style='font-weight: 600;'>" +
+                                                                  data.Buy[i].companyko + "</div></a></li>"
+                  }
+
+                } 
+      })
+
       $(document).ready(function(){
+        // mytrips slide menu..
         $(".menu-button").click(function(){
           $(".menu-bar").toggleClass( "open" );
-        })
+
+        });
       })
-    
+      // mytrips > 먹다..
+      function openEat() {
+        $('#menu-eat').addClass( "open" );
+      }
+      function closeEat() {
+        $('#menu-eat').removeClass( "open" );
+      }
+      // mytrips > 마시다..
+      function openDrink() {
+        $('#menu-drink').addClass( "open" );
+      }
+      function closeDrink() {
+        $('#menu-drink').removeClass( "open" );
+      }
+      // mytrips > 놀다..
+      function openFun() {
+        $('#menu-fun').addClass( "open" );
+      }
+      function closeFun() {
+        $('#menu-fun').removeClass( "open" );
+      }
+      // mytrips > 보다..
+      function openSee() {
+        $('#menu-see').addClass( "open" );
+      }
+      function closeSee() {
+        $('#menu-see').removeClass( "open" );
+      }
+      // mytrips > 자다..
+      function openSleep() {
+        $('#menu-sleep').addClass( "open" );
+      }
+      function closeSleep() {
+        $('#menu-sleep').removeClass( "open" );
+      }
+      // mytrips > 사다..
+      function openBuy() {
+        $('#menu-buy').addClass( "open" );
+      }
+      function closeBuy() {
+        $('#menu-buy').removeClass( "open" );
+      }
+      
     </script>
 
   </body>

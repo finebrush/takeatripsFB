@@ -1,5 +1,5 @@
 
-.menu, .menu-bar {
+.menu, .menu-bar, .menu-barin {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -54,6 +54,7 @@
   content: "\f039";
 }
 .menu-bar li a:hover,
+.menu-barin li a:hover,
 .menu li a:hover,
 .menu li:first-child a {
   background: #267fdd;
@@ -62,16 +63,42 @@
 .menu-bar{
     overflow:hidden;
     /* left:5em; */
+    right:-25em;
     z-index:5;
-    width:0;
-    height:0;
-    transition: all 0.1s ease-in-out;
+    width:25em;
+    height:100%;
+    top:60px;
+    transition: all 0.2s ease-in-out;
+}
+.menu-barin{
+  overflow:hidden;
+  /* left:5em; */
+  right:-25em;
+  z-index:5;
+  width:25em;
+  height:100%;
+  top:60px;
+  transition: all 0.2s ease-in-out;
 }
 .menu-bar li a{
+  padding: 10px;
   display: block;
-  height: 4em;
-  line-height: 4em;
-  text-align:center;
+  /* height: 4em; */
+  line-height: 2em;
+  /* text-align:center; */
+  color: #72739f;
+  text-decoration:none;  
+  position: relative;
+  font-family:verdana;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.1s ease-in-out;
+}
+.menu-barin li a{
+  padding: 10px;
+  display: block;
+  /* height: 4em; */
+  line-height: 2em;
+  /* text-align:center; */
   color: #72739f;
   text-decoration:none;  
   position: relative;
@@ -84,6 +111,12 @@
     background: #267fdd;
     color: #fff;    
     line-height:5
+}
+.menu-barin li:first-child a{
+  height:5em;
+  background: #267fdd;
+  color: #fff;    
+  line-height:5
 }
 
 
@@ -98,6 +131,7 @@
     width:20em;
     height:100%;
     top:60px;
+    right:0em;
 }
 
 @media all and (max-width: 500px) {
@@ -114,11 +148,20 @@
     .menu-bar li a{
         width:100%;
     }
+    .menu-barin li a{
+      width:100%;
+    }
     .menu-bar{
         width:100%;
         left:0;
       bottom: 0;
         height:0;
+    }
+    .menu-barin{
+      width:100%;
+      left:0;
+    bottom: 0;
+      height:0;
     }
     .open{
         width:100%;
@@ -133,9 +176,13 @@
   .menu-bar {
     font-size:70%;
   }
+  .menu-barin {
+    font-size:70%;
+  }
 }
 @media screen and (max-height: 34em) and (max-width: 500px){
   .menu{
         height:3.5em;
     }
 }
+

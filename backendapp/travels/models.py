@@ -162,6 +162,7 @@ class InfoTravel(models.Model):
         return self.companyko
 
 class Likeit(models.Model):
+    objects = models.Manager()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     infotravel = models.ForeignKey(InfoTravel, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
