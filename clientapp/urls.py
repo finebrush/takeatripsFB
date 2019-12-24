@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('citymain/<int:citydetails_id>/search/', views.searchlist, name='searchlist'),
     path('citymain/userlike/', views.userlike, name='userlike'),
+    path('citymain/userlike/del', views.userlike_del, name='userlike_del'),
 
     # url(r'^post_like_toggle/<int:post_id>/$', views.post_like_toggle, name="post_like_toggle"),
     # url(r'^$', TemplateView.as_view(template_name='client/cintro.html'), name='cbase'),

@@ -9,7 +9,7 @@ from django.core import serializers
 import random
 
 from django.http import HttpResponse
-from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, TCImage, TravelPlan, POIpoint
+from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, TCImage, TravelPlan, Liketp, POIpoint
 from backendapp.arcontent.models import ARTrip
 
 def chome(request):
@@ -196,7 +196,7 @@ def topbak(request, citydetails_id, partnum):
     current_user = request.user
     topmenuoff = True
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
-    itmusts = InfoTravel.objects.filter(typeit=1)
+    itmusts = InfoTravel.objects.filter(typeit=1) # tripguide 중 must 인것..
     # print(itmusts)
     eat_itmusts = itmusts.filter(part='Eat')
     drink_itmusts = itmusts.filter(part='Drink')
@@ -263,39 +263,46 @@ def userlike(request):
     if request.method == 'GET':
         citydetails_id = request.GET['city_id']
         
-        citylikes = Likeit.objects.filter(infotravel__city_id=citydetails_id) # 해당 도시의 likes
-        userlikes = citylikes.filter(user=request.user)# 해당 도시의 likes 중 user의 likes
+        # infotravel likes..
+        itcitylikes = Likeit.objects.filter(infotravel__city_id=citydetails_id) # 해당 도시의 likes
+        userlikes = itcitylikes.filter(user=request.user)# 해당 도시의 likes 중 user의 likes
+        # travelcurator likes..
+        tccitylikes = Liketc.objects.filter(travelcurator__city_id=citydetails_id) 
+        tcuserlikes = tccitylikes.filter(user=request.user)
+        # travelplan likes..
+        tpcitylikes = Liketp.objects.filter(travelplan__city_id=citydetails_id) 
+        tpuserlikes = tpcitylikes.filter(user=request.user)
 
         # 방법 1..
-        userlikes_eat = userlikes.filter(infotravel__part='Eat')
-        serialized_eat = serializers.serialize('json', userlikes_eat)
-        response_data['Eat'] = userlikes_eat.count()
-        response_data['serialized_eat'] = serialized_eat
+        # userlikes_eat = userlikes.filter(infotravel__part='Eat')
+        # serialized_eat = serializers.serialize('json', userlikes_eat)
+        # response_data['Eat'] = userlikes_eat.count()
+        # response_data['serialized_eat'] = serialized_eat
         
-        userlikes_drink = userlikes.filter(infotravel__part='Drink')
-        serialized_drink = serializers.serialize('json', userlikes_drink)
-        response_data['Drink'] = userlikes_drink.count()
-        response_data['serialized_drink'] = serialized_drink
+        # userlikes_drink = userlikes.filter(infotravel__part='Drink')
+        # serialized_drink = serializers.serialize('json', userlikes_drink)
+        # response_data['Drink'] = userlikes_drink.count()
+        # response_data['serialized_drink'] = serialized_drink
 
-        userlikes_fun = userlikes.filter(infotravel__part='Fun')
-        serialized_fun = serializers.serialize('json', userlikes_fun)
-        response_data['Fun'] = userlikes_fun.count()
-        response_data['serialized_fun'] = serialized_fun
+        # userlikes_fun = userlikes.filter(infotravel__part='Fun')
+        # serialized_fun = serializers.serialize('json', userlikes_fun)
+        # response_data['Fun'] = userlikes_fun.count()
+        # response_data['serialized_fun'] = serialized_fun
 
-        userlikes_see = userlikes.filter(infotravel__part='See')
-        serialized_see = serializers.serialize('json', userlikes_see)
-        response_data['See'] = userlikes_see.count()
-        response_data['serialized_see'] = serialized_see
+        # userlikes_see = userlikes.filter(infotravel__part='See')
+        # serialized_see = serializers.serialize('json', userlikes_see)
+        # response_data['See'] = userlikes_see.count()
+        # response_data['serialized_see'] = serialized_see
 
-        userlikes_sleep = userlikes.filter(infotravel__part='Sleep')
-        serialized_sleep = serializers.serialize('json', userlikes_sleep)
-        response_data['Sleep'] = userlikes_sleep.count()
-        response_data['serialized_sleep'] = serialized_sleep
+        # userlikes_sleep = userlikes.filter(infotravel__part='Sleep')
+        # serialized_sleep = serializers.serialize('json', userlikes_sleep)
+        # response_data['Sleep'] = userlikes_sleep.count()
+        # response_data['serialized_sleep'] = serialized_sleep
 
-        userlikes_buy = userlikes.filter(infotravel__part='Buy')
-        serialized_buy = serializers.serialize('json', userlikes_buy)
-        response_data['Buy'] = userlikes_buy.count()
-        response_data['serialized_buy'] = serialized_buy
+        # userlikes_buy = userlikes.filter(infotravel__part='Buy')
+        # serialized_buy = serializers.serialize('json', userlikes_buy)
+        # response_data['Buy'] = userlikes_buy.count()
+        # response_data['serialized_buy'] = serialized_buy
 
         # 방법 2..
         # print(userlikes[0].infotravel_id)
@@ -306,7 +313,10 @@ def userlike(request):
         it_see=[] 
         it_sleep=[] 
         it_buy=[]
+        tc_like=[]
+        tp_like=[]
         it_all={}
+        # infotravel like to array..
         for userlike in userlikes:
             if(userlike.infotravel.part == 'Eat'):
                 tmp = { 
@@ -356,17 +366,74 @@ def userlike(request):
                         "companyven": userlike.infotravel.companyven
                 }
                 it_buy.append(tmp) 
+        # travecurator like to array..
+        for tcuserlike in tcuserlikes:
+            tmp = {
+                "id": tcuserlike.travelcurator_id,
+                "titleko": tcuserlike.travelcurator.titleko,
+                "titleeng": tcuserlike.travelcurator.titleeng,
+                "titleven": tcuserlike.travelcurator.titleven,
+                "itcount": tcuserlike.travelcurator.infotravel_count
+            }
+            tc_like.append(tmp)
+        
+        # travelplan like to array..
+        for tpuserlike in tpuserlikes:
+            tmp ={
+                "id": tpuserlike.travelplan_id,
+                "titleko": tpuserlike.travelplan.titleko,
+                "titleeng": tpuserlike.travelplan.titleeng,
+                "titleven": tpuserlike.travelplan.titleven,
+                "course": tpuserlike.travelplan.course
+            }
+            tp_like.append(tmp)
+
+        # like to json..
         it_all["Eat"] = it_eat
         it_all["Drink"] = it_drink
         it_all["Fun"] = it_fun
         it_all["See"] = it_see
         it_all["Sleep"] = it_sleep
         it_all["Buy"] = it_buy
+        it_all["TClikes"] = tc_like
+        it_all["TPlikes"] = tp_like
 
     # return JsonResponse(response_data)
     return JsonResponse(it_all)
     
+def userlike_del(request):
+    if request.method == 'GET':
+        intype = request.GET['intype']
+        if intype == 'tripguide':
+            tripguide_id = request.GET['tripguide_id']
+            post = get_object_or_404(InfoTravel, pk=tripguide_id)
+            # 중간자 모델 Like 를 사용하며, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다..
+            post_likeit, post_likeit_created = post.likeit_set.get_or_create(user=request.user)
+    
+            if not post_likeit_created:
+                post_likeit.delete()
+        if intype == 'tripcurator':
+            tripcurator_id = request.GET['tripcurator_id']
+            post = get_object_or_404(TravelCurator, pk=tripcurator_id)
+            # 중간자 모델 Like 를 사용하며, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다..
+            post_liketc, post_liketc_created = post.liketc_set.get_or_create(user=request.user)
 
+            if not post_liketc_created:
+                post_liketc.delete()
+            # print(intype)
+        if intype == 'tripcourse':
+            tripcourse_id = request.GET['tripcourse_id']
+            post = get_object_or_404(TravelPlan, pk=tripcourse_id)
+            # 중간자 모델 Like 를 사용하며, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다..
+            post_liketp, post_liketp_created = post.liketp_set.get_or_create(user=request.user)
+
+            if not post_liketp_created:
+                post_liketp.delete()
+            # print(intype)
+
+    # print(tripguide_id)
+
+    return HttpResponse('success!')
 
 # def tophund(request, citydetails_id, partnum):
 #     citydetails = get_object_or_404(City, pk=citydetails_id)

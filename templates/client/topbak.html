@@ -14,18 +14,18 @@
         <div class="col-sm-7" style="display: flex;">
             <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
                 
-                <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=1 %}" class="card-link text-dark" style="margin-left: 0px;">
+                <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}" class="card-link text-dark" style="margin-left: 0px;">
                     <h5 class="card-title" style="margin-left: 40px;">Top 100</h5>
                 </a>
             </h1>
         </div>
         <div class="col-sm-4" style="float: right;">
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=1 %}" class="card-link p-2 text-dark">먹다</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=2 %}" class="card-link p-2 text-dark">마시다</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=3 %}" class="card-link p-2 text-dark">놀다</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=4 %}" class="card-link p-2 text-dark">보다</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=5 %}" class="card-link p-2 text-dark">자다</a>
-            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum=6 %}" class="card-link p-2 text-dark">사다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}" class="card-link p-2 text-dark">먹다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link p-2 text-dark">마시다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}" class="card-link p-2 text-dark">놀다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}" class="card-link p-2 text-dark">보다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link p-2 text-dark">자다</a>
+            <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}" class="card-link p-2 text-dark">사다</a>
         </div>
     </div>
 </div>

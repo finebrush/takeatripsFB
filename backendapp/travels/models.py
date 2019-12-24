@@ -258,6 +258,7 @@ class TravelCurator(models.Model):
         return self.titleko
 
 class Liketc(models.Model):
+    objects = models.Manager()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     travelcurator = models.ForeignKey(TravelCurator, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -335,6 +336,7 @@ class TravelPlan(models.Model):
         return self.titleko
 
 class Liketp(models.Model):
+    objects = models.Manager()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     travelplan = models.ForeignKey(TravelPlan, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
