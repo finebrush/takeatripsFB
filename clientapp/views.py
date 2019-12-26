@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.http import *
 from django.core import serializers
 import random
+from django.utils import translation
 
 from django.http import HttpResponse
 from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, TCImage, TravelPlan, Liketp, POIpoint
@@ -16,6 +17,7 @@ def chome(request):
     citys = City.objects.filter().order_by('id') # 순차적으로 불러오기..
     current_user = request.user
     topmenuoff = False # 상단 메뉴가 display none..
+    
     return render(request, 'client/cindex.html', {'citys': citys , 'current_user': current_user, 'topmenuoff':topmenuoff})
 
 def citymain(request, city_id):

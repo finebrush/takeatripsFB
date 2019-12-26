@@ -1,0 +1,576 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-26 16:47+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: backendapp/arcontent/models.py:22
+msgid "공개여부"
+msgstr ""
+
+#: backendapp/arcontent/models.py:23 backendapp/travels/models.py:27
+#: backendapp/travels/models.py:301
+msgid "소개타이틀(한국어)"
+msgstr ""
+
+#: backendapp/arcontent/models.py:24 backendapp/travels/models.py:28
+#: backendapp/travels/models.py:302
+msgid "소개타이틀(영어)"
+msgstr ""
+
+#: backendapp/arcontent/models.py:25 backendapp/travels/models.py:29
+#: backendapp/travels/models.py:303
+msgid "소개타이틀(베트남어)"
+msgstr ""
+
+#: backendapp/arcontent/models.py:26 backendapp/travels/models.py:31
+#: backendapp/travels/models.py:225 backendapp/travels/models.py:304
+msgid "Created"
+msgstr ""
+
+#: backendapp/arcontent/models.py:27 backendapp/travels/models.py:91
+msgid "구분"
+msgstr ""
+
+#: backendapp/arcontent/models.py:28
+msgid "Picture"
+msgstr ""
+
+#: backendapp/arcontent/models.py:29
+msgid "AR File"
+msgstr ""
+
+#: backendapp/arcontent/models.py:47 backendapp/arcontent/models.py:48
+msgid "ARTrip"
+msgstr ""
+
+#: backendapp/common/apps.py:7
+msgid "Common"
+msgstr ""
+
+#: backendapp/common/models.py:8 backendapp/common/models.py:24
+#: backendapp/common/models.py:25
+msgid "대분류"
+msgstr ""
+
+#: backendapp/common/models.py:9 backendapp/common/models.py:36
+#: backendapp/common/models.py:37
+msgid "중분류"
+msgstr ""
+
+#: backendapp/common/models.py:10 backendapp/common/models.py:57
+#: backendapp/common/models.py:58
+msgid "소분류"
+msgstr ""
+
+#: backendapp/common/models.py:13 backendapp/common/models.py:14
+msgid "카테고리"
+msgstr ""
+
+#: backendapp/settings.py:224
+msgid "Korean"
+msgstr ""
+
+#: backendapp/settings.py:225
+msgid "English"
+msgstr ""
+
+#: backendapp/settings.py:226
+msgid "Vietnamese"
+msgstr ""
+
+#: backendapp/travels/choices.py:4
+msgid "먹다"
+msgstr ""
+
+#: backendapp/travels/choices.py:5
+msgid "마시다"
+msgstr ""
+
+#: backendapp/travels/choices.py:6
+msgid "놀다"
+msgstr ""
+
+#: backendapp/travels/choices.py:7
+msgid "보다"
+msgstr ""
+
+#: backendapp/travels/choices.py:8
+msgid "자다"
+msgstr ""
+
+#: backendapp/travels/choices.py:9
+msgid "사다"
+msgstr ""
+
+#: backendapp/travels/choices.py:13
+msgid "Must See"
+msgstr ""
+
+#: backendapp/travels/choices.py:14
+msgid "Hot"
+msgstr ""
+
+#: backendapp/travels/choices.py:18
+msgid "1시간"
+msgstr ""
+
+#: backendapp/travels/choices.py:19
+msgid "반나절"
+msgstr ""
+
+#: backendapp/travels/choices.py:20
+msgid "하루"
+msgstr ""
+
+#: backendapp/travels/choices.py:24
+msgid "자산"
+msgstr ""
+
+#: backendapp/travels/choices.py:25
+msgid "공용"
+msgstr ""
+
+#: backendapp/travels/choices.py:29
+msgid "문화유적"
+msgstr ""
+
+#: backendapp/travels/choices.py:30
+msgid "랜드마크"
+msgstr ""
+
+#: backendapp/travels/choices.py:31
+msgid "거리"
+msgstr ""
+
+#: backendapp/travels/choices.py:32
+msgid "공원"
+msgstr ""
+
+#: backendapp/travels/choices.py:33
+msgid "박물관"
+msgstr ""
+
+#: backendapp/travels/choices.py:34
+msgid "종교"
+msgstr ""
+
+#: backendapp/travels/choices.py:35
+msgid "자연"
+msgstr ""
+
+#: backendapp/travels/choices.py:36
+msgid "시장"
+msgstr ""
+
+#: backendapp/travels/choices.py:37
+msgid "교통"
+msgstr ""
+
+#: backendapp/travels/choices.py:38
+msgid "공공"
+msgstr ""
+
+#: backendapp/travels/choices.py:39
+msgid "Place"
+msgstr ""
+
+#: backendapp/travels/choices.py:43
+msgid "Seoul"
+msgstr ""
+
+#: backendapp/travels/choices.py:44
+msgid "Busan"
+msgstr ""
+
+#: backendapp/travels/models.py:23
+msgid "Name(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:24
+msgid "Name(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:25
+msgid "Name(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:26
+msgid "Logo-Image"
+msgstr ""
+
+#: backendapp/travels/models.py:30
+msgid "Select City"
+msgstr ""
+
+#: backendapp/travels/models.py:32 backendapp/travels/models.py:80
+#: backendapp/travels/models.py:355
+msgid "Picture1"
+msgstr ""
+
+#: backendapp/travels/models.py:33 backendapp/travels/models.py:81
+#: backendapp/travels/models.py:356
+msgid "Picture2"
+msgstr ""
+
+#: backendapp/travels/models.py:34 backendapp/travels/models.py:82
+#: backendapp/travels/models.py:357
+msgid "Picture3"
+msgstr ""
+
+#: backendapp/travels/models.py:35 backendapp/travels/models.py:83
+#: backendapp/travels/models.py:358
+msgid "Picture4"
+msgstr ""
+
+#: backendapp/travels/models.py:53 backendapp/travels/models.py:75
+#: backendapp/travels/models.py:220 backendapp/travels/models.py:299
+msgid "City"
+msgstr ""
+
+#: backendapp/travels/models.py:54
+msgid "Cities"
+msgstr ""
+
+#: backendapp/travels/models.py:77
+msgid "업체명(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:78
+msgid "업체명(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:79
+msgid "업체명(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:84
+msgid "Picture5"
+msgstr ""
+
+#: backendapp/travels/models.py:85
+msgid "Picture6"
+msgstr ""
+
+#: backendapp/travels/models.py:86
+msgid "Picture7"
+msgstr ""
+
+#: backendapp/travels/models.py:87
+msgid "Picture8"
+msgstr ""
+
+#: backendapp/travels/models.py:88
+msgid "Picture9"
+msgstr ""
+
+#: backendapp/travels/models.py:89
+msgid "Picture10"
+msgstr ""
+
+#: backendapp/travels/models.py:90
+msgid "정보형태"
+msgstr ""
+
+#: backendapp/travels/models.py:92
+msgid "유형선택"
+msgstr ""
+
+#: backendapp/travels/models.py:93
+msgid "주소(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:94
+msgid "주소(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:95
+msgid "주소(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:117
+msgid "외부링크(웹사이트)"
+msgstr ""
+
+#: backendapp/travels/models.py:118
+msgid "외부링크(인스타그램)"
+msgstr ""
+
+#: backendapp/travels/models.py:119
+msgid "외부링크(유튜브)"
+msgstr ""
+
+#: backendapp/travels/models.py:120
+msgid "교통정보(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:121
+msgid "교통정보(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:122
+msgid "교통정보(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:123
+msgid "소개정보(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:123 backendapp/travels/models.py:124
+#: backendapp/travels/models.py:125 backendapp/travels/models.py:227
+#: backendapp/travels/models.py:228 backendapp/travels/models.py:229
+msgid "이곳을 소개해 주세요."
+msgstr ""
+
+#: backendapp/travels/models.py:124
+msgid "소개정보(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:125
+msgid "소개정보(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:126 backendapp/travels/models.py:230
+#: backendapp/travels/models.py:309
+msgid "태그(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:127 backendapp/travels/models.py:231
+#: backendapp/travels/models.py:310
+msgid "태그(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:128 backendapp/travels/models.py:232
+#: backendapp/travels/models.py:311
+msgid "태그(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:129
+msgid "Date"
+msgstr ""
+
+#: backendapp/travels/models.py:157 backendapp/travels/models.py:158
+msgid "TripGuide"
+msgstr ""
+
+#: backendapp/travels/models.py:176 backendapp/travels/models.py:185
+#: backendapp/travels/models.py:209
+msgid "영업시간(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:177 backendapp/travels/models.py:186
+#: backendapp/travels/models.py:210
+msgid "영업시간(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:178 backendapp/travels/models.py:187
+#: backendapp/travels/models.py:211
+msgid "영업시간(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:179
+msgid "대표메뉴(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:180
+msgid "대표메뉴(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:181
+msgid "대표메뉴(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:188
+msgid "프로그램(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:189
+msgid "프로그램(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:190
+msgid "프로그램(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:194
+msgid "운영시간(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:195
+msgid "운영시간(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:196
+msgid "운영시간(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:200
+msgid "포함사항(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:201
+msgid "포함사항(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:202
+msgid "포함사항(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:203
+msgid "객실타입(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:204
+msgid "객실타입(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:205
+msgid "객실타입(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:212
+msgid "판매상품(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:213
+msgid "판매상품(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:214
+msgid "판매상품(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:222
+msgid "제목(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:223
+msgid "제목(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:224
+msgid "제목(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:226
+msgid "Writter"
+msgstr ""
+
+#: backendapp/travels/models.py:227
+msgid "여행정보(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:228
+msgid "여행정보(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:229
+msgid "여행정보(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:236
+msgid "여행장소 추가"
+msgstr ""
+
+#: backendapp/travels/models.py:253
+msgid "TripCurator"
+msgstr ""
+
+#: backendapp/travels/models.py:254
+msgid "TripCurators"
+msgstr ""
+
+#: backendapp/travels/models.py:273
+msgid "TravelCurator"
+msgstr ""
+
+#: backendapp/travels/models.py:276
+msgid "Trave Image"
+msgstr ""
+
+#: backendapp/travels/models.py:292 backendapp/travels/models.py:293
+msgid "대표이미지(TravelCulator)"
+msgstr ""
+
+#: backendapp/travels/models.py:305
+msgid "코스선택"
+msgstr ""
+
+#: backendapp/travels/models.py:306
+msgid "코스정보(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:306 backendapp/travels/models.py:307
+#: backendapp/travels/models.py:308
+msgid "코스를 소개해 주세요."
+msgstr ""
+
+#: backendapp/travels/models.py:307
+msgid "코스정보(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:308
+msgid "코스정보(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:331 backendapp/travels/models.py:332
+msgid "TravelCourse"
+msgstr ""
+
+#: backendapp/travels/models.py:350
+msgid "TravelPlan"
+msgstr ""
+
+#: backendapp/travels/models.py:352
+msgid "장소명(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:353
+msgid "장소명(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:354
+msgid "장소명(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:377 backendapp/travels/models.py:378
+msgid "여행코스"
+msgstr ""
+
+#: templates/client/cindex.html:57
+msgid "맛있고 즐거운 도시 자유여행!"
+msgstr "Delicious and fun city free travel!"
+
+#: templates/client/cindex.html:58
+msgid "Take a trips에 오신 것을 환영합니다."
+msgstr "Welcome to Take a trips."
+
+#: templates/client/cindex.html:89
+msgid "Take a Trips 소개"
+msgstr "Introduction to Take a Trips"
+
+#: templates/client/cindex.html:92
+msgid "서비스 약관"
+msgstr "Terms of Service"
+
+#: templates/client/cindex.html:95
+msgid "개인정보 보호정책"
+msgstr "Privacy policy"
+
+#: templates/client/cindex.html:98
+msgid "도움말"
+msgstr "Help"

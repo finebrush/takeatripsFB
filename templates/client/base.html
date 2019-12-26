@@ -1,6 +1,7 @@
-{% load static %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-KR">
   <head>
       <title>TAKE A TRIPS</title>
       <meta charset="utf-8">
@@ -198,6 +199,19 @@
                     </form>  -->
 
                   {% endif %}
+                  <!-- 다국어..  -->
+                  <li class="nav-item" style="position:absolute; top: 17px; right: 180px;">
+                    <select name="language" id="selectlang" style="width: 150px;">
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                  </li>
+
                   
                   <!-- 상단 우측 메뉴 / 로그인,아웃 -->
                   {% if user.is_authenticated %}
@@ -556,6 +570,28 @@
                 }
         })
       }
+
+      // 다국어 변경..
+      $("#selectlang").change(function(){
+            $.ajax({
+                type: "POST",
+                url: "{% url 'set_language' %}",
+                dataType: "text",
+                data:{
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    create_token: "create_token",
+                    // next: "redirect_to",
+                    language: $(this).val(),
+
+                },
+                error: function(){
+                    console.log("error!!");
+                },
+                success: function(){
+                    location.reload();
+                }
+            })
+        })
       
       
     </script>

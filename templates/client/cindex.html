@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -11,6 +14,24 @@
 </head>
     <body>
         <div class="card">
+            <!-- 다국어.. -->
+            <li class="nav-item" style="position:absolute; top: 17px; right: 200px;">
+                <!-- <form action="{% url 'set_language' %}" method="post"> 
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ redirect_to }}"> -->
+                    <select name="language" id="selectlang" style="width: 150px;">
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <!-- <input type="submit" value="Go">
+                </form> -->
+            </li>
+
             {% if user.is_authenticated %}
             <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
             <li class="nav-item" style="position:absolute; top: 10px; right: 50px; display: flex;">
@@ -33,17 +54,27 @@
                 <h2 class="card-title">TAKE A TRIPS</h2></a>
             </h1>
         
-            <h6 class="card-subtitle mb-2 text-muted">맛있고 즐거운 도시 자유여행!</h6>
-            <p class="card-subtitle mb-2 text-muted">Take a trips에 오신 것을 환영합니다.</p>
+            <h6 class="card-subtitle mb-2 text-muted">{% trans "맛있고 즐거운 도시 자유여행!" %}</h6>
+            <p class="card-subtitle mb-2 text-muted">{% trans "Take a trips에 오신 것을 환영합니다." %}</p>
         </div>
 
             <div class="container">
                 <div class="row">
                     {% for city in citys.all %}
                     <div class="col-sm-6" style="text-align: center;">  
-                        <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.nameko}}</h1></a>
-                        <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
-                        <p class="card-subtitle mb-2 text-muted">{{city.titleko}}</p>
+                        {% if LANGUAGE_CODE == 'ko' %}
+                            <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.nameko}}</h1></a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
+                            <p class="card-subtitle mb-2 text-muted">{{city.titleko}}</p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                            <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.nameeng}}</h1></a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
+                            <p class="card-subtitle mb-2 text-muted">{{city.titleeng}}</p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                            <a href="{% url 'clientapp:citymain' city.id %}"> <h1 class="display1">{{city.nameven}}</h1></a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{city.created}}</h6>
+                            <p class="card-subtitle mb-2 text-muted">{{city.titleven}}</p>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>
@@ -55,16 +86,16 @@
             <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-1">
-                    <a href="#"> Take a Trips 소개</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#"> {% trans "Take a Trips 소개" %}</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="col-sm-1">
-                    <a href="#"> 서비스 약관</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#"> {% trans "서비스 약관" %}</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="col-sm-1">
-                    <a href="#"> 개인정보 보호정책</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#"> {% trans "개인정보 보호정책" %}</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="col-sm-1">
-                    <a href="#"> 도움말</a>
+                    <a href="#"> {% trans "도움말" %}</a>
                 </div>
                 <div class="col-sm-1">
                     <a href="#"> | </a>
@@ -77,4 +108,29 @@
         </div>
         <!-- Footer -->
     </body>
+
+    <script>
+        // 다국어 변경..
+        $("#selectlang").change(function(){
+            $.ajax({
+                type: "POST",
+                url: "{% url 'set_language' %}",
+                dataType: "text",
+                data:{
+                    csrfmiddlewaretoken: "{{ csrf_token }}",
+                    create_token: "create_token",
+                    // next: "redirect_to",
+                    language: $(this).val(),
+
+                },
+                error: function(){
+                    console.log("error!!");
+                },
+                success: function(){
+                    location.reload();
+                }
+            })
+        })
+    
+    </script>
 </html>

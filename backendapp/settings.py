@@ -27,7 +27,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '.takeatrips.com',
     '15.164.63.68',
-    '11551124.ngrok.io'
+    '3965c730.ngrok.io'
 ]
 
 # Application definition
@@ -211,19 +211,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SITE_ID = 1
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
 USE_DJANGO_JQUERY = False
 JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'
 
-LANGUAGE_CODE = 'en'
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
+
+LANGUAGE_CODE = 'ko'
+# LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
+    ('ko', _('Korean')),
     ('en', _('English')),
-    ('ru', _('Russian')),
-    ('uk', _('Ukrainian')),
-    ('zh-hans', _('Chinese')),
+    ('vi', _('Vietnamese')),
 ]
 
 TIME_ZONE = 'Asia/Seoul'
@@ -233,6 +233,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+	os.path.join(BASE_DIR, 'locale'),
+)
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

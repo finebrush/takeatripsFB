@@ -17,6 +17,7 @@ urlpatterns = [
     path('login/', include('allauth.urls')),
     path('accounts/', include('accounts.urls', namespace='account')),
     
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', include(('vali.urls','vali'), namespace='dashboard')),
     path('admin/', include(admin.site.urls)) if django.VERSION < (2, 0)
          else url(r'^admin/', admin.site.urls),
@@ -25,15 +26,18 @@ urlpatterns = [
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# urlpatterns = i18n_patterns(
-#     # path('', include('clientapp.urls', namespace='clientend')),
-#     path('', include('blogapp.urls', namespace='blogapp')),
-#     # # path('manager/', include('manager.urls', namespace='manager')),
+# urlpatterns = [
 #     path('admin/', include(('vali.urls','vali'), namespace='dashboard')),
 #     path('admin/', include(admin.site.urls)) if django.VERSION < (2, 0)
 #          else url(r'^admin/', admin.site.urls),
-#     # path('', RedirectView.as_view(url='admin/', permanent=False), name='index'),
+# ]
+# urlpatterns += i18n_patterns(
+#     path('', include('clientapp.urls', namespace='clientapp')),
+#     path('blog/', include('blogapp.urls', namespace='blogapp')),
+#     path('login/', include('allauth.urls')),
+#     path('accounts/', include('accounts.urls', namespace='account')),
 #     path('tc-infotravel-autocomplete/', TCAutocomplete.as_view(), name='tc-infotravel-autocomplete'),
 #     path('chaning/', include('smart_selects.urls')),
+#     prefix_default_language=False,
 # ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
 #     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
