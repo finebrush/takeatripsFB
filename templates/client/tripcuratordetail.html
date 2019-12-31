@@ -115,7 +115,7 @@
         {% for searchlist in searchlists %}
         <ul class="list-group" style="margin-bottom: 10px;">
             <li class="list-group-item">
-                <a href="javascript:itdetailpath('{{ searchlist.part }}', {{ citydetails_id }}, {{ searchlist.id }});"> <img src="{{ searchlist.picture1.url }}" alt=""> </a>
+                <a href="javascript:itdetailpath('{{ searchlist.part }}', {{ citydetails.id }}, {{ searchlist.id }});"> <img src="{{ searchlist.picture1.url }}" alt=""> </a>
             </li>
             <li class="list-group-item">
                 <span class="fa fa-heart" style="font-size:16px; float:right;">
@@ -165,22 +165,22 @@
         function itdetailpath(part, citydetails_id, itdetail_id) {
             switch(part){
                 case "Eat":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/1/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Eat/"+itdetail_id;
                     break;
                 case "Drink":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/2/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Drink/"+itdetail_id;
                     break;
                 case "Fun":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/3/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Fun/"+itdetail_id;
                     break;
                 case "See":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/4/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/See/"+itdetail_id;
                     break;
                 case "Sleep":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/5/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Sleep/"+itdetail_id;
                     break;
                 case "Buy":
-                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/6/"+itdetail_id;
+                    location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Buy/"+itdetail_id;
                     break;
             }
         }

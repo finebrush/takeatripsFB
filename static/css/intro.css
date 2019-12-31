@@ -1,0 +1,101 @@
+/* 모바일 버젼 */
+.fbcard {
+    top: 14%;
+    left: 10%;
+    position: absolute;
+    width: 80%;
+    height: 65%;
+    text-align: center;
+    border-radius: 3em;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #000000ba;
+    border-radius: 2rem;
+}
+.fbtitle {
+    color: white;
+    padding: 10px;
+    font-weight: 300;
+    font-size: 1.3em;
+    letter-spacing: 0em;
+}
+.footem {
+    display: contents;
+    line-height: 30px;
+}
+
+/* PC 버젼 */
+@media (min-width:768px) {
+    .fbcard {
+        padding: 3rem 2rem;
+        top: 14%;
+        left: 34%;
+        position: absolute;
+        width: 32%;
+        height: 70%;
+        text-align: center;
+        border-radius: 3em;
+    }
+    .fbtitle{
+        font-size: 1.4em;
+        letter-spacing: 0.1em;
+    }
+    .footem {
+        display: inline-flex;
+    }
+}
+/* 
+@media (min-width:992px) {
+    .waterfall .list-group {
+        width: 279px
+    }
+}
+
+@media (min-width:1200px) {
+    .waterfall .list-group {
+        width: 250px
+    }
+} */
+
+body{
+    font-size: 16px;
+    font-family: sans-serif;
+}
+ 
+h1{
+    font-size: 4.236em;
+}
+ 
+h2{
+    font-size: 2.618em;
+}
+ 
+h3{
+    font-size: 1em;
+    line-height: 1.618em;
+    text-transform: uppercase;
+}
+ 
+p{
+    font-size: 1em;
+    line-height: 1.618em;
+}
+
+@media all and (min-width: 960px) {
+    body{
+        font-size: 14px;
+    }
+}
+ 
+@media all and (max-width: 959px) and (min-width: 600px) {
+    body{
+        font-size: 12px;
+    }
+}
+ 
+@media all and (max-width: 599px) and (min-width: 320px) {
+    body{
+        font-size: 10px;
+    }
+ 
+}

@@ -176,6 +176,55 @@
             </div>
         </section>
 
+
+        <!-- 소개정보 / 일반정보.. -->
+        <div class="card-deck p-5">
+            <div class="card" style="max-height: 450px; border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">소개정보</h5>
+                    </h1>
+                    <hr style="border: solid 0.5px #969696b3;">
+                    <p class="card-text"> {{ itdetail.introko }}</p>
+                </div>
+            </div>
+            
+            <div class="card" style="max-height: 450px; border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">일반정보</h5>
+                    </h1>
+                    <hr style="border: solid 0.5px #969696b3;">
+                    <p class="card-text"> {{ itdetail.addressko }}</p>
+                    <hr style="border: solid 0.5px #969696b3;">
+                    {% if itdetail.part == 'Eat' or itdetail.part == 'Drink' %}
+                        <p class="card-text"> 대표메뉴 : {{ itdetail.eatdrinkpart.menuko }} </p>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 운영시간 : {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                    {% elif itdetail.part == 'Fun' %}
+                        <p class="card-text"> 프로그램 : {{ itdetail.funpart.programko }} </p>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 운영시간 : {{ itdetail.funpart.biztimeko }} </p>
+                    {% elif itdetail.part == 'See' %}
+                        <p class="card-text"> 프로그램 : {{ itdetail.seepart.operationtimeko }} </p>
+                    {% elif itdetail.part == 'Sleep' %}
+                        <p class="card-text"> 포함사항 : {{ itdetail.sleeppart.inclusionko }} </p>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 객실타입 : {{ itdetail.sleeppart.roomtypeko }} </p>
+                    {% elif itdetail.part == 'Buy' %}
+                        <p class="card-text"> 판매상품 : {{ itdetail.buypart.saleitemsko }} </p>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 운영시간 : {{ itdetail.buypart.biztimeko }} </p>
+                    {% endif %}
+                    <hr style="border: solid 0.5px #969696b3;">
+                    <p class="card-text"> {{ itdetail.trafficko }}</p>
+                    <hr style="border: solid 0.5px #969696b3;">
+                </div>
+            </div>
+        </div>
+
+
+        
         <!-- 팝업창 띄우기 -->
         <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
         <div class="dim-layer">
