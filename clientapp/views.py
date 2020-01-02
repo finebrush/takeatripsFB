@@ -27,6 +27,8 @@ def citymain(request, city_id):
     itdetails = InfoTravel.objects.filter(city_id=city_id)
     artrips = ARTrip.objects.filter(share=True)
     arcontents = artrips.random(8)
+    travelcurators = TravelCurator.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
 
     # InfoTravel 에서 part 별 랜덤한 하나의 DB를 전달..
     eat_itdetail = itdetails.filter(part='Eat').first()
@@ -38,7 +40,7 @@ def citymain(request, city_id):
     
     return render(request, 'client/citydetail.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
-            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff })
+            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
 
 def tripguide(request, citydetails_id, partnum):
     citydetails = City.objects.get(id=citydetails_id)
