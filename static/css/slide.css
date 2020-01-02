@@ -63,7 +63,7 @@
 .menu-bar{
     overflow:hidden;
     /* left:5em; */
-    right:-25em;
+    right:-30em;
     z-index:5;
     width:25em;
     height:100%;
@@ -73,7 +73,7 @@
 .menu-barin{
   overflow:hidden;
   /* left:5em; */
-  right:-25em;
+  right:-30em;
   z-index:5;
   width:25em;
   height:100%;
@@ -152,16 +152,18 @@
       width:100%;
     }
     .menu-bar{
-        width:100%;
-        left:0;
+      width:100%;
+      left:0;
       bottom: 0;
-        height:0;
+      height:0;
+      top: -60px;
     }
     .menu-barin{
       width:100%;
       left:0;
-    bottom: 0;
+      bottom: 0;
       height:0;
+      top: -60px;
     }
     .open{
         width:100%;

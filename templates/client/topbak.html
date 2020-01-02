@@ -8,6 +8,72 @@
 {% endblock %}
 
 {% block contents %}
+
+   
+    <!-- selected sub menu -->
+    {% if submenu == 1 %} <!-- gotocity page-->
+    <div class="container menuadd">
+      <div class="centerdiv">
+        <div class="pull-center">
+          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity_on.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% elif submenu == 2 %} <!-- top100 page-->
+    <div class="container menuadd">
+      <div class="centerdiv">
+        <div class="pull-center">
+          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top_on.png' %}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="container menuadd">
+      <div class="centerdiv">
+        <div class="pull-center">
+          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips_on.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
+          </a>
+        </div>
+        <div class="pull-center">
+          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}<!-- End of topmenuoff -->
+
+    
 <!-- django-waterfall 이미지 들어가는 부분.. -->
 <div class="container" style="margin-top: 80px; max-width:1920px;">
     <div class="row">

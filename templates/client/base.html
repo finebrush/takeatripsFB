@@ -71,28 +71,28 @@
           -webkit-box-sizing: content-box;
           font-family: inherit;
           font-size: 100%;
-          height: 16px;
+          height: 14px;
         }
         input::-webkit-search-decoration,
         input::-webkit-search-cancel-button {
           display: none; 
         }
         #demo-1 input[type=search] {
-          background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+          background: #ffffff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 7px center;
           border: solid 1px #ccc;
           padding: 9px 10px 9px 32px;
-          width: 50px;
+          width: 300px;
           
-          -webkit-border-radius: 10em;
-          -moz-border-radius: 10em;
-          border-radius: 10em;
+          -webkit-border-radius: .3em;
+          -moz-border-radius: .3em;
+          border-radius: .3em;
           
           -webkit-transition: all .5s;
           -moz-transition: all .5s;
           transition: all .5s;
         }
         #demo-1 input[type=search]:focus {
-          width: 200px;
+          width: 300px;
           background-color: #fff;
           border-color: #66CC75;
           
@@ -107,134 +107,146 @@
           color: #999;
         }
 
-        /* Demo 2 */
-        #demo-2 input[type=search] {
-          -webkit-appearance: textfield;
-          -webkit-box-sizing: content-box;
-          font-family: inherit;
-          font-size: 100%;
+        header {
+          position: fixed;
+          /* border: 1px solid black; */
+          padding: 12px;
+          z-index: 2014;
+          left: 45px;
+          right: 45px;
+          top: 0;
+          height: 70px;
         }
-        input::-webkit-search-decoration,
-        input::-webkit-search-cancel-button {
-          display: none; 
+        .pull-left, .pull-right {
+            /* border: 1px solid red; */
+            padding: 8px 5px;
+            margin-right: 5px;
         }
-        #demo-2 input[type=search] {
-          background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-          border: solid 1px #ccc;
-          padding: 9px 10px 9px 32px;
-          width: 55px;
-          
-          -webkit-border-radius: 10em;
-          -moz-border-radius: 10em;
-          border-radius: 10em;
-          
-          -webkit-transition: all .5s;
-          -moz-transition: all .5s;
-          transition: all .5s;
+        .pull-right {
+            margin-right:0;
+        }
+        .menuadd {
+          /* border: 1px solid blue; */
+          /* z-index: 2014; */
+          margin-top: 80px;
+          height: 100px;
+          position: relative;
+          width: 100%;
+          text-align: center;
+          align-items: center;
+          display: inline-flex;
+          max-width: 1920px;
+        }
+        @media screen and (max-width: 600px) {
+            .menuadd {
+                margin-top: 180px;
+            }
+            header {
+              left: 0;
+              right: 0;
+            }
+            .pull-right {
+              margin-top: 10px;
+            }
+            .linepartition{
+              height: 180px!important; 
+            }
+        }
+        .centerdiv {
+          margin: auto;
+          /* border: 3px solid #73AD21; */
+          padding: 10px;
+          display: flex;
+        }
+        .pull-center{
+          padding: 0 10px;
+        }
+        .submenu1, .submenu2, .submenu3 {
+          height: 40px;
+        }
+        .linepartition{
+          position:fixed; 
+          border-bottom: solid 0.5px #00000022;
+          height: 70px; 
+          width: 100%;
+          background-color: white;
+          z-index: 2000;
         }
 
-        #demo-2 input[type=search] {
-          width: 15px;
-          padding-left: 10px;
-          color: transparent;
-          cursor: pointer;
-        }
-        #demo-2 input[type=search]:hover {
-          background-color: #fff;
-        }
-        #demo-2 input[type=search]:focus {
-          width: 130px;
-          padding-left: 32px;
-          color: #000;
-          background-color: #fff;
-          cursor: auto;
-        }
-        #demo-2 input:-moz-placeholder {
-          color: transparent;
-        }
-        #demo-2 input::-webkit-input-placeholder {
-          color: transparent;
-        }
       </style>
+
       {% block headers %}
       {% endblock %}
 
   </head>
   <body>
-      <nav>
-          <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style="border-radius:0px;">
-              <a class="navbar-brand" href="{% url 'clientapp:chome' %}" style="font-weight: 600; font-size:25px; color:orange; ">Take a Trips</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                
-                  {%if topmenuoff %}
-                    <!-- 상단 좌측 메뉴 / 도시이름 -->
-                    <li class="nav-item active" style="padding: 3px;">
-                        <a class="nav-link" href="{% url 'clientapp:citymain' citydetails.id %}"> 
-                        <img src="{{ citydetails.logo.url }}" style="width: 24px;" /> {{ citydetails.nameeng }} 
-                        <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
+    <!-- 상단 메뉴 -->
+    {%if topmenuoff %}
+    <header class="clearfix">
+      <div class="pull-left">
+        <a href="{% url 'clientapp:chome' %}"> 
+          <img src="{% static 'img/sub_top_logo.png' %}" />
+        </a>
+      </div>
+      <!-- 상단 좌측 메뉴 / 도시 logo -->
+      <div class="pull-left" style="padding-top: 10px;">
+        <a href="{% url 'clientapp:citymain' citydetails.id %}" style="padding-right: 0px;"> 
+          <img src="{{ citydetails.logo.url }}" style="margin-bottom: 5px;" />
+        </a>
+      </div>
+      <!-- 상단 좌측 메뉴 / search -->
+      <div class="pull-left" style="padding-top: 6px;">
+        <form id="demo-1" method="POST" action="{% url 'clientapp:searchlist' citydetails.id %}">
+          {% csrf_token %}
+          <input type="search" name="srhwd" placeholder="Search Tag">
+        </form>
+      </div>
 
-                    <!-- searching bar -->
-                    <!-- <div class="wrapsh">
-                      <div class="searchbase">
-                         <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                         <button type="submit" class="searchButton">
-                           <i class="fa fa-search"></i>
-                        </button>
-                      </div>
-                   </div> -->
-                   <div style="position: relative; padding: 6px;">
-                    <form id="demo-1" method="POST" action="{% url 'clientapp:searchlist' citydetails.id %}">
-                      {% csrf_token %}
-                      <input type="search" name="srhwd" placeholder="Search Tag">
-                    </form>
-                  </div>
-                    <!-- <form id="demo-2">
-                      <input type="search" placeholder="Search">
-                    </form>  -->
+      <!-- 상단 우측 메뉴 / private, login-out -->
+      <!-- 로그인,아웃 -->
+      <div class="pull-right" style="padding: 0px;">
+        {% if user.is_authenticated %}
+        <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
+        <div style="display: flex;">
+          <a class="menu-button" style="cursor: pointer; padding: 0 10px;"> 
+            <img src="{% static 'img/sub_top_private.png' %}" />
+          </a>
+          <a href="{% url 'account:logout' %}">
+            <img src="{% static 'img/sub_top_more.png' %}"/>
+          </a>
+        </div>
+        {% else %}
+        <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
+        <div style="display: flex;">
+          <a href="{% url 'account:signup' %}" style="cursor: pointer; padding: 0 10px;">
+            <img src="{% static 'img/sub_top_signup.png' %}" style="width: 44px;" />
+          </a>
+          <a href="{% url 'account:login' %}">
+            <img src="{% static 'img/sub_top_more.png' %}"/>
+          </a>
+        </div>
+        {% endif %}
+      </div>
 
-                  {% endif %}
-                  <!-- 다국어..  -->
-                  <li class="nav-item" style="position:absolute; top: 17px; right: 180px;">
-                    <select name="language" id="selectlang" style="width: 150px;">
-                        {% get_available_languages as LANGUAGES %}
-                        {% get_language_info_list for LANGUAGES as languages %}
-                        {% for language in languages %}
-                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                                {{ language.name_local }} ({{ language.code }})
-                            </option>
-                        {% endfor %}
-                    </select>
-                  </li>
+      <!-- 다국어..  -->
+      <div class="pull-right" style="padding-top: 10px;">
+        <select name="language" id="selectlang" style="width: 150px;">
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
+          {% for language in languages %}
+              <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                  {{ language.name_local }} ({{ language.code }})
+              </option>
+          {% endfor %}
+        </select>
+      </div>
 
-                  
-                  <!-- 상단 우측 메뉴 / 로그인,아웃 -->
-                  {% if user.is_authenticated %}
-                  <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
-                  <li class="nav-item" style="position:absolute; top: 10px; right: 50px; display: flex;">
-                      
-                      <a class="nav-link menu-button" style="cursor: pointer;"> {{ current_user }} </a>
-                      
-                    <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
-                  </li>
-                  {% else %}
-                  <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
-                  <li class="nav-item" style="position:absolute; top: 10px; right: 100px;">
-                    <a class="nav-link" href="{% url 'account:signup' %}">SignUp</a>
-                  </li>
-                  <li class="nav-item" style="position:absolute; top: 10px; right: 50px;">
-                    <a class="nav-link" href="{% url 'account:login' %}">Login</a>
-                  </li>
-                  {% endif %}
-                </ul>
-              </div>
-          </nav>
-      </nav>
+    </header>
+
+    <div class="linepartition"></div>
+
+    {% endif %} <!-- End of topmenuoff -->
+
 
       <!-- slide menu -->
       <ul class="menu-bar" id="slide-1" style="padding: 20px 20px 60px 20px; overflow: scroll;">
@@ -314,7 +326,7 @@
                     // }
                     
                     // 방법 2..
-                    console.log(data);
+                    // console.log(data);
                     // tripguides likes..
                     document.getElementById("it_eat").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Eat.length + " 개</div>";
                     document.getElementById("it_drink").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Drink.length + " 개</div>";
@@ -438,6 +450,26 @@
           closeSleep();
           closeBuy();
         });
+
+        // sub menu click 시 이미지 변경..
+        var img1 = document.getElementById("submenu1");
+        var img2 = document.getElementById("submenu2");
+        var img3 = document.getElementById("submenu3");
+        $("#submenu1").click(function(){
+          img1.src = "{% static 'img/sub_menu_trips_on.png' %}";
+          img2.src = "{% static 'img/sub_menu_gotocity.png' %}";
+          img3.src = "{% static 'img/sub_menu_top.png' %}";
+        })
+        $("#submenu2").click(function(){
+          img1.src = "{% static 'img/sub_menu_trips.png' %}";
+          img2.src = "{% static 'img/sub_menu_gotocity_on.png' %}";
+          img3.src = "{% static 'img/sub_menu_top.png' %}";
+        })
+        $("#submenu3").click(function(){
+          img1.src = "{% static 'img/sub_menu_trips.png' %}";
+          img2.src = "{% static 'img/sub_menu_gotocity.png' %}";
+          img3.src = "{% static 'img/sub_menu_top_on.png' %}";
+        })
 
       })
       // mytrips > 먹다..

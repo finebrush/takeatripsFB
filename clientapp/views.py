@@ -186,17 +186,19 @@ def gotocity(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     topmenuoff = True
+    submenu = 1 # sub menu 진입여부
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
 
     if citydetails_id == 1:
-        return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff })
+        return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff, 'submenu':submenu })
     elif citydetails_id == 2:
-        return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff })
+        return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff, 'submenu':submenu })
 
 def topbak(request, citydetails_id, partnum):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     topmenuoff = True
+    submenu = 2 # sub menu 진입여부
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
     itmusts = InfoTravel.objects.filter(typeit=1) # tripguide 중 must 인것..
     # print(itmusts)
@@ -223,7 +225,7 @@ def topbak(request, citydetails_id, partnum):
         selected_itmusts = itmusts
     
     return render(request, 'client/topbak.html', {'citydetails':citydetails, 'current_user': current_user, 'selected_itmusts':selected_itmusts,
-                                'itmusts':itmusts, 'partnum':partnum, 'topmenuoff':topmenuoff })
+                                'itmusts':itmusts, 'partnum':partnum, 'topmenuoff':topmenuoff, 'submenu':submenu })
 
 def searchlist(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
