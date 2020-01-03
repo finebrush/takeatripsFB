@@ -13,7 +13,7 @@
         border-radius: 12px;
     }
     .card-imgsm {
-        height: 100%;
+        height: 118px;
         width: 150px;
         float: left;
         border-bottom-right-radius: 0px;
@@ -243,15 +243,15 @@
 {% if forloop.counter == 1 %}
     <div class="card-deck" style="padding: 0 45px 30px 45px;"> 
 {% elif forloop.counter == 4 %}
-    <div class="card-deck" style="padding: 0 45px"> 
+    <div class="card-deck" style="padding: 0 45px 30px 45px;"> 
 {% endif %}
 
         <div class="card" sstyle="height: 120px;">
             <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
                 <a href="#layer2" class="btn-example">
-                    <img class="card-imgsm" style="height: 100%;" src="{{ arcontent.picture.url }}" alt="Card image">
+                    <img class="card-imgsm" src="{{ arcontent.picture.url }}" />
                 
-                    <div class="card-body" style="text-align: left; padding: 31px 0px 31px 170px;">
+                    <div style="text-align: left; padding: 31px 0px 31px 170px;">
                         <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
                         <p class="card-text" style="font-size: 0.8em;">{{ arcontent.get_category_display }}</p>
                     </div>
@@ -298,10 +298,9 @@
 
 
 <!-- django-waterfall 이미지 들어가는 부분.. -->
+<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">유사한 여행 정보 보기</h5>
+
 <div class="card p-5" style="padding-top: 0px!important; border:0px;">
-    <h1 style="font-weight:600; color:darkslategrey;"> 
-        <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
-    </h1>
     <div class=container style="margin:0px; padding:0px; max-width:1920px;">
         <div class=waterfall> 
         </div>
@@ -312,23 +311,23 @@
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for itdetail in itdetails %}
-    <ul class="list-group" style="margin-bottom: 10px;">
-        <li class="list-group-item">
+    <ul class="list-group">
+        <li class="list-group-up">
             <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
                 <img src="{{ itdetail.picture1.url }}" alt=""> </a>
         </li>
-        <li class="list-group-item">
+        <!-- <li class="list-group-it">
             <span class="fa fa-heart" style="font-size:16px; float:right;">
                 <span>{{ itdetail.like_count }}</span>
             </span>
-        </li>
-        <li class="list-group-item">
+        </li> -->
+        <li class="list-group-it">
             <div class="media">
                 <!-- <div class="media-left">
                     <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
                 </div> -->
                 <div class="media-body">
-                    <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
+                    <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
                     <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
                     <small>{{ itdetail.introko|truncatewords:7 }}</small> 
                 </div>
