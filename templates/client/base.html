@@ -172,6 +172,7 @@
           width: 100%;
           background-color: white;
           z-index: 2000;
+          top: 0px;
         }
 
       </style>
@@ -449,26 +450,6 @@
           closeSleep();
           closeBuy();
         });
-
-        // sub menu click 시 이미지 변경..
-        var img1 = document.getElementById("submenu1");
-        var img2 = document.getElementById("submenu2");
-        var img3 = document.getElementById("submenu3");
-        $("#submenu1").click(function(){
-          img1.src = "{% static 'img/sub_menu_trips_on.png' %}";
-          img2.src = "{% static 'img/sub_menu_gotocity.png' %}";
-          img3.src = "{% static 'img/sub_menu_top.png' %}";
-        })
-        $("#submenu2").click(function(){
-          img1.src = "{% static 'img/sub_menu_trips.png' %}";
-          img2.src = "{% static 'img/sub_menu_gotocity_on.png' %}";
-          img3.src = "{% static 'img/sub_menu_top.png' %}";
-        })
-        $("#submenu3").click(function(){
-          img1.src = "{% static 'img/sub_menu_trips.png' %}";
-          img2.src = "{% static 'img/sub_menu_gotocity.png' %}";
-          img3.src = "{% static 'img/sub_menu_top_on.png' %}";
-        })
 
       })
       // mytrips > 먹다..

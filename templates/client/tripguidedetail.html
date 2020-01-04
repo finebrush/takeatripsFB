@@ -6,14 +6,14 @@
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
         <link rel=stylesheet href="{% static 'css/youtubesearch.css' %}">
         <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
-
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
         <script src="{% static 'js/youtubesearch.js' %}"></script>
 
         <style>
             /* Set the size of the div element that contains the map */
             #map {
-                height: 400px;  /* The height is 400 pixels */
-                width: 100%;  /* The width is the width of the web page */
+                height: 450px;  /* The height is 400 pixels */
+                width: 93%;  /* The width is the width of the web page */
             }
             /* The popup bubble styling. */
             .popup-bubble {
@@ -63,6 +63,9 @@
                 /* The max width of the info window. */
                 width: 200px;
             }
+            .pict {
+                border-radius: 12px;
+            }
          </style>
     {% endblock %}
 
@@ -71,7 +74,7 @@
     <div id="detailbase">
         <!-- 대표 이미지 .. -->
         
-        <section class="gallery" style="margin: 0 50;">
+        <section class="gallery" style="margin: 0 45px; padding: 0px;">
             <div class="imgcontainer">
                 <div class="grid">
                     {% if itdetail.picture1 %}
@@ -155,7 +158,7 @@
                     </div>
                     {% endif %}
                     {% if itdetail.picture9 %}
-                    <div class="column-xs-12">
+                    <div class="column-xs-12 column-md-6">
                         <figure class="img-container">
                             <a href="#layer2" class="btn-example" id="p9">
                                 <img class="pict" src="{{ itdetail.picture9.url }}" id="picture9" />
@@ -164,7 +167,7 @@
                     </div>
                     {% endif %}
                     {% if itdetail.picture10 %}
-                    <div class="column-xs-12">
+                    <div class="column-xs-12 column-md-6">
                         <figure class="img-container">
                             <a href="#layer2" class="btn-example" id="p10">
                                 <img class="pict" src="{{ itdetail.picture10.url }}" id="picture10" />
@@ -181,43 +184,83 @@
         <div class="card-deck p-5">
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h1 style="font-weight:600; color:darkslategrey;"> 
-                        <h5 class="card-title">소개정보</h5>
-                    </h1>
-                    <hr style="border: solid 0.5px #969696b3;">
+                    <h5 class="card-title" style="font-weight:600; color:black;">업체소개</h5>
+                    <hr style="border: solid 1px #000000;">
                     <p class="card-text"> {{ itdetail.introko }}</p>
                 </div>
             </div>
             
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h1 style="font-weight:600; color:darkslategrey;"> 
-                        <h5 class="card-title">일반정보</h5>
-                    </h1>
-                    <hr style="border: solid 0.5px #969696b3;">
-                    <p class="card-text"> {{ itdetail.addressko }}</p>
+                    <h5 class="card-title" style="font-weight:600; color:black;">일반정보</h5>
+                    <hr style="border: solid 1px #000000;">
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon01.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 주소 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.addressko }}</p>
+                    </div>
                     <hr style="border: solid 0.5px #969696b3;">
                     {% if itdetail.part == 'Eat' or itdetail.part == 'Drink' %}
-                        <p class="card-text"> 대표메뉴 : {{ itdetail.eatdrinkpart.menuko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon02.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 대표메뉴 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuko }} </p>
+                    </div>
                         <hr style="border: solid 0.5px #969696b3;">
-                        <p class="card-text"> 운영시간 : {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                    </div>
                     {% elif itdetail.part == 'Fun' %}
-                        <p class="card-text"> 프로그램 : {{ itdetail.funpart.programko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon08.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 프로그램 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programko }} </p>
+                    </div>
                         <hr style="border: solid 0.5px #969696b3;">
-                        <p class="card-text"> 운영시간 : {{ itdetail.funpart.biztimeko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeko }} </p>
+                    </div>
                     {% elif itdetail.part == 'See' %}
-                        <p class="card-text"> 프로그램 : {{ itdetail.seepart.operationtimeko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeko }} </p>
+                    </div>
                     {% elif itdetail.part == 'Sleep' %}
-                        <p class="card-text"> 포함사항 : {{ itdetail.sleeppart.inclusionko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon05.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 포함사항 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusionko }} </p>
+                    </div>
                         <hr style="border: solid 0.5px #969696b3;">
-                        <p class="card-text"> 객실타입 : {{ itdetail.sleeppart.roomtypeko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon06.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 객실타입 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeko }} </p>
+                    </div>  
                     {% elif itdetail.part == 'Buy' %}
-                        <p class="card-text"> 판매상품 : {{ itdetail.buypart.saleitemsko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon07.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 판매상품 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemsko }} </p>
+                    </div>
                         <hr style="border: solid 0.5px #969696b3;">
-                        <p class="card-text"> 운영시간 : {{ itdetail.buypart.biztimeko }} </p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeko }} </p>
+                    </div>
                     {% endif %}
                     <hr style="border: solid 0.5px #969696b3;">
-                    <p class="card-text"> {{ itdetail.trafficko }}</p>
+                    <div style="display: flex;">
+                        <img src="{% static 'img/tg_icon04.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                        <span style="color: black; width: 100px;"> 교통정보 </span>
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.trafficko }}</p>
+                    </div>
                     <hr style="border: solid 0.5px #969696b3;">
                 </div>
             </div>
@@ -242,143 +285,57 @@
             </div>
         </div>
 
-        <!-- {% if itdetail.picture1 %}
-        <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-            <div class="card bg-primary">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture1.url }}" alt="Card image">
-                </div>
-            </div>
-            {% if itdetail.picture2 %}
-            <div class="card bg-primary">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture2.url }}" alt="Card image">
-                </div>
-            </div>
-            {% endif %}
-            {% if itdetail.picture3 %}
-                <div class="card bg-warning">
-                    <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture3.url }}" alt="Card image">
-                    </div>
-                </div>
-            {% else %}
-                <div class="card" style="border: 0px;">
-                    <div class="card-body text-center p-0">
-                    </div>
-                </div>
-            {% endif %}
+        <!-- googlemap.. -->
+        <div id="map" style="margin: 0 45px;"></div>
+        <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:hidden;">
+            <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
+            <p> {{ itdetail.get_part_display }}</p>
         </div>
-        {% endif %}
-           
-        {% if itdetail.picture4 %}
-        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture4.url }}" alt="Card image">
-                </div>
-            </div>
-            {% if itdetail.picture5 %}
-            <div class="card bg-success">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture5.url }}" alt="Card image">
-                </div>
-            </div>
-            {% endif %}
-            {% if itdetail.picture6 %}
-                <div class="card bg-danger">
-                    <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture6.url }}" alt="Card image">
-                    </div>
-                </div>
-            {% else %}
-                <div class="card" style="border: 0px;">
-                    <div class="card-body text-center p-0">
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        {% endif %}
+        
+        <!-- django-waterfall 이미지 들어가는 부분.. 
+            imggallery2.css 때문에 다른 페이지의 waterfall 하고 다르게 <lu / <li 태그 안쓰고 style 다름-->
+        <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">유사한 여행 정보 보기</h5>
 
-        {% if itdetail.picture7 %}
-        <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-            <div class="card bg-success">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture7.url }}" alt="Card image">
+        <div class="card p-5" style="padding-top: 0px!important; border:0px;">
+            <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                <div class=waterfall> 
                 </div>
-            </div>
-            {% if itdetail.picture8 %}
-            <div class="card bg-success">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture8.url }}" alt="Card image">
-                </div>
-            </div>
-            {% endif %}
-            {% if itdetail.picture9 %}
-                <div class="card bg-danger">
-                    <div class="card-body text-center p-0">
-                        <img class="card-img-top" style="height: auto;" src="{{ itdetail.picture9.url }}" alt="Card image">
-                    </div>
-                </div>
-            {% else %}
-                <div class="card" style="border: 0px;">
-                    <div class="card-body text-center p-0">
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        {% endif %} -->
-
-
-    <!-- django-waterfall 이미지 들어가는 부분.. -->
-    <div class="card p-5" style="padding-top: 0px!important;">
-        <h1 style="font-weight:600; color:darkslategrey;"> 
-            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
-        </h1>
-        <div class=container style="margin:0px; padding:0px; max-width:1920;">
-            <div class=waterfall> 
             </div>
         </div>
-    </div>
-    
-    <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
-    <script id=waterfall-template type=text/template>
-        {% for itdetail in itdetails %}
-        <ul class="list-group" style="margin-bottom: 10px;">
-            <li class="list-group-item">
-                <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> <img src="{{ itdetail.picture1.url }}" alt=""> </a>
-            </li>
-            <li class="list-group-item">
-                <span class="fa fa-heart" style="font-size:16px; float:right;">
-                    <span>{{ itdetail.like_count }}</span>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <div class="media">
-                    <!-- <div class="media-left">
-                        <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
-                    </div> -->
-                    <div class="media-body">
-                        <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
-                        <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
-                        <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+        
+        <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+        <script id=waterfall-template type=text/template>
+            {% for itdetail in itdetails %}
+            <div class="list-group">
+                <div class="list-group-up">
+                    <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails_id }}, {{ itdetail.id }});"> 
+                        <img src="{{ itdetail.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> </a>
+                </div>
+                <!-- <li class="list-group-item">
+                    <span class="fa fa-heart" style="font-size:16px; float:right;">
+                        <span>{{ itdetail.like_count }}</span>
+                    </span>
+                </li> -->
+                <div class="list-group-it">
+                    <div class="media">
+                        <!-- <div class="media-left">
+                            <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                        </div> -->
+                        <div class="media-body">
+                            <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
+                            <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                            <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                        </div>
                     </div>
                 </div>
-            </li>
-        </ul>
-        {% endfor %}
-    </script>   
+            </div>
+            {% endfor %}
+        </script>   
+
 
     </div>  <!-- end detailbase -->   
 
-
-
-    <!-- googlemap.. -->
-    <div id="map" style="height: 80%;"></div>
-    <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:hidden;">
-        <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
-        <p> {{ itdetail.get_part_display }}</p>
-    </div>
+   
 
 
     <!-- youtube search -->

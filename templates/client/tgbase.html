@@ -8,7 +8,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel=stylesheet href="{% static 'css/main.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -20,37 +19,41 @@
 
 </head>
 <body>
-    <div class="row" style="padding: 5px; margin: 15px;">
-        <!-- back1 또는 back2 둘중에 하나는 hide -->
-        <div class="col-sm-1" id="back1" style="align-self: center;">
-            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=partnum %}" class="card-link p-2 text-dark"> 뒤로가기 </a>
+    <div class="row" style="margin: 15px 45px;">
+        <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
+        <div id="back1" style="align-self: center;">
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=partnum %}"> 
+                <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+            </a>
         </div>
-        <div class="col-sm-1" id="back2" style="align-self: center;">
-            <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link p-2 text-dark"> 뒤로가기 </a>
+        <div id="back2" style="align-self: center;">
+            <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}"> 
+                <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+            </a>
         </div>
 
-        <div class="col-sm-7">
+        <div style="padding-left: 20px;">
             <h3 class="font-weight-bold" style="margin-bottom: 0px;">
                 <a href="#" class="card-link text-dark">{{ itdetail.companyko }}</a>
-                <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;">{{ itdetail.get_typeit_display }}</small> 
+                <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
             </h3>
-            <div style="margin-bottom: 0px;"> {{ itdetail.get_part_display }} | {{ itdetail.categorymedium }}</div>
+            <div style="margin-bottom: 0px;font-size: 14px;"> {{ itdetail.get_part_display }} <font style="color: black;"> &middot; {{ itdetail.categorymedium }}</font></div>
         </div>
-        <div class="col-sm-4" style="align-self: center; text-align:right; padding-right: 40px;">
-            <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
+        <div style="align-self: center; position: absolute;right: 45px;">
+            <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                 <i class="fa fa-map-o" style="font-size:24px;"></i>
+            </a> -->
+            <a href="#youtube" id="btnyt" style="text-decoration: none;">
+                <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
             </a>
-            <a href="#youtube" class="card-link p-2 text-dark" id="btnyt">
-                <i class="fa fa-youtube" style="font-size:24px;"></i>
+            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
+                <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
             </a>
-            <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" class="card-link p-2 text-dark" id="btninsta">
-                <i class="fa fa-instagram" style="font-size:24px;"></i>
-            </a>
-            <a href="{% url 'clientapp:tripguide_like' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link p-2 text-dark" id="btnlike">
+            <a href="{% url 'clientapp:tripguide_like' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" id="btnlike" style="text-decoration: none;">
                 {% if user in itdetail.like_infotravel.all %}
-                    <i class="fa fa-heart" style="font-size:24px; color:red;"></i>
+                <img src="{% static 'img/trip_detail_like_on.png' %}" style="width: 44px; height: 44px;"/>
                 {% else %}
-                    <i class="fa fa-heart" style="font-size:24px;"></i>
+                <img src="{% static 'img/trip_detail_like.png' %}" style="width: 44px; height: 44px;"/>
                 {% endif %}
             </a> 
         </div>
@@ -71,22 +74,22 @@
 
     <script>
         $('#back2').hide();
-        $('#map').hide();
+        $('#map').show();
         $('#youtubsearch').hide();
         
-        $('#btnmap').click(function(){
-            $('#detailbase').hide();
-            $('#back1').hide();
-            $('#back2').show();
-            $('#map').show();
-            $('#youtubsearch').hide();
-        });
+        // $('#btnmap').click(function(){
+        //     $('#detailbase').hide();
+        //     $('#back1').hide();
+        //     $('#back2').show();
+        //     $('#map').show();
+        //     $('#youtubsearch').hide();
+        // });
 
         $('#btnyt').click(function(){
             $('#detailbase').hide();
             $('#back1').hide();
             $('#back2').show();
-            $('#map').hide();
+            // $('#map').hide();
             $('#youtubsearch').show();
 
             //Set form input
@@ -95,11 +98,11 @@
             
         });
 
-        $('#btninsta').click(function(){
-            $('#detailbase').hide();
-            $('#back1').hide();
-            $('#back2').show();
-        });
+        // $('#btninsta').click(function(){
+        //     $('#detailbase').hide();
+        //     $('#back1').hide();
+        //     $('#back2').show();
+        // });
 
     </script>
 </body>

@@ -8,17 +8,18 @@
 {% endblock %}
 
 {% block contents %}
-<!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class=container style="padding:0 50; max-width:1920; margin-top: 80px;">
-    <div class="row">
-        <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
-            <a href="{% url 'clientapp:tripcurator' citydetails.id %}" class="card-link text-dark" style="margin-left: 0px;">
-                <h5 class="card-title" style="margin-left: 20px;">Trip Curator</h5>
-            </a>
-        </h1>
-    </div>
 
-    <div class=waterfall> 
+<div class="linepartition"></div>
+    
+<!-- django-waterfall 이미지 들어가는 부분.. -->
+<a href="{% url 'clientapp:tripcurator' citydetails.id %}" class="card-link text-dark">
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; position: absolute;top: 80px;z-index: 999;">Trip Guide</h5>
+</a>
+
+<div class="card p-5" style="top: 120px; border:0px;">
+    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+        <div class=waterfall> 
+        </div>
     </div>
 </div>
 
@@ -26,26 +27,32 @@
 <!-- DB 에서 tripcurator(travelcurator) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for travelcurator in travelcurators %}
-    <ul class="list-group" style="margin-bottom: 10px;">
-        <li class="list-group-item">
+    <ul class="list-group">
+        <li class="list-group-up">
             <a href="{% url 'clientapp:tripcuratordetail' citydetails_id=citydetails.id tripcurator_id=travelcurator.id %}"> 
                 <img src="{{ travelcurator.tcimage_totals.first.tcimg.url }}" alt=""> </a>
         </li>
-        <li class="list-group-item">
+        <!-- <li class="list-group-item">
             <span class="fa fa-heart" style="font-size:16px; float:right;">
                 <span>{{ travelcurator.like_count }}</span>
             </span>
             <span class="fa fa-map-marker" style="font-size:16px; float:left;">
                 <span>{{ travelcurator.infotravel_count }}</span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <div class="media">
-
+        </li> -->
+        <li class="list-group-it">
+            <div class="media"  style="color: black;display: grid;">
                 <div class="media-body">
                     <h5 class="media-heading">{{ travelcurator.titleko }}</h5> 
-                    <small>{{ travelcurator.introko|truncatewords:7 }}</small><br><br>
-                    <small style="font-style:italic;"> 작성자 :</small><small style="color:blue;font-style:italic;"> {{ travelcurator.writter }}</small>
+                    <small>{{ travelcurator.introko|truncatewords:20 }}</small><br>
+                    <div style="float: right;font-style:italic;color:#adadad;">
+                        <small> 작성자 :</small>
+                        <small> {{ travelcurator.writter }}</small>
+                    </div>
+                </div>
+                <div class="media-body" style="margin-top: 40px;">
+                    <img src="{% static 'img/sub_poi.png' %}" />
+                    <small style="color:#c83a54;text-decoration: underline;"> 추천장소 : {{ travelcurator.infotravel_count }} 개</small>
                 </div>
             </div>
         </li>
