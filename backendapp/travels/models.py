@@ -302,7 +302,7 @@ class TravelPlan(models.Model):
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128, null=True)
     titleven = models.CharField(_('소개타이틀(베트남어)'), max_length=128, null=True)
     created = models.DateField(_('Created'), null=True)
-    course = models.IntegerField(_('코스선택'), choices=SELECT_COURSE, default=1)
+    course = models.CharField(_('코스선택'), max_length=64, choices=SELECT_COURSE, default=1)
     courseinfoko = models.TextField(_('코스정보(한국어)'), null=True, blank=True, help_text=_('코스를 소개해 주세요.'))
     courseinfoeng = models.TextField(_('코스정보(영어)'), null=True, blank=True, help_text=_('코스를 소개해 주세요.'))
     courseinfoven = models.TextField(_('코스정보(베트남어)'), null=True, blank=True, help_text=_('코스를 소개해 주세요.'))

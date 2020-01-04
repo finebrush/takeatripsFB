@@ -345,15 +345,20 @@
 
                     // tripcourse likes..
                     for(i = 0; i < data.TPlikes.length; i++){
+                      console.log(data.TPlikes[i].course);
+                      
                       switch(data.TPlikes[i].course){
-                        case 1:
+                        case "One-Hours":
                           coursetype = "1시간";
                           break;
-                        case 2:
+                        case "Half-Day":
                           coursetype = "반나절";
                           break;
-                        case 3:
+                        case "One-Day":
                           coursetype = "하루";
+                          break;
+                        default:
+                          coursetype = "default";
                           break;
                       }
                       document.getElementById("slide-1").innerHTML += "<li id='tpID_" + data.TPlikes[i].id +"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +

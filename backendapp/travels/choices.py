@@ -15,9 +15,9 @@ SELECT_TYPE = (
 )
 
 SELECT_COURSE = (
-    (1, _('1시간')),
-    (2, _('반나절')),
-    (3, _('하루'))
+    ('One-Hours', _('1시간')),
+    ('Half-Day', _('반나절')),
+    ('One-Day', _('하루'))
 )
 
 ASSET_CHOICES = (
@@ -25,7 +25,7 @@ ASSET_CHOICES = (
    ('N', _('공용'))
 )
 
-SELECT_CATEGORY = (
+SELECT_CATEGORY_TEMP = (
     (1, _('문화유적')),
     (2, _('랜드마크')),
     (3, _('거리')),
@@ -37,6 +37,19 @@ SELECT_CATEGORY = (
     (9, _('교통')),
     (10, _('공공')),
     (11, _('Place'))
+)
+SELECT_CATEGORY = (
+    ('Cultural-Heritage', _('문화유적')),
+    ('Landmark', _('랜드마크')),
+    ('Street', _('거리')),
+    ('Park', _('공원')),
+    ('Museum', _('박물관')),
+    ('Religion', _('종교')),
+    ('Nature', _('자연')),
+    ('Market', _('시장')),
+    ('Traffic', _('교통')),
+    ('Public', _('공공')),
+    ('Place', _('장소'))
 )
 
 SELECT_GOTOCITY = (

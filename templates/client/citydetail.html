@@ -1,5 +1,5 @@
 {% extends 'client/citysubase.html'%}
-{% load static %}
+{% load i18n static %}
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
@@ -59,9 +59,9 @@
     <div class="card bg-gray" style="height: 220px;border: none;">
         <div class="card-body text-center p-0">
             <img class="card-img" style="height: 100%;" src="{{ citydetails.picture4.url }}" alt="Card image">
-            <!-- <div class="card-img-overlay"> -->
+            <!-- <div class="card-img-overlay">
                 <h4 class="card-title">북악스카이웨이</h4>
-            <!-- </div> -->
+            </div> -->
         </div>
     </div>
 </div>
@@ -70,16 +70,22 @@
 <div class="card" style="padding: 0 25px;border: none;">
     <div class="card-body">
         <h1 style="font-weight:600; color:darkslategrey;"> 
+
+        {% if LANGUAGE_CODE == 'ko' %}
         <h5 class="card-title">{{ citydetails.nameko }}</h5>
+        {% elif LANGUAGE_CODE == 'en' %}
+        <h5 class="card-title">{{ citydetails.nameeng }}</h5>
+        {% elif LANGUAGE_CODE == 'vi' %}
+        <h5 class="card-title">{{ citydetails.nameven }}</h5>
+        {% endif %}
+
         </h1>
-        <h6 class="card-subtitle mb-2 text-muted">대한민국의 수도</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{% trans "대한민국의 수도" %}</h6>
         <p class="card-text">
-            서울특별시(서울特別市)는 대한민국의 수도이자 최대 도시이다. 백제의 첫 수도인 위례성이었고, 고려 때는 남경(南京)이었으며, 
-            조선의 수도가 된 이후로 현재까지 대한민국 정치·경제·사회·문화의 중심지 역할을 하고 있다. 
-            중앙으로 한강이 흐르고, 북한산, 관악산, 도봉산, 불암산, 인능산, 인왕산, 청계산 등의 여러 산들로 둘러싸인 분지 지형의 도시이다. 
-            넓이는 605.2 km²으로 대한민국 전 국토의 0.6%도 못 미치지만, 천만 명 정도의 인구가 살고 있어 인구밀도는 현저히 높다.
-            시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, 1988년 하계 올림픽, 
-            2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울의 GDP는 세계 4위이다.</p>
+            {% trans "서울특별시(서울特別市)는 대한민국의 수도이자 최대 도시이다. 백제의 첫 수도인 위례성이었고, 고려 때는 남경(南京)이었으며, 조선의 수도가 된 이후로 현재까지 대한민국 정치·경제·사회·문화의 중심지 역할을 하고 있다." %} 
+            {% trans "중앙으로 한강이 흐르고, 북한산, 관악산, 도봉산, 불암산, 인능산, 인왕산, 청계산 등의 여러 산들로 둘러싸인 분지 지형의 도시이다." %} 
+            {% trans "넓이는 605.2 km²으로 대한민국 전 국토의 0.6%도 못 미치지만, 천만 명 정도의 인구가 살고 있어 인구밀도는 현저히 높다." %}
+            {% trans "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, 1988년 하계 올림픽, 2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울의 GDP는 세계 4위이다." %}</p>
     </div>
 </div>
 
@@ -92,7 +98,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Eat' %}">
                 <img class="card-imgsm" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                        <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">먹다</h6>
+                        <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "먹다" %}</h6>
                 </div>
             </a>
         </div>
@@ -102,7 +108,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Drink' %}">
                 <img class="card-imgsm" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">마시다</h6>
+                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "마시다" %}</h6>
             </div>
             </a>
         </div>
@@ -112,7 +118,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Fun' %}">
                 <img class="card-imgsm" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">놀다</h6>
+                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "놀다" %}</h6>
             </div>
             </a>
         </div>
@@ -126,7 +132,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='See' %}">
                 <img class="card-imgsm" src="{{ see_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">보다</h6>
+                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "보다" %}</h6>
             </div>
             </a>
         </div>
@@ -136,7 +142,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Sleep' %}">
                 <img class="card-imgsm" src="{{ sleep_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">자다</h6>
+                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "자다" %}</h6>
             </div>
             </a>
         </div>
@@ -146,7 +152,7 @@
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Buy' %}">
                 <img class="card-imgsm" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
                 <div style="padding-left: 140px;text-align: left;">
-                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">사다</h6>
+                    <h6 class="card-title" style="padding: 50px;color: black;margin: 0px;">{% trans "사다" %}</h6>
             </div>
             </a>
         </div>
@@ -174,16 +180,25 @@
                 <img class="card-imgsm" style="width: 300px;height: 240px;" src="{{ travelcurator.tcimage_totals.first.tcimg.url }}" alt="Card image">
                 <div class="media" style="padding: 20px;color: black;display: grid;">
                     <div class="media-body">
+
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ travelcurator.titleko }}</h5> 
                         <small>{{ travelcurator.introko|truncatewords:20 }}</small><br>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 class="media-heading">{{ travelcurator.titleeng }}</h5> 
+                        <small>{{ travelcurator.introeng|truncatewords:20 }}</small><br>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 class="media-heading">{{ travelcurator.titleven }}</h5> 
+                        <small>{{ travelcurator.introven|truncatewords:20 }}</small><br>
+                        {% endif %}
+
                         <div style="float: right;font-style:italic;color:#adadad;">
-                            <small> 작성자 :</small>
-                            <small> {{ travelcurator.writter }}</small>
+                            <small> {% trans "작성자" %} : {{ travelcurator.writter }}</small>
                         </div>
                     </div>
                     <div class="media-body" style="margin-top: 40px;">
                         <img src="{% static 'img/sub_poi.png' %}" />
-                        <small style="color:#c83a54;text-decoration: underline;"> 추천장소 : {{ travelcurator.infotravel_count }} 개</small>
+                        <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelcurator.infotravel_count }} {% trans "개" %}</small>
                     </div>
                 </div>
             </a>
@@ -197,7 +212,7 @@
 <div style="padding: 10px 45px;">
     <a href="{% url 'clientapp:tripcurator' citydetails_id=citydetails.id %}">
         <small style="color:#c83a54;text-decoration: underline;"> 
-            Trip Curator 모두보기 <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+            Trip Curator {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
         </small>
     </a>
 </div> 
@@ -214,12 +229,22 @@
                 <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt="Card image">
                 <div class="media" style="padding: 20px;color: black;display: grid;">
                     <div class="media-body">
+
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
                         <small>{{ travelplan.courseinfoko|truncatewords:20 }}</small>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
+                        <small>{{ travelplan.courseinfoeng|truncatewords:20 }}</small>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
+                        <small>{{ travelplan.courseinfoven|truncatewords:20 }}</small>
+                        {% endif %}
+
                     </div>
                     <div class="media-body" style="margin-top: 40px;">
                         <img src="{% static 'img/sub_poi.png' %}" />
-                        <small style="color:#c83a54;text-decoration: underline;"> 추천장소 : {{ travelplan.inlinecount }} 개</small>
+                        <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelplan.inlinecount }} {% trans "개" %}</small>
                     </div>
                 </div>
             </a>
@@ -230,7 +255,7 @@
 <div style="padding: 10px 45px;">
     <a href="{% url 'clientapp:tripcourse' citydetails_id=citydetails.id %}">
         <small style="color:#c83a54;text-decoration: underline;"> 
-            Trip Coordinator 모두보기 <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+            Trip Coordinator {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
         </small>
     </a>
 </div> 
@@ -252,8 +277,18 @@
                     <img class="card-imgsm" src="{{ arcontent.picture.url }}" />
                 
                     <div style="text-align: left; padding: 31px 0px 31px 170px;">
+
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
                         <p class="card-text" style="font-size: 0.8em;">{{ arcontent.get_category_display }}</p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleeng }}</h6>
+                        <p class="card-text" style="font-size: 0.8em;">{{ arcontent.category }}</p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleven }}</h6>
+                        <p class="card-text" style="font-size: 0.8em;">{{ arcontent.category }}</p>
+                        {% endif %}
+                        
                     </div>
                     <div style="position: absolute;top: 27px;right: 35px;">
                         <img src="{% static 'img/sub_aricon.png' %}" />
@@ -278,11 +313,11 @@
                 <!--content //-->
                 <h4 style="text-align: center;"> TAKE A TRIPS </h4>
                 <h6 style="text-align: center;">
-                    AR Trip은 Take a trips APP에서 <br> 
-                    실행이 가능한 서비스 입니다.
+                    {% trans "AR Trip은 Take a trips APP에서" %} <br> 
+                    {% trans "실행이 가능한 서비스 입니다." %}
                 </h6>
                 <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
-                    Take a trips APP을 설치하시겠습니까?
+                    {% trans "Take a trips APP을 설치하시겠습니까?" %}
                 </p>
                 <a href="#" class="btn btn-dark btn-block" role="button">Google Play Store</a>
                 <a href="#" class="btn btn-dark btn-block" role="button">Apple App Store</a>
@@ -298,7 +333,7 @@
 
 
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">유사한 여행 정보 보기</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">{% trans "유사한 여행 정보 보기" %}</h5>
 
 <div class="card p-5" style="padding-top: 0px!important; border:0px;">
     <div class=container style="margin:0px; padding:0px; max-width:1920px;">
@@ -327,9 +362,21 @@
                     <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
                 </div> -->
                 <div class="media-body">
+
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
                     <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
                     <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
+                    <small style="color:blue;">{{ itdetail.part }}</small><br>
+                    <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
+                    <small style="color:blue;">{{ itdetail.part }}</small><br>
+                    <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                    {% endif %}
+
                 </div>
             </div>
         </li>

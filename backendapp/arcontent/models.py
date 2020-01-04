@@ -24,7 +24,7 @@ class ARTrip(models.Model):
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128)
     titleven = models.CharField(_('소개타이틀(베트남어)'), max_length=128)
     created = models.DateField(_('Created'))
-    category = models.PositiveIntegerField(_('구분'), choices=SELECT_CATEGORY)
+    category = models.CharField(_('구분'), max_length=64, choices=SELECT_CATEGORY)
     picture = models.ImageField(_('Picture'), upload_to="%Y/%m/%d", null=True, blank=True)
     file = models.FileField(_('AR File'), upload_to="arc/%Y/%m/%d", null=True, blank=True)
     

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 16:47+0900\n"
+"POT-Creation-Date: 2020-01-05 01:52+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,29 +93,29 @@ msgstr ""
 msgid "Vietnamese"
 msgstr ""
 
-#: backendapp/travels/choices.py:4
+#: backendapp/travels/choices.py:4 templates/client/citydetail.html:99
 msgid "먹다"
-msgstr ""
+msgstr "Eat"
 
-#: backendapp/travels/choices.py:5
+#: backendapp/travels/choices.py:5 templates/client/citydetail.html:109
 msgid "마시다"
-msgstr ""
+msgstr "Drink"
 
-#: backendapp/travels/choices.py:6
+#: backendapp/travels/choices.py:6 templates/client/citydetail.html:119
 msgid "놀다"
-msgstr ""
+msgstr "Fun"
 
-#: backendapp/travels/choices.py:7
+#: backendapp/travels/choices.py:7 templates/client/citydetail.html:133
 msgid "보다"
-msgstr ""
+msgstr "See"
 
-#: backendapp/travels/choices.py:8
+#: backendapp/travels/choices.py:8 templates/client/citydetail.html:143
 msgid "자다"
-msgstr ""
+msgstr "Sleep"
 
-#: backendapp/travels/choices.py:9
+#: backendapp/travels/choices.py:9 templates/client/citydetail.html:153
 msgid "사다"
-msgstr ""
+msgstr "Buy"
 
 #: backendapp/travels/choices.py:13
 msgid "Must See"
@@ -551,26 +551,108 @@ msgstr ""
 msgid "여행코스"
 msgstr ""
 
-#: templates/client/cindex.html:57
+#: templates/client/cindex.html:93
 msgid "맛있고 즐거운 도시 자유여행!"
 msgstr "Delicious and fun city free travel!"
 
-#: templates/client/cindex.html:58
+#: templates/client/cindex.html:94
 msgid "Take a trips에 오신 것을 환영합니다."
 msgstr "Welcome to Take a trips."
 
-#: templates/client/cindex.html:89
+#: templates/client/cindex.html:104
+msgid "어느 도시로 여행을 떠나 볼까여?"
+msgstr "Which city do you want to travel to?"
+
+#: templates/client/cindex.html:111 templates/client/cindex.html:155
 msgid "Take a Trips 소개"
 msgstr "Introduction to Take a Trips"
 
-#: templates/client/cindex.html:92
+#: templates/client/cindex.html:114 templates/client/cindex.html:158
 msgid "서비스 약관"
 msgstr "Terms of Service"
 
-#: templates/client/cindex.html:95
+#: templates/client/cindex.html:117 templates/client/cindex.html:161
 msgid "개인정보 보호정책"
 msgstr "Privacy policy"
 
-#: templates/client/cindex.html:98
+#: templates/client/cindex.html:120 templates/client/cindex.html:164
 msgid "도움말"
 msgstr "Help"
+
+#: templates/client/citydetail.html:81
+msgid "대한민국의 수도"
+msgstr "Capital of South Korea"
+
+#: templates/client/citydetail.html:83
+msgid ""
+"서울특별시(서울特別市)는 대한민국의 수도이자 최대 도시이다. 백제의 첫 수도인 "
+"위례성이었고, 고려 때는 남경(南京)이었으며, 조선의 수도가 된 이후로 현재까지 "
+"대한민국 정치·경제·사회·문화의 중심지 역할을 하고 있다."
+msgstr ""
+"Seoul is the capital and largest city of the Republic of Korea. It was "
+"Wiryeseong, the first capital of Baekje, was Nanjing in Goryeo, and has been "
+"the center of politics, economy, society and culture of Korea since it "
+"became the capital of Joseon."
+
+#: templates/client/citydetail.html:84
+msgid ""
+"중앙으로 한강이 흐르고, 북한산, 관악산, 도봉산, 불암산, 인능산, 인왕산, 청계"
+"산 등의 여러 산들로 둘러싸인 분지 지형의 도시이다."
+msgstr ""
+"The Han River flows through the center and is a basin-shaped city surrounded "
+"by mountains such as Bukhansan, Gwanaksan, Dobongsan, Buamsan, Ineungsan, "
+"Inwangsan, and Cheonggyesan."
+
+#: templates/client/citydetail.html:85
+#, fuzzy, python-format
+#| msgid ""
+#| "넓이는 605.2 km²으로 대한민국 전 국토의 0.6%%도 못 미치지만, 천만 명 정도"
+#| "의 인구가 살고 있어 인구밀도는 현저히 높다."
+msgid ""
+"넓이는 605.2 km²으로 대한민국 전 국토의 0.6%%도 못 미치지만, 천만 명 정도의 "
+"인구가 살고 있어 인구밀도는 현저히 높다."
+msgstr ""
+"Its area is 605.2 km², which is less than 0.6% of the entire country, but "
+"the population density of ten million is remarkably high."
+
+#: templates/client/citydetail.html:86
+msgid ""
+"시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, "
+"1988년 하계 올림픽, 2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울"
+"의 GDP는 세계 4위이다."
+msgstr ""
+"The city hall is located in Jung-gu and consists of 25 boroughs. It is an "
+"international city that hosted the 1986 Asian Games, the 1988 Summer "
+"Olympics, and the 2010 Seoul G20 Summit. Seoul's GDP is fourth in the world."
+
+#: templates/client/citydetail.html:184
+msgid "작성자"
+msgstr "Writer"
+
+#: templates/client/citydetail.html:189 templates/client/citydetail.html:225
+msgid "추천장소"
+msgstr "Recommended place"
+
+#: templates/client/citydetail.html:189 templates/client/citydetail.html:225
+msgid "개"
+msgstr "EA"
+
+#: templates/client/citydetail.html:203 templates/client/citydetail.html:236
+msgid "모두보기"
+msgstr "All"
+
+#: templates/client/citydetail.html:284
+msgid "AR Trip은 Take a trips APP에서"
+msgstr "AR Trip is a service that can be run"
+
+#: templates/client/citydetail.html:285
+msgid "실행이 가능한 서비스 입니다."
+msgstr "from the Take a trips APP."
+
+#: templates/client/citydetail.html:288
+msgid "Take a trips APP을 설치하시겠습니까?"
+msgstr "Do you want to install the Take a trips APP?"
+
+#: templates/client/citydetail.html:304
+msgid "유사한 여행 정보 보기"
+msgstr "View similar travel information"
