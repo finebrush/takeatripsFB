@@ -1,5 +1,5 @@
 {% extends 'client/base.html'%}
-{% load static %}
+{% load i18n static %}
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
@@ -13,7 +13,7 @@
     
 <!-- django-waterfall 이미지 들어가는 부분.. -->
 <a href="{% url 'clientapp:tripcurator' citydetails.id %}" class="card-link text-dark">
-    <h5 class="card-title" style="padding: 30px 45px 0px 45px; position: absolute;top: 80px;z-index: 999;">Trip Guide</h5>
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; position: absolute;top: 80px;z-index: 999;">Trip Curator</h5>
 </a>
 
 <div class="card p-5" style="top: 120px; border:0px;">
@@ -41,18 +41,28 @@
             </span>
         </li> -->
         <li class="list-group-it">
-            <div class="media"  style="color: black;display: grid;">
+            <div class="media" style="color: black;display: grid;">
                 <div class="media-body">
+                    
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <h5 class="media-heading">{{ travelcurator.titleko }}</h5> 
                     <small>{{ travelcurator.introko|truncatewords:20 }}</small><br>
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <h5 class="media-heading">{{ travelcurator.titleeng }}</h5> 
+                    <small>{{ travelcurator.introeng|truncatewords:20 }}</small><br>
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <h5 class="media-heading">{{ travelcurator.titleven }}</h5> 
+                    <small>{{ travelcurator.introven|truncatewords:20 }}</small><br>
+                    {% endif %}
+
                     <div style="float: right;font-style:italic;color:#adadad;">
-                        <small> 작성자 :</small>
+                        <small> {% trans "작성자" %} :</small>
                         <small> {{ travelcurator.writter }}</small>
                     </div>
                 </div>
                 <div class="media-body" style="margin-top: 40px;">
                     <img src="{% static 'img/sub_poi.png' %}" />
-                    <small style="color:#c83a54;text-decoration: underline;"> 추천장소 : {{ travelcurator.infotravel_count }} 개</small>
+                    <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelcurator.infotravel_count }} {% trans "개" %}</small>
                 </div>
             </div>
         </li>

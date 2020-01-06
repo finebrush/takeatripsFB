@@ -69,23 +69,24 @@
  <!-- 도시 이름과 설명..  -->
 <div class="card" style="padding: 0 25px;border: none;">
     <div class="card-body">
-        <h1 style="font-weight:600; color:darkslategrey;"> 
 
         {% if LANGUAGE_CODE == 'ko' %}
         <h5 class="card-title">{{ citydetails.nameko }}</h5>
+        <p class="card-text"> {{ citydetails.titleko }}</p>
         {% elif LANGUAGE_CODE == 'en' %}
         <h5 class="card-title">{{ citydetails.nameeng }}</h5>
+        <p class="card-text"> {{ citydetails.titleeng }}</p>
         {% elif LANGUAGE_CODE == 'vi' %}
         <h5 class="card-title">{{ citydetails.nameven }}</h5>
+        <p class="card-text"> {{ citydetails.titleven }}</p>
         {% endif %}
 
-        </h1>
-        <h6 class="card-subtitle mb-2 text-muted">{% trans "대한민국의 수도" %}</h6>
+        <!-- <h6 class="card-subtitle mb-2 text-muted">{% trans "대한민국의 수도" %}</h6>
         <p class="card-text">
             {% trans "서울특별시(서울特別市)는 대한민국의 수도이자 최대 도시이다. 백제의 첫 수도인 위례성이었고, 고려 때는 남경(南京)이었으며, 조선의 수도가 된 이후로 현재까지 대한민국 정치·경제·사회·문화의 중심지 역할을 하고 있다." %} 
             {% trans "중앙으로 한강이 흐르고, 북한산, 관악산, 도봉산, 불암산, 인능산, 인왕산, 청계산 등의 여러 산들로 둘러싸인 분지 지형의 도시이다." %} 
             {% trans "넓이는 605.2 km²으로 대한민국 전 국토의 0.6%도 못 미치지만, 천만 명 정도의 인구가 살고 있어 인구밀도는 현저히 높다." %}
-            {% trans "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, 1988년 하계 올림픽, 2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울의 GDP는 세계 4위이다." %}</p>
+            {% trans "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, 1988년 하계 올림픽, 2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울의 GDP는 세계 4위이다." %}</p> -->
     </div>
 </div>
 
@@ -179,7 +180,7 @@
             <a href="{% url 'clientapp:tripcuratordetail' citydetails_id=citydetails.id tripcurator_id=travelcurator.id %}">
                 <img class="card-imgsm" style="width: 300px;height: 240px;" src="{{ travelcurator.tcimage_totals.first.tcimg.url }}" alt="Card image">
                 <div class="media" style="padding: 20px;color: black;display: grid;">
-                    <div class="media-body">
+                    <div class="media-body" style="margin-bottom: 40px;">
 
                         {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ travelcurator.titleko }}</h5> 
@@ -196,7 +197,7 @@
                             <small> {% trans "작성자" %} : {{ travelcurator.writter }}</small>
                         </div>
                     </div>
-                    <div class="media-body" style="margin-top: 40px;">
+                    <div class="media-body" style="bottom: 20px;position: absolute;">
                         <img src="{% static 'img/sub_poi.png' %}" />
                         <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelcurator.infotravel_count }} {% trans "개" %}</small>
                     </div>
@@ -228,7 +229,7 @@
             <a href="{% url 'clientapp:tripcoursedetail' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}">
                 <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt="Card image">
                 <div class="media" style="padding: 20px;color: black;display: grid;">
-                    <div class="media-body">
+                    <div class="media-body" style="margin-bottom: 40px;">
 
                         {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
@@ -242,7 +243,7 @@
                         {% endif %}
 
                     </div>
-                    <div class="media-body" style="margin-top: 40px;">
+                    <div class="media-body" style="bottom: 20px;position: absolute;">
                         <img src="{% static 'img/sub_poi.png' %}" />
                         <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelplan.inlinecount }} {% trans "개" %}</small>
                     </div>

@@ -1,4 +1,6 @@
-{% load static %}
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <head>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -34,7 +36,15 @@
 
         <div style="padding-left: 20px;">
             <h3 class="font-weight-bold" style="margin-bottom: 0px;">
+
+                {% if LANGUAGE_CODE == 'ko' %}
                 <a href="#" class="card-link text-dark">{{ itdetail.companyko }}</a>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <a href="#" class="card-link text-dark">{{ itdetail.companyeng }}</a>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <a href="#" class="card-link text-dark">{{ itdetail.companyven }}</a>
+                {% endif %}
+                
                 <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
             </h3>
             <div style="margin-bottom: 0px;font-size: 14px;"> {{ itdetail.get_part_display }} <font style="color: black;"> &middot; {{ itdetail.categorymedium }}</font></div>

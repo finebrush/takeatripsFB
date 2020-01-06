@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-05 01:52+0900\n"
+"POT-Creation-Date: 2020-01-06 00:56+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,27 +93,27 @@ msgstr ""
 msgid "Vietnamese"
 msgstr ""
 
-#: backendapp/travels/choices.py:4 templates/client/citydetail.html:99
+#: backendapp/travels/choices.py:4 templates/client/citydetail.html:102
 msgid "먹다"
 msgstr "Eat"
 
-#: backendapp/travels/choices.py:5 templates/client/citydetail.html:109
+#: backendapp/travels/choices.py:5 templates/client/citydetail.html:112
 msgid "마시다"
 msgstr "Drink"
 
-#: backendapp/travels/choices.py:6 templates/client/citydetail.html:119
+#: backendapp/travels/choices.py:6 templates/client/citydetail.html:122
 msgid "놀다"
 msgstr "Fun"
 
-#: backendapp/travels/choices.py:7 templates/client/citydetail.html:133
+#: backendapp/travels/choices.py:7 templates/client/citydetail.html:136
 msgid "보다"
 msgstr "See"
 
-#: backendapp/travels/choices.py:8 templates/client/citydetail.html:143
+#: backendapp/travels/choices.py:8 templates/client/citydetail.html:146
 msgid "자다"
 msgstr "Sleep"
 
-#: backendapp/travels/choices.py:9 templates/client/citydetail.html:153
+#: backendapp/travels/choices.py:9 templates/client/citydetail.html:156
 msgid "사다"
 msgstr "Buy"
 
@@ -145,43 +145,43 @@ msgstr ""
 msgid "공용"
 msgstr ""
 
-#: backendapp/travels/choices.py:29
+#: backendapp/travels/choices.py:29 backendapp/travels/choices.py:42
 msgid "문화유적"
 msgstr ""
 
-#: backendapp/travels/choices.py:30
+#: backendapp/travels/choices.py:30 backendapp/travels/choices.py:43
 msgid "랜드마크"
 msgstr ""
 
-#: backendapp/travels/choices.py:31
+#: backendapp/travels/choices.py:31 backendapp/travels/choices.py:44
 msgid "거리"
 msgstr ""
 
-#: backendapp/travels/choices.py:32
+#: backendapp/travels/choices.py:32 backendapp/travels/choices.py:45
 msgid "공원"
 msgstr ""
 
-#: backendapp/travels/choices.py:33
+#: backendapp/travels/choices.py:33 backendapp/travels/choices.py:46
 msgid "박물관"
 msgstr ""
 
-#: backendapp/travels/choices.py:34
+#: backendapp/travels/choices.py:34 backendapp/travels/choices.py:47
 msgid "종교"
 msgstr ""
 
-#: backendapp/travels/choices.py:35
+#: backendapp/travels/choices.py:35 backendapp/travels/choices.py:48
 msgid "자연"
 msgstr ""
 
-#: backendapp/travels/choices.py:36
+#: backendapp/travels/choices.py:36 backendapp/travels/choices.py:49
 msgid "시장"
 msgstr ""
 
-#: backendapp/travels/choices.py:37
+#: backendapp/travels/choices.py:37 backendapp/travels/choices.py:50
 msgid "교통"
 msgstr ""
 
-#: backendapp/travels/choices.py:38
+#: backendapp/travels/choices.py:38 backendapp/travels/choices.py:51
 msgid "공공"
 msgstr ""
 
@@ -189,11 +189,17 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: backendapp/travels/choices.py:43
+#: backendapp/travels/choices.py:52
+#, fuzzy
+#| msgid "추천장소"
+msgid "장소"
+msgstr "Recommended place"
+
+#: backendapp/travels/choices.py:56
 msgid "Seoul"
 msgstr ""
 
-#: backendapp/travels/choices.py:44
+#: backendapp/travels/choices.py:57
 msgid "Busan"
 msgstr ""
 
@@ -211,6 +217,14 @@ msgstr ""
 
 #: backendapp/travels/models.py:26
 msgid "Logo-Image"
+msgstr ""
+
+#: backendapp/travels/models.py:27 backendapp/travels/models.py:28
+#: backendapp/travels/models.py:29 backendapp/travels/models.py:123
+#: backendapp/travels/models.py:124 backendapp/travels/models.py:125
+#: backendapp/travels/models.py:227 backendapp/travels/models.py:228
+#: backendapp/travels/models.py:229
+msgid "이곳을 소개해 주세요."
 msgstr ""
 
 #: backendapp/travels/models.py:30
@@ -328,12 +342,6 @@ msgstr ""
 
 #: backendapp/travels/models.py:123
 msgid "소개정보(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:123 backendapp/travels/models.py:124
-#: backendapp/travels/models.py:125 backendapp/travels/models.py:227
-#: backendapp/travels/models.py:228 backendapp/travels/models.py:229
-msgid "이곳을 소개해 주세요."
 msgstr ""
 
 #: backendapp/travels/models.py:124
@@ -579,11 +587,11 @@ msgstr "Privacy policy"
 msgid "도움말"
 msgstr "Help"
 
-#: templates/client/citydetail.html:81
+#: templates/client/citydetail.html:84
 msgid "대한민국의 수도"
 msgstr "Capital of South Korea"
 
-#: templates/client/citydetail.html:83
+#: templates/client/citydetail.html:86
 msgid ""
 "서울특별시(서울特別市)는 대한민국의 수도이자 최대 도시이다. 백제의 첫 수도인 "
 "위례성이었고, 고려 때는 남경(南京)이었으며, 조선의 수도가 된 이후로 현재까지 "
@@ -594,7 +602,7 @@ msgstr ""
 "the center of politics, economy, society and culture of Korea since it "
 "became the capital of Joseon."
 
-#: templates/client/citydetail.html:84
+#: templates/client/citydetail.html:87
 msgid ""
 "중앙으로 한강이 흐르고, 북한산, 관악산, 도봉산, 불암산, 인능산, 인왕산, 청계"
 "산 등의 여러 산들로 둘러싸인 분지 지형의 도시이다."
@@ -603,7 +611,7 @@ msgstr ""
 "by mountains such as Bukhansan, Gwanaksan, Dobongsan, Buamsan, Ineungsan, "
 "Inwangsan, and Cheonggyesan."
 
-#: templates/client/citydetail.html:85
+#: templates/client/citydetail.html:88
 #, fuzzy, python-format
 #| msgid ""
 #| "넓이는 605.2 km²으로 대한민국 전 국토의 0.6%%도 못 미치지만, 천만 명 정도"
@@ -615,7 +623,7 @@ msgstr ""
 "Its area is 605.2 km², which is less than 0.6% of the entire country, but "
 "the population density of ten million is remarkably high."
 
-#: templates/client/citydetail.html:86
+#: templates/client/citydetail.html:89
 msgid ""
 "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다. 1986년 아시안 게임, "
 "1988년 하계 올림픽, 2010년 서울 G20 정상회의를 개최한 국제적인 도시이다. 서울"
@@ -625,34 +633,78 @@ msgstr ""
 "international city that hosted the 1986 Asian Games, the 1988 Summer "
 "Olympics, and the 2010 Seoul G20 Summit. Seoul's GDP is fourth in the world."
 
-#: templates/client/citydetail.html:184
+#: templates/client/citydetail.html:197
 msgid "작성자"
 msgstr "Writer"
 
-#: templates/client/citydetail.html:189 templates/client/citydetail.html:225
+#: templates/client/citydetail.html:202 templates/client/citydetail.html:248
 msgid "추천장소"
 msgstr "Recommended place"
 
-#: templates/client/citydetail.html:189 templates/client/citydetail.html:225
+#: templates/client/citydetail.html:202 templates/client/citydetail.html:248
 msgid "개"
 msgstr "EA"
 
-#: templates/client/citydetail.html:203 templates/client/citydetail.html:236
+#: templates/client/citydetail.html:216 templates/client/citydetail.html:259
 msgid "모두보기"
 msgstr "All"
 
-#: templates/client/citydetail.html:284
+#: templates/client/citydetail.html:317
 msgid "AR Trip은 Take a trips APP에서"
 msgstr "AR Trip is a service that can be run"
 
-#: templates/client/citydetail.html:285
+#: templates/client/citydetail.html:318
 msgid "실행이 가능한 서비스 입니다."
 msgstr "from the Take a trips APP."
 
-#: templates/client/citydetail.html:288
+#: templates/client/citydetail.html:321
 msgid "Take a trips APP을 설치하시겠습니까?"
 msgstr "Do you want to install the Take a trips APP?"
 
-#: templates/client/citydetail.html:304
+#: templates/client/citydetail.html:337
+#: templates/client/tripguidedetail.html:305
 msgid "유사한 여행 정보 보기"
 msgstr "View similar travel information"
+
+#: templates/client/tripguidedetail.html:187
+msgid "업체소개"
+msgstr "Introduction"
+
+#: templates/client/tripguidedetail.html:203
+msgid "일반정보"
+msgstr "General Information"
+
+#: templates/client/tripguidedetail.html:207
+msgid "주소"
+msgstr "Address"
+
+#: templates/client/tripguidedetail.html:214
+msgid "대표메뉴"
+msgstr "Menu"
+
+#: templates/client/tripguidedetail.html:220
+#: templates/client/tripguidedetail.html:232
+#: templates/client/tripguidedetail.html:238
+#: templates/client/tripguidedetail.html:262
+msgid "운영시간"
+msgstr "operating time"
+
+#: templates/client/tripguidedetail.html:226
+msgid "프로그램"
+msgstr "Program"
+
+#: templates/client/tripguidedetail.html:244
+msgid "포함사항"
+msgstr "Inclusion"
+
+#: templates/client/tripguidedetail.html:250
+msgid "객실타입"
+msgstr "Room type"
+
+#: templates/client/tripguidedetail.html:256
+msgid "판매상품"
+msgstr "Sale Items"
+
+#: templates/client/tripguidedetail.html:269
+msgid "교통정보"
+msgstr "Traffic Information"

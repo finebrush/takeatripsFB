@@ -1,5 +1,5 @@
 {% extends 'client/tgbase.html' %}
-{% load static %}
+{% load i18n static %}
 
     {% block headers %}
         <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -184,82 +184,178 @@
         <div class="card-deck p-5">
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h5 class="card-title" style="font-weight:600; color:black;">업체소개</h5>
+                    <h5 class="card-title" style="font-weight:600; color:black;">{% trans "업체소개" %}</h5>
                     <hr style="border: solid 1px #000000;">
+
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <p class="card-text"> {{ itdetail.introko }}</p>
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <p class="card-text"> {{ itdetail.introeng }}</p>
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <p class="card-text"> {{ itdetail.introven }}</p>
+                    {% endif %}
+
                 </div>
             </div>
             
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h5 class="card-title" style="font-weight:600; color:black;">일반정보</h5>
+                    <h5 class="card-title" style="font-weight:600; color:black;">{% trans "일반정보" %}</h5>
                     <hr style="border: solid 1px #000000;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon01.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 주소 </span>
+                        <span style="color: black; width: 100px;"> {% trans "주소" %} </span>
+
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.addressko }}</p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.addresseng }}</p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.addressven }}</p>
+                        {% endif %}
+
                     </div>
                     <hr style="border: solid 0.5px #969696b3;">
                     {% if itdetail.part == 'Eat' or itdetail.part == 'Drink' %}
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon02.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 대표메뉴 </span>
+                        <span style="color: black; width: 100px;"> {% trans "대표메뉴" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menueng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuven }} </p>
+                        {% endif %}
+
                     </div>
                         <hr style="border: solid 0.5px #969696b3;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeven }} </p>
+                        {% endif %}
+
                     </div>
                     {% elif itdetail.part == 'Fun' %}
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon08.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 프로그램 </span>
+                        <span style="color: black; width: 100px;"> {% trans "프로그램" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programven }} </p>
+                        {% endif %}
+
                     </div>
                         <hr style="border: solid 0.5px #969696b3;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeven }} </p>
+                        {% endif %}
+
                     </div>
                     {% elif itdetail.part == 'See' %}
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeven }} </p>
+                        {% endif %}
+
                     </div>
                     {% elif itdetail.part == 'Sleep' %}
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon05.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 포함사항 </span>
+                        <span style="color: black; width: 100px;"> {% trans "포함사항" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusionko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusioneng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusionven }} </p>
+                        {% endif %}
+
                     </div>
                         <hr style="border: solid 0.5px #969696b3;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon06.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 객실타입 </span>
+                        <span style="color: black; width: 100px;"> {% trans "객실타입" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeven }} </p>
+                        {% endif %}
+
                     </div>  
                     {% elif itdetail.part == 'Buy' %}
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon07.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 판매상품 </span>
+                        <span style="color: black; width: 100px;"> {% trans "판매상품" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemsko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemseng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemsven }} </p>
+                        {% endif %}
+
                     </div>
                         <hr style="border: solid 0.5px #969696b3;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 운영시간 </span>
+                        <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeko }} </p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeeng }} </p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeven }} </p>
+                        {% endif %}
+
                     </div>
                     {% endif %}
                     <hr style="border: solid 0.5px #969696b3;">
                     <div style="display: flex;">
                         <img src="{% static 'img/tg_icon04.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
-                        <span style="color: black; width: 100px;"> 교통정보 </span>
+                        <span style="color: black; width: 100px;"> {% trans "교통정보" %} </span>
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <p class="card-text" style="width: 540px;"> {{ itdetail.trafficko }}</p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.trafficeng }}</p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <p class="card-text" style="width: 540px;"> {{ itdetail.trafficven }}</p>
+                        {% endif %}
+
                     </div>
                     <hr style="border: solid 0.5px #969696b3;">
                 </div>
@@ -288,13 +384,21 @@
         <!-- googlemap.. -->
         <div id="map" style="margin: 0 45px;"></div>
         <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:hidden;">
+            
+            {% if LANGUAGE_CODE == 'ko' %}
             <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
+            {% elif LANGUAGE_CODE == 'en' %}
+            <h5 style="margin: 0px;">{{ itdetail.companyeng }}</h5>
+            {% elif LANGUAGE_CODE == 'vi' %}
+            <h5 style="margin: 0px;">{{ itdetail.companyven }}</h5>
+            {% endif %}
+
             <p> {{ itdetail.get_part_display }}</p>
         </div>
         
         <!-- django-waterfall 이미지 들어가는 부분.. 
             imggallery2.css 때문에 다른 페이지의 waterfall 하고 다르게 <lu / <li 태그 안쓰고 style 다름-->
-        <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">유사한 여행 정보 보기</h5>
+        <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">{% trans "유사한 여행 정보 보기" %}</h5>
 
         <div class="card p-5" style="padding-top: 0px!important; border:0px;">
             <div class=container style="margin:0px; padding:0px; max-width:1920px;">
@@ -322,9 +426,21 @@
                             <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
                         </div> -->
                         <div class="media-body">
+                            
+                            {% if LANGUAGE_CODE == 'ko' %}
                             <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
                             <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
                             <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                            {% elif LANGUAGE_CODE == 'en' %}
+                            <h5 class="media-heading">{{ itdetail.companyeng }}</h5> 
+                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                            <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                            <h5 class="media-heading">{{ itdetail.companyven }}</h5> 
+                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                            <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </div>

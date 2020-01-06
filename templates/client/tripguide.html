@@ -1,5 +1,5 @@
 {% extends 'client/base.html'%}
-{% load static %}
+{% load i18n static %}
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
@@ -283,9 +283,20 @@
                     <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
                 </div> -->
                 <div class="media-body">
+
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <h5 class="media-heading">{{ selected_itdetail.companyko }}</h5> 
                     <small style="color:blue;">{{ selected_itdetail.get_part_display }}</small><br>
                     <small>{{ selected_itdetail.introko|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <h5 class="media-heading">{{ selected_itdetail.companyeng }}</h5> 
+                    <small style="color:blue;">{{ selected_itdetail.part }}</small><br>
+                    <small>{{ selected_itdetail.introeng|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <h5 class="media-heading">{{ selected_itdetail.companyven }}</h5> 
+                    <small style="color:blue;">{{ selected_itdetail.part }}</small><br>
+                    <small>{{ selected_itdetail.introven|truncatewords:7 }}</small> 
+                    {% endif %}
                 </div>
             </div>
         </li>
