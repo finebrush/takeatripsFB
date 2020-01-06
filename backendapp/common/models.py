@@ -18,7 +18,9 @@ class Category(models.Model):
         return self.large
 
 class CLarge(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=128)
+    nameeng = models.CharField(max_length=128, default='')
+    nameven = models.CharField(max_length=128, default='')
 
     class Meta:
         verbose_name = _('대분류')
@@ -30,7 +32,9 @@ class CLarge(models.Model):
 
 class CMedium(models.Model):
     categorylarge = models.ForeignKey(CLarge, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=128)
+    nameeng = models.CharField(max_length=128, default='')
+    nameven = models.CharField(max_length=128, default='')
 
     class Meta:
         verbose_name = _('중분류')
@@ -51,7 +55,9 @@ class CSmall(models.Model):
         sort=True,
         null=True
         )
-    name = models.CharField(max_length=50, verbose_name='categorySmall')
+    name = models.CharField(max_length=128)
+    nameeng = models.CharField(max_length=128, default='')
+    nameven = models.CharField(max_length=128, default='')
 
     class Meta:
         verbose_name = _('소분류')

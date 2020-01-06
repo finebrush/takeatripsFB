@@ -47,7 +47,17 @@
                 
                 <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
             </h3>
-            <div style="margin-bottom: 0px;font-size: 14px;"> {{ itdetail.get_part_display }} <font style="color: black;"> &middot; {{ itdetail.categorymedium }}</font></div>
+            <div style="margin-bottom: 0px;font-size: 14px;"> {{ itdetail.get_part_display }} 
+                
+                {% if LANGUAGE_CODE == 'ko' %}
+                <font style="color: black;"> &middot; {{ itdetail.categorymedium.name }}</font>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <font style="color: black;"> &middot; {{ itdetail.categorymedium.nameeng }}</font>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <font style="color: black;"> &middot; {{ itdetail.categorymedium.nameven }}</font>
+                {% endif %}
+
+            </div>
         </div>
         <div style="align-self: center; position: absolute;right: 45px;">
             <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">

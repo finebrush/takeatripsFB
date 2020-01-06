@@ -26,211 +26,355 @@
     {% if partnum == 'Eat' %} <!-- gotocity page-->
     <div class="container menuadd">
       <div class="centerdiv">
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon_on.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_on.png' %}"/>
+                {% endif %}
             </a>
-        </div>
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% endif %}
             </a>
-        </div>
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% endif %}
             </a>
-        </div>
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% endif %}
             </a>
-        </div>
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% endif %}
             </a>
-        </div>
-        <div class="pull-centeradd">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon.png' %}"/>
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% endif %}
             </a>
-        </div>
       </div>
     </div>
     {% elif partnum == 'Drink' %} <!-- top100 page-->
     <div class="container menuadd">
         <div class="centerdiv">
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon_on.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon.png' %}"/>
-              </a>
-          </div>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_on.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% endif %}
+            </a>
         </div>
       </div>
       {% elif partnum == 'Fun' %} <!-- top100 page-->
       <div class="container menuadd">
         <div class="centerdiv">
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon_on.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon.png' %}"/>
-              </a>
-          </div>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_on.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% endif %}
+            </a>
         </div>
       </div>
       {% elif partnum == 'See' %} <!-- top100 page-->
       <div class="container menuadd">
         <div class="centerdiv">
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon_on.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon.png' %}"/>
-              </a>
-          </div>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_on.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% endif %}
+            </a>
         </div>
       </div>
       {% elif partnum == 'Sleep' %} <!-- top100 page-->
       <div class="container menuadd">
         <div class="centerdiv">
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon_on.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon.png' %}"/>
-              </a>
-          </div>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_on.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_off.png' %}"/>
+                {% endif %}
+            </a>
         </div>
       </div>
       {% elif partnum == 'Buy' %} <!-- top100 page-->
       <div class="container menuadd">
         <div class="centerdiv">
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_eat_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_drink_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_fun_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
-                  <img class="submenu1" id="submenu1" src="{% static 'img/trip_see_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
-                  <img class="submenu2" id="submenu2" src="{% static 'img/trip_sleep_icon.png' %}"/>
-              </a>
-          </div>
-          <div class="pull-centeradd">
-              <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
-                  <img class="submenu3" id="submenu3" src="{% static 'img/trip_buy_icon_on.png' %}"/>
-              </a>
-          </div>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Eat' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg01_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Drink' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg02_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Fun' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg03_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='See' %}"> 
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg04_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Sleep' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_k_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg05_e_off.png' %}"/>
+                {% endif %}
+            </a>
+            <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum='Buy' %}">
+                {% if LANGUAGE_CODE == 'ko' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_k_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_on.png' %}"/>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <img class="submenu1" id="submenu1" src="{% static 'img/part/tg06_e_on.png' %}"/>
+                {% endif %}
+            </a>
         </div>
       </div>
     {% endif %}<!-- End of topmenuoff -->
