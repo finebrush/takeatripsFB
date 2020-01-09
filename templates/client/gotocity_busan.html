@@ -4,141 +4,181 @@
 
 {% block subcontents %}
 
-<div id="detail_busanbus">
+<!-- Nav tabs -->
+<div class="tab_contents" style="text-align: center;background: #e4e4e4;">
+    <input type="radio" name="tabmenu" id="tab01" checked>
+    <label for="tab01">{% trans "리무진 버스" %}</label>
+    <input type="radio" name="tabmenu" id="tab02">
+    <label for="tab02">{% trans "지하철" %}</label>
 
-    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-        <div class="card bg-success">
-            <div class="card-body text-center p-0">
-                <img class="card-img-top" src="{% static 'img/busan_bus.png' %}" alt="">
+    <div class="conbox con1"> 
+
+        <!-- 리무진 버스 (서면/부산역 방면).. -->
+        <div class="card-deck" style="padding: 30px 45px 0px 45px;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "리무진 버스 서면/부산역 방면" %}</h5>
+                    </h1>
+
+                    <hr style="border: solid 0.5px #000;">
+
+                    <div class="card-deck" style="margin: 0px;">
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-map-marker-alt" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 50px;">{% trans "위치" %}</span> 
+                                <span>{% trans "국내선 및 국제선 1층 2번 승강장" %}</span>
+                            </div>
+                        </div>
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-won-sign" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 50px;">{% trans "요금" %}</span>
+                                <span>{% trans "현금 \6,000 / 교통카드 \6,000" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr style="border: solid 0.5px #969696b3;">
+
+                    <div class="card-deck" style="margin: 0px;">
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-bus" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 15px;">{% trans "운행시간" %}</span>
+                                <span>{% trans "첫차/막차 : 첫차 06:55 / 막차 21:35" %}</span>
+                            </div>
+                        </div>
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-arrows-alt-h" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 25px;">{% trans "운행간격" %}</span>
+                                <span>{% trans "약 40분" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr style="border: solid 0.5px #969696b3;">
+
+                    <div class="card" style="border: 0px; flex-direction: row;"> 
+                        <i class="fas fa-route" style="font-size:24px"></i>
+                        <span style="font-weight: 600;margin-right: 25px;">{% trans "운행경로" %}</span>
+                        <span>{% trans "국제선-국내선-서면 롯데호텔-서면1번가-현대백화점-부산진역-부산역-토요코인 호텔-중앙동-연안여객터미널-남포동-충무동" %}</span>
+                    </div>
+                    
+                    <hr style="border: solid 0.5px #969696b3;">
+                    
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 리무진 버스 (서면/부산역 방면).. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">리무진 버스 (서면/부산역 방면)</h5>
-                </h1>
+        <!-- 리무진 버스 (해운대 방면).. -->
+        <div class="card-deck" style="padding: 30px 45px 0px 45px;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "리무진 버스 해운대 방면" %}</h5>
+                    </h1>
 
-                <hr style="border: solid 0.5px #969696b3;">
+                    <hr style="border: solid 0.5px #000;">
 
-                <div class="card-deck" style="margin: 0px;">
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-map-marker-alt" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">위치 : 국내선 및 국제선 1층 2번 승강장</div>
+                    <div class="card-deck" style="margin: 0px;">
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-map-marker-alt" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 50px;">{% trans "위치" %}</span> 
+                                <span>{% trans "국내선 및 국제선 1층 2번 승강장" %}</span>
+                            </div>
+                        </div>
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-won-sign" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 50px;">{% trans "요금" %}</span>
+                                <span>{% trans "요금 : 현금 \7,000 / 교통카드 \7,000" %}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-won-sign" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">요금 : 현금 \6,000 / 교통카드 \6,000</div>
-                    </div>
-                </div>
 
-                <hr style="border: solid 0.5px #969696b3;">
+                    <hr style="border: solid 0.5px #969696b3;">
 
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="fas fa-route" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">운행경로 (부산시내로 가는 길)</div>
-                </div>
-                <div style="padding-left: 50px;">국제선-국내선-서면 롯데호텔-서면1번가-현대백화점-부산진역-부산역-토요코인 호텔-중앙동-연안여객터미널-남포동-충무동</div>
-                
-                <hr style="border: solid 0.5px #969696b3;">
-                
-                <div class="card" style="border: 0px; flex-direction: row;">
-                    <i class="fas fa-route" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">운행경로 (김해공항으로 오는 길)</div>
-                </div>
-                <div style="padding-left: 50px;">충무동-남포동-연안여객터미널-중앙동-영주동-부산역-부산진역-현대백화점-서면쥬디스태화-서면롯데호텔-국제선-국내선</div>
-                
-                <hr style="border: solid 0.5px #969696b3;">
-                
-                <div class="card-deck" style="margin: 0px;">
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-bus" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">첫차/막차 : 첫차 06:55 / 막차 21:35</div>
+                    <div class="card-deck" style="margin: 0px;">
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-bus" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 15px;">{% trans "운행시간" %}</span>
+                                <span>{% trans "첫차/막차 : 첫차 06:45 / 막차 22:15" %}</span>
+                            </div>
+                        </div>
+                        <div class="card" style="border: 0px; flex-direction: row;"> 
+                            <i class="fas fa-arrows-alt-h" style="font-size:24px"></i>
+                            <div style="padding-left: 10px;">
+                                <span style="font-weight: 600;margin-right: 25px;">{% trans "운행간격" %}</span>
+                                <span>{% trans "약 30분" %}</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <hr style="border: solid 0.5px #969696b3;">
+
                     <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-arrows-alt-h" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">운행간격 : 약 40분</div>
+                        <i class="fas fa-route" style="font-size:24px"></i>
+                        <span style="font-weight: 600;margin-right: 25px;width: 10%;">{% trans "운행경로" %}</span>
+                        <span>{% trans "국제선-국내선-남천동-금련산역-광안역-수영교차로-수영현대아파트-센텀호텔-센텀홈플러스(벡스코)-올림픽교차로-" %}
+                            {% trans "경남마리나아파트-파크하얏트호텔-한화리조트-해운대하이페리온-동백섬 입구(웨스틴조선비치호텔)-해운대그랜드호텔-" %}
+                            {% trans "해운대해수욕장-노보텔엠베서더호텔-파라다이스호텔-미포,문텐로드입구-래미안해운대-현대아파트-장산역-" %}
+                            {% trans "백병원-동부아파트-대림1차아파트-양운고등학교-양운초등학교" %}</span>
                     </div>
+                    
+                    <hr style="border: solid 0.5px #969696b3;">
+
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 리무진 버스 (해운대 방면).. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">리무진 버스 (해운대 방면)</h5>
-                </h1>
+        <!-- 리무진 버스 (해운대 방면).. -->
+        <div class="card-deck" style="padding: 30px 45px 0px 45px;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "리무진 버스 탑승 위치 안내도" %}</h5>
+                    </h1>
 
-                <hr style="border: solid 0.5px #969696b3;">
+                    <hr style="border: solid 0.5px #000;">
 
-                <div class="card-deck" style="margin: 0px;">
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-map-marker-alt" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">위치 : 국내선 및 국제선 1층 2번 승강장</div>
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/busan_airport01.png' %}" alt="">
                     </div>
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-won-sign" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">요금 : 현금 \7,000 / 교통카드 \7,000</div>
-                    </div>
+
                 </div>
-
-                <hr style="border: solid 0.5px #969696b3;">
-
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="fas fa-route" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">운행경로 (해운대로 가는 길)</div>
-                </div>
-                <div style="padding-left: 50px;">국제선-국내선-남천동-금련산역-광안역-수영교차로-수영현대아파트-센텀호텔-센텀홈플러스(벡스코)-올림픽교차로-
-                    경남마리나아파트-파크하얏트호텔-한화리조트-해운대하이페리온-동백섬 입구(웨스틴조선비치호텔)-해운대그랜드
-                    호텔-해운대해수욕장-노보텔엠베서더호텔-파라다이스호텔-미포,문텐로드입구-래미안해운대@-현대아파트-장산역-
-                    백병원-동부아파트-대림1차아파트-양운고등학교-양운초등학교</div>
-
-                <hr style="border: solid 0.5px #969696b3;">
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="fas fa-route" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">운행경로 (김해공항으로 오는 길)</div>
-                </div>
-                <div style="padding-left: 50px;">양운초등학교-양운고등학교-대동아파트-동부아파트-백병원-장산역-현대아파트-래미안해운대 -미포,문텐로드입구-
-                    파라다이스호텔-씨클라우드호텔-해운대해수욕장-해운대그랜드호텔-동백섬입구(웨스틴조선비치호텔)-해운대 하이
-                    페리온-한화리조트-파크하얏트호텔-경남마리나아파트-올림픽교차로-센텀홈플러스(벡스코)-센텀호텔-수영현대아파트-
-                    수영교차로-광안역-금련산역-남천동-국제선-국내선</div>
-                
-                <hr style="border: solid 0.5px #969696b3;">
-
-                <div class="card-deck" style="margin: 0px;">
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-bus" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">첫차/막차 : 첫차 06:45 / 막차 22:15</div>
-                    </div>
-                    <div class="card" style="border: 0px; flex-direction: row;"> 
-                        <i class="fas fa-arrows-alt-h" style="font-size:24px"></i>
-                        <div style="padding-left: 10px;">운행간격 : 약 30분</div>
-                    </div>
-                </div>
-
             </div>
         </div>
+
+
     </div>
 
-</div> <!-- End of detail_busanbus -->
+    <div class="conbox con2"> 
 
+        <!-- 지하철.. -->
+        <div class="card-deck" style="padding: 30px 45px 0px 45px;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "부산시 지하철 노선도" %}</h5>
+                    </h1>
 
-<div id="detail_busansubway">
-    
-    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-        <div class="card bg-success">
-            <div class="card-body text-center p-0">
-                <img class="card-img-top" src="{% static 'img/busan_subway.png' %}" alt="">
+                    <hr style="border: solid 0.5px #000;">
+
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/busan_airport02.png' %}" alt="">
+                    </div>
+
+                </div>
             </div>
         </div>
+
     </div>
 
-</div> <!-- End of detail_busansubway -->
+</div>
 
 {% endblock %}

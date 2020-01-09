@@ -46,15 +46,16 @@
                     {% if LANGUAGE_CODE == 'ko' %}
                     <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
                     <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
-                    <small style="color:blue;">{{ travelplan.get_course_display }}</small> 
+                    <!-- <small style="color:blue;">{{ travelplan.get_course_display }}</small>  -->
+                    <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </small>
                     {% elif LANGUAGE_CODE == 'en' %}
                     <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
                     <small>{{ travelplan.courseinfoeng|truncatewords:10 }}</small><br>
-                    <small style="color:blue;">{{ travelplan.course }}</small> 
+                    <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small>
                     {% elif LANGUAGE_CODE == 'vi' %}
                     <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
                     <small>{{ travelplan.courseinfoven|truncatewords:10 }}</small><br>
-                    <small style="color:blue;">{{ travelplan.course }}</small> 
+                    <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small> 
                     {% endif %}
 
                 </div>

@@ -1,110 +1,154 @@
 {% extends 'client/tcbase.html' %}
-{% load static %}
+{% load i18n static %}
 
     {% block headers %}
+        <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+        <link rel=stylesheet href="{% static 'css/magnific-popup.css' %}">
         <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+
+        <style>
+            /* padding-bottom and top for image */
+            .mfp-no-margins img.mfp-img {
+                padding: 0;
+            }
+            /* position of shadow behind the image */
+            .mfp-no-margins .mfp-figure:after {
+                top: 0;
+                bottom: 0;
+            }
+            /* padding for main container */
+            .mfp-no-margins .mfp-container {
+                padding: 0;
+            }
+
+            .pict {
+                border-radius: 12px;
+            }
+            .linepart{
+                margin-bottom: 30px;
+                border-bottom: solid 0.5px #00000022;
+                width: 100%;
+                background-color: white;
+                z-index: -1;
+                top: 0px;
+            }
+        </style>
     {% endblock %}
 
     {% block contents %}
+
+    <div class="linepart"></div>
+
     <div id="detailbase">
 
-        <!-- 소개정보 / 일반정보.. -->
+        <!-- 소개정보.. -->
         <div class="card-deck p-5" style="padding-top: 0px!important;">
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h1 style="font-weight:600; color:darkslategrey;"> 
-                        <h2 class="card-title" style="margin-bottom: 0px;">{{ travelcurator.titleko }}</h2>
-                        <small style="font-style:italic;"> 작성자 :</small>
-                        <small style="color:blue;font-style:italic;"> {{ travelcurator.writter }}</small>
-                    </h1>
-                    <!-- <hr style="border: solid 0.5px #969696b3;"> -->
+                    
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <p class="card-text" style="margin-top: 15px;"> {{ travelcurator.introko }}</p>
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <p class="card-text" style="margin-top: 15px;"> {{ travelcurator.introeng }}</p>
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <p class="card-text" style="margin-top: 15px;"> {{ travelcurator.introven }}</p>
+                    {% endif %}
+                    
                 </div>
             </div>
         </div>
 
-        
         <!-- 대표 이미지 .. -->
-        {% for tcimage_total in travelcurator.tcimage_totals %}
-            <!-- 홀수에서 한줄 div 태그 -->
-            {% if forloop.counter|divisibleby:2 %}
-                
-            {% else %}
-                <!-- 맨 위줄만 padding-top 없애기 -->
-                {% if forloop.counter == 1 %}
-                    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-                {% else %}
-                    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-                {% endif %}
-            {% endif %}
-
         
-            <div class="card bg-primary" style="height: 450px;">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" style="height: 100%;" src="{{ tcimage_total.tcimg.url }}" alt="Card image">
+        <section class="gallery" style="margin: 0 45px; padding: 0px;">
+            <div class="imgcontainer">
+                <div class="grid">
+                    {% for tcimage_total in travelcurator.tcimage_totals %}
+                    {% if forloop.counter < 7 %}
+                    <div class="column-xs-12 column-md-4">
+                    {% else %}
+                    <div class="column-xs-12 column-md-6"></div>
+                    {% endif %}
+                        <figure class="img-container">
+                            <!-- <a href="#layer2" class="btn-example" id="p1"> -->
+                                <!-- <img class="pict" src="{{ tcimage_total.tcimg.url }}" /> -->
+                            <!-- </a> -->
+                            <a class="image-popup-vertical-fit" href="{{ tcimage_total.tcimg.url }}">
+                                <img class="pict" src="{{ tcimage_total.tcimg.url }}" />
+                            </a>
+                        </figure>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-
-            <!-- 짝수에서 한줄 div 태그 닫기 / 한줄에 두개 이미지 넣음.. -->
-            {% if forloop.counter|divisibleby:2 %}
-            </div>
-            {% else %}
-            
-            {% endif %}
+        </section>
         
-        {% endfor %}
-
-
 
     <!-- 추천 장소 -->
-    <div class="card p-1">
-        <h5 class="card-title" style="padding: 1.5em; margin: 0 20;">추천 장소</h5>
-        <!-- 추천장소 Contents.. -->
-        {% for addedinfotravel in addedinfotravels %}
-            {% if forloop.counter == 1 or forloop.counter == 5 %}
-            <div class="card-deck p-5" style="padding-top: 0px!important;">
-                <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
-                    <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
-                        <a href="#layer2" class="btn-example">
-                            <img class="card-img-top" style="height: 100%;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
-                        </a>
-                        <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
-                            <h6 class="card-title" style="margin-bottom: 0px;">{{ addedinfotravel.companyko }}</h6>
-                            <p class="card-text" style="font-size: 0.8em; color:blue;margin-bottom: 0.6em;">{{ addedinfotravel.get_part_display }}</p>
-                            <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p>
-                        </div>
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">{% trans "추천 여행정보" %}</h5>
+    <!-- 추천장소 Contents.. -->
+    {% for addedinfotravel in addedinfotravels %}
+        {% if forloop.counter == 1 or forloop.counter == 5 %}
+        <div class="card-deck" style="padding-top: 0px!important;padding: 0 45px; min-height: 350px;">
+            <div class="card" style="height: 350px;border-radius: 12px;">
+                <div class="card-body text-center p-0"> <!-- 팝업창 띄우기-->
+                    <a href="javascript:itdetailpath('{{ addedinfotravel.part }}', {{ citydetails.id }}, {{ addedinfotravel.id }});" class="btn-example">
+                        <img class="card-img-top" style="height: 78%;border-top-right-radius: 12px;border-top-left-radius: 12px;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
+                    </a>
+                    <div class="card-body" style="text-align: left; padding-left: 20px; padding-top: 20px;">
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyko }}</h6>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyeng }}</h6>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyven }}</h6>
+                        {% endif %}
+
+                        <p class="card-text" style="font-size: 0.8em; color:#6b6b6b;margin-bottom: 0.6em;text-decoration: underline;">{{ addedinfotravel.get_part_display }}</p>
+                        <!-- <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p> -->
                     </div>
-                </div> 
-            {% else %}
-                <div class="card bg-primary" style="height: 240px; margin-bottom: 60px;">
-                    <div class="card-body text-center p-0">
-                        <a href="#layer2" class="btn-example"> <!-- 팝업창 띄우기-->
-                            <img class="card-img-top" style="height: 100%;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
-                        </a>
-                        <div class="card-body" style="text-align: left; padding-left: 0px; padding-top: 10px;">
-                            <h6 class="card-title" style="margin-bottom: 0px;">{{ addedinfotravel.companyko }}</h6>
-                            <p class="card-text" style="font-size: 0.8em; color:blue;margin-bottom: 0.6em;">{{ addedinfotravel.get_part_display }}</p>
-                            <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p>
-                        </div>
+                </div>
+            </div> 
+        {% else %}
+            <div class="card" style="height: 350px; border-radius: 12px;">
+                <div class="card-body text-center p-0">
+                    <a href="javascript:itdetailpath('{{ addedinfotravel.part }}', {{ citydetails.id }}, {{ addedinfotravel.id }});" class="btn-example"> <!-- 팝업창 띄우기-->
+                        <img class="card-img-top" style="height: 78%;border-top-right-radius: 12px;border-top-left-radius: 12px;" src="{{ addedinfotravel.picture1.url }}" alt="Card image">
+                    </a>
+                    <div class="card-body" style="text-align: left; padding-left: 20px; padding-top: 20px;">
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyko }}</h6>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyeng }}</h6>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h6 class="card-title" style="margin-bottom: 0px;color: black;">{{ addedinfotravel.companyven }}</h6>
+                        {% endif %}
+
+                        <p class="card-text" style="font-size: 0.8em; color:#6b6b6b;margin-bottom: 0.6em;text-decoration: underline;">{{ addedinfotravel.get_part_display }}</p>
+                        <!-- <p class="card-text" style="font-size: 0.8em;">{{ addedinfotravel.introko|truncatewords:7 }}</p> -->
                     </div>
-                </div> 
-            {% endif %}
-        
-            {% if forloop.counter == 4 or forloop.counter == 8 %}
-            </div>
-            {% endif %}
-        {% endfor %}
+                </div>
+            </div> 
+        {% endif %}
+    
+        {% if forloop.counter == 4 or forloop.counter == 8 %}
         </div>
-    </div> <!-- End of 추전 장소 -->
+        {% endif %}
+    {% endfor %}
+    </div>
         
 
     <!-- 유사한 여행 정보 보기 / django-waterfall 이미지 들어가는 부분.. -->
-    <div class="card p-5" style="padding-top: 0px!important;">
-        <h1 style="font-weight:600; color:darkslategrey;"> 
-            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
-        </h1>
-        <div class=container style="margin:0px; padding:0px; max-width:1920;">
+
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">{% trans "유사한 여행 정보 보기" %}</h5>
+
+    <div class="card p-5" style="padding-top: 0px!important; border:0px;">
+        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
             <div class=waterfall> 
             </div>
         </div>
@@ -113,28 +157,42 @@
     <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
     <script id=waterfall-template type=text/template>
         {% for searchlist in searchlists %}
-        <ul class="list-group" style="margin-bottom: 10px;">
-            <li class="list-group-item">
-                <a href="javascript:itdetailpath('{{ searchlist.part }}', {{ citydetails.id }}, {{ searchlist.id }});"> <img src="{{ searchlist.picture1.url }}" alt=""> </a>
-            </li>
-            <li class="list-group-item">
+        <div class="list-group"> <!-- lu / li -> div 태그로 바꿔야 디테일뷰에서는 제대로 나옴..-->
+            <div class="list-group-up">
+                <a href="javascript:itdetailpath('{{ searchlist.part }}', {{ citydetails.id }}, {{ searchlist.id }});"> 
+                    <img src="{{ searchlist.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;" alt=""> 
+                </a>
+            </div>
+            <!-- <li class="list-group-item">
                 <span class="fa fa-heart" style="font-size:16px; float:right;">
                     <span>{{ searchlist.like_count }}</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+            </li> -->
+            <div class="list-group-it">
                 <div class="media">
                     <!-- <div class="media-left">
                         <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
                     </div> -->
                     <div class="media-body">
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ searchlist.companyko }}</h5> 
                         <small style="color:blue;">{{ searchlist.get_part_display }}</small><br>
                         <small>{{ searchlist.introko|truncatewords:7 }}</small> 
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 class="media-heading">{{ searchlist.companyeng }}</h5> 
+                        <small style="color:blue;">{{ searchlist.part }}</small><br>
+                        <small>{{ searchlist.introeng|truncatewords:7 }}</small> 
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 class="media-heading">{{ searchlist.companyven }}</h5> 
+                        <small style="color:blue;">{{ searchlist.part }}</small><br>
+                        <small>{{ searchlist.introven|truncatewords:7 }}</small> 
+                        {% endif %}
+
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
         {% endfor %}
     </script>   
 
@@ -185,6 +243,44 @@
             }
         }
 
+        $(document).ready(function() {
+
+            $('.image-popup-vertical-fit').magnificPopup({
+                
+                type: 'image',
+                closeOnContentClick: true,
+                showCloseBtn: false,
+                mainClass: 'mfp-img-mobile',
+                image: {
+                    verticalFit: true
+                }
+                
+            });
+
+            $('.image-popup-fit-width').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: false
+                }
+            });
+
+            $('.image-popup-no-margins').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                closeBtnInside: false,
+                fixedContentPos: true,
+                mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+                image: {
+                    verticalFit: true
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                }
+            });
+
+        });
 
     </script>
 

@@ -7,7 +7,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background: #f7f7f7;
+    background: #fff;
     z-index:10;  
     overflow:hidden;
     box-shadow: 2px 0 18px rgba(0, 0, 0, 0.26);
@@ -81,29 +81,29 @@
   transition: all 0.2s ease-in-out;
 }
 .menu-bar li a{
-  padding: 10px;
+  padding: 10px 20px;
   display: block;
   /* height: 4em; */
   line-height: 2em;
   /* text-align:center; */
-  color: #72739f;
+  /* color: #72739f; */
   text-decoration:none;  
   position: relative;
   font-family:verdana;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #969696b3;
   transition: background 0.1s ease-in-out;
 }
 .menu-barin li a{
-  padding: 10px;
+  padding: 10px 20px;
   display: block;
   /* height: 4em; */
   line-height: 2em;
   /* text-align:center; */
-  color: #72739f;
+  /* color: #72739f; */
   text-decoration:none;  
   position: relative;
   font-family:verdana;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #969696b3;
   transition: background 0.1s ease-in-out;
 }
 .menu-bar li:first-child a{
@@ -128,7 +128,7 @@
 }
 
 .open{
-    width:20em;
+    width:22em;
     height:100%;
     top:60px;
     right:0em;

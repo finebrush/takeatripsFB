@@ -1,250 +1,246 @@
 {% extends 'client/gotocity.html'%}
-{% load static %}
-
+{% load i18n static %}
 
 {% block subcontents %}
 
-<div id="detail_seoulairplan">
-
-    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-        <div class="card bg-success">
-            <div class="card-body text-center p-0">
-                <img class="card-img-top" src="{% static 'img/20191210_144758.png' %}" alt="">
-            </div>
+<!-- Nav tabs -->
+<div class="tab_contents" style="text-align: center;background: #e4e4e4;">
+    <input type="radio" name="tabmenu" id="tab01" checked>
+    <label for="tab01">{% trans "공항철도" %}</label>
+    <input type="radio" name="tabmenu" id="tab02">
+    <label for="tab02">{% trans "버스" %}</label>
+  
+    <div class="conbox con1"> 
+        <div class="text-center" style="padding: 30px 45px 0px 45px;">
+            <img class="card-img-top" src="{% static 'img/seoul_airport01.png' %}" alt="">
         </div>
-    </div>
 
-    <!-- 소개정보 / 일반정보.. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">AREX (Airport Express) 소개정보</h5>
-                </h1>
+        <!-- 소개정보 / 일반정보.. -->
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">AREX (Airport Express) {% trans "소개" %}</h5>
+                    </h1>
+                    <hr style="border: solid 1.5px #969696b3;">
+                    <p class="card-text"> {% trans "AREX는 대한민국의 관문인 인천공항과 서울의 도심을 잇는 한국 유일의 특화된 철도입니다." %} 
+                        {% trans "인천공항과 서울역을 가장 빠른 43분에 열결함으로써 여행관광객의 편리한 도심 진입을 돕는 등 인천공항 이용편의 증진에 기여하고 있습니다." %}
+                        </p>
+                </div>
                 <hr style="border: solid 0.5px #969696b3;">
-                <p class="card-text"> AREX는 대한민국의 관문인 인천공항과 서울의 도심을 잇는
-                    한국 유일의 특화된 철도입니다. 인천공항과 서울역을 가장
-                    빠른 43분에 열결함으로써 여행관광객의 편리한 도심 진입을
-                    돕는 등 인천공항 이용편의 증진에 기여하고 있습니다.
-                    </p>
             </div>
-        </div>
         
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">일반정보</h5>
-                </h1>
-                <hr style="border: solid 0.5px #969696b3;">
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="fas fa-won-sign" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">요금 : 성인 \9,000 / 어린이 \7,000</div>
-                </div>
-                <hr style="border: solid 0.5px #969696b3;">
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="	far fa-clock" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">소요시간 : 1터미널 43분, 2터미널 51분</div>
-                </div>
-                <hr style="border: solid 0.5px #969696b3;">
-                <div class="card" style="border: 0px; flex-direction: row;"> 
-                    <i class="fas fa-crosshairs" style="font-size:24px"></i>
-                    <div style="padding-left: 10px;">목적지 : 서울역, 홍대입구, 공덕, DMC, 김포공항 등</div>
-                </div>
-                <hr style="border: solid 0.5px #969696b3;">
-            </div>
-        </div>
-    </div>
-
-    <!-- AREX 승차권 구입 방법.. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">AREX 승차권 구입 방법</h5>
-                </h1>
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "일반정보" %}</h5>
+                    </h1>
+                    <hr style="border: solid 1.5px #969696b3;">
+                    <div class="card" style="border: 0px; flex-direction: row;"> 
+                        <i class="fas fa-won-sign" style="font-size:24px"></i>
+                        <div style="padding-left: 10px;">{% trans "요금 : 성인 \9,000 / 어린이 \7,000" %}</div>
+                    </div>
                     <hr style="border: solid 0.5px #969696b3;">
-                    <p class="card-text"> 
-                        - 직통열차 고객안내센터  방문 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역 <br>
-                        - 직통열차 자동발매기 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역
-                    </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- AREX 승차권 구입 장소.. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">AREX 승차권 구입 장소</h5>
-                </h1>
+                    <div class="card" style="border: 0px; flex-direction: row;"> 
+                        <i class="	far fa-clock" style="font-size:24px"></i>
+                        <div style="padding-left: 10px;">{% trans "소요시간 : 1터미널 43분, 2터미널 51분" %}</div>
+                    </div>
                     <hr style="border: solid 0.5px #969696b3;">
-                    <!-- <p class="card-text"> 
-                        - 직통열차 고객안내센터  방문 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역 <br>
-                        - 직통열차 자동발매기 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역
-                    </p> -->
+                </div>
             </div>
         </div>
 
-        <div class="card-deck p-4">
-            <div class="card bg-primary">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img-overlay" style="height: 50%; top: 25%;">
-                        <h4 class="card-title">인천공항 1터미널역</h4>
-                        <a href="https://www.arex.or.kr/vr/Arex/incheonT1.html?l=EN" target="_blank" class="btn btn-primary">VR 위치보기</a>
-                        <!-- <p class="card-text">Some example text.</p> -->
-                    </div>
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "노선정보" %}</h5>
+                    </h1>
+                        <hr style="border: solid 1.5px #969696b3;">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport02.png' %}" style="padding: 10px 0px;" alt="">
+                        <hr style="border: solid 0.5px #969696b3;">
                 </div>
             </div>
-            <div class="card bg-warning">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img-overlay" style="height: 50%; top: 25%;">
-                        <h4 class="card-title">인천공항 2터미널역</h4>
-                        <a href="https://www.arex.or.kr/vr/Arex/incheonT2.html?l=EN" target="_blank" class="btn btn-primary">VR 위치보기</a>
-                        <!-- <p class="card-text">Some example text.</p> -->
-                    </div>
+
+            <!-- AREX 승차권 구입 방법.. -->
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "승차권 구입정보" %}</h5>
+                    </h1>
+                        <hr style="border: solid 1.5px #969696b3;">
+                        <p class="card-text" style="padding-bottom: 100px;"> 
+                            - {% trans "서울역 : 서울역 지하 2층 직통열차 고객안내센터" %}<br>
+                            - {% trans "인천공항1터미널역 : 인천공항1터미널 지하 1층 교통센터 직통열차 고객안내센터" %}<br>
+                            - {% trans "인천공항2터미널역 : 인천공항2터미널 지하 1층 교통센터 직통열차 고객안내센터" %}<br>
+                            - {% trans "자동발매기 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역" %} <br>
+                        </p>
+                        <hr style="border: solid 0.5px #969696b3;">
                 </div>
             </div>
-            <div class="card bg-success">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img-overlay" style="height: 50%; top: 25%;">
-                        <h4 class="card-title">서울역</h4>
-                        <a href="https://www.arex.or.kr/vr/Arex/seoul.html?l=EN" target="_blank" class="btn btn-primary">VR 위치보기</a>
-                        <!-- <p class="card-text">Some example text.</p> -->
+        </div>
+
+        <!-- AREX 승차권 구입 장소.. -->
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "승차권 구입 장소" %}</h5>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="card-deck">
+                <div class="card" style="border: none;margin-left: 25px;">
+                    <div class="card-body text-center p-0">
+                        <a href="https://www.arex.or.kr/vr/Arex/incheonT1.html?l=EN" target="_blank">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_vr01.png' %}" alt="">
+                        <div class="card-img-overlay" style="height: 50%; top: 35%;color: white;">
+                            <h4 class="card-title">{% trans "인천공항 1터미널역" %}<br>{% trans "VR 위치보기" %}</h4>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <a href="https://www.arex.or.kr/vr/Arex/incheonT2.html?l=EN" target="_blank">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_vr02.png' %}" alt="">
+                        <div class="card-img-overlay" style="height: 50%; top: 35%;color: white;">
+                            <h4 class="card-title">{% trans "인천공항 2터미널역" %}<br>{% trans "VR 위치보기" %}</h4>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="card" style="border: none;margin-right: 25px;">
+                    <div class="card-body text-center p-0">
+                        <a href="https://www.arex.or.kr/vr/Arex/seoul.html?l=EN" target="_blank">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_vr03.png' %}" alt="">
+                        <div class="card-img-overlay" style="height: 50%; top: 35%;color: white;">
+                            <h4 class="card-title">{% trans "서울역" %}<br>{% trans "VR 위치보기" %}</h4>
+                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- AREX 승차권 자동발매기 구입 순서.. -->
+        <div class="card-deck p-5" style="padding-bottom: 0px!important;text-align: left;">
+            <div class="card" style="border:0px;">
+                <div class="card-body p-0">
+                    <h1 style="font-weight:600; color:darkslategrey;"> 
+                        <h5 class="card-title">{% trans "승차권 자동발매기 구입 순서" %}</h5>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="card-deck p-2">
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy01.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "1. 언어선택" %}</h5>
+                            <p class="card-text">{% trans "사용 가능한 언어를 선택합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy02.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "2. 승차권 구매 선택" %}</h5>
+                            <p class="card-text">{% trans "직통열차 승차권을 구매하기 위해여" %}<br> {% trans "'승차권 구매' 버튼을 클릭합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy03.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "3. 목적지 선택" %}</h5>
+                            <p class="card-text">{% trans "도착하고 싶은 목적지를 선택합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck p-2">
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy04.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "4. 열차 선택" %}</h5>
+                            <p class="card-text">{% trans "타고 싶은 시간대의 열차를 선택합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy05.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "5. 인원 선택 및 승차권 결제" %}</h5>
+                            <p class="card-text">{% trans "탑승 할 인원수를 선택 후 발행 받을" %}<br> {% trans "승차권의 금액을 투입합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="border: none;">
+                    <div class="card-body text-center p-0">
+                        <img class="card-img-top" src="{% static 'img/seoul_airport_buy06.png' %}" alt="">
+                        <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
+                            <h5 class="card-title">{% trans "6. 승차권 발급 완료" %}</h5>
+                            <p class="card-text">{% trans "개찰구로 발급된 승차권을 받으신 후" %}<br> {% trans "거스름돈을 확인합니다." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
+  
+    <div class="conbox con2">  
 
-    <!-- AREX 승차권 자동발매기 구입 순서.. -->
-    <div class="card-deck p-5" style="padding-bottom: 0px!important;">
-        <div class="card" style="max-height: 450px; border:0px;">
-            <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h5 class="card-title">AREX 승차권 자동발매기 구입 순서</h5>
-                </h1>
-                    <hr style="border: solid 0.5px #969696b3;">
-            </div>
-        </div>
+        <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
+            <div class="card" style="border: 0px;">
+                <div class="card-body text-center p-0">
+                   
+                    <!-- 버스 매표 안내.. -->
+                    <div style="text-align: left; margin-top: 20px;">
+                        <h1 style="font-weight:600; color:darkslategrey;"> 
+                            <h5 class="card-title">{% trans "제 1 여객터미널 버스 정차장 안내" %}</h5>
+                        </h1>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 
+                            {% trans "제 1 여객터미널 1층의 내부 (4, 9번 출구 옆), 외부(4, 6, 7, 8, 11, 13번 출구 근처)의 버스 매표소에서 버스 관련 안내 및승차권 구입이 가능합니다." %}
+                        </p>
+                    </div>
+                    
+                    <img style="margin-top: 20px; width: 100%; height: auto;" src="{% static 'img/map_bus_stop_information_t1_01.png' %}">
+                    
+                    <!-- 버스 매표 안내.. -->
+                    <div style="text-align: left; margin-top: 50px;">
+                        <h1 style="font-weight:600; color:darkslategrey;"> 
+                            <h5 class="card-title">{% trans "제 2 여객터미널 버스 정차장 안내" %}</h5>
+                        </h1>
+                        <hr style="border: solid 0.5px #969696b3;">
+                        <p class="card-text"> 
+                            {% trans "제 2 여객터미널 교통센터 지하 1층 버스터미널에서 버스 관련 안내 및 승차권 구입이 가능합니다." %}
+                        </p>
+                    </div>
 
-        <div class="card-deck p-4">
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">1. 언어선택</h5>
-                        <p class="card-text">사용 가능한 언어를 선택합니다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">2. 승차권 구매 선택</h5>
-                        <p class="card-text">직통열차 승차권을 구매하기 위해 승차권 구매 버튼을 클릭합니다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">3. 목적지 선택</h5>
-                        <p class="card-text">도착하고 싶은 목적지를 선택합니다.</p>
-                    </div>
+
+                    <img style="margin-top: 20px; width: 100%; height: auto;" src="{% static 'img/map_bus_stop_information_t2_01.png' %}">
+                    
                 </div>
             </div>
         </div>
-        <div class="card-deck p-4">
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">4. 열차 선택</h5>
-                        <p class="card-text">타고 싶은 시간대의 열차를 선택합니다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">5. 인원 선택 및 승차권 결제</h5>
-                        <p class="card-text">탑승 할 인원수를 선택 후 발행 받을 승차권의 금액을 투입합니다.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-light">
-                <div class="card-body text-center p-0">
-                    <img class="card-img-top" src="http://www.jaipuriaschoolorai.in/wp-content/uploads/2016/11/blank-img.jpg" alt="">
-                    <div class="card-img" style="height: 50%; top: 25%; padding: 20px;">
-                        <h5 class="card-title">6. 승차권 발급 완료</h5>
-                        <p class="card-text">개찰구로 발급된 승차권을 수령 후 거스름돈을 확인합니다.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  
     </div>
-
-</div> <!-- End of detail_seoulairplan -->
-
+  
+</div>
+  
 
 <div id="detail_seoulbus">
-    
-    <div class="card-deck p-5" style="padding-bottom: 0px!important; padding-top: 0px!important;">
-        <div class="card" style="border: 0px;">
-            <div class="card-body text-center p-0">
-                
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#t1">제 1 여객터미널</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#t2">제 2 여객터미널</a>
-                    </li>
-                </ul>
-                
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane active" id="t1">
-                        <img style="margin-top: 20px; width: 100%; height: auto;" src="{% static 'img/map_bus_stop_information_t1_01.png' %}">
-                        
-                        <!-- 버스 매표 안내.. -->
-                        <div style="text-align: left; margin-top: 20px;">
-                            <h1 style="font-weight:600; color:darkslategrey;"> 
-                                <h5 class="card-title">버스 매표 안내</h5>
-                            </h1>
-                            <p class="card-text"> 
-                                - 제 1 여객터미널 1층의 내부 (4, 9번 출구 옆), 외부(4, 6, 7, 8, 11, 13번 출구 근처)의 버스 매표소에서 버스 관련 안내 및승차권 구입이 가능합니다.
-                            </p>
-                        </div>
 
-                    </div> <!-- End of t1 -->
-                    <div class="tab-pane" id="t2">
-                        <img style="margin-top: 20px; width: 100%; height: auto;" src="{% static 'img/map_bus_stop_information_t2_01.png' %}">
-
-                        <!-- 버스 매표 안내.. -->
-                        <div style="text-align: left; margin-top: 20px;">
-                            <h1 style="font-weight:600; color:darkslategrey;"> 
-                                <h5 class="card-title">버스 매표 안내</h5>
-                            </h1>
-                            <p class="card-text"> 
-                                - 제 2 여객터미널 교통센터 지하 1층 버스터미널에서 버스 관련 안내 및 승차권 구입이 가능합니다.
-                            </p>
-                        </div>
-
-                    </div> <!-- End of t2 -->
-                </div>
-                
-            </div>
-        </div>
-    </div>
 
 </div> <!-- End of detail_seoulbus -->
 

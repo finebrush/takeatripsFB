@@ -1,4 +1,6 @@
-{% load static %}
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <head>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -20,27 +22,51 @@
 
 </head>
 <body>
-    <div class="row" style="padding: 5px; margin: 15px;">
+    <div class="row" style="margin: 10px 45px;">
         
-        <div class="col-sm-1" id="back1" style="align-self: center;">
-            <a href="{% url 'clientapp:tripcourse' citydetails.id %}" class="card-link p-2 text-dark"> 뒤로가기 </a>
+        <div id="back1" style="align-self: center;">
+            <a href="{% url 'clientapp:tripcourse' citydetails.id %}" class="card-link p-2 text-dark">
+                <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+            </a>
         </div>
 
-        <div class="col-sm-7">
+        <div style="padding-left: 20px;">
             <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                <a href="#" class="card-link text-dark">Trip Course</a>
+
+                {% if LANGUAGE_CODE == 'ko' %}
+                <a href="#" class="card-link text-dark">{{ travelplan.titleko }}</a>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <a href="#" class="card-link text-dark">{{ travelplan.titleeng }}</a>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <a href="#" class="card-link text-dark">{{ travelplan.titleven }}</a>
+                {% endif %}
+                
+                <!-- <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small>  -->
             </h3>
+            <div style="margin-bottom: 0px;color:#adadad;">
+                <small style="font-style:italic;"> {% trans "코스타입" %} :</small>
+                
+                {% if LANGUAGE_CODE == 'ko' %}
+                <small style="font-style:italic;"> {{ travelplan.get_course_display }}</small>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <small style="font-style:italic;"> {{ travelplan.course }}</small>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <small style="font-style:italic;"> {{ travelplan.course }}</small>
+                {% endif %}
+
+            </div>
         </div>
 
-        <div class="col-sm-4" style="align-self: center; text-align:right; padding-right: 40px;">
-            <a href="{% url 'clientapp:tripcourse_like' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}" class="card-link p-2 text-dark" id="btnlike">
+        <div style="align-self: center; position: absolute;right: 45px;">
+            <a href="{% url 'clientapp:tripcourse_like' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}" id="btnlike" style="text-decoration: none;">
                 {% if user in travelplan.like_travelplan.all %}
-                    <i class="fa fa-heart" style="font-size:24px; color:red;"></i>
+                <img src="{% static 'img/ticon01__on.png' %}" style="width: 44px; height: 44px;"/>
                 {% else %}
-                    <i class="fa fa-heart" style="font-size:24px;"></i>
+                <img src="{% static 'img/ticon01_off.png' %}" style="width: 44px; height: 44px;"/>
                 {% endif %}
             </a> 
         </div>
+
     </div>
    
     {% block contents %}

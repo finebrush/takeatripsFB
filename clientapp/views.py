@@ -329,7 +329,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_eat.append(tmp)
             elif(userlike.infotravel.part == 'Drink'):
@@ -337,7 +338,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_drink.append(tmp)
             elif(userlike.infotravel.part == 'Fun'):
@@ -345,7 +347,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_fun.append(tmp)
             elif(userlike.infotravel.part == 'See'):
@@ -353,7 +356,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_see.append(tmp)
             elif(userlike.infotravel.part == 'Sleep'):
@@ -361,7 +365,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_sleep.append(tmp)
             elif(userlike.infotravel.part == 'Buy'):
@@ -369,7 +374,8 @@ def userlike(request):
                         "id": userlike.infotravel_id,
                         "companyko": userlike.infotravel.companyko,
                         "companyeng": userlike.infotravel.companyeng,
-                        "companyven": userlike.infotravel.companyven
+                        "companyven": userlike.infotravel.companyven,
+                        "part": userlike.infotravel.part
                 }
                 it_buy.append(tmp) 
         # travecurator like to array..

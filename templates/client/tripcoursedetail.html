@@ -1,10 +1,13 @@
 {% extends 'client/tpbase.html' %}
-{% load static %}
+{% load i18n static %}
 
     {% block headers %}
+        <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+        <link rel=stylesheet href="{% static 'css/magnific-popup.css' %}">
         <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
         <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initMap"></script> -->
+        <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
 
         <style>
             /* Set the size of the div element that contains the map */
@@ -12,170 +15,159 @@
                 height: 400px;  /* The height is 400 pixels */
                 width: 100%;  /* The width is the width of the web page */
             }
-            /* The popup bubble styling. */
-            .popup-bubble {
-                /* Position the bubble centred-above its parent. */
-                position: absolute;
-                top: 0;
-                left: 0;
-                transform: translate(-50%, -100%);
-                /* Style the bubble. */
-                background-color: white;
-                padding: 5px;
-                border-radius: 5px;
-                font-family: sans-serif;
-                overflow-y: auto;
-                max-height: 60px;
-                box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+            
+            /* magnific-popup */
+            /* padding-bottom and top for image */
+            .mfp-no-margins img.mfp-img {
+                padding: 0;
             }
-            /* The parent of the bubble. A zero-height div at the top of the tip. */
-            .popup-bubble-anchor {
-                /* Position the div a fixed distance above the tip. */
-                position: absolute;
+            /* position of shadow behind the image */
+            .mfp-no-margins .mfp-figure:after {
+                top: 0;
+                bottom: 0;
+            }
+            /* padding for main container */
+            .mfp-no-margins .mfp-container {
+                padding: 0;
+            }
+
+            .pict {
+                border-radius: 12px;
+            }
+            .linepart{
+                margin-bottom: 30px;
+                border-bottom: solid 0.5px #00000022;
                 width: 100%;
-                bottom: /* TIP_HEIGHT= */ 8px;
-                left: 0;
+                background-color: white;
+                z-index: -1;
+                top: 0px;
             }
-            /* This element draws the tip. */
-            .popup-bubble-anchor::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                /* Center the tip horizontally. */
-                transform: translate(-50%, 0);
-                /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
-                width: 0;
-                height: 0;
-                /* The tip is 8px high, and 12px wide. */
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: /* TIP_HEIGHT= */ 8px solid white;
+            .linepartblk{
+                margin-bottom: 20px;
+                border: solid 0.5px #828282;
+                width: 93%;
+                z-index: -1;
+                top: 0px;
+                margin-left: 45px;
             }
-            /* JavaScript will position this div at the bottom of the popup tip. */
-            .popup-container {
-                cursor: auto;
-                height: 0;
-                position: absolute;
-                /* The max width of the info window. */
-                width: 200px;
-            }
-            /* 이미지 위에 text.. */
-            .jb-wrap {
-				position: relative;
-                /* width: 50%; */
-			}
-			.jb-wrap img {
-				width: 100%;
-				vertical-align: middle;
-			}
-			.jb-text {
-                font-size: 1em;
-                color: white;
-				text-align: center;
-                position: absolute;
-                top: 70%;
-                left: 50%;
-                transform: translate( -50%, -50% );
-			}
-
-            /* 반응형 테이블..
-            Max width before this PARTICULAR table gets nasty. This query will take effect 
-            for any screen smaller than 760px and also iPads specifically.
-            */
-            @media
-            only screen 
-            and (max-width: 760px), (min-device-width: 768px) 
-            and (max-device-width: 1024px)  {
-
-                /* Force table to not be like tables anymore */
-                table, thead, tbody, th, td, tr {
-                    display: block;
-                }
-
-                /* Hide table headers (but not display: none;, for accessibility) */
-                thead tr {
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                }
-
-            tr {
-            margin: 0 0 1rem 0;
-            }
-            
-            tr:nth-child(odd) {
-            background: #ccc;
-            }
-            
-                td {
-                    /* Behave  like a "row" */
-                    border: none;
-                    border-bottom: 1px solid #eee;
-                    position: relative;
-                    padding-left: 50%;
-                }
-
-                td:before {
-                    /* Now like a table header */
-                    position: absolute;
-                    /* Top/left values mimic padding */
-                    top: 0;
-                    left: 6px;
-                    width: 45%;
-                    padding-right: 10px;
-                    white-space: nowrap;
-                }
-            }
-            </style>
+        </style>
     {% endblock %}
 
     {% block contents %}
+
+    <div class="linepart"></div>
+
     <div id="detailbase">
      
-    <!-- 소개정보 / 일반정보.. -->
+    <!-- 소개정보.. -->
     <div class="card-deck p-5" style="padding-top: 0px!important;">
         <div class="card" style="max-height: 450px; border:0px;">
             <div class="card-body p-0">
-                <h1 style="font-weight:600; color:darkslategrey;"> 
-                    <h2 class="card-title" style="margin-bottom: 0px;">{{ travelplan.titleko }}</h2>
-                    <small style="font-style:italic;"> 코스타입 :</small>
-                    <small style="color:blue;font-style:italic;"> {{ travelplan.get_course_display }}</small>
-                </h1>
-                <!-- <hr style="border: solid 0.5px #969696b3;"> -->
+
+                {% if LANGUAGE_CODE == 'ko' %}
                 <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoko }}</p>
+                {% elif LANGUAGE_CODE == 'en' %}
+                <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoeng }}</p>
+                {% elif LANGUAGE_CODE == 'vi' %}
+                <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoven }}</p>
+                {% endif %}
+
             </div>
         </div>
     </div>
 
     <!-- googlemap.. -->
-    <div id="map" style="height: 60%; width: 93%; left:40px; overflow:scroll; border:solid; border-width: thin;"></div>
+    <div id="map" style="height: 60%; width: 93%; left:40px; overflow:scroll; border:solid #adadad; border-width: thin;"></div>
     <div id="msg"></div>
 
 
 
-    <!-- 추천 장소 -->
-    <div class="card p-5" style="padding-top: 0px!important;">
-        <h1 style="font-weight:600; color:darkslategrey;"> 
-            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">코스 정보</h5>
-        </h1>
-        <!-- <div class=container style="margin:0px; padding:0px; max-width:1920;">
-            <div class=waterfall> 
-            </div>
-        </div> -->
-        <table class="table" id="courseinfo-table" border="0" cellspacing="0">
-            <tbody></tbody>
-        </table>
-    </div>
-    
+    <!-- 코디네이터 정보 -->
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">{% trans "코디네이터 정보" %}</h5>
+    <div class="linepartblk"></div>
 
+    {% for poipoint_total in travelplan.poipoint_totals %}
+    <div style="padding: 20 45px 20px 45px; display: inline-flex; align-items: center;"> 
+        
+        {% if forloop.counter == 1 %}
+        <img src="{% static 'img/t01.png' %}" /> 
+        {% elif forloop.counter == 2 %}
+        <img src="{% static 'img/t02.png' %}" /> 
+        {% elif forloop.counter == 3 %}
+        <img src="{% static 'img/t03.png' %}" /> 
+        {% elif forloop.counter == 4 %}
+        <img src="{% static 'img/t04.png' %}" /> 
+        {% elif forloop.counter == 5 %}
+        <img src="{% static 'img/t05.png' %}" /> 
+        {% elif forloop.counter == 6 %}
+        <img src="{% static 'img/t06.png' %}" /> 
+        {% elif forloop.counter == 7 %}
+        <img src="{% static 'img/t07.png' %}" /> 
+        {% elif forloop.counter == 8 %}
+        <img src="{% static 'img/t08.png' %}" /> 
+        {% elif forloop.counter == 9 %}
+        <img src="{% static 'img/t09.png' %}" /> 
+        {% endif %}
+        
+        {% if LANGUAGE_CODE == 'ko' %}
+        <h6 style="margin: 0px;padding: 0 10px;">{{ poipoint_total.pnameko }}</h6>
+        {% elif LANGUAGE_CODE == 'en' %}
+        <h6 style="margin: 0px;padding: 0 10px;">{{ poipoint_total.pnameeng }}</h6>
+        {% elif LANGUAGE_CODE == 'vi' %}
+        <h6 style="margin: 0px;padding: 0 10px;">{{ poipoint_total.pnameven }}</h6>
+        {% endif %}
+
+    </div>
+
+    <!-- 업체 대표 이미지 .. -->
+    <section class="gallery" style="margin: 0 45px; padding: 0px;">
+        <div class="imgcontainer">
+            <div class="grid" style="grid-gap: 30px;">
+
+                {% if poipoint_total.picture1.url != null %}
+                <div class="column-xs-12 column-md-4">
+                    <figure class="img-container">
+                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture1.url }}">
+                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture1.url }}" />
+                        </a>
+                    </figure>
+                </div>
+                {% endif %}
+                {% if poipoint_total.picture2.url != null %}
+                <div class="column-xs-12 column-md-4">
+                    <figure class="img-container">
+                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture2.url }}">
+                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture2.url }}" />
+                        </a>
+                    </figure>
+                </div>
+                {% endif %}
+                {% if poipoint_total.picture3.url != null %}
+                <div class="column-xs-12 column-md-4">
+                    <figure class="img-container">
+                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture3.url }}">
+                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture3.url }}" />
+                        </a>
+                    </figure>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+    <div class="linepartblk"></div>
+
+    <!-- table 로 아래로 라인으로 연결하듯 표현한 경우 / 스크립트 연계.. -->
+    <!-- <table class="table" id="courseinfo-table" border="0" cellspacing="0">
+        <tbody></tbody>
+    </table> -->
         
     <!-- 유사한 여행 정보 보기 / django-waterfall 이미지 들어가는 부분.. -->
-    <div class="card p-5" style="padding-top: 0px!important;">
-        <h1 style="font-weight:600; color:darkslategrey;"> 
-            <h5 class="card-title" style="padding: 1.5em 0; margin: 0px;">유사한 여행 정보 보기</h5>
-        </h1>
-        <div class=container style="margin:0px; padding:0px; max-width:1920;">
+    <h5 class="card-title" style="padding: 30px 45px 0px 45px; color: black;">{% trans "유사한 여행 정보 보기" %}</h5>
+ 
+    <div class="card p-5" style="padding-top: 0px!important; border:0px;">
+        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
             <div class=waterfall> 
             </div>
         </div>
@@ -184,30 +176,43 @@
     <!-- DB 에서 tripcourse(TravelPlan) 가져오기... -->
     <script id=waterfall-template type=text/template>
         {% for travelplan in travelplans %}
-        <ul class="list-group" style="margin-bottom: 10px;">
-            <li class="list-group-item">
+        <div class="list-group">
+            <div class="list-group-up">
                 <a href="{% url 'clientapp:tripcoursedetail' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}"> 
-                    <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt=""> </a>
-            </li>
-            <li class="list-group-item">
+                    <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"  alt=""> 
+                </a>
+            </div>
+            <!-- <li class="list-group-item">
                 <span class="fa fa-heart" style="font-size:16px; float:right;">
                     <span>{{ travelplan.like_count }}</span>
                 </span>
                 <span class="fa fa-map-marker" style="font-size:16px; float:left;">
                     <span>{{ travelplan.inlinecount }}</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+            </li> -->
+            <div class="list-group-it">
                 <div class="media">
     
                     <div class="media-body">
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
                         <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
                         <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
-                        <small style="color:blue;">{{ travelplan.get_course_display }}</small> 
+                        <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }}</small> 
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
+                        <small>{{ travelplan.courseinfoeng|truncatewords:10 }}</small><br>
+                        <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }}</small> 
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
+                        <small>{{ travelplan.courseinfoven|truncatewords:10 }}</small><br>
+                        <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }}</small> 
+                        {% endif %}
+
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
         {% endfor %}
     </script> 
 
@@ -318,31 +323,31 @@
                     // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
                 });
 
-                // 두점 사이의 직선..count가 2가 되면 location[3] 되면서 존재하지 않음으로 문제 됨..
-                if(count != 2){
-                    const firstpoint = new google.maps.LatLng(locations[count][2], locations[count][1]);
-                    const secondpoint = new google.maps.LatLng(locations[count+1][2], locations[count+1][1]);
-                    // Draw a line showing the straight distance between the markers
-                    var line = new google.maps.Polyline({
-                        path: [firstpoint, secondpoint], 
-                        geodesic: true,
-                        strokeColor: '#FF0000',
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2,
-                        map: map
-                    });
-                    // Calculate and display the distance between markers
-                    var distance = haversine_distance(locations[count][2], locations[count+1][2], locations[count][1], locations[count+1][1]);
-                    // document.getElementById('msg').innerHTML += "Distance between markers: " + distance + " km.";
-                    // console.log(distance);
+                // // 두점 사이의 직선..count가 2가 되면 location[3] 되면서 존재하지 않음으로 문제 됨..
+                // if(count != 2){
+                //     const firstpoint = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                //     const secondpoint = new google.maps.LatLng(locations[count+1][2], locations[count+1][1]);
+                    // // Draw a line showing the straight distance between the markers
+                    // var line = new google.maps.Polyline({
+                    //     path: [firstpoint, secondpoint], 
+                    //     geodesic: true,
+                    //     strokeColor: '#FF0000',
+                    //     strokeOpacity: 1.0,
+                    //     strokeWeight: 2,
+                    //     map: map
+                    // });
+                    // // Calculate and display the distance between markers
+                    // var distance = haversine_distance(locations[count][2], locations[count+1][2], locations[count][1], locations[count+1][1]);
+                    // // document.getElementById('msg').innerHTML += "Distance between markers: " + distance + " km.";
+                    // // console.log(distance);
 
-                    //길찾기 경로 표시 .. TRANSIT 만 됨
-                    // var start = new google.maps.LatLng(locations[count][2], locations[count][1]);
-                    // var end = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    // // 길찾기 경로 표시 .. TRANSIT 만 됨
+                    // // var start = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    // //var end = new google.maps.LatLng(locations[count][2], locations[count][1]);
                     // // console.log(start);
                     
-                    // plotDirections(start, end);
-                }
+                    // // plotDirections(start, end);
+                // }
             }
 
             // 테스트로 마포에서 종로까지 경로.. https://jsfiddle.net/upsidown/9jb2nvt8/ 여기서는 잘됨..
@@ -419,54 +424,46 @@
             });
         }
 
+        $(document).ready(function() {
 
+            $('.image-popup-vertical-fit').magnificPopup({
+                
+                type: 'image',
+                closeOnContentClick: true,
+                showCloseBtn: false,
+                mainClass: 'mfp-img-mobile',
+                image: {
+                    verticalFit: true
+                }
+                
+            });
 
-        // table 생성..
-        var chknum = {{ travelplan.inlinecount }}; 
-        var pictures = {{ pictures|safe }};
-        
-        for(i = 1; i < chknum+1; i++){
-            var time = new Date().toLocaleTimeString();
-            if( i != chknum){
-                $('#courseinfo-table > tbody:last')
-                .append('<tr><td style="width:3%; text-align:center;border-top: 0;">'+
-                    '<div class="jb-wrap">'+
-                        '<div class="jb-image">'+
-                            '<img src="{% static 'img/circleblue.png' %}" />'+
-                        '</div><div class="jb-text"><p>'+ i + 
-                        '</p></div></div>'+
-                    '</td><td style="width:29%;font-weight: 700;padding-left: 10px;border-top: 0;">' + locations[i-1][0] + 
-                    '</td><td styel="border-top: 0;" rowspan="2">'+ 
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][0]+'" />' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][1]+'" /><br>' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][2]+'" />' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][3]+'" />' + 
-                    '</td></tr>'+
-                    '<tr><td style="text-align:center; vertical-align: middle;border-top: 0;">'+
-                    '<img src="{% static 'img/Lineblue.png' %}" />'+
-                    '</td><td style="border-top: 0;"></td></tr>'); 
-            }else{
-                $('#courseinfo-table > tbody:last')
-                .append('<tr><td style="width:3%; text-align:center;border-top: 0;">'+
-                    '<div class="jb-wrap">'+
-                        '<div class="jb-image">'+
-                            '<img src="{% static 'img/circleblue.png' %}" />'+
-                        '</div><div class="jb-text"><p>'+ i + 
-                        '</p></div></div>'+
-                    '</td><td style="width:29%;font-weight: 700;padding-left: 10px;border-top: 0;">' + locations[i-1][0] + 
-                        '</td><td style="" rowspan="2">'+ 
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][0]+'" />' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][1]+'" /><br>' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][2]+'" />' +
-                        '<img style="width:450px; height:250px; padding:10px;" src="/media/'+ pictures[i-1][3]+'" />' + 
-                    '</td></tr>'+
-                    '<tr><td style="text-align:center; vertical-align: middle;border-top: 0;">'+
-                    '</td><td style="border-top: 0;"></td></tr>'); 
-            }  
-        }
+            $('.image-popup-fit-width').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: false
+                }
+            });
 
-        
+            $('.image-popup-no-margins').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                closeBtnInside: false,
+                fixedContentPos: true,
+                mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+                image: {
+                    verticalFit: true
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                }
+            });
 
+        });
+
+ 
     </script>
 
     <script defer

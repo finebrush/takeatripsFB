@@ -1,70 +1,201 @@
 {% extends 'client/base.html'%}
-{% load static %}
+{% load i18n static %}
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
 <!-- <script src="{% static 'vendor/vendor.js' %}"></script> -->
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+<style>
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"] + label {
+    display: inline-block;
+    padding: 10px 30px 5px 30px;
+    background: #e4e4e4;
+    /* color: #999; */
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0px;
+  }
+  input[type="radio"]:checked + label {
+    background: #fff;
+    color: #c01d3a;
+    border: thin solid #adadad;
+    border-bottom: none;
+  }
+  .conbox {
+    display: none;
+    background: white;
+  }
+  input[id="tab01"]:checked ~ .con1 { display: block; padding-top: 30px;}
+  input[id="tab02"]:checked ~ .con2 { display: block; padding-top: 30px;}
+  input[id="tab03"]:checked ~ .con3 { display: block; padding-top: 30px;}
+  input[id="tab04"]:checked ~ .con4 { display: block; padding-top: 30px;}
+  input[id="tab05"]:checked ~ .con5 { display: block; padding-top: 30px;}
+  input[id="tab06"]:checked ~ .con6 { display: block; padding-top: 30px;}
+
+</style>
+
 {% endblock %}
 
 {% block contents %}
 
-    <div class="linepartition"></div>
+<div class="linepartition"></div>
     
-    <!-- selected sub menu -->
-    {% if submenu == 1 %} <!-- gotocity page-->
-    <div class="container menuadd">
-      <div class="centerdiv">
-        <!-- <div class="pull-center"> -->
-          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
-            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
-          </a>
-        <!-- </div>
-        <div class="pull-center"> -->
-          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
-            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity_on.png' %}"/>
-          </a>
-        <!-- </div>
-        <div class="pull-center"> -->
-          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
-            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
-          </a>
-        <!-- </div> -->
+<!-- selected sub menu -->
+{% if submenu == 1 %} <!-- gotocity page-->
+<div class="container menuadd">
+  <div class="centerdiv">
+    <!-- <div class="pull-center"> -->
+      <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+        <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
+      </a>
+    <!-- </div>
+    <div class="pull-center"> -->
+      <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+        <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity_on.png' %}"/>
+      </a>
+    <!-- </div>
+    <div class="pull-center"> -->
+      <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+        <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
+      </a>
+    <!-- </div> -->
+  </div>
+</div>
+{% elif submenu == 2 %} <!-- top100 page-->
+<div class="container menuadd">
+  <div class="centerdiv">
+      <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+        <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
+      </a>
+      <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+        <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
+      </a>
+      <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+        <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top_on.png' %}"/>
+      </a>
+  </div>
+</div>
+{% else %}
+<div class="container menuadd">
+  <div class="centerdiv">
+      <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
+        <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips_on.png' %}"/>
+      </a>
+      <a href="{% url 'clientapp:gotocity' citydetails.id %}">
+        <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
+      </a>
+      <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
+        <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
+      </a>
+  </div>
+</div>
+{% endif %}<!-- End of topmenuoff -->
+
+
+<!-- Nav tabs -->
+<div class="tab_contents" style="text-align: center;background: #e4e4e4;">
+  {% if partnum == 'Eat' %}
+  <input type="radio" name="tabmenu" id="tab01" checked><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}" class="card-link text-dark"><img src="{% static 'img/tgi01_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02"><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03"><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}"   class="card-link text-dark"><img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04"><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}"   class="card-link text-dark"><img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05"><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06"><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}"   class="card-link text-dark"><img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% elif partnum == 'Drink' %}
+  <input type="radio" name="tabmenu" id="tab01"><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}" class="card-link text-dark"><img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02" checked><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03"><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}"   class="card-link text-dark"><img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04"><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}"   class="card-link text-dark"><img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05"><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06"><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}"   class="card-link text-dark"><img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% elif partnum == 'Fun' %}
+  <input type="radio" name="tabmenu" id="tab01"><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}"   class="card-link text-dark"><img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02"><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03" checked><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}" class="card-link text-dark"><img src="{% static 'img/tgi03_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04"><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}"   class="card-link text-dark"><img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05"><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06"><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}"   class="card-link text-dark"><img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% elif partnum == 'See' %}
+  <input type="radio" name="tabmenu" id="tab01"><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}"   class="card-link text-dark"><img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02"><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03"><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}"   class="card-link text-dark"><img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04" checked><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}" class="card-link text-dark"><img src="{% static 'img/tgi04_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05"><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06"><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}"   class="card-link text-dark"><img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% elif partnum == 'Sleep' %}
+  <input type="radio" name="tabmenu" id="tab01"><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}"   class="card-link text-dark"><img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02"><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03"><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}"   class="card-link text-dark"><img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04"><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}"   class="card-link text-dark"><img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05" checked><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06"><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}"   class="card-link text-dark"><img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% elif partnum == 'Buy' %}
+  <input type="radio" name="tabmenu" id="tab01"><label for="tab01"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}"   class="card-link text-dark"><img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "먹다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab02"><label for="tab02"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Drink' %}" class="card-link text-dark"><img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "마시다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab03"><label for="tab03"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Fun' %}"   class="card-link text-dark"><img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "놀다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab04"><label for="tab04"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='See' %}"   class="card-link text-dark"><img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "보다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab05"><label for="tab05"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Sleep' %}" class="card-link text-dark"><img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "자다" %}</span></a></label>
+  <input type="radio" name="tabmenu" id="tab06" checked><label for="tab06"><a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}" class="card-link text-dark"><img src="{% static 'img/tgi06_on.png' %}" style="margin-bottom: 4px;" /><span style="padding: 5px;">{% trans "사다" %}</span></a></label>
+  {% endif %}
+
+  <div class="conbox con1"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfall wf1"> 
       </div>
     </div>
-    {% elif submenu == 2 %} <!-- top100 page-->
-    <div class="container menuadd">
-      <div class="centerdiv">
-          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
-            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips.png' %}"/>
-          </a>
-          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
-            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
-          </a>
-          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
-            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top_on.png' %}"/>
-          </a>
+  </div>
+
+  <div class="conbox con2"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfal wf2"> 
       </div>
     </div>
-    {% else %}
-    <div class="container menuadd">
-      <div class="centerdiv">
-          <a href="{% url 'clientapp:citymain' citydetails.id %}"> 
-            <img class="submenu1" id="submenu1" src="{% static 'img/sub_menu_trips_on.png' %}"/>
-          </a>
-          <a href="{% url 'clientapp:gotocity' citydetails.id %}">
-            <img class="submenu2" id="submenu2" src="{% static 'img/sub_menu_gotocity.png' %}"/>
-          </a>
-          <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Eat' %}">
-            <img class="submenu3" id="submenu3" src="{% static 'img/sub_menu_top.png' %}"/>
-          </a>
+  </div>
+
+  <div class="conbox con3"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfall wf3"> 
       </div>
     </div>
-    {% endif %}<!-- End of topmenuoff -->
+  </div>
+
+  <div class="conbox con4"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfall wf4"> 
+      </div>
+    </div>
+  </div>
+
+  <div class="conbox con5"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfall wf5"> 
+      </div>
+    </div>
+  </div>
+
+  <div class="conbox con6"> 
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class=container style="padding:0 45; max-width:1920;">
+      <div class="waterfall w6"> 
+      </div>
+    </div>
+  </div>
+  
+</div>
+
 
 
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="container" style="margin-top: 80px; max-width:1920px;">
+<!-- <div class="container" style="margin-top: 80px; max-width:1920px;">
     <div class="row">
         <div class="col-sm-7" style="display: flex;">
             <h1 style="font-weight:600; color:darkslategrey; display:flex;"> 
@@ -83,52 +214,117 @@
             <a href="{% url 'clientapp:topbak' citydetails_id=citydetails.id partnum='Buy' %}" class="card-link p-2 text-dark">사다</a>
         </div>
     </div>
-</div>
+</div> -->
 
-<!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class=container style="padding:0 45; max-width:1920;">
-    <div class=waterfall> 
-    </div>
-</div>
+
 
 <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
 <script id=waterfall-template type=text/template>
     {% for selected_itmust in selected_itmusts %}
-    <ul class="list-group" style="margin-bottom: 10px;">
-        <li class="list-group-item">
+    <lu class="list-group" style="text-align: left;">
+        <li class="list-group-up">
             <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails.id partnum=partnum tripguide_id=selected_itmust.id %}"> 
                 <img src="{{ selected_itmust.picture1.url }}" alt=""> </a>
-        </li>
-        <li class="list-group-item">
+          </li>
+        <!-- <li class="list-group-item">
             <span class="fa fa-heart" style="font-size:16px; float:right;">
                 <span>{{ selected_itmust.like_count }}</span>
             </span>
-        </li>
-        <li class="list-group-item">
+        </li> -->
+        <li class="list-group-it">
             <div class="media">
 
                 <div class="media-body">
+                    
+                    {% if LANGUAGE_CODE == 'ko' %}
                     <h5 class="media-heading">{{ selected_itmust.companyko }}</h5> 
                     <small style="color:blue;">{{ selected_itmust.get_part_display }}</small><br>
                     <small>{{ selected_itmust.introko|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <h5 class="media-heading">{{ selected_itmust.companyeng }}</h5> 
+                    <small style="color:blue;">{{ selected_itmust.part }}</small><br>
+                    <small>{{ selected_itmust.introeng|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <h5 class="media-heading">{{ selected_itmust.companyven }}</h5> 
+                    <small style="color:blue;">{{ selected_itmust.part }}</small><br>
+                    <small>{{ selected_itmust.introven|truncatewords:7 }}</small> 
+                    {% endif %}
+
                 </div>
             </div>
         </li>
-    </ul>
+    </lu>
     {% endfor %}
 </script>
 
 
 
 <script>
-    $('.waterfall')
-        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
-        .on('finishing.mystist.waterfall', function() {
-            setTimeout(function() { // simulate ajax
-                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
-            }, 2000);
-        })
-        .waterfall()
+console.log("{{ partnum }}");
+
+    switch("{{ partnum }}"){
+      case "Eat":
+        $('.wf1')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+      case "Drink":
+        $('.wf2')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+      case "Fun":
+        $('.wf3')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+      case "See":
+        $('.wf4')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+      case "Sleep":
+        $('.wf5')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+      case "Buy":
+        $('.wf6')
+          .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+          .on('finishing.mystist.waterfall', function() {
+              setTimeout(function() { // simulate ajax
+                  $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+              }, 2000);
+          })
+          .waterfall();
+        break;
+    }
+    
 </script>
 
 {% endblock %}

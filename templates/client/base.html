@@ -252,36 +252,85 @@
 
 
       <!-- slide menu -->
-      <ul class="menu-bar" id="slide-1" style="padding: 20px 20px 60px 20px; overflow: scroll;">
-          <div style="padding: 10px; font-weight: 600;"> My Trips </div>
+      <ul class="menu-bar" id="slide-1" style="padding: 0px 0px 60px 0px; overflow: scroll;">
+          <div style="padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;"> My Trips </div>
+          <div style="border: solid 0.5px #000;"></div>
           <!-- <li><a href="#">Go to Seoul</a></li> -->
           <!-- <li><a class='menu-buttonin' style='cursor: pointer;'> <div style='font-weight: 600;'>먹다</div> </a></li> -->
-          <li><a style="cursor: pointer;" id="it_eat" onclick=openEat()> <div style='font-weight: 600;'>먹다</div> </a></li>
-          <li><a style="cursor: pointer;" id="it_drink" onclick=openDrink()><div style='font-weight: 600;'>마시다</div></a></li>
-          <li><a style="cursor: pointer;" id="it_fun" onclick=openFun()>  <div style='font-weight: 600;'>놀다</div></a></li>
-          <li><a style="cursor: pointer;" id="it_see" onclick=openSee()>  <div style='font-weight: 600;'>보다</div></a></li>
-          <li><a style="cursor: pointer;" id="it_sleep" onclick=openSleep()><div style='font-weight: 600;'>자다</div></a></li>
-          <li><a style="cursor: pointer;" id="it_buy" onclick=openBuy()>  <div style='font-weight: 600;'>사다</div></a></li>
+          <li>
+            <a style="cursor: pointer;" id="it_eat" onclick=openEat()> 
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi01_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "먹다" %}</span>
+              </div> 
+            </a>
+          </li>
+          
+          <li>
+            <a style="cursor: pointer;" id="it_drink" onclick=openDrink()>
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi02_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "마시다" %}</span>
+              </div>
+            </a>
+          </li>
+          
+          <li>
+            <a style="cursor: pointer;" id="it_fun" onclick=openFun()>  
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi03_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "놀다" %}</span>
+              </div>
+            </a>
+          </li>
+          
+          <li>
+            <a style="cursor: pointer;" id="it_see" onclick=openSee()>  
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi04_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "보다" %}</span>
+              </div>
+            </a>
+          </li>
+         
+          <li>
+            <a style="cursor: pointer;" id="it_sleep" onclick=openSleep()>
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi05_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "자다" %}</span>
+              </div>
+            </a>
+          </li>
+          
+          <li>
+            <a style="cursor: pointer;" id="it_buy" onclick=openBuy()>  
+              <div style='font-weight: 600;'>
+                <img src="{% static 'img/tgi06_off.png' %}" style="margin-bottom: 4px;" />
+                <span style="padding: 5px;">{% trans "사다" %}</span>
+              </div>
+            </a>
+          </li>
+          
       </ul>
 
       <!-- Eat slide in slide -->
-      <ul class="menu-barin" id="menu-eat" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-eat" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeEat()> My Trips </a> 먹다 </div> -->
       </ul>
       <!-- Eat slide in slide -->
-      <ul class="menu-barin" id="menu-drink" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-drink" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeDrink()> My Trips </a> 마시다 </div> -->
       </ul>
-      <ul class="menu-barin" id="menu-fun" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-fun" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeFun()> My Trips </a> 놀다 </div> -->
       </ul>
-      <ul class="menu-barin" id="menu-see" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-see" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeSee()> My Trips </a> 보다 </div> -->
       </ul>
-      <ul class="menu-barin" id="menu-sleep" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-sleep" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeSleep()> My Trips </a> 자다 </div> -->
       </ul>
-      <ul class="menu-barin" id="menu-buy" style="padding: 20px; overflow: scroll; z-index: 99;">
+      <ul class="menu-barin" id="menu-buy" style="padding: 0px 0px 60px 0px; overflow: scroll; z-index: 99;">
           <!-- <div style="padding: 10px; font-weight: 600;"><a style="cursor: pointer;color:blue;" onclick=closeBuy()> My Trips </a> 사다 </div> -->
       </ul>
 
@@ -331,19 +380,19 @@
                     // 방법 2..
                     // console.log(data);
                     // tripguides likes..
-                    document.getElementById("it_eat").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Eat.length + " 개</div>";
-                    document.getElementById("it_drink").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Drink.length + " 개</div>";
-                    document.getElementById("it_fun").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Fun.length + " 개</div>";
-                    document.getElementById("it_see").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.See.length + " 개</div>";
-                    document.getElementById("it_sleep").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Sleep.length + " 개</div>";
-                    document.getElementById("it_buy").innerHTML += "<div style='font-size:0.8em; color:blue;'>장소 : " + data.Buy.length + " 개</div>";
+                    document.getElementById("it_eat").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.Eat.length + " 개</div>";
+                    document.getElementById("it_drink").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.Drink.length + " 개</div>";
+                    document.getElementById("it_fun").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.Fun.length + " 개</div>";
+                    document.getElementById("it_see").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.See.length + " 개</div>";
+                    document.getElementById("it_sleep").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.Sleep.length + " 개</div>";
+                    document.getElementById("it_buy").innerHTML += "<div style='font-size:0.8em; color: #8c8c8c;padding-left: 35px;'>장소 : " + data.Buy.length + " 개</div>";
 
                     // tripcurator likes..
                     for(i = 0; i < data.TClikes.length; i++){
-                      document.getElementById("slide-1").innerHTML += "<li id='tcID_" + data.TClikes[i].id +"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                          "<a href='/citymain/"+city_id+"/tripcurator/" + data.TClikes[i].id +"/' style='display: contents;'>" + data.TClikes[i].titleko + "</a>" +
-                                                          "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripcurator_like_del(" + data.TClikes[i].id +")></i>" +
-                                                          "<div style='font-size:0.8em; color:blue; padding-top: 6px; font-weight: 400;'>추천장소 : " + data.TClikes[i].itcount + " 개</div></div></li>"
+                      document.getElementById("slide-1").innerHTML += "<li id='tcID_" + data.TClikes[i].id +"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                          "<a href='/citymain/"+city_id+"/tripcurator/" + data.TClikes[i].id +"/' style='display: contents;color:#000;'>" + data.TClikes[i].titleko + "</a>" +
+                                                          "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripcurator_like_del(" + data.TClikes[i].id +")></i>" +
+                                                          "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'>추천장소 : " + data.TClikes[i].itcount + " 개</div></div></li>"
                     }
 
                     // tripcourse likes..
@@ -364,10 +413,10 @@
                           coursetype = "default";
                           break;
                       }
-                      document.getElementById("slide-1").innerHTML += "<li id='tpID_" + data.TPlikes[i].id +"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                          "<a href='/citymain/"+city_id+"/tripcourse/" + data.TPlikes[i].id +"/' style='display: contents;'>" + data.TPlikes[i].titleko + "</a>" +
-                                                          "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripcourse_like_del(" + data.TPlikes[i].id +")></i>" +
-                                                          "<div style='font-size:0.8em; color:blue; padding-top: 6px; font-weight: 400;'>코스타입 : " + coursetype + "</div></div></li>"
+                      document.getElementById("slide-1").innerHTML += "<li id='tpID_" + data.TPlikes[i].id +"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                          "<a href='/citymain/"+city_id+"/tripcourse/" + data.TPlikes[i].id +"/' style='display: contents;color:#000;'>" + data.TPlikes[i].titleko + "</a>" +
+                                                          "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripcourse_like_del(" + data.TPlikes[i].id +") />" +
+                                                          "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'>코스타입 : " + coursetype + "</div></div></li>"
                     }
 
                   }
@@ -392,52 +441,58 @@
                     all_length.push(data.Eat.length, data.Drink.length, data.Fun.length, data.See.length, data.Sleep.length, data.Buy.length);
                     
                     // menu-eat..
-                    document.getElementById("menu-eat").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeEat()> My Trips </a> > 먹다 </div>"
+                    document.getElementById("menu-eat").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeEat()> My Trips </a> > 먹다 </div>"
                     for(i = 0; i < data.Eat.length; i++){
-                      document.getElementById("menu-eat").innerHTML += "<li id='tgID_"+data.Eat[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Eat/"+data.Eat[i].id+"/' style='display: contents;'>" + data.Eat[i].companyko + "</a>" +
+                      document.getElementById("menu-eat").innerHTML += "<li id='tgID_"+data.Eat[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Eat/"+data.Eat[i].id+"/' style='display: contents;color: #000;'>" + data.Eat[i].companyko +"</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/Eat/"+data.Eat[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del(" + data.Eat[i].id + "," + part[0] + ","+ all_length[0] +")></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del(" + data.Eat[i].id + "," + part[0] + ","+ all_length[0] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.Eat[i].part + "</div></div></li>"
                     }
                     // menu-drink..
-                    document.getElementById("menu-drink").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeDrink()> My Trips </a> > 마시다 </div>"
+                    document.getElementById("menu-drink").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeDrink()> My Trips </a> > 마시다 </div>"
                     for(i = 0; i < data.Drink.length; i++){
-                      document.getElementById("menu-drink").innerHTML += "<li id='tgID_"+data.Drink[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Drink/"+data.Drink[i].id+"/' style='display: contents;'>" + data.Drink[i].companyko + "</a>" +
+                      document.getElementById("menu-drink").innerHTML += "<li id='tgID_"+data.Drink[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Drink/"+data.Drink[i].id+"/' style='display: contents;color: #000;'>" + data.Drink[i].companyko + "</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/Drink/"+data.Drink[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Drink[i].id + "," + part[1] + ","+ all_length[1] +")></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Drink[i].id + "," + part[1] + ","+ all_length[1] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.Drink[i].part + "</div></div></li>"
                     }
                     // menu-fun..
-                    document.getElementById("menu-fun").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeFun()> My Trips </a> > 놀다 </div>"
+                    document.getElementById("menu-fun").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeFun()> My Trips </a> > 놀다 </div>"
                     for(i = 0; i < data.Fun.length; i++){
-                      document.getElementById("menu-fun").innerHTML += "<li id='tgID_"+data.Fun[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Fun/"+data.Fun[i].id+"/' style='display: contents;'>" + data.Fun[i].companyko + "</a>" +
+                      document.getElementById("menu-fun").innerHTML += "<li id='tgID_"+data.Fun[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Fun/"+data.Fun[i].id+"/' style='display: contents;color: #000;'>" + data.Fun[i].companyko + "</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/Fun/"+data.Fun[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Fun[i].id + "," + part[2] + ","+ all_length[2] +"), 'Fun'></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Fun[i].id + "," + part[2] + ","+ all_length[2] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.Fun[i].part + "</div></div></li>"
                     }
                     // menu-see..
-                    document.getElementById("menu-see").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeSee()> My Trips </a> > 보다 </div>"
+                    document.getElementById("menu-see").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeSee()> My Trips </a> > 보다 </div>"
                     for(i = 0; i < data.See.length; i++){
-                      document.getElementById("menu-see").innerHTML += "<li id='tgID_"+data.See[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/See/"+data.See[i].id+"/' style='display: contents;'>" + data.See[i].companyko + "</a>" +
+                      document.getElementById("menu-see").innerHTML += "<li id='tgID_"+data.See[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/See/"+data.See[i].id+"/' style='display: contents;color: #000;'>" + data.See[i].companyko + "</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/See/"+data.See[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.See[i].id + "," + part[3] + ","+ all_length[3] +")></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.See[i].id + "," + part[3] + ","+ all_length[3] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.See[i].part + "</div></div></li>"
                     }
                     // menu-sleep..
-                    document.getElementById("menu-sleep").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeSleep()> My Trips </a> > 자다 </div>"
+                    document.getElementById("menu-sleep").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeSleep()> My Trips </a> > 자다 </div>"
                     for(i = 0; i < data.Sleep.length; i++){
-                      document.getElementById("menu-sleep").innerHTML += "<li id='tgID_"+data.Sleep[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Sleep/"+data.Sleep[i].id+"/' style='display: contents;'>" + data.Sleep[i].companyko + "</a>" +
+                      document.getElementById("menu-sleep").innerHTML += "<li id='tgID_"+data.Sleep[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Sleep/"+data.Sleep[i].id+"/' style='display: contents;color: #000;'>" + data.Sleep[i].companyko + "</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/Sleep/"+data.Sleep[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Sleep[i].id + "," + part[4] + ","+ all_length[4] +")></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Sleep[i].id + "," + part[4] + ","+ all_length[4] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.Sleep[i].part + "</div></div></li>"
                     }
                     // menu-buy..
-                    document.getElementById("menu-buy").innerHTML = "<div style='padding: 10px; font-weight: 600;'><a style='cursor: pointer;color:blue;' onclick=closeBuy()> My Trips </a> > 사다 </div>"
+                    document.getElementById("menu-buy").innerHTML = "<div style='padding: 30px 10px 20px 20px;background: #eaeaea; font-weight: 600;border-bottom: 1px solid #000;'><a style='cursor: pointer;color:#000;' onclick=closeBuy()> My Trips </a> > 사다 </div>"
                     for(i = 0; i < data.Buy.length; i++){
-                      document.getElementById("menu-buy").innerHTML += "<li id='tgID_"+data.Buy[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding:10px;'>" +
-                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Buy/"+data.Buy[i].id+"/' style='display: contents;'>" + data.Buy[i].companyko + "</a>" +
+                      document.getElementById("menu-buy").innerHTML += "<li id='tgID_"+data.Buy[i].id+"'><div style='font-weight: 600; border-bottom: 1px solid #969696b3; padding:10px 20px;'>" +
+                                                                    "<a href='/citymain/"+city_id+"/tripguidedetail/Buy/"+data.Buy[i].id+"/' style='display: contents;color: #000;'>" + data.Buy[i].companyko + "</a>" +
                                                                     // "<a href='/citymain/"+city_id+"/tripguidedetail/Buy/"+data.Buy[i].id+"/like' style='display: contents;'>" +
-                                                                    "<i class='fa fa-heart' style='font-size:24px; color:blue; float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Buy[i].id + "," + part[5] + ","+ all_length[5] +")></i></div></li>"
+                                                                    "<img src='/static/img/mticon01.png' style='float:right; cursor:pointer;' onclick=tripguide_like_del("+ data.Buy[i].id + "," + part[5] + ","+ all_length[5] +") />"+
+                                                                    "<div style='font-size:0.8em; color:#8c8c8c; padding-top: 6px; font-weight: 400;'> " + data.Buy[i].part + "</div></div></li>"
                     }
 
                   } 

@@ -21,7 +21,7 @@
 
 </head>
 <body>
-    <div class="row" style="margin: 15px 45px;">
+    <div class="row" style="margin: 10px 45px;">
         <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
         <div id="back1" style="align-self: center;">
             <a href="{% url 'clientapp:tripguide' citydetails_id=citydetails_id partnum=partnum %}"> 
@@ -71,9 +71,9 @@
             </a>
             <a href="{% url 'clientapp:tripguide_like' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" id="btnlike" style="text-decoration: none;">
                 {% if user in itdetail.like_infotravel.all %}
-                <img src="{% static 'img/trip_detail_like_on.png' %}" style="width: 44px; height: 44px;"/>
+                <img src="{% static 'img/ticon01_on.png' %}" style="width: 44px; height: 44px;"/>
                 {% else %}
-                <img src="{% static 'img/trip_detail_like.png' %}" style="width: 44px; height: 44px;"/>
+                <img src="{% static 'img/ticon01_off.png' %}" style="width: 44px; height: 44px;"/>
                 {% endif %}
             </a> 
         </div>
