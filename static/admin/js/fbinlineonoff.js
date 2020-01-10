@@ -15,51 +15,51 @@ $(document).ready( function() {
     // console.log($("#id_categorysmall")[0].options[$("#id_categorysmall")[0].options.selectedIndex].text);
     // console.log($("#id_categorysmall")[0].selectedOptions);
     
-    $("#id_categorysmall option").filter(function(){
-        if($(this).attr('selected')){
-            console.log($(this).attr('value'));
-            return $(this).attr('value');
-        }
-    }).attr('selected', true);
+    // $("#id_categorysmall option").filter(function(){
+    //     if($(this).attr('selected')){
+    //         console.log($(this).attr('value'));
+    //         return $(this).attr('value');
+    //     }
+    // }).attr('selected', true);
 
     // inline 그룹을 hide..
     switch ($("#id_part option:selected").text()) {
-        case "먹다":
+        case "Eat":
             $("#eatdrinkpart-group").show();
             $("#funpart-group").hide();
             $("#seepart-group").hide();
             $("#sleeppart-group").hide();
             $("#buypart-group").hide();
             break;
-        case "마시다":
+        case "Drink":
             $("#eatdrinkpart-group").show();
             $("#funpart-group").hide();
             $("#seepart-group").hide();
             $("#sleeppart-group").hide();
             $("#buypart-group").hide();
             break;
-        case "놀다":
+        case "Fun":
             $("#eatdrinkpart-group").hide();
             $("#funpart-group").show();
             $("#seepart-group").hide();
             $("#sleeppart-group").hide();
             $("#buypart-group").hide();
             break;
-        case "보다":
+        case "See":
             $("#eatdrinkpart-group").hide();
             $("#funpart-group").hide();
             $("#seepart-group").show();
             $("#sleeppart-group").hide();
             $("#buypart-group").hide();
             break;
-        case "자다":
+        case "Sleep":
             $("#eatdrinkpart-group").hide();
             $("#funpart-group").hide();
             $("#seepart-group").hide();
             $("#sleeppart-group").show();
             $("#buypart-group").hide();
             break;
-        case "사다":
+        case "Buy":
             $("#eatdrinkpart-group").hide();
             $("#funpart-group").hide();
             $("#seepart-group").hide();
@@ -80,42 +80,42 @@ $(document).ready( function() {
     $( "#id_part" ).change(function() {
         // console.log($("#id_part option:selected").text());
         switch ($("#id_part option:selected").text()) {
-            case "먹다":
+            case "Eat":
                 $("#eatdrinkpart-group").show();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
-            case "마시다":
+            case "Drink":
                 $("#eatdrinkpart-group").show();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
-            case "놀다":
+            case "Fun":
                 $("#eatdrinkpart-group").hide();
                 $("#funpart-group").show();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
-            case "보다":
+            case "See":
                 $("#eatdrinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").show();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
-            case "자다":
+            case "Sleep":
                 $("#eatdrinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").show();
                 $("#buypart-group").hide();
                 break;
-            case "사다":
+            case "Buy":
                 $("#eatdrinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();

@@ -11,7 +11,8 @@ SELECT_PART = (
 
 SELECT_TYPE = (
     (1, _('Must See')),
-    (2, _('Hot'))
+    (2, _('Hot')),
+    (3, _('Normal'))
 )
 
 SELECT_COURSE = (
