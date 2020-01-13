@@ -2958,7 +2958,8 @@ tbody.collapse.in {
     width: 350px;
     height: auto;
     background-color: #fff;
-    border: 5px solid #3571B5;
+    /* border: 5px solid #3571B5; */
+    border-radius: 10px;
     z-index: 10;
 }
 

@@ -310,9 +310,10 @@
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
         <div class="pop-container">
-            <div class="pop-conts">
+            <div class="pop-conts" style="text-align: center;">
                 <!--content //-->
-                <h4 style="text-align: center;"> TAKE A TRIPS </h4>
+                <!-- <h4 style="text-align: center;"> TAKE A TRIPS </h4> -->
+                <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
                 <h6 style="text-align: center;">
                     {% trans "AR Trip은 Take a trips APP에서" %} <br> 
                     {% trans "실행이 가능한 서비스 입니다." %}
@@ -320,12 +321,16 @@
                 <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
                     {% trans "Take a trips APP을 설치하시겠습니까?" %}
                 </p>
-                <a href="#" class="btn btn-dark btn-block" role="button">Google Play Store</a>
-                <a href="#" class="btn btn-dark btn-block" role="button">Apple App Store</a>
+                <a href="#" role="button">
+                    <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
+                </a>
+                <a href="#" role="button">
+                    <img src="{% static 'img/appbtn_apple.png' %}" />
+                </a>
                 
-                <div class="btn-r">
+                <!-- <div class="btn-r">
                     <a href="#" class="btn-layerClose">Close</a>
-                </div>
+                </div> -->
                 <!--// content-->
             </div>
         </div>

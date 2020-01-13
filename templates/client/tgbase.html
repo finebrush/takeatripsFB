@@ -38,11 +38,11 @@
             <h3 class="font-weight-bold" style="margin-bottom: 0px;">
 
                 {% if LANGUAGE_CODE == 'ko' %}
-                <a href="#" class="card-link text-dark">{{ itdetail.companyko }}</a>
+                <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link text-dark">{{ itdetail.companyko }}</a>
                 {% elif LANGUAGE_CODE == 'en' %}
-                <a href="#" class="card-link text-dark">{{ itdetail.companyeng }}</a>
+                <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link text-dark">{{ itdetail.companyeng }}</a>
                 {% elif LANGUAGE_CODE == 'vi' %}
-                <a href="#" class="card-link text-dark">{{ itdetail.companyven }}</a>
+                <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" class="card-link text-dark">{{ itdetail.companyven }}</a>
                 {% endif %}
                 
                 <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
@@ -66,9 +66,17 @@
             <a href="#youtube" id="btnyt" style="text-decoration: none;">
                 <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
             </a>
+            <!-- 인스타 링크가 DB 에 있는 경우/없는 경우 -->
+            {% if itdetail.linkinsta %}
+            <a href="{{ itdetail.linkinsta }}" target="_blank" id="btninsta" style="text-decoration: none;">
+                <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+            </a>
+            {% else %}
             <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
                 <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
             </a>
+            {% endif %}
+
             <a href="{% url 'clientapp:tripguide_like' citydetails_id=citydetails_id partnum=partnum tripguide_id=itdetail.id %}" id="btnlike" style="text-decoration: none;">
                 {% if user in itdetail.like_infotravel.all %}
                 <img src="{% static 'img/ticon01_on.png' %}" style="width: 44px; height: 44px;"/>

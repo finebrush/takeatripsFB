@@ -194,15 +194,15 @@
         <div class="card-deck p-5">
             <div class="card" style="max-height: 450px; border:0px;">
                 <div class="card-body p-0">
-                    <h5 class="card-title" style="font-weight:600; color:black;">{% trans "업체소개" %}</h5>
+                    <h5 class="card-title" style="font-weight:600; color:black;">{% trans "소개" %}</h5>
                     <hr style="border: solid 1px #000000;">
 
                     {% if LANGUAGE_CODE == 'ko' %}
-                    <p class="card-text"> {{ itdetail.introko }}</p>
+                    <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introko }}</p>
                     {% elif LANGUAGE_CODE == 'en' %}
-                    <p class="card-text"> {{ itdetail.introeng }}</p>
+                    <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introeng }}</p>
                     {% elif LANGUAGE_CODE == 'vi' %}
-                    <p class="card-text"> {{ itdetail.introven }}</p>
+                    <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introven }}</p>
                     {% endif %}
 
                 </div>
@@ -393,17 +393,17 @@
 
         <!-- googlemap.. -->
         <div id="map" style="margin: 0 45px;"></div>
-        <div id="content" style="height: 40px; width: 150px; text-align: center; overflow:hidden;">
+        <div id="content" style="display: contents; text-align: center; overflow:hidden;">
             
             {% if LANGUAGE_CODE == 'ko' %}
-            <h5 style="margin: 0px;">{{ itdetail.companyko }}</h5>
+            <h5 style="margin: 0px 20px;">{{ itdetail.companyko }}</h5>
             {% elif LANGUAGE_CODE == 'en' %}
-            <h5 style="margin: 0px;">{{ itdetail.companyeng }}</h5>
+            <h5 style="margin: 0px 20px;">{{ itdetail.companyeng }}</h5>
             {% elif LANGUAGE_CODE == 'vi' %}
-            <h5 style="margin: 0px;">{{ itdetail.companyven }}</h5>
+            <h5 style="margin: 0px 20px;">{{ itdetail.companyven }}</h5>
             {% endif %}
 
-            <p> {{ itdetail.get_part_display }}</p>
+            <p style="margin: 0px!important;"> {{ itdetail.get_part_display }}</p>
         </div>
         
         <!-- django-waterfall 이미지 들어가는 부분.. 

@@ -91,7 +91,7 @@ class InfoTavelAdmin(admin.ModelAdmin):
     search_fields = ('companyko', 'companyeng', 'companyven',)
     inlines = [EatDrinkPartInline, FunPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
     list_per_page = 10
-    list_filter = ('part',)
+    list_filter = ('part','city',)
     # radio_fields = {'asset': admin.VERTICAL} # HORIZONTAL, VERTICAL
 
     fieldsets = [
