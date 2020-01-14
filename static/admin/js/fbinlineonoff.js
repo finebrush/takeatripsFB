@@ -22,8 +22,10 @@ $(document).ready( function() {
     //     }
     // }).attr('selected', true);
 
+    var sel = document.getElementById("id_part");
+
     // inline 그룹을 hide..
-    switch ($("#id_part option:selected").text()) {
+    switch (sel.value) {
         case "Eat":
             $("#eatdrinkpart-group").show();
             $("#funpart-group").hide();
@@ -74,12 +76,11 @@ $(document).ready( function() {
             $("#buypart-group").hide();
             break;
     }
-
-
+    
     // 콤보박스의 변화가 생기면 선택된 텍스트를 판별하여 이벤트 발생..
     $( "#id_part" ).change(function() {
-        // console.log($("#id_part option:selected").text());
-        switch ($("#id_part option:selected").text()) {
+        // console.log(sel.value);
+        switch (sel.value) {
             case "Eat":
                 $("#eatdrinkpart-group").show();
                 $("#funpart-group").hide();

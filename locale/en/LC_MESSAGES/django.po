@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-09 04:01+0900\n"
+"POT-Creation-Date: 2020-01-14 14:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,57 +81,63 @@ msgstr ""
 msgid "카테고리"
 msgstr ""
 
-#: backendapp/settings.py:224
+#: backendapp/settings.py:225
 msgid "Korean"
 msgstr ""
 
-#: backendapp/settings.py:225
+#: backendapp/settings.py:226
 msgid "English"
 msgstr ""
 
-#: backendapp/settings.py:226
+#: backendapp/settings.py:227
 msgid "Vietnamese"
 msgstr ""
 
-#: backendapp/travels/choices.py:4 templates/client/citydetail.html:102
-#: templates/client/topbak.html:102 templates/client/topbak.html:109
-#: templates/client/topbak.html:116 templates/client/topbak.html:123
-#: templates/client/topbak.html:130 templates/client/topbak.html:137
+#: backendapp/travels/choices.py:4 templates/client/base.html:324
+#: templates/client/citydetail.html:102 templates/client/topbak.html:102
+#: templates/client/topbak.html:109 templates/client/topbak.html:116
+#: templates/client/topbak.html:123 templates/client/topbak.html:130
+#: templates/client/topbak.html:137
 msgid "먹다"
 msgstr "Eat"
 
-#: backendapp/travels/choices.py:5 templates/client/citydetail.html:112
-#: templates/client/topbak.html:103 templates/client/topbak.html:110
-#: templates/client/topbak.html:117 templates/client/topbak.html:124
-#: templates/client/topbak.html:131 templates/client/topbak.html:138
+#: backendapp/travels/choices.py:5 templates/client/base.html:333
+#: templates/client/citydetail.html:112 templates/client/topbak.html:103
+#: templates/client/topbak.html:110 templates/client/topbak.html:117
+#: templates/client/topbak.html:124 templates/client/topbak.html:131
+#: templates/client/topbak.html:138
 msgid "마시다"
 msgstr "Drink"
 
-#: backendapp/travels/choices.py:6 templates/client/citydetail.html:122
-#: templates/client/topbak.html:104 templates/client/topbak.html:111
-#: templates/client/topbak.html:118 templates/client/topbak.html:125
-#: templates/client/topbak.html:132 templates/client/topbak.html:139
+#: backendapp/travels/choices.py:6 templates/client/base.html:342
+#: templates/client/citydetail.html:122 templates/client/topbak.html:104
+#: templates/client/topbak.html:111 templates/client/topbak.html:118
+#: templates/client/topbak.html:125 templates/client/topbak.html:132
+#: templates/client/topbak.html:139
 msgid "놀다"
 msgstr "Fun"
 
-#: backendapp/travels/choices.py:7 templates/client/citydetail.html:136
-#: templates/client/topbak.html:105 templates/client/topbak.html:112
-#: templates/client/topbak.html:119 templates/client/topbak.html:126
-#: templates/client/topbak.html:133 templates/client/topbak.html:140
+#: backendapp/travels/choices.py:7 templates/client/base.html:351
+#: templates/client/citydetail.html:136 templates/client/topbak.html:105
+#: templates/client/topbak.html:112 templates/client/topbak.html:119
+#: templates/client/topbak.html:126 templates/client/topbak.html:133
+#: templates/client/topbak.html:140
 msgid "보다"
 msgstr "See"
 
-#: backendapp/travels/choices.py:8 templates/client/citydetail.html:146
-#: templates/client/topbak.html:106 templates/client/topbak.html:113
-#: templates/client/topbak.html:120 templates/client/topbak.html:127
-#: templates/client/topbak.html:134 templates/client/topbak.html:141
+#: backendapp/travels/choices.py:8 templates/client/base.html:360
+#: templates/client/citydetail.html:146 templates/client/topbak.html:106
+#: templates/client/topbak.html:113 templates/client/topbak.html:120
+#: templates/client/topbak.html:127 templates/client/topbak.html:134
+#: templates/client/topbak.html:141
 msgid "자다"
 msgstr "Sleep"
 
-#: backendapp/travels/choices.py:9 templates/client/citydetail.html:156
-#: templates/client/topbak.html:107 templates/client/topbak.html:114
-#: templates/client/topbak.html:121 templates/client/topbak.html:128
-#: templates/client/topbak.html:135 templates/client/topbak.html:142
+#: backendapp/travels/choices.py:9 templates/client/base.html:369
+#: templates/client/citydetail.html:156 templates/client/topbak.html:107
+#: templates/client/topbak.html:114 templates/client/topbak.html:121
+#: templates/client/topbak.html:128 templates/client/topbak.html:135
+#: templates/client/topbak.html:142
 msgid "사다"
 msgstr "Buy"
 
@@ -143,81 +149,85 @@ msgstr ""
 msgid "Hot"
 msgstr ""
 
-#: backendapp/travels/choices.py:18
-msgid "1시간"
+#: backendapp/travels/choices.py:15
+msgid "Normal"
 msgstr ""
 
 #: backendapp/travels/choices.py:19
-msgid "반나절"
+msgid "1시간"
 msgstr ""
 
 #: backendapp/travels/choices.py:20
+msgid "반나절"
+msgstr ""
+
+#: backendapp/travels/choices.py:21
 msgid "하루"
 msgstr ""
 
-#: backendapp/travels/choices.py:24
+#: backendapp/travels/choices.py:25
 msgid "자산"
 msgstr ""
 
-#: backendapp/travels/choices.py:25
+#: backendapp/travels/choices.py:26
 msgid "공용"
 msgstr ""
 
-#: backendapp/travels/choices.py:29 backendapp/travels/choices.py:42
+#: backendapp/travels/choices.py:30 backendapp/travels/choices.py:43
 msgid "문화유적"
 msgstr ""
 
-#: backendapp/travels/choices.py:30 backendapp/travels/choices.py:43
+#: backendapp/travels/choices.py:31 backendapp/travels/choices.py:44
 msgid "랜드마크"
 msgstr ""
 
-#: backendapp/travels/choices.py:31 backendapp/travels/choices.py:44
+#: backendapp/travels/choices.py:32 backendapp/travels/choices.py:45
 msgid "거리"
 msgstr ""
 
-#: backendapp/travels/choices.py:32 backendapp/travels/choices.py:45
+#: backendapp/travels/choices.py:33 backendapp/travels/choices.py:46
 msgid "공원"
 msgstr ""
 
-#: backendapp/travels/choices.py:33 backendapp/travels/choices.py:46
+#: backendapp/travels/choices.py:34 backendapp/travels/choices.py:47
 msgid "박물관"
 msgstr ""
 
-#: backendapp/travels/choices.py:34 backendapp/travels/choices.py:47
+#: backendapp/travels/choices.py:35 backendapp/travels/choices.py:48
 msgid "종교"
 msgstr ""
 
-#: backendapp/travels/choices.py:35 backendapp/travels/choices.py:48
+#: backendapp/travels/choices.py:36 backendapp/travels/choices.py:49
 msgid "자연"
 msgstr ""
 
-#: backendapp/travels/choices.py:36 backendapp/travels/choices.py:49
+#: backendapp/travels/choices.py:37 backendapp/travels/choices.py:50
 msgid "시장"
 msgstr ""
 
-#: backendapp/travels/choices.py:37 backendapp/travels/choices.py:50
+#: backendapp/travels/choices.py:38 backendapp/travels/choices.py:51
 msgid "교통"
 msgstr ""
 
-#: backendapp/travels/choices.py:38 backendapp/travels/choices.py:51
+#: backendapp/travels/choices.py:39 backendapp/travels/choices.py:52
 msgid "공공"
 msgstr ""
 
-#: backendapp/travels/choices.py:39
+#: backendapp/travels/choices.py:40
 msgid "Place"
 msgstr ""
 
-#: backendapp/travels/choices.py:52
+#: backendapp/travels/choices.py:53
 #, fuzzy
 #| msgid "추천장소"
 msgid "장소"
 msgstr "Recommended place"
 
-#: backendapp/travels/choices.py:56
+#: backendapp/travels/choices.py:57
 msgid "Seoul"
 msgstr ""
 
-#: backendapp/travels/choices.py:57
+#: backendapp/travels/choices.py:58
 msgid "Busan"
 msgstr ""
 
@@ -577,6 +587,22 @@ msgstr ""
 msgid "여행코스"
 msgstr ""
 
+#: templates/client/base.html:266 templates/client/base.html:278
+msgid "이용약관 및 개인정보정책"
+msgstr "Terms of Service / Privacy policy"
+
+#: templates/client/base.html:267
+msgid "로그아웃"
+msgstr "logout"
+
+#: templates/client/base.html:279
+msgid "로그인"
+msgstr "login"
+
+#: templates/client/base.html:280
+msgid "회원가입"
+msgstr "signup"
+
 #: templates/client/cindex.html:93
 msgid "맛있고 즐거운 도시 자유여행!"
 msgstr "Delicious and fun city free travel!"
@@ -670,21 +696,21 @@ msgstr "EA"
 msgid "모두보기"
 msgstr "All"
 
-#: templates/client/citydetail.html:317
+#: templates/client/citydetail.html:318
 msgid "AR Trip은 Take a trips APP에서"
 msgstr "AR Trip is a service that can be run"
 
-#: templates/client/citydetail.html:318
+#: templates/client/citydetail.html:319
 msgid "실행이 가능한 서비스 입니다."
 msgstr "from the Take a trips APP."
 
-#: templates/client/citydetail.html:321
+#: templates/client/citydetail.html:322
 msgid "Take a trips APP을 설치하시겠습니까?"
 msgstr "Do you want to install the Take a trips APP?"
 
-#: templates/client/citydetail.html:337
-#: templates/client/tripcoursedetail.html:257
-#: templates/client/tripcuratordetail.html:129
+#: templates/client/citydetail.html:342
+#: templates/client/tripcoursedetail.html:167
+#: templates/client/tripcuratordetail.html:148
 #: templates/client/tripguidedetail.html:411
 msgid "유사한 여행 정보 보기"
 msgstr "View similar travel information"
@@ -747,7 +773,10 @@ msgstr "Route"
 msgid ""
 "국제선-국내선-서면 롯데호텔-서면1번가-현대백화점-부산진역-부산역-토요코인 호"
 "텔-중앙동-연안여객터미널-남포동-충무동"
-msgstr "International-Domestic-Seomyeon Lotte Hotel-Seomyeon 1st Street-Hyundai Department Store-Busanjin Station-Busan Station-Toyokoinn Hotel-Jungangdong-Coast Passenger Terminal-Nampodong-Chungmudong"
+msgstr ""
+"International-Domestic-Seomyeon Lotte Hotel-Seomyeon 1st Street-Hyundai "
+"Department Store-Busanjin Station-Busan Station-Toyokoinn Hotel-Jungangdong-"
+"Coast Passenger Terminal-Nampodong-Chungmudong"
 
 #: templates/client/gotocity_busan.html:81
 msgid "리무진 버스 해운대 방면"
@@ -769,23 +798,32 @@ msgstr "About 30 minutes"
 msgid ""
 "국제선-국내선-남천동-금련산역-광안역-수영교차로-수영현대아파트-센텀호텔-센텀"
 "홈플러스(벡스코)-올림픽교차로-"
-msgstr "International-Domestic-Namcheondong-Geumnyongsan Station-Gwangan Station-Suyoung Intersection-Suyoung Modern Apartment-Centum Hotel-Centum HomePlus(Bexco)-Olympic Intersection-"
+msgstr ""
+"International-Domestic-Namcheondong-Geumnyongsan Station-Gwangan Station-"
+"Suyoung Intersection-Suyoung Modern Apartment-Centum Hotel-Centum "
+"HomePlus(Bexco)-Olympic Intersection-"
 
 #: templates/client/gotocity_busan.html:128
 msgid ""
 "경남마리나아파트-파크하얏트호텔-한화리조트-해운대하이페리온-동백섬 입구(웨스"
 "틴조선비치호텔)-해운대그랜드호텔-"
-msgstr "Gyeongnam Marina Apartment-Park Hyatt Hotel-Hanwha Resort-Haeundae Hyperion-Entrance to Dongbaek Island (Westen Chosun Beach Hotel)-Haeundae Grand Hotel-"
+msgstr ""
+"Gyeongnam Marina Apartment-Park Hyatt Hotel-Hanwha Resort-Haeundae Hyperion-"
+"Entrance to Dongbaek Island (Westen Chosun Beach Hotel)-Haeundae Grand Hotel-"
 
 #: templates/client/gotocity_busan.html:129
 msgid ""
-"해운대해수욕장-노보텔엠베서더호텔-파라다이스호텔-미포,문텐로드입구-래미"
-"안해운대-현대아파트-장산역-"
-msgstr "Haeundae Beach-Novotel Ambassador Hotel-Paradise Hotel-Mipo, Muntan Road Entrance-Raemian Haeundae-Hyundai Apartment-Jangsan Station-"
+"해운대해수욕장-노보텔엠베서더호텔-파라다이스호텔-미포,문텐로드입구-래미안해운"
+"대-현대아파트-장산역-"
+msgstr ""
+"Haeundae Beach-Novotel Ambassador Hotel-Paradise Hotel-Mipo, Muntan Road "
+"Entrance-Raemian Haeundae-Hyundai Apartment-Jangsan Station-"
 
 #: templates/client/gotocity_busan.html:130
 msgid "백병원-동부아파트-대림1차아파트-양운고등학교-양운초등학교"
-msgstr "Paik Hospital-Dongbu Apartment-Daelim 1st Apartment-Yangwoon High School-Yangun Elementary School"
+msgstr ""
+"Paik Hospital-Dongbu Apartment-Daelim 1st Apartment-Yangwoon High School-"
+"Yangun Elementary School"
 
 #: templates/client/gotocity_busan.html:144
 msgid "리무진 버스 탑승 위치 안내도"
@@ -804,6 +842,7 @@ msgid "버스"
 msgstr "Bus"
 
 #: templates/client/gotocity_seoul.html:23
+#: templates/client/tripguidedetail.html:197
 msgid "소개"
 msgstr "Introduce"
 
@@ -811,13 +850,18 @@ msgstr "Introduce"
 msgid ""
 "AREX는 대한민국의 관문인 인천공항과 서울의 도심을 잇는 한국 유일의 특화된 철"
 "도입니다."
-msgstr "AREX is Korea's only specialized railway link between Incheon International Airport, the gateway to Korea, and downtown Seoul."
+msgstr ""
+"AREX is Korea's only specialized railway link between Incheon International "
+"Airport, the gateway to Korea, and downtown Seoul."
 
 #: templates/client/gotocity_seoul.html:27
 msgid ""
 "인천공항과 서울역을 가장 빠른 43분에 열결함으로써 여행관광객의 편리한 도심 진"
 "입을 돕는 등 인천공항 이용편의 증진에 기여하고 있습니다."
-msgstr "By connecting Incheon International Airport and Seoul Station in the quickest 43 minutes, we are contributing to the enhancement of Incheon Airport's convenience by helping tourists enter the city center conveniently."
+msgstr ""
+"By connecting Incheon International Airport and Seoul Station in the "
+"quickest 43 minutes, we are contributing to the enhancement of Incheon "
+"Airport's convenience by helping tourists enter the city center conveniently."
 
 #: templates/client/gotocity_seoul.html:36
 #: templates/client/tripguidedetail.html:213
@@ -842,21 +886,29 @@ msgstr "Ticket Purchase Information"
 
 #: templates/client/gotocity_seoul.html:73
 msgid "서울역 : 서울역 지하 2층 직통열차 고객안내센터"
-msgstr "Seoul Station: Seoul Station 2nd Floor Direct Train Customer Information Center"
+msgstr ""
+"Seoul Station: Seoul Station 2nd Floor Direct Train Customer Information "
+"Center"
 
 #: templates/client/gotocity_seoul.html:74
 msgid ""
 "인천공항1터미널역 : 인천공항1터미널 지하 1층 교통센터 직통열차 고객안내센터"
-msgstr "Incheon Airport Terminal 1 Station: Incheon International Airport Terminal 1 B1 Traffic Center Direct Train Customer Service Center"
+msgstr ""
+"Incheon Airport Terminal 1 Station: Incheon International Airport Terminal 1 "
+"B1 Traffic Center Direct Train Customer Service Center"
 
 #: templates/client/gotocity_seoul.html:75
 msgid ""
 "인천공항2터미널역 : 인천공항2터미널 지하 1층 교통센터 직통열차 고객안내센터"
-msgstr "Incheon Airport Terminal 2 Station: Incheon International Airport Terminal 2 B1 Traffic Center Direct Train Customer Service Center"
+msgstr ""
+"Incheon Airport Terminal 2 Station: Incheon International Airport Terminal 2 "
+"B1 Traffic Center Direct Train Customer Service Center"
 
 #: templates/client/gotocity_seoul.html:76
 msgid "자동발매기 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역"
-msgstr "Ticket vending machines: Seoul Station, Incheon International Airport Terminal 1 Station, Incheon International Airport Terminal 2 Station"
+msgstr ""
+"Ticket vending machines: Seoul Station, Incheon International Airport "
+"Terminal 1 Station, Incheon International Airport Terminal 2 Station"
 
 #: templates/client/gotocity_seoul.html:88
 msgid "승차권 구입 장소"
@@ -952,7 +1004,10 @@ msgstr "Passenger Terminal 1 Bus Stop Information"
 msgid ""
 "제 1 여객터미널 1층의 내부 (4, 9번 출구 옆), 외부(4, 6, 7, 8, 11, 13번 출구 "
 "근처)의 버스 매표소에서 버스 관련 안내 및\v승차권 구입이 가능합니다."
-msgstr "You can purchase bus information and purchase tickets at bus ticket counters on the 1st floor of Terminal 1, inside (next to exits 4 and 9) and outside (near exits 4, 6, 7, 8, 11 and 13)."
+msgstr ""
+"You can purchase bus information and purchase tickets at bus ticket counters "
+"on the 1st floor of Terminal 1, inside (next to exits 4 and 9) and outside "
+"(near exits 4, 6, 7, 8, 11 and 13)."
 
 #: templates/client/gotocity_seoul.html:222
 msgid "제 2 여객터미널 버스 정차장 안내"
@@ -962,25 +1017,25 @@ msgstr "Passenger Terminal 2 Bus Stop Information"
 msgid ""
 "제 2 여객터미널 교통센터 지하 1층 버스터미널에서 버스 관련 안내 및 승차권 구"
 "입이 가능합니다."
-msgstr "You can purchase bus information and purchase tickets at the 1st basement bus terminal of Passenger Terminal 2 Transportation Center."
+msgstr ""
+"You can purchase bus information and purchase tickets at the 1st basement "
+"bus terminal of Passenger Terminal 2 Transportation Center."
 
 #: templates/client/tpbase.html:47 templates/client/tripcourse.html:50
 #: templates/client/tripcourse.html:54 templates/client/tripcourse.html:58
-#: templates/client/tripcoursedetail.html:289
+#: templates/client/tripcoursedetail.html:201
+#: templates/client/tripcoursedetail.html:205
+#: templates/client/tripcoursedetail.html:209
 msgid "코스타입"
 msgstr "Course type"
 
-#: templates/client/tripcoursedetail.html:183
+#: templates/client/tripcoursedetail.html:86
 msgid "코디네이터 정보"
 msgstr "Coordinator Information"
 
-#: templates/client/tripcuratordetail.html:72
+#: templates/client/tripcuratordetail.html:91
 msgid "추천 여행정보"
 msgstr "Recommended Travel Information"
-
-#: templates/client/tripguidedetail.html:197
-msgid "업체소개"
-msgstr "Introduction"
 
 #: templates/client/tripguidedetail.html:217
 msgid "주소"
@@ -1016,3 +1071,6 @@ msgstr "Sale Items"
 #: templates/client/tripguidedetail.html:359
 msgid "교통정보"
 msgstr "Traffic Information"
+
+#~ msgid "업체소개"
+#~ msgstr "Introduction"

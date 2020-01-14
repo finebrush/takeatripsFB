@@ -17,7 +17,7 @@ def signup(request):
     return render(request, 'client/account/signup.html')
     
 def login(request):
-    topmenuoff = False # 상단 메뉴가 display none..
+    # topmenuoff = False # 상단 메뉴가 display none..
 
     if request.method == 'POST':
         #post 요청이 들어온다면
@@ -34,7 +34,8 @@ def login(request):
             #회원정보가 존재하지 않는다면, 에러인자와 함께 login 템플릿으로 돌아가기.
             return render(request, 'client/account/login.html', {'error': 'username or password is incorrect.'})
     else:
-        return render(request, 'client/account/login.html', {'topmenuoff':topmenuoff })
+        # return render(request, 'client/account/login.html', {'topmenuoff':topmenuoff })
+        return render(request, 'client/account/login.html') # login 페이지 topmenu 없이 만듬..
 
 def logout(request):
     auth.logout(request)

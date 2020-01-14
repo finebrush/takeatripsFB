@@ -1,5 +1,9 @@
 {% load static i18n %}
 {% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
 <!DOCTYPE html>
 <html lang="ko-KR">
   <head>
@@ -177,6 +181,41 @@
           z-index: 2000;
           top: 0px;
         }
+        /* popup menu.. */
+        .dropbtn {
+          background-color: #4CAF50;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+        }
+        .dropbtn:hover, .dropbtn:focus {
+          background-color: #3e8e41;
+        }
+        .dropdown {
+          float: right;
+          position: relative;
+          display: inline-block;
+        }
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f1f1f1;
+          min-width: 200px;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          right: 0;
+          z-index: 1;
+        }
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        .dropdown a:hover {background-color: #ddd;}
+        .show {display: block;}
 
       </style>
 
@@ -213,28 +252,48 @@
         {% if user.is_authenticated %}
         <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
         <div style="display: flex;">
-          <a class="menu-button" style="cursor: pointer; padding: 0 10px;"> 
+          <a class="menu-button" style="cursor: pointer; padding-right: 10px;"> 
             <img src="{% static 'img/sub_top_private.png' %}" />
           </a>
-          <a href="{% url 'account:logout' %}">
+          <!-- <a href="{% url 'account:logout' %}">
             <img src="{% static 'img/sub_top_more.png' %}"/>
-          </a>
+          </a> -->
+          <div class="dropdown">
+            <a href="javascript:myFunction()" style="background: none;">
+              <img src="{% static 'img/sub_top_more.png' %}" />
+            </a>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="#home">{% trans '이용약관 및 개인정보정책' %}</a>
+              <a href="{% url 'account:logout' %}">{% trans '로그아웃' %}</a>
+            </div>
+          </div>
         </div>
         {% else %}
         <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
-        <div style="display: flex;">
+        <div class="dropdown">
+          <a href="javascript:myFunction()" style="background: none;">
+            <img src="{% static 'img/sub_top_more.png' %}" />
+          </a>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="#home">{% trans '이용약관 및 개인정보정책' %}</a>
+            <a href="{% url 'account:login' %}">{% trans '로그인' %}</a>
+            <a href="{% url 'account:signup' %}">{% trans '회원가입' %}</a>
+          </div>
+        </div>
+        <!-- <div style="display: flex;">
           <a href="{% url 'account:signup' %}" style="cursor: pointer; padding: 0 10px;">
             <img src="{% static 'img/sub_top_signup.png' %}" style="width: 44px;" />
           </a>
           <a href="{% url 'account:login' %}">
             <img src="{% static 'img/sub_top_more.png' %}"/>
           </a>
-        </div>
+        </div> -->
         {% endif %}
+        
       </div>
 
       <!-- 다국어..  -->
-      <div class="pull-right" style="padding-top: 10px;">
+      <div class="pull-right" style="padding-top: 10px;margin-right: 10px;">
         <select name="language" id="selectlang" style="width: 150px;">
           {% get_available_languages as LANGUAGES %}
           {% get_language_info_list for LANGUAGES as languages %}
@@ -245,6 +304,7 @@
           {% endfor %}
         </select>
       </div>
+
 
     </header>
 
@@ -498,9 +558,12 @@
                   } 
           })
       }
-      
-      mytrip();
-      mytripsub(); // mytrip 먹다/마시다/... 등 1단계는 한 번 실행..
+
+      // 로그인 경우에만 like 가져온다.
+      {% if user.is_authenticated %}
+        mytrip();
+        mytripsub(); // mytrip 먹다/마시다/... 등 1단계는 한 번 실행..
+      {% endif %}
 
       $(document).ready(function(){
         // mytrips slide menu..
@@ -668,6 +731,25 @@
             })
         })
       
+      /* When the user clicks on the button, 
+      toggle between hiding and showing the dropdown content */
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
       
     </script>
 

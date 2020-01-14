@@ -41,5 +41,6 @@ urlpatterns = [
     url(r'^main/$', views.cmain, name='cmain'),
     url(r'^likepoi/$', views.likePOI, name='likepoi'), 
     url(r'^detail/$', TemplateView.as_view(template_name='client/cdetail.html'), name='cdetail'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
