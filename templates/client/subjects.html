@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Model Import/Export Example</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container" style="padding: 20px">
+		<h1 class="text-center">Model Import/Export Example</h1>
+		<div>
+			<a href="{% url 'clientapp:import' %}" class="btn btn-danger">Import</a> &nbsp;
+			<a href="{% url 'clientapp:export' %}" class="btn btn-success">Export</a> &nbsp;
+		</div>
+		<br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>City</th>
+					<th>Campany(ko)</th>
+					<th>Campany(eng)</th>
+					<th>Campany(ven)</th>
+					<th>Picture</th>
+					<th>Part</th>
+					<th>Address</th>
+                    <th>Created</th>
+                    <th>Type</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for subject in subjects %}
+
+				<tr>
+					<td>{{ subject.id }}</td>
+					<td>{{ subject.city.nameko }}</td>
+					<td>{{ subject.companyko }}</td>
+					<td>{{ subject.companyeng }}</td>
+					<td>{{ subject.companyven }}</td>
+					<td>{{ subject.picture1.url }}</td>
+					<td>{{ subject.part }}</td>
+					<td>{{ subject.addressko }}</td>
+                    <td>{{ subject.itdate }}</td>
+                    <td>{{ subject.get_typeit_display }}</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

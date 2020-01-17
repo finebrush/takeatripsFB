@@ -91,7 +91,7 @@
 </div>
 
 <!-- Trip Guide 시작 -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">Trip Guide</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">Trip Guide</h5>
 <!-- 먹다/마시다/놀다/보다 대표 이미지  3개.. -->
 <div class="card-deck" style="padding: 0 45px;">  
     <div class="card" style="height: 120px;">
@@ -162,11 +162,11 @@
 
 <!-- 배너 -->
 <div class="card" style="padding: 0 45px;border: none;">
-    <img class="card-img" style="height: 100%;" src="{% static 'img/sub_banner.png' %}" alt="Card image">
+    <img class="card-img" src="{% static 'img/sub_banner.png' %}" alt="Card image">
 </div>
 
 <!-- Trip Curator 시작 -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">Trip Curator</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">Trip Curator</h5>
 
 {% for travelcurator in travelcurators|slice:":4" %}
 {% if forloop.counter == 1 %}
@@ -219,7 +219,7 @@
 </div> 
 
 <!-- Trip Coordinator 시작 -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">Trip Coordinator</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">Trip Coordinator</h5>
 
 
 <div class="card-deck" style="padding: 0 45px;">
@@ -262,7 +262,7 @@
 </div> 
 
 <!-- AR Trip -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">AR Trip</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">AR Trip</h5>
 
 <!-- AR Contents.. -->
 {% for arcontent in arcontents|slice:":6" %}
@@ -339,7 +339,7 @@
 
 
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<h5 class="card-title" style="padding: 30px 45px 0px 45px; margin: 0 20;">{% trans "유사한 여행 정보 보기" %}</h5>
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">{% trans "유사한 여행 정보 보기" %}</h5>
 
 <div class="card p-5" style="padding-top: 0px!important; border:0px;">
     <div class=container style="margin:0px; padding:0px; max-width:1920px;">

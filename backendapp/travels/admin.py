@@ -18,6 +18,10 @@ from django.contrib.gis.db import models
 from .models import ( City, InfoTravel, EatDrinkPart, FunPart, SeePart, SleepPart, BuyPart, 
                         TravelCurator, TCImage, TravelPlan, POIpoint, Likeit )
 
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
+
+from django.contrib.admin.filters import SimpleListFilter
 
 CUSTOM_MAP_SETTINGS = {
     "GooglePointFieldWidget": (
@@ -25,6 +29,13 @@ CUSTOM_MAP_SETTINGS = {
         ("mapCenterLocation", [37.59675, 126.99488]),
     ),
 }
+
+class InfotravelResource(resources.ModelResource):
+    class Meta:
+        model = InfoTravel
+        fields = ['city', 'companyko', 'companyeng', 'companyven', 'picture1', 'asset', 'part' , 'typeit', 'addressko', 
+            'addresseng', 'addressven', 'linkweb', 'linkinsta', 'linkyoutube', 'trafficko',
+            'trafficeng', 'trafficven', 'introko', 'introeng', 'introven', 'itdate', 'itlocation']
 
 class EatDrinkPartInline(admin.StackedInline):
     model = EatDrinkPart
@@ -84,14 +95,40 @@ class CityAdmin(admin.ModelAdmin):
             return db_field.formfield(**kwargs)
         return super(CityAdmin,self).formfield_for_dbfield(db_field, **kwargs)
 
-class InfoTavelAdmin(admin.ModelAdmin):
+class NullFilterSpec(SimpleListFilter):
+    title = u''
+
+    parameter_name = u''
+
+    def lookups(self, request, model_admin):
+        return (
+            ('1', 'Has value' ),
+            ('0', 'None' ),
+        )
+
+    def queryset(self, request, queryset):
+        kwargs = {
+        '%s'%self.parameter_name : None,
+        }
+        if self.value() == '0':
+            return queryset.filter(**kwargs)
+        if self.value() == '1':
+            return queryset.exclude(**kwargs)
+        return queryset
+
+class StartNullFilterSpec(NullFilterSpec):
+    title = u'Asset'
+    parameter_name = u'asset'
+
+class InfoTavelAdmin(ImportExportModelAdmin):
+    resource_class = InfotravelResource
     icon_name = 'edit_location'
     # autocomplete_fields = ('ibname', 'city')
     list_display = ('companyko', 'picture_tag', 'part', 'itdate', 'typeit', 'categorysmall', 'asset')
     search_fields = ('companyko', 'companyeng', 'companyven',)
     inlines = [EatDrinkPartInline, FunPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
     list_per_page = 10
-    list_filter = ('part','city',)
+    list_filter = ('part','city',StartNullFilterSpec, )
     # radio_fields = {'asset': admin.VERTICAL} # HORIZONTAL, VERTICAL
 
     fieldsets = [

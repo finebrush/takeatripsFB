@@ -94,7 +94,7 @@ class InfoTravel(models.Model):
     addresseng = models.CharField(_('주소(영어)'), max_length=128, null=True, blank=True)
     addressven = models.CharField(_('주소(베트남어)'), max_length=128, null=True, blank=True)
     # category = models.ForeignKey(CSmall, on_delete=models.CASCADE)
-    categorylarge = models.ForeignKey(CLarge, on_delete=models.CASCADE, null=True)
+    categorylarge = models.ForeignKey(CLarge, on_delete=models.CASCADE, null=True, related_name='categorylarge')
     categorymedium = ChainedForeignKey(
         CMedium, # 연결 할 모델..
         chained_field="categorylarge", # 연결 할 자신의 필드..
@@ -102,7 +102,8 @@ class InfoTravel(models.Model):
         show_all=False,
         auto_choose=True,
         sort=True,
-        null=True
+        null=True,
+        related_name='categorymedium'
     )
     categorysmall = ChainedForeignKey(
         CSmall, # 연결 할 모델..
@@ -111,7 +112,8 @@ class InfoTravel(models.Model):
         show_all=False,
         auto_choose=True,
         sort=True,
-        null=True
+        null=True,
+        related_name='categorysmall'
     )
     # category = models.CharField(_('카테고리'), choices=SELECT_CATEGORY, max_length=8)
     linkweb = models.CharField(_('외부링크(웹사이트)'), max_length=64, null=True, blank=True)
@@ -123,9 +125,9 @@ class InfoTravel(models.Model):
     introko = models.TextField(_('소개정보(한국어)'), null=True, blank=True, help_text=_('이곳을 소개해 주세요.'))
     introeng = models.TextField(_('소개정보(영어)'), null=True, blank=True, help_text=_('이곳을 소개해 주세요.'))
     introven = models.TextField(_('소개정보(베트남어)'), null=True, blank=True, help_text=_('이곳을 소개해 주세요.'))
-    tagko = TaggableManager(_('태그(한국어)'),blank=True)
-    tageng = TaggableManager(_('태그(영어)'),blank=True, through=SecondTaggedItem)
-    tagven = TaggableManager(_('태그(베트남어)'),blank=True, through=ThirdTaggedItem)
+    tagko = TaggableManager(_('태그(한국어)'),blank=True, related_name='tagko')
+    tageng = TaggableManager(_('태그(영어)'),blank=True, through=SecondTaggedItem, related_name='tageng')
+    tagven = TaggableManager(_('태그(베트남어)'),blank=True, through=ThirdTaggedItem, related_name='tagven')
     itdate = models.DateField(_('Date'))
     # 지도 위에서 POI 로 지정..
     itlocation = models.PointField(verbose_name='Rocation',srid = 4326, null=True, blank=True)
@@ -164,7 +166,7 @@ class InfoTravel(models.Model):
 class Likeit(models.Model):
     objects = models.Manager()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    infotravel = models.ForeignKey(InfoTravel, on_delete=models.CASCADE)
+    infotravel = models.ForeignKey(InfoTravel, related_name='likeits', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

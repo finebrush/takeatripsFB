@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
 
+    'import_export',
+
     'backendapp.travels',
     'backendapp.common',
     'backendapp.arcontent',
@@ -256,3 +258,4 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+

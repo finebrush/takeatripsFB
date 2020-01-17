@@ -6,6 +6,8 @@ from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from django.contrib.gis.db import models
 
+from import_export.admin import ExportActionModelAdmin, ImportExportMixin, ImportMixin
+
 from .models import ARTrip
 
 CUSTOM_MAP_SETTINGS = {

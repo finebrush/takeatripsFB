@@ -24,7 +24,7 @@ def citymain(request, city_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
     topmenuoff = True
-    itdetails = InfoTravel.objects.filter(city_id=city_id)
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
     artrips = ARTrip.objects.filter(share=True)
     arcontents = artrips.random(8)
     travelcurators = TravelCurator.objects.filter(city_id=city_id)
@@ -46,7 +46,7 @@ def tripguide(request, citydetails_id, partnum):
     citydetails = City.objects.get(id=citydetails_id)
     current_user = request.user
     topmenuoff = True
-    itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+    itdetails = InfoTravel.objects.filter(Q(city_id=citydetails_id) & Q(asset__isnull=False))
     # print(city.name)
     eat_itdetails = itdetails.filter(part='Eat')
     drink_itdetails = itdetails.filter(part='Drink')
@@ -74,7 +74,7 @@ def tripguide(request, citydetails_id, partnum):
                             'selected_itdetails':selected_itdetails, 'topmenuoff':topmenuoff })
 
 def tripguidedetail(request, citydetails_id, partnum, tripguide_id):
-    itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+    itdetails = InfoTravel.objects.filter(Q(city_id=citydetails_id) & Q(asset__isnull=False))
     itdetail = InfoTravel.objects.get(id=tripguide_id)
     # print(itdetail.like_infotravel.all())
     return render(request, 'client/tripguidedetail.html', {'citydetails_id':citydetails_id, 'itdetails':itdetails, 'partnum':partnum, 
@@ -110,7 +110,7 @@ def tripcuratordetail(request, citydetails_id, tripcurator_id):
 
     # 제목으로 검색..
     searchwords=travelcurator.titleko.split(' ')
-    searchlists = InfoTravel.objects.filter(tagko__name__in=searchwords).distinct()
+    searchlists = InfoTravel.objects.filter(Q(tagko__name__in=searchwords) & Q(asset__isnull=False)).distinct()
     # searchlist = ['문화', '연가'] # or 로 하나라도 포함된 걸 검색..
     # print(InfoTravel.objects.filter(tagko__name__in=searchlist).distinct()) # .distinct() -> 중복 제거..
 
@@ -233,7 +233,7 @@ def searchlist(request, citydetails_id):
     citydetails = get_object_or_404(City, pk=citydetails_id)
     current_user = request.user
     topmenuoff = True
-    itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
+    itdetails = InfoTravel.objects.filter(Q(city_id=citydetails_id) & Q(asset__isnull=False))
 
     if request.method=='POST':
         srch = request.POST['srhwd']

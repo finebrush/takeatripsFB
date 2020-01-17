@@ -13,6 +13,7 @@ app_name = 'clientapp'
 # Redirect any request that goes into here to static/index.html
 urlpatterns = [
     path('', views.chome, name='chome'),
+
     path('citymain/<int:city_id>/', views.citymain, name='citymain'),
     path('citymain/<int:citydetails_id>/tripguide/<str:partnum>/', views.tripguide, name='tripguide'),
     path('citymain/<int:citydetails_id>/tripguidedetail/<str:partnum>/<int:tripguide_id>/', views.tripguidedetail, name='tripguidedetail'),
