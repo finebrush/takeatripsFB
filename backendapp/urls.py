@@ -9,7 +9,15 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView
 from django.contrib.staticfiles.templatetags.staticfiles import static as staticfiles
 
-from backendapp.travels.views import TCAutocomplete
+from rest_framework import routers
+
+from backendapp.travels.views import TCAutocomplete, CityViewSet, InfoTravelViewSet, TravelCuratorViewSet, TravelPlanViewSet
+
+router = routers.DefaultRouter() 
+router.register('citys', CityViewSet)
+router.register('tripguides', InfoTravelViewSet)
+router.register('tripcurators', TravelCuratorViewSet)
+router.register('tripcoordinators', TravelPlanViewSet)
 
 urlpatterns = [
     path('', include('clientapp.urls', namespace='clientapp')),
@@ -23,6 +31,9 @@ urlpatterns = [
          else url(r'^admin/', admin.site.urls),
     path('tc-infotravel-autocomplete/', TCAutocomplete.as_view(), name='tc-infotravel-autocomplete'),
     path('chaning/', include('smart_selects.urls')),
+
+    path('api/', include(router.urls)),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

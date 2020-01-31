@@ -13,6 +13,7 @@ from taggit.managers import TaggableManager
 from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
 from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, GroupedForeignKey
+from django_random_queryset import RandomManager
 
 from taggit.models import TaggedItemBase, CommonGenericTaggedItemBase, TagBase, GenericTaggedItemBase
 from backendapp.common.models import CLarge, CMedium, CSmall

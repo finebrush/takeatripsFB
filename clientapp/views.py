@@ -31,12 +31,20 @@ def citymain(request, city_id):
     travelplans = TravelPlan.objects.filter(city_id=city_id)
 
     # InfoTravel 에서 part 별 랜덤한 하나의 DB를 전달..
-    eat_itdetail = itdetails.filter(part='Eat').first()
-    drink_itdetail = itdetails.filter(part='Drink').first()
-    fun_itdetail = itdetails.filter(part='Fun').first()
-    see_itdetail = itdetails.filter(part='See').first()
-    sleep_itdetail = itdetails.filter(part='Sleep').first()
-    buy_itdetail = itdetails.filter(part='Buy').first()
+    # num_itdetail = itdetails.filter(part='Eat').count()
+    # rand_entitie = random.sample(range(num_itdetail), 1)
+    # eat_itdetail = itdetails.filter(id__in=rand_entitie)
+    
+    # eat_itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False) & Q(part='Eat'))
+    # eat_itdetail = eat_itdetails.random(1)
+    # print(eat_itdetail)
+
+    eat_itdetail = itdetails.filter(part='Eat').last()
+    drink_itdetail = itdetails.filter(part='Drink').last()
+    fun_itdetail = itdetails.filter(part='Fun').last()
+    see_itdetail = itdetails.filter(part='See').last()
+    sleep_itdetail = itdetails.filter(part='Sleep').last()
+    buy_itdetail = itdetails.filter(part='Buy').last()
     
     return render(request, 'client/citydetail.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
@@ -191,9 +199,9 @@ def gotocity(request, citydetails_id):
     submenu = 1 # sub menu 진입여부
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
 
-    if citydetails_id == 1:
+    if citydetails_id == 1: # if seoul..
         return render(request, 'client/gotocity_seoul.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff, 'submenu':submenu })
-    elif citydetails_id == 2:
+    elif citydetails_id == 2: # if busan..
         return render(request, 'client/gotocity_busan.html', {'citydetails':citydetails, 'current_user': current_user, 'topmenuoff':topmenuoff, 'submenu':submenu })
 
 def topbak(request, citydetails_id, partnum):
@@ -202,7 +210,13 @@ def topbak(request, citydetails_id, partnum):
     topmenuoff = True
     submenu = 2 # sub menu 진입여부
     # itdetails = InfoTravel.objects.filter(city_id=citydetails_id)
-    itmusts = InfoTravel.objects.filter(typeit=1) # tripguide 중 must 인것..
+
+    # 도시마다 must 구분..
+    if citydetails_id == 1: # if seoul..
+        itmusts = InfoTravel.objects.filter( Q(city_id=1) & Q(typeit=1) & Q(asset__isnull=False)) # tripguide 중 seoul 이고 must 이고 asset true 인것..
+    elif citydetails_id == 2: # if busan..
+        itmusts = InfoTravel.objects.filter( Q(city_id=2) & Q(typeit=1) & Q(asset__isnull=False))
+
     # print(itmusts)
     eat_itmusts = itmusts.filter(part='Eat')
     drink_itmusts = itmusts.filter(part='Drink')

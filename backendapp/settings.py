@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'import_export',
+    'rest_framework',
 
     'backendapp.travels',
     'backendapp.common',
