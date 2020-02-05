@@ -1,9 +1,7 @@
 """
 Django settings for test_app project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
@@ -59,6 +57,7 @@ INSTALLED_APPS = [
 
     'import_export',
     'rest_framework',
+    'django_filters',
 
     'backendapp.travels',
     'backendapp.common',
@@ -259,4 +258,3 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-

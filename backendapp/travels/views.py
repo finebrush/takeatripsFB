@@ -1,4 +1,9 @@
 from dal import autocomplete
+from django.db.models import Q
+from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, CreateAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.filters import SearchFilter
 
 from backendapp.travels.models import City, InfoTravel, TravelCurator, TravelPlan
 
@@ -24,7 +29,11 @@ class CityViewSet(viewsets.ModelViewSet):
     serializer_class = CitySerializer
 
 class InfoTravelViewSet(viewsets.ModelViewSet):
+    name = "TripGuides-List"
     queryset = InfoTravel.objects.filter(asset__isnull=False)
+    filter_backends = [SearchFilter, DjangoFilterBackend] 
+    filter_fields = ['city', 'part'] 
+    search_fields = ['companyeng']
     serializer_class = InfoTravelSerializer
 
 class TravelCuratorViewSet(viewsets.ModelViewSet):

@@ -33,6 +33,7 @@ urlpatterns = [
     path('chaning/', include('smart_selects.urls')),
 
     path('api/', include(router.urls)),
+    path('travels/', include('backendapp.travels.urls', namespace='travels')),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
