@@ -11,13 +11,17 @@ from django.contrib.staticfiles.templatetags.staticfiles import static as static
 
 from rest_framework import routers
 
-from backendapp.travels.views import TCAutocomplete, CityViewSet, InfoTravelViewSet, TravelCuratorViewSet, TravelPlanViewSet
+from backendapp.travels.views import ( TCAutocomplete, CityViewSet, InfoTravelViewSet, TravelCuratorViewSet, TravelPlanViewSet, 
+            ARTripViewSet, TCImageViewSet, POIpointViewSet )
 
 router = routers.DefaultRouter() 
 router.register('citys', CityViewSet)
 router.register('tripguides', InfoTravelViewSet)
 router.register('tripcurators', TravelCuratorViewSet)
+router.register('tcimage', TCImageViewSet)
 router.register('tripcoordinators', TravelPlanViewSet)
+router.register('poipoints', POIpointViewSet)
+router.register('artrips', ARTripViewSet)
 
 urlpatterns = [
     path('', include('clientapp.urls', namespace='clientapp')),
@@ -31,6 +35,7 @@ urlpatterns = [
          else url(r'^admin/', admin.site.urls),
     path('tc-infotravel-autocomplete/', TCAutocomplete.as_view(), name='tc-infotravel-autocomplete'),
     path('chaning/', include('smart_selects.urls')),
+    path('summernote/', include('django_summernote.urls')),
 
     path('api/', include(router.urls)),
     path('travels/', include('backendapp.travels.urls', namespace='travels')),

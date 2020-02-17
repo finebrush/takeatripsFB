@@ -7,7 +7,7 @@ from django.contrib.gis import admin
 from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
 
 from .widgets import AdminImageWidget
-from .forms import TForm
+from .forms import TForm, CityForm
 
 from leaflet.admin import LeafletGeoAdmin
 
@@ -72,6 +72,7 @@ class POIpointInline(admin.StackedInline):
     }
 
 class CityAdmin(admin.ModelAdmin):
+    form = CityForm
     list_display = ('nameko', 'titleko', 'titleeng', 'titleven', 'created', 'picture_tag', 'location')
     icon_name = 'location_city'
     search_fields = ('nameko',)

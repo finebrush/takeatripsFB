@@ -72,13 +72,13 @@
 
         {% if LANGUAGE_CODE == 'ko' %}
         <h5 class="card-title">{{ citydetails.nameko }}</h5>
-        <p class="card-text"> {{ citydetails.titleko }}</p>
+        <p class="card-text"> {{ citydetails.titleko | safe }}</p>
         {% elif LANGUAGE_CODE == 'en' %}
         <h5 class="card-title">{{ citydetails.nameeng }}</h5>
-        <p class="card-text"> {{ citydetails.titleeng }}</p>
+        <p class="card-text"> {{ citydetails.titleeng | safe }}</p>
         {% elif LANGUAGE_CODE == 'vi' %}
         <h5 class="card-title">{{ citydetails.nameven }}</h5>
-        <p class="card-text"> {{ citydetails.titleven }}</p>
+        <p class="card-text"> {{ citydetails.titleven | safe }}</p>
         {% endif %}
 
         <!-- <h6 class="card-subtitle mb-2 text-muted">{% trans "대한민국의 수도" %}</h6>

@@ -16,9 +16,13 @@ from imagekit.processors import Thumbnail
 from django_random_queryset import RandomManager
 
 from backendapp.travels.choices import SELECT_CATEGORY
+from backendapp.travels.models import City
 
 class ARTrip(models.Model):
     objects = RandomManager()
+    city = models.ForeignKey(
+        'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True
+    )
     share = models.BooleanField(_('공개여부'), default=True)
     titleko = models.CharField(_('소개타이틀(한국어)'), max_length=128)
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128)

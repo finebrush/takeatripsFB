@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'django_filters',
+    'django_summernote',
 
     'backendapp.travels',
     'backendapp.common',
