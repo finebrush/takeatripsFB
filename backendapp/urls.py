@@ -12,7 +12,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static as static
 from rest_framework import routers
 
 from backendapp.travels.views import ( TCAutocomplete, CityViewSet, InfoTravelViewSet, TravelCuratorViewSet, TravelPlanViewSet, 
-            ARTripViewSet, TCImageViewSet, POIpointViewSet )
+            ARTripViewSet, TCImageViewSet, POIpointViewSet, TourPlanViewSet )
 
 router = routers.DefaultRouter() 
 router.register('citys', CityViewSet)
@@ -22,6 +22,7 @@ router.register('tcimage', TCImageViewSet)
 router.register('tripcoordinators', TravelPlanViewSet)
 router.register('poipoints', POIpointViewSet)
 router.register('artrips', ARTripViewSet)
+router.register('tourplan', TourPlanViewSet)
 
 urlpatterns = [
     path('', include('clientapp.urls', namespace='clientapp')),

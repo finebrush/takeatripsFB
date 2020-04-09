@@ -1,0 +1,36 @@
+{% extends 'client/head.html'%}
+{% load i18n static %}
+
+{% block headers %}
+{% endblock %}
+
+{% block contents %}
+<!-- trip100 part -->
+<div id="trip100" class="tabcontent active">
+    <div class="categorymenu">
+        CATEGORY MENU
+    </div>
+    <div class="tripinfo">
+        TRIP INFOMATION
+    </div>
+    <div class="mapcontent">
+        MAP CONTENT
+    </div>
+    <div class="footer">
+        FOOTER
+    </div>
+</div>
+
+
+<script>
+    var tablinks;
+    tablinks = document.getElementsByClassName("tablinks3");
+    tablinks[0].className += " active";
+
+    
+</script>
+
+{% endblock %}
+
+{% block footers %}
+{% endblock %}

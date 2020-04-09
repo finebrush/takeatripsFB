@@ -29,49 +29,56 @@ $(document).ready( function() {
         // inline 그룹을 hide..
         switch (sel.value) {
             case "Eat":
-                $("#eatdrinkpart-group").show();
+                $("#eatpart-group").show();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
             case "Drink":
-                $("#eatdrinkpart-group").show();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").show();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
             case "Fun":
-                $("#eatdrinkpart-group").hide();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").show();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
             case "See":
-                $("#eatdrinkpart-group").hide();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").show();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").hide();
                 break;
             case "Sleep":
-                $("#eatdrinkpart-group").hide();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").show();
                 $("#buypart-group").hide();
                 break;
             case "Buy":
-                $("#eatdrinkpart-group").hide();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
                 $("#buypart-group").show();
                 break;
             default:
-                $("#eatdrinkpart-group").hide();
+                $("#eatpart-group").hide();
+                $("#drinkpart-group").hide();
                 $("#funpart-group").hide();
                 $("#seepart-group").hide();
                 $("#sleeppart-group").hide();
@@ -84,49 +91,56 @@ $(document).ready( function() {
             // console.log(sel.value);
             switch (sel.value) {
                 case "Eat":
-                    $("#eatdrinkpart-group").show();
+                    $("#eatpart-group").show();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").hide();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").hide();
                     $("#buypart-group").hide();
                     break;
                 case "Drink":
-                    $("#eatdrinkpart-group").show();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").show();
                     $("#funpart-group").hide();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").hide();
                     $("#buypart-group").hide();
                     break;
                 case "Fun":
-                    $("#eatdrinkpart-group").hide();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").show();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").hide();
                     $("#buypart-group").hide();
                     break;
                 case "See":
-                    $("#eatdrinkpart-group").hide();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").hide();
                     $("#seepart-group").show();
                     $("#sleeppart-group").hide();
                     $("#buypart-group").hide();
                     break;
                 case "Sleep":
-                    $("#eatdrinkpart-group").hide();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").hide();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").show();
                     $("#buypart-group").hide();
                     break;
                 case "Buy":
-                    $("#eatdrinkpart-group").hide();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").hide();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").hide();
                     $("#buypart-group").show();
                     break;
                 default:
-                    $("#eatdrinkpart-group").hide();
+                    $("#eatpart-group").hide();
+                    $("#drinkpart-group").hide();
                     $("#funpart-group").hide();
                     $("#seepart-group").hide();
                     $("#sleeppart-group").hide();

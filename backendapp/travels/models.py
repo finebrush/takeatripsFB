@@ -14,11 +14,13 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
 from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField, GroupedForeignKey
 from django_random_queryset import RandomManager
+from multiselectfield import MultiSelectField
 
 from taggit.models import TaggedItemBase, CommonGenericTaggedItemBase, TagBase, GenericTaggedItemBase
-from backendapp.common.models import CLarge, CMedium, CSmall
+from backendapp.common.models import CLarge, CMedium, CSmall, PinEat, PinDrink, PinFun, PinBuy
 
-from backendapp.travels.choices import SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES, SELECT_GOTOCITY
+from backendapp.travels.choices import ( SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES, 
+                                SELECT_GOTOCITY, SELECT_EATPIN, SELECT_DRINKPIN, SELECT_FUNPIN, SELECT_BUYPIN )
 
 class City(models.Model):
     nameko = models.CharField(_('Name(한국어)'), max_length=64, default='')
@@ -174,8 +176,30 @@ class Likeit(models.Model):
     class Meta:
         unique_together = (('user', 'infotravel'))
 
-class EatDrinkPart(models.Model):
+class EatDrinkPart(models.Model): # 사용안함.. 분리시킴..
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
+    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
+    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
+    menuko = models.CharField(_('대표메뉴(한국어)'), max_length=128)
+    menueng = models.CharField(_('대표메뉴(영어)'), max_length=128)
+    menuven = models.CharField(_('대표메뉴(베트남어)'), max_length=128)
+
+class EatPart(models.Model):
+    part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    pin = models.ManyToManyField(PinEat, verbose_name=_('먹다 핀'))
+    # pin = MultiSelectField(_('Select Pin'), choices=SELECT_EATPIN, default='')
+    biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
+    biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
+    biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
+    menuko = models.CharField(_('대표메뉴(한국어)'), max_length=128)
+    menueng = models.CharField(_('대표메뉴(영어)'), max_length=128)
+    menuven = models.CharField(_('대표메뉴(베트남어)'), max_length=128)
+
+class DrinkPart(models.Model):
+    part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    pin = models.ManyToManyField(PinDrink, verbose_name=_('마시다 핀'))
+    # pin = MultiSelectField(_('Select Pin'), choices=SELECT_DRINKPIN, default='')
     biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
     biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
     biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
@@ -185,6 +209,8 @@ class EatDrinkPart(models.Model):
 
 class FunPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    pin = models.ManyToManyField(PinFun, verbose_name=_('놀다 핀'))
+    # pin = MultiSelectField(_('Select Pin'), choices=SELECT_FUNPIN, default='')
     biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
     biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
     biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
@@ -209,6 +235,8 @@ class SleepPart(models.Model):
 
 class BuyPart(models.Model):
     part = models.OneToOneField('InfoTravel', on_delete=models.CASCADE)
+    pin = models.ManyToManyField(PinBuy, verbose_name=_('사다 핀'))
+    # pin = MultiSelectField(_('Select Pin'), choices=SELECT_BUYPIN, default='')
     biztimeko = models.CharField(_('영업시간(한국어)'), max_length=128)
     biztimeeng = models.CharField(_('영업시간(영어)'), max_length=128)
     biztimeven = models.CharField(_('영업시간(베트남어)'), max_length=128)
@@ -304,6 +332,7 @@ class TravelPlan(models.Model):
     titleko = models.CharField(_('소개타이틀(한국어)'), max_length=128, null=True)
     titleeng = models.CharField(_('소개타이틀(영어)'), max_length=128, null=True)
     titleven = models.CharField(_('소개타이틀(베트남어)'), max_length=128, null=True)
+    writer = models.CharField(_('Writter'), max_length=64, default='')
     created = models.DateField(_('Created'), null=True)
     course = models.CharField(_('코스선택'), max_length=64, choices=SELECT_COURSE, default=1)
     courseinfoko = models.TextField(_('코스정보(한국어)'), null=True, blank=True, help_text=_('코스를 소개해 주세요.'))
@@ -383,3 +412,28 @@ class POIpoint(models.Model):
 
     def __str__(self):
         return self.pnameko
+
+class TourPlan(models.Model):
+    objects = models.Manager()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    city = models.ForeignKey(
+        'travels.City', verbose_name=_('City'), on_delete=models.CASCADE, null=True, blank=True
+    )
+    room = models.CharField(_('숙소명'), max_length=64, null=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    pineat = models.ManyToManyField(PinEat, verbose_name=_('먹다 핀'), related_name='pineat', blank=True)
+    pindrink = models.ManyToManyField(PinDrink, verbose_name=_('마시다 핀'), related_name='pindrink', blank=True)
+    pinfun = models.ManyToManyField(PinFun, verbose_name=_('놀다 핀'), related_name='pinfun', blank=True)
+    pinbuy = models.ManyToManyField(PinBuy, verbose_name=_('사다 핀'), related_name='pinbuy', blank=True)
+    pickit = models.ManyToManyField(InfoTravel, verbose_name=_('InfoTravel'), related_name='pickit', blank=True)
+    picktp = models.ManyToManyField(TravelPlan, verbose_name=_('TravelPlan(Trip Culator)'), related_name='picktp', blank=True)
+
+    class Meta:
+        verbose_name = _('TourPlan')
+        verbose_name_plural = _('TourPlan')
+        db_table = 'tourplan'
+
+    def __str__(self):
+        return self.room
+

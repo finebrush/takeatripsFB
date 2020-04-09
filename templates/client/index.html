@@ -1,0 +1,129 @@
+{% extends 'client/header.html'%}
+{% load i18n static %}
+
+{% block headers %}
+<link rel=stylesheet href="{% static 'css/main.css' %}">
+<script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+<style>
+    .card {
+        border-radius: 13px;
+    }
+    .card-img {
+        border-radius: 12px;
+    }
+    .card-imgsm {
+        height: 118px;
+        width: 150px;
+        float: left;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 13px;
+        border-top-left-radius: 13px;
+        border-top-right-radius: 0px;
+    }
+    a {
+        text-decoration: none!important;
+    }
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="linepartition"></div>
+
+<!-- 로그인/아웃에 따라 .. -->
+{% if user.is_authenticated %}
+<div class="card-deck" style="margin: 80px 45px 20px 45px;">
+    <div class="card p-5" style="padding: 10px!important; margin-left: 0px;">
+        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+            <h3> 여행 계획 만들기 </h3>
+            <h6> Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요. </h6>
+        </div>
+    </div>
+
+    <div class="card p-5" style="padding: 10px!important; margin-left: 0px;">
+        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+            <h3> 여행 계획 만들기 </h3>
+            <h6> Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요. </h6>
+        </div>
+    </div>
+
+</div>
+{% else %}
+<div class="card-deck" style="margin: 80px 45px 20px 45px;">
+    <div class="card p-5" style="padding: 10px!important; margin-left: 0px; border: 0px;">
+        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+            <p> 로그인을 하거나 회원가입을 하면 Take a trips의
+                모든 혜택을 받아볼 수 있습니다.</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+<!-- django-waterfall 이미지 들어가는 부분.. -->
+<h5 class="card-title" style="padding: 30px 45px 0px 45px;">{% trans "현지에서 인기 있는 여행 정보" %}</h5>
+
+<div class="card p-5" style="padding-top: 0px!important; border:0px;">
+    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+        <div class=waterfall> 
+        </div>
+    </div>
+</div>
+
+<!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+<script id=waterfall-template type=text/template>
+    {% for itdetail in itdetails %}
+    <ul class="list-group">
+        <li class="list-group-up">
+            <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
+                <img src="{{ itdetail.picture1.url }}" alt=""> </a>
+        </li>
+        <!-- <li class="list-group-it">
+            <span class="fa fa-heart" style="font-size:16px; float:right;">
+                <span>{{ itdetail.like_count }}</span>
+            </span>
+        </li> -->
+        <li class="list-group-it">
+            <div class="media">
+                <!-- <div class="media-left">
+                    <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                </div> -->
+                <div class="media-body">
+
+                    {% if LANGUAGE_CODE == 'ko' %}
+                    <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
+                    <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                    <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'en' %}
+                    <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
+                    <small style="color:blue;">{{ itdetail.part }}</small><br>
+                    <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                    {% elif LANGUAGE_CODE == 'vi' %}
+                    <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
+                    <small style="color:blue;">{{ itdetail.part }}</small><br>
+                    <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                    {% endif %}
+
+                </div>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</script>
+
+<script>
+    $('.waterfall')
+        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+        .on('finishing.mystist.waterfall', function() {
+            setTimeout(function() { // simulate ajax
+                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+            }, 2000);
+        })
+        .waterfall()
+
+</script>
+
+{% endblock %}

@@ -12,7 +12,7 @@ def signup(request):
             #새로운 회원을 추가한다.
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             #성공적으로 추가되면 바로 로그인시켜주고
-            return redirect('clientapp:chome')
+            return redirect('clientapp:mytrip')
             #홈으로 돌아가기.
     return render(request, 'client/account/signup.html')
     
@@ -29,7 +29,7 @@ def login(request):
         if user is not None: 
             #데이터 베이스에 회원정보가 존재한다면 로그인 시키고 home으로 돌아가기.
             auth.login(request, user)
-            return redirect('clientapp:chome')
+            return redirect('clientapp:mytrip')
         else:
             #회원정보가 존재하지 않는다면, 에러인자와 함께 login 템플릿으로 돌아가기.
             return render(request, 'client/account/login.html', {'error': 'username or password is incorrect.'})
@@ -40,4 +40,4 @@ def login(request):
 def logout(request):
     auth.logout(request)
     #로그아웃 시키고 홈페이지로 보내기
-    return redirect('clientapp:chome')
+    return redirect('clientapp:mytrip')

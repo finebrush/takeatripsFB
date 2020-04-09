@@ -1,0 +1,122 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        
+        {% block headers %}
+        {% endblock %}
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header">
+
+            <div class="logo">
+                <img src="{% static 'img/sub_top_logo.png' %}" />
+            </div>
+
+            <div class="submenu">
+                <div class="tab">
+                    <button class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip' %}';" >My Trip</button>
+                    <button class="tablinks2" onclick="window.location.href = '{% url 'clientapp:trips' %}';">Trips</button>
+                    <button class="tablinks3" onclick="window.location.href = '{% url 'clientapp:trip100' %}';">Trip100</button>
+                </div>
+            </div>
+
+            <div class="loginout">
+                <!-- 다국어..  -->
+                <div class="droplang" style="display: contents;">
+                    <select name="language" id="selectlang" style="width: 100px; margin-right: 10px;">
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                    </select>
+
+
+                <!-- 로그인,아웃 -->
+                    {% if user.is_authenticated %}
+                    <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
+                    <div class="dropdown" style="margin: 0 10px;">
+                        <a href="javascript:myFunction()" style="background: none;">
+                            {% if sns_picture == '' %} 
+                            <img src="{% static 'img/sub_top_more.png' %}" /> <!-- 일반로그인 -->
+                            {% else %}
+                            <img class="snspicture" src="{{ sns_picture }}" /> <!-- sns 로그인 -->
+                            {% endif %}
+                        </a>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
+                            <a href="{% url 'account:logout' %}">{% trans '로그아웃' %}</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
+                    <div class="dropdown" style="margin: 0 10px;">
+                        <a href="javascript:myFunction()" style="background: none;">
+                            <!-- <img src="{% static 'img/sub_top_more.png' %}" /> -->
+                            <button class="button button-redrect">로그인</button>
+                        </a>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
+                            <a href="{% url 'account:login' %}">{% trans '로그인' %}</a>
+                            <a href="{% url 'account:signup' %}">{% trans '회원가입' %}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% block contents %}
+        {% endblock %}
+
+        {% block footers %}
+        {% endblock %}    
+    
+        <script>
+            /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it /* popup menu.. */
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
+    
+    </body>
+    </html>

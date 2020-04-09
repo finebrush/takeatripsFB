@@ -1,0 +1,279 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="{% static 'css/easySelectable.css' %}">
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+        <script src="{% static 'js/easySelectable.js' %}"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+        <style>
+
+            .icircle-gray {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #00000082;
+            }
+            .icircle-red {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #bf1d39;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header">
+            <div class="btnTourplanBack">
+                <a href="{% url 'clientapp:mytrip_tourplan04' %}" style="background: none; color: black;">
+                    <i class="material-icons" style="font-size: 40px;">arrow_back</i>
+                </a>
+            </div>
+            <div class="btnTourplanNext">
+                <a id="btnnextlink" style="background: none;"  href="{% url 'clientapp:mytrip' %}">
+                    <button id="btnnext" class="button button-redrect" onclick="esselected()">다음</button>
+                </a>
+            </div>
+
+        </div>
+
+       
+        <!-- contents -->
+        <div class="linepartition"></div>
+
+        <!-- mytrip part -->
+        <div id="mytrip" class="tabcontent">
+            <div class="mytrip_header">
+                
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 05. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">쇼핑</span>을 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="content">
+                <ul id="easySelectable">
+                    {% for pinbuy in pinbuys %}
+                    <li style="background-image: url({{ pinbuy.picture.url }});"> 
+                        <div style="position: relative; display: contents;">
+                            <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                            <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                            <i name="selectable" class='fas fa-circle icircle-gray' itemnumber={{ pinbuy.id }}>
+                                <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pinbuy.nameko }} </p>
+                            </i>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <script>
+            // 여행 스타일 저장값들..
+            console.log(localStorage.getItem("room"));
+            console.log(localStorage.getItem("startdate"));
+            console.log(localStorage.getItem("enddate"));
+            console.log("pineat : " + localStorage.getItem("pineatnumber"));
+            console.log("pindrink : " + localStorage.getItem("pindrinknumber"));
+            console.log("pinfun : " + localStorage.getItem("pinfunnumber"));
+
+            if(localStorage.pinbuynumber != null){ // 선택된게 있으면 다시 페이지 열때 선택되게 함..
+                var pinnumber = JSON.parse(localStorage.pinbuynumber);
+                
+                for (i = 0; i < pinnumber.length; i++){ // pinnumber 가 2,3,10 일때 '2', ',', '3', '1', '0' 인식..
+
+                    checkSelect(pinnumber[i]);
+
+                }
+            }
+
+            function checkSelect(pinnumber){ // for 문 횟수 줄이기..
+                console.log(pinnumber);
+                
+                var selecteditems = document.getElementsByName('selectable');
+
+                for (j = 0; j < selecteditems.length; j++){
+                    var temp = selecteditems[j].getAttribute("itemnumber");
+                    
+                    if (pinnumber == temp ){
+                        selecteditems[j].classList.add("es-selected");
+                        selecteditems[j].classList.add("icircle-red");
+                        selecteditems[j].classList.remove("icircle-gray");
+                        break;
+                    }
+
+                }
+            }
+            
+            
+            // icircle = document.getElementById('icircle');
+            // easySelectable..
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+
+            function esselected(){
+                var selnumber = [];
+                var selected = document.getElementsByClassName('es-selected');
+
+                for(i=0; i < selected.length; i++){
+                    // console.log(selected[i].getAttribute('itemnumber'));
+                    selnumber.push(selected[i].getAttribute('itemnumber'));
+                }
+                // console.log(selnumber);
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.pinbuynumber = JSON.stringify(selnumber);
+
+                } else {
+                    alert("Sorry, your browser does not support web storage...");
+                }
+
+                // 여행 스타일 저장값들..
+                console.log("pinbuy : " + localStorage.getItem("pinbuynumber"));
+
+                // moment 로 날짜 string 를 날짜 포멧으로 변경..
+                var tmpStart = moment(localStorage.getItem("startdate")).format('YYYY-MM-DD');
+                var tmpEnd = moment(localStorage.getItem("enddate")).format('YYYY-MM-DD');
+                console.log( "tmpStart : " + tmpStart); // --> tmpStart : Mon Apr 13 2020 00:00:00 GMT+0900 (대한민국 표준시)
+                
+                //문자 배열로.. // 숫자 배열로 변경..
+                var tmpStringArrayroom = JSON.parse(localStorage.room);
+                var tmpStringArraypineat = JSON.parse(localStorage.pineatnumber);//.map(Number);
+                var tmpStringArraypindrink = JSON.parse(localStorage.pindrinknumber);
+                var tmpStringArraypinfun = JSON.parse(localStorage.pinfunnumber);
+                var tmpStringArraypinbuy = JSON.parse(localStorage.pinbuynumber);
+                // console.log(tmpStringArrayroom);
+                // console.log(tmpStringArraypineat);
+                // console.log(tmpStringArraypindrink);
+                // console.log(tmpStringArraypinfun);
+                // console.log(tmpStringArraypinbuy);
+                
+                var createdTourplanID = new Object(); // Object() 으로 해야 toString()  가능.. 그래야 아래 URL 을 문자로 보낼 수 있음..
+
+                $.ajax({
+                    url : "http://localhost:8000/api/tourplan/", 
+                    type : "POST",
+                    dataType: "json", 
+                    data : {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "start_date": tmpStart,
+                        "end_date": tmpEnd,
+                        "room": tmpStringArrayroom,
+                        "user": "{{ current_user.id }}",
+                        "city": "{{ citydetails.id}}",
+                        // "pineat", "pindrink"..등 ManyToMany 는 바로 생성이 안됨. 연계를 해야 하는 부분..
+                    },
+                    success : function(data) {
+                        createdTourplanID = data.id;
+                        console.log(createdTourplanID);
+
+                        // 위에서 Tourplan DB 생성이 성공하면 ManyToMany 와 연계를 해야함..
+                        var data = JSON.stringify({
+                            "pineat": tmpStringArraypineat,
+                            "pindrink": tmpStringArraypindrink,
+                            "pinfun": tmpStringArraypinfun,
+                            "pinbuy": tmpStringArraypinbuy
+                        });
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.withCredentials = true;
+
+                        xhr.addEventListener("readystatechange", function () {
+                            if (this.readyState === 4) {
+                                console.log(this.responseText);
+                            }
+                        });
+
+                        // Tourplan 생성된 ID 로 PATCH 하기 위한 URL..
+                        var patchURL = "http://localhost:8000/api/tourplan/"+createdTourplanID.toString()+"/";
+
+                        xhr.open("PATCH", patchURL);
+                        xhr.setRequestHeader("content-type", "application/json");
+                        xhr.setRequestHeader("cache-control", "no-cache");
+                        xhr.setRequestHeader("postman-token", "1f7d9a63-2608-f001-1df1-96d22f40fc7d");
+
+                        xhr.send(data);
+                        
+                    },
+                    error : function(xhr,errmsg,err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                        // document.getElementById('output').innerHTML = "Request Failed.";
+                    }      
+                });
+
+                
+
+            }
+
+            function goback(){
+                if(document.referrer) {
+                    window.open(document.referrer,'_self');
+                } else {
+                    history.go(-1);
+                } 
+                return false;
+            }
+
+        </script>
+    
+    </body>
+</html>

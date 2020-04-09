@@ -1,0 +1,270 @@
+{% extends 'client/head.html'%}
+<!-- {% load i18n static %} -->
+
+{% block headers %}
+<link rel=stylesheet href="{% static 'css/main.css' %}">
+<script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+{% endblock %}
+
+{% block contents %}
+
+<div class="linepartition"></div>
+
+<!-- mytrip part -->
+<div id="mytrip" class="tabcontent">
+    <div class="mytrip_header">
+        <!-- 로그인/아웃에 따라 .. -->
+        {% if user.is_authenticated %}
+            {% for tourplan in tourplans %}
+            <div class="tourplan" style="margin: 10px;">
+                <div class="tourplan1" style="background-image: url({{ citydetails.picture1.url }});">
+                    <div class="darkplan"></div>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <div class="dropdown" style="margin: 0 10px;">
+                            <a href="javascript:mytripDropdown({{ tourplan.id }})" style="background: none;">
+                                <button class="btnMore">
+                                    <i class="material-icons-extended" aria-hidden="true">more_vert</i>
+                                </button> 
+                            </a>
+                            <div id="tripDropdown{{ tourplan.id }}" class="dropdown-content">
+                                <a href="#">수정</a>
+                                <a href="{% url 'clientapp:mytrip' %}" onclick="tourplanDelet({{ tourplan.id }})">삭제</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tourplan1textgroup">
+                        <div style="font-size: 0.9rem; display: flex; justify-content: center;">
+                            {{ tourplan.start_date }} ~ {{ tourplan.end_date }}
+                        </div>
+                        <div class="tourplan1Title">
+                            {{ tourplan.room }} / {{ tourplan.city.nameko }}
+                        </div>
+                        <div style="font-size: 2rem; display: flex; justify-content: center;">
+                            <button class="button button-white" style="margin-right: 10px;">세부 정보 보기</button>
+                            <button class="button button-white">내 숙소 찾기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tourplan2">
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP 100
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_hottrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        HOT TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_musttrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        MUST TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP GUIDE
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        AR TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP CURATOR
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        GO TO CITY
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        <div class="card-deck" style="margin: 10px;">
+            <div class="card p-5 bgbanner">
+                <div class="container plan">
+                    <div style="margin-right: 20px;">
+                        <!-- <i class='fas fa-suitcase' style='font-size:48px;color:blue'></i> -->
+                        <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
+                    </div> 
+                    <div>
+                        <h5 style="margin: 0px;"> 여행 계획 만들기 </h5>
+                        <p style="font-size: 0.9rem; margin:0px;"> Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요. </p>
+                    </div> 
+                    <div class="mytrip-btn">
+                        <a href="{% url 'clientapp:mytrip_tourplan01' %}">
+                            <button class="button button-white" style="padding: 0.5rem 1.2rem;">
+                                <img src="{% static 'img/icon_plus24.png' %}" style="width: 16px;margin-right: 10px;" />
+                                여행계획하기
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-left: 30px; font-size: 0.7rem;">
+            이 여행 계획은 본인에게만 표시됩니다.
+        </div>
+        {% else %}
+        <div class="card-deck" style="margin: 10px;">
+            <div class="card p-5" style="padding: 10px!important; margin-left: 0px;border-radius: 12px;">
+                <div class="container plan">
+                    <div class="fa-rotate-45" style="margin-right: 20px;">
+                        <i class='fas fa-plane fa-flip-both' style='font-size:48px;color:blue'></i>
+                    </div> 
+                    <div >
+                        <h5 style="margin: 0px;"> 아직 Take a trips 회원이 아니신가요? </h5>
+                        <p style="font-size: 12px; margin:0px;"> 로그인을 하거나 회원가입을 하면 Take a trips의 모든 혜택을 받아 볼 수 있습니다. </p>
+                    </div> 
+                    <div class="mytrip-btn">
+                        <a href="{% url 'account:login' %}">
+                            <button class="button button-red">로그인</button>
+                        </a>
+                        <a href="{% url 'account:signup' %}">
+                            <button class="button button-black">회원가입</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="content">
+        <!-- django-waterfall 이미지 들어가는 부분.. -->
+        <h5 class="card-title" style="margin: 10px;">{% trans "현지에서 인기 있는 여행 정보" %}</h5>
+
+        <!-- <div class="card p-5" style="padding-top: 0px!important; border:0px;"> -->
+            <div class=container style="margin:10px; padding:0px; max-width:1920px;">
+                <div class=waterfall> 
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+        <script id=waterfall-template type=text/template>
+            {% for itdetail in itdetails %}
+            <ul class="list-group">
+                <li class="list-group-up">
+                    <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
+                        <img src="{{ itdetail.picture1.url }}" alt=""> </a>
+                </li>
+                <!-- <li class="list-group-it">
+                    <span class="fa fa-heart" style="font-size:16px; float:right;">
+                        <span>{{ itdetail.like_count }}</span>
+                    </span>
+                </li> -->
+                <li class="list-group-it">
+                    <div class="media">
+                        <!-- <div class="media-left">
+                            <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                        </div> -->
+                        <div class="media-body">
+
+                            {% if LANGUAGE_CODE == 'ko' %}
+                            <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
+                            <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                            <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                            {% elif LANGUAGE_CODE == 'en' %}
+                            <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
+                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                            <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                            <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
+                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                            <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            {% endfor %}
+        </script>
+    </div>
+
+</div>
+
+<script>
+
+    function mytripDropdown(num) {
+        document.getElementById("tripDropdown"+num).classList.toggle("show");
+    }
+
+    function tourplanDelet(num){
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8000/api/tourplan/"+num+"/",
+            "method": "DELETE",
+            "headers": {
+                "content-type": "application/json",
+                "cache-control": "no-cache",
+                "postman-token": "c2c12d59-8a37-ab34-668f-e27939857ffd"
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+
+        // $.ajax({
+        //     url : "http://localhost:8000/api/tourplan/"+num+"/", 
+        //     type : "DELETE",
+        //     dataType: "application/json", 
+        //     data : {
+        //         csrfmiddlewaretoken: '{{ csrf_token }}',
+        //     },
+        //     success : function(data) {
+        //         console.log("ok");
+        //     },
+        //     error : function(xhr,errmsg,err) {
+        //         console.log(xhr.status + ": " + xhr.responseText);
+        //     }      
+        // });
+
+    }
+
+    
+
+    
+
+    var tablinks;
+    tablinks = document.getElementsByClassName("tablinks1");
+    tablinks[0].className += " active";
+
+    $('.waterfall')
+        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+        .on('finishing.mystist.waterfall', function() {
+            setTimeout(function() { // simulate ajax
+                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+            }, 2000);
+        })
+        .waterfall()
+
+    // localStorage 삭제..
+    if(localStorage.room){
+        localStorage.removeItem("room");
+    }
+    if(localStorage.startdate){
+        localStorage.removeItem("startdate");
+    }
+    if(localStorage.enddate){
+        localStorage.removeItem("enddate");
+    }
+    if(localStorage.pineatnumber){
+        localStorage.removeItem("pineatnumber");
+    }
+    if(localStorage.pindrinknumber){
+        localStorage.removeItem("pindrinknumber");
+    }
+    if(localStorage.pinfunnumber){
+        localStorage.removeItem("pinfunnumber");
+    }
+    if(localStorage.pinbuynumber){
+        localStorage.removeItem("pinbuynumber");
+    }
+    
+</script>
+
+{% endblock %}
+
+{% block footers %}
+{% endblock %}

@@ -6,7 +6,7 @@ from rest_framework.generics import ( ListAPIView, RetrieveAPIView, DestroyAPIVi
         RetrieveUpdateDestroyAPIView )
 from rest_framework.filters import SearchFilter
 
-from backendapp.travels.models import City, InfoTravel, TravelCurator, TravelPlan, TCImage, POIpoint
+from backendapp.travels.models import City, InfoTravel, TravelCurator, TravelPlan, TCImage, POIpoint, TourPlan
 from backendapp.arcontent.models import ARTrip
 
 class TCAutocomplete(autocomplete.Select2QuerySetView):
@@ -25,7 +25,7 @@ class TCAutocomplete(autocomplete.Select2QuerySetView):
 # API ...
 from rest_framework import viewsets
 from .serializers import ( CitySerializer, InfoTravelSerializer, TravelCuratorSerializer, TravelPlanSerializer, 
-            ARTripSerializer, TCImageSerializer, POIpointSerializer )
+            ARTripSerializer, TCImageSerializer, POIpointSerializer, TourPlanSerializer )
 
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
@@ -35,7 +35,7 @@ class InfoTravelViewSet(viewsets.ModelViewSet):
     name = "TripGuides-List"
     queryset = InfoTravel.objects.filter(asset__isnull=False)
     filter_backends = [SearchFilter, DjangoFilterBackend] 
-    filter_fields = ['city', 'part'] 
+    filter_fields = ['city', 'part', 'typeit'] 
     search_fields = ['companyko', 'companyeng', 'companyven']
     serializer_class = InfoTravelSerializer
 
@@ -76,3 +76,11 @@ class ARTripViewSet(viewsets.ModelViewSet):
     filter_fields = ['category', 'city']
     search_fields = ['titleko', 'titleeng', 'titleven']
     serializer_class = ARTripSerializer
+
+class TourPlanViewSet(viewsets.ModelViewSet):
+    name = "TourPlan-List"
+    queryset = TourPlan.objects.all()
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    filter_fields = ['city', 'user']
+    search_fields = ['room']
+    serializer_class = TourPlanSerializer

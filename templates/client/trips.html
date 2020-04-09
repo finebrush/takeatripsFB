@@ -1,0 +1,39 @@
+{% extends 'client/head.html'%}
+{% load i18n static %}
+
+{% block headers %}
+{% endblock %}
+
+{% block contents %}
+<!-- trips part -->
+<div id="trips" class="tabcontent active">
+    <div class="hottrip">
+        HOT TRIP
+    </div>
+    <div class="musttrip">
+        MUST TRIP
+    </div>
+    <div class="tripcurator">
+        TRIP CURATOR
+    </div>
+    <div class="artrip">
+        AR TRIP
+    </div>
+    <div class="footer">
+        FOOTER
+    </div>
+</div>
+
+
+<script>
+    var tablinks;
+    tablinks = document.getElementsByClassName("tablinks2");
+    tablinks[0].className += " active";
+
+    
+</script>
+
+{% endblock %}
+
+{% block footers %}
+{% endblock %}

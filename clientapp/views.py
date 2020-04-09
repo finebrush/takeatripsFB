@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from allauth.socialaccount.models import SocialAccount
 from django.utils import timezone
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
@@ -10,8 +11,166 @@ import random
 from django.utils import translation
 
 from django.http import HttpResponse
-from backendapp.travels.models import POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, TCImage, TravelPlan, Liketp, POIpoint
+from backendapp.travels.models import ( POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, 
+                            TCImage, TravelPlan, Liketp, POIpoint, TourPlan )
 from backendapp.arcontent.models import ARTrip
+from backendapp.common.models import PinEat, PinDrink, PinFun, PinBuy
+
+def mytrip(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    # print(tourplans)
+    picture_url = ''
+    tourplans = ''
+    
+    if request.user.is_authenticated: # 로그인 했다면..
+        social = SocialAccount.objects.filter(user=request.user)
+        tourplans = TourPlan.objects.filter(user=request.user)
+        if social.exists(): # social 로그인 했는지 체크..   
+            if social[0].provider == 'facebook':
+                picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
+            elif social[0].provider == 'google':
+                picture_url = social[0].extra_data.picture
+        # print(social[0].extra_data)
+        # print(picture_url)
+    
+    return render(request, 'client/mytrip.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails,
+                'sns_picture':picture_url, 'tourplans':tourplans })
+
+def mytrip_tourplan01(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+
+    sleep_itdetails = itdetails.filter(part='Sleep')
+
+    # 검색할 타이틀을 배열로 저장..
+    itdetail_names = []
+    for sleep_itdetail in sleep_itdetails:
+        itdetail_names.append(sleep_itdetail.companyko)
+    
+    return render(request, 'client/mytrip_tourplan01.html', {'citydetails':citydetails, 'current_user': current_user, 
+            'itdetails':itdetails, 'sleep_itdetails':sleep_itdetails, 'itdetail_names':itdetail_names })
+
+def mytrip_tourplan02(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    pineats = PinEat.objects.all()
+    
+    return render(request, 'client/mytrip_tourplan02.html', {'citydetails':citydetails, 'current_user': current_user, 'pineats':pineats})
+
+def mytrip_tourplan03(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    pindrinks = PinDrink.objects.all()
+    
+    return render(request, 'client/mytrip_tourplan03.html', {'citydetails':citydetails, 'current_user': current_user, 'pindrinks':pindrinks})
+
+def mytrip_tourplan04(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    pinfuns = PinFun.objects.all()
+    
+    return render(request, 'client/mytrip_tourplan04.html', {'citydetails':citydetails, 'current_user': current_user, 'pinfuns':pinfuns})
+
+def mytrip_tourplan05(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    pinbuys = PinBuy.objects.all()
+
+    tourplans = TourPlan.objects.all()
+    # print(tourplans[0].pineat.all())
+    # print(TourPlan.objects.values('room', 'pineat__nameko'))
+    # print(tourplans.values('pineat__nameko'))
+    
+    return render(request, 'client/mytrip_tourplan05.html', {'citydetails':citydetails, 'current_user': current_user, 'pinbuys':pinbuys})
+
+def apiTourplan(request):
+    if request.method == 'POST':
+        print(request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return HttpResponse('success!')
+    return HttpResponse('success!')
+
+def trips(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    topmenuoff = True
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    artrips = ARTrip.objects.filter(share=True)
+    arcontents = artrips.random(8)
+    travelcurators = TravelCurator.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+
+    eat_itdetail = itdetails.filter(part='Eat').last()
+    drink_itdetail = itdetails.filter(part='Drink').last()
+    fun_itdetail = itdetails.filter(part='Fun').last()
+    see_itdetail = itdetails.filter(part='See').last()
+    sleep_itdetail = itdetails.filter(part='Sleep').last()
+    buy_itdetail = itdetails.filter(part='Buy').last()
+    
+    return render(request, 'client/trips.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
+            'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
+            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
+
+def trip100(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    topmenuoff = True
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    artrips = ARTrip.objects.filter(share=True)
+    arcontents = artrips.random(8)
+    travelcurators = TravelCurator.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+
+    eat_itdetail = itdetails.filter(part='Eat').last()
+    drink_itdetail = itdetails.filter(part='Drink').last()
+    fun_itdetail = itdetails.filter(part='Fun').last()
+    see_itdetail = itdetails.filter(part='See').last()
+    sleep_itdetail = itdetails.filter(part='Sleep').last()
+    buy_itdetail = itdetails.filter(part='Buy').last()
+    
+    return render(request, 'client/trip100.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
+            'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
+            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
+
+# 기존...
+def home(request):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    topmenuoff = True
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    artrips = ARTrip.objects.filter(share=True)
+    arcontents = artrips.random(8)
+    travelcurators = TravelCurator.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+
+    eat_itdetail = itdetails.filter(part='Eat').last()
+    drink_itdetail = itdetails.filter(part='Drink').last()
+    fun_itdetail = itdetails.filter(part='Fun').last()
+    see_itdetail = itdetails.filter(part='See').last()
+    sleep_itdetail = itdetails.filter(part='Sleep').last()
+    buy_itdetail = itdetails.filter(part='Buy').last()
+    
+    return render(request, 'client/trip100.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
+            'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
+            'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
 
 def chome(request):
     citys = City.objects.filter().order_by('id') # 순차적으로 불러오기..

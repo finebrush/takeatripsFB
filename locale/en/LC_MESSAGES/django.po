@@ -831,7 +831,7 @@ msgstr "Limousine bus boarding location map"
 
 #: templates/client/gotocity_busan.html:167
 msgid "부산시 지하철 노선도"
-msgstr ""
+msgstr "Busan Subway Route"
 
 #: templates/client/gotocity_seoul.html:9
 msgid "공항철도"

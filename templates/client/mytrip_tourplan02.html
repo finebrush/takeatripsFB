@@ -1,0 +1,203 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="{% static 'css/easySelectable.css' %}">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="{% static 'js/easySelectable.js' %}"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+        <style>
+
+            .icircle-gray {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #00000082;
+            }
+            .icircle-red {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #bf1d39;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header">
+            <div class="btnTourplanBack">
+                <a href="{% url 'clientapp:mytrip_tourplan01' %}" style="background: none; color: black;">
+                    <i class="material-icons" style="font-size: 40px;">arrow_back</i>
+                </a>
+            </div>
+            <div class="btnTourplanNext">
+                <a id="btnnextlink" style="background: none;" href="{% url 'clientapp:mytrip_tourplan03' %}">
+                    <button id="btnnext" class="button button-redrect" onclick="esselected()">다음</button>
+                </a>
+            </div>
+
+        </div>
+
+       
+        <!-- contents -->
+        <div class="linepartition"></div>
+
+        <!-- mytrip part -->
+        <div id="mytrip" class="tabcontent">
+            <div class="mytrip_header">
+                
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 02. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">음식</span>을 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="content">
+                <ul id="easySelectable">
+                    {% for pineat in pineats %}
+                    <li style="background-image: url({{ pineat.picture.url }});"> 
+                        <div style="position: relative; display: contents;">
+                            <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                            <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                            <i name='selectable' class='fas fa-circle icircle-gray' itemnumber={{ pineat.id }}>
+                                <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pineat.nameko }} </p>
+                            </i>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <script>
+            // 여행 스타일 저장값들..
+            console.log(localStorage.getItem("room"));
+            console.log(localStorage.getItem("startdate"));
+            console.log(localStorage.getItem("enddate"));
+
+            if(localStorage.pineatnumber != null){ // 선택된게 있으면 다시 페이지 열때 선택되게 함..
+                var pinnumber = JSON.parse(localStorage.pineatnumber);
+                
+                for (i = 0; i < pinnumber.length; i++){ // pinnumber 가 2,3,10 일때 '2', ',', '3', '1', '0' 인식..
+
+                    checkSelect(pinnumber[i]);
+
+                }
+            }
+
+            function checkSelect(pinnumber){ // for 문 횟수 줄이기..
+                console.log(pinnumber);
+                
+                var selecteditems = document.getElementsByName('selectable');
+
+                for (j = 0; j < selecteditems.length; j++){
+                    var temp = selecteditems[j].getAttribute("itemnumber");
+                    
+                    if (pinnumber == temp ){
+                        selecteditems[j].classList.add("es-selected");
+                        selecteditems[j].classList.add("icircle-red");
+                        selecteditems[j].classList.remove("icircle-gray");
+                        break;
+                    }
+
+                }
+            }
+            
+            // icircle = document.getElementById('icircle');
+            // easySelectable..
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+
+            function esselected(){
+                var selnumber = [];
+                var selected = document.getElementsByClassName('es-selected'); // es-selected 클래스 엘리먼트 선택
+
+                for(i=0; i < selected.length; i++){
+                    // console.log(selected[i].getAttribute('itemnumber'));
+                    selnumber.push(selected[i].getAttribute('itemnumber')); // 선택한 엘리먼트에서 itemnumber 가져와서 저장
+                }
+                
+                // console.log(selnumber);
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.pineatnumber = JSON.stringify(selnumber); // 가져온 itemnumber 를 pin 넘버에 저장
+                    
+                } else {
+                    alert("Sorry, your browser does not support web storage...");
+                }
+                
+                // 여행 스타일 저장값들..
+                console.log("pineat : " + localStorage.getItem("pineatnumber"));
+                
+            }
+
+            function goback(){
+                if(document.referrer) {
+                    window.open(document.referrer,'_self');
+                } else {
+                    history.go(-1);
+                } 
+                return false;
+            }
+
+        </script>
+    
+    </body>
+</html>

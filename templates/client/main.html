@@ -1,0 +1,96 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle_backup.css" />
+</head>
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="logo">
+            <img src="../../static/img/sub_top_logo.png" />
+        </div>
+        <div class="submenu">
+            <div class="tab">
+                <button class="tablinks" onclick="openTrip(event, 'mytrip')" id="defaultOpen">My Trip</button>
+                <button class="tablinks" onclick="openTrip(event, 'trips')">Trips</button>
+                <button class="tablinks" onclick="openTrip(event, 'trip100')">Trip100</button>
+            </div>
+        </div>
+        <div class="loginout">
+            LOGINOUT
+        </div>
+    </div>
+
+    <!-- mytrip part -->
+    <div id="mytrip" class="tabcontent">
+        <div class="mytrip_header">
+            MAIN HEADER
+        </div>
+        <div class="content">
+            CONTENT
+        </div>
+    </div>
+      
+    <!-- trips part -->
+    <div id="trips" class="tabcontent">
+        <div class="hottrip">
+            HOT TRIP
+        </div>
+        <div class="musttrip">
+            MUST TRIP
+        </div>
+        <div class="tripcurator">
+            TRIP CURATOR
+        </div>
+        <div class="artrip">
+            AR TRIP
+        </div>
+        <div class="footer">
+            FOOTER
+        </div>
+    </div>
+    
+    <!-- trip100 part -->
+    <div id="trip100" class="tabcontent">
+        <div class="categorymenu">
+            CATEGORY MENU
+        </div>
+        <div class="tripinfo">
+            TRIP INFOMATION
+        </div>
+        <div class="mapcontent">
+            MAP CONTENT
+        </div>
+        <div class="footer">
+            FOOTER
+        </div>
+    </div>
+    
+
+    <script>
+        function openTrip(evt, subMenu) {
+            var i, tabcontent, tablinks;
+            // display 를 nonoe 로 초기화
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            // active 를 초기화
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            // display 를 grid 적용과 active 적용
+            document.getElementById(subMenu).style.display = "grid";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
+
+</body>
+</html>

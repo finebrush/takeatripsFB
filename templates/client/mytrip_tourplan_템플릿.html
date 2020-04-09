@@ -1,0 +1,264 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+        <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <style>
+            /*Don't forget to add Font Awesome CSS : "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"*/
+            input[type="text"] {
+                width: 100%;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                margin: 1px 0;
+                outline: none;
+                padding: 8px;
+                box-sizing: border-box;
+                transition: 0.3s;
+            }
+
+            input[type="text"]:focus {
+                border-color: dodgerBlue;
+                box-shadow: 0 0 8px 0 dodgerBlue;
+            }
+
+            .inputWithIcon input[type="text"] {
+                padding-left: 40px;
+            }
+
+            .inputWithIcon {
+                position: relative;
+            }
+
+            .inputWithIcon i {
+                position: absolute;
+                left: 0;
+                top: 8px;
+                padding: 9px 8px;
+                color: #aaa;
+                transition: 0.3s;
+            }
+
+            .inputWithIcon input[type="text"]:focus + i {
+                color: dodgerBlue;
+            }
+
+            .inputWithIcon.inputIconBg i {
+                background-color: #aaa;
+                color: #fff;
+                padding: 9px 4px;
+                border-radius: 4px 0 0 4px;
+            }
+
+            .inputWithIcon.inputIconBg input[type="text"]:focus + i {
+                color: #fff;
+                background-color: dodgerBlue;
+            }
+
+        </style>
+
+    <script type="text/javascript">
+        var availableTags = {{itdetail_names|safe}}; // 검색할 타이틀을 배열로 보내온걸 받는다.
+        $( function() {
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+        } );
+        </script>
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header">
+            <div class="btnTourplanBack">
+                <a href="#" style="background: none; color: black;" onClick="history.back();">
+                    <i class="material-icons" style="font-size: 40px;">arrow_back</i>
+                </a>
+            </div>
+            <div class="btnTourplanNext">
+                <a id="btnnextlink" style="background: none;">
+                    <button id="btnnext" class="button button-grayrect">다음</button>
+                </a>
+            </div>
+
+        </div>
+
+       
+        <!-- contents -->
+        <div class="linepartition"></div>
+
+        <!-- mytrip part -->
+        <div id="mytrip" class="tabcontent">
+            <div class="mytrip_header">
+                
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="margin-right: 20px;">
+                            <p class="plan-place-text">Step 01. place : 숙소가 어디인가요?</p>
+                        </div> 
+                        <div>
+                            <div class="inputWithIcon">
+                                <input id="tags" type="text" placeholder="숙소가 어디인가요?">
+                                <img src="{% static 'img/tg_icon04.png' %}" style="position: absolute;left: 5;top: 10;" />
+                            </div>
+                        </div> 
+                        <div>
+                            <div class="inputWithIcon">
+                                <input id="inputdate" type="text" name="datefilter" placeholder="여행 기간은 어떻게 되나요?">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="position: absolute;left: 5;top: 10;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <div class="content">
+                <!-- django-waterfall 이미지 들어가는 부분.. -->
+                <h5 class="card-title" style="margin: 10px;">{% trans "아직 숙소를 예약하지 않으셨나요?" %}</h5>
+
+                <!-- <div class="card p-5" style="padding-top: 0px!important; border:0px;"> -->
+                <div class=container style="margin:10px; padding:0px; max-width:1920px;">
+                    <div class=waterfall> 
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+                <script id=waterfall-template type=text/template>
+                    {% for sleep_itdetail in sleep_itdetails %}
+                    <ul class="list-group">
+                        <li class="list-group-up">
+                            <a href="{% url 'clientapp:tripguidedetail' citydetails_id=citydetails.id partnum='Sleep' tripguide_id=sleep_itdetail.id %}">
+                                <img src="{{ sleep_itdetail.picture1.url }}" alt=""> </a>
+                        </li>
+                        
+                        <li class="list-group-it">
+                            <div class="media">
+                                <div class="media-body">
+
+                                    {% if LANGUAGE_CODE == 'ko' %}
+                                    <h5 class="media-heading">{{ sleep_itdetail.companyko }}</h5> 
+                                    <small style="color:blue;">{{ sleep_itdetail.get_part_display }}</small><br>
+                                    <small>{{ sleep_itdetail.introko|truncatewords:7 }}</small> 
+                                    {% elif LANGUAGE_CODE == 'en' %}
+                                    <h5 class="media-heading">{{ sleep_itdetail.companyeng }}</h5> 
+                                    <small style="color:blue;">{{ sleep_itdetail.part }}</small><br>
+                                    <small>{{ sleep_itdetail.introeng|truncatewords:7 }}</small> 
+                                    {% elif LANGUAGE_CODE == 'vi' %}
+                                    <h5 class="media-heading">{{ sleep_itdetail.companyven }}</h5> 
+                                    <small style="color:blue;">{{ sleep_itdetail.part }}</small><br>
+                                    <small>{{ sleep_itdetail.introven|truncatewords:7 }}</small> 
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </script>
+            </div>
+
+        </div>
+
+        <script>
+            $('.waterfall')
+                .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+                .on('finishing.mystist.waterfall', function() {
+                    setTimeout(function() { // simulate ajax
+                        $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                    }, 2000);
+                })
+                .waterfall()
+
+            var startdate = '';
+            var enddate = '';
+            $(function() {
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+                
+                $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                    startdate = picker.startDate.format('YYYY-MM-DD');
+                    enddate = picker.endDate.format('YYYY-MM-DD');
+                    btnNextChange();
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                    $(this).val('');
+                    btnNextChange();
+                });
+            });
+
+            // input 필드에 모두 채워지면 다음 버튼 변경 및 링크 생성..
+            const tags = document.getElementById('tags');
+            const inputdate = document.getElementById('inputdate');
+            const btnnext = document.getElementById('btnnext');
+            const btnnextlink = document.getElementById('btnnextlink');
+
+            tags.addEventListener('change', btnNextChange);
+            // inputdate.addEventListener('change', btnNextChange); // daterangepicker 로는 안먹힘.. picker 안에 apply 버튼이 눌렸을 때 함수 실행을 해 줘야함..
+
+            function btnNextChange() {
+                if (tags.value.length != 0) {
+                    if (inputdate.value.length != 0){
+                        btnnext.classList.remove('button-grayrect');
+                        btnnext.classList.add('button-redrect');
+                        btnnextlink.setAttribute('href', 'http//www.google.com');
+                        console.log(startdate);
+                        console.log(enddate);
+                    }else{
+                        btnnext.classList.remove('button-redrect');
+                        btnnext.classList.add('button-grayrect');
+                        btnnextlink.removeAttribute('href', 'http//www.google.com');
+                    }
+                }else{
+                    btnnext.classList.remove('button-redrect');
+                    btnnext.classList.add('button-grayrect');
+                    btnnextlink.removeAttribute('href', 'http//www.google.com');
+                }
+                // tags.textContent = e.target.value;
+
+            }
+
+        </script>
+    
+    </body>
+</html>

@@ -23,6 +23,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    'localhost:8000',
     '.takeatrips.com',
     '15.164.63.68',
 ]
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_summernote',
+    'multiselectfield',
 
     'backendapp.travels',
     'backendapp.common',
@@ -248,7 +250,11 @@ AUTHENTICATION_BACKENDS = (
     # 'allauth' specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 

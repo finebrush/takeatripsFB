@@ -15,8 +15,8 @@ from mapwidgets.widgets import GooglePointFieldWidget, GooglePointFieldInlineWid
 from fieldsets_with_inlines import FieldsetsInlineMixin
 
 from django.contrib.gis.db import models
-from .models import ( City, InfoTravel, EatDrinkPart, FunPart, SeePart, SleepPart, BuyPart, 
-                        TravelCurator, TCImage, TravelPlan, POIpoint, Likeit )
+from .models import ( City, InfoTravel, EatDrinkPart, EatPart, DrinkPart, FunPart, SeePart, SleepPart, BuyPart, 
+                        TravelCurator, TCImage, TravelPlan, POIpoint, Likeit, TourPlan )
 
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
@@ -37,13 +37,40 @@ class InfotravelResource(resources.ModelResource):
             'addresseng', 'addressven', 'linkweb', 'linkinsta', 'linkyoutube', 'trafficko',
             'trafficeng', 'trafficven', 'introko', 'introeng', 'introven', 'itdate', 'itlocation']
 
-class EatDrinkPartInline(admin.StackedInline):
-    model = EatDrinkPart
+# class EatDrinkPartInline(admin.StackedInline):
+#     model = EatDrinkPart
+#     extra = 1
+
+class EatPartInline(FieldsetsInlineMixin, admin.StackedInline):
+    model = EatPart
+    extra = 1
+    
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['biztimeko', 'biztimeeng', 'biztimeven']}),
+        ('일반정보', {'fields': ['menuko', 'menueng', 'menuven']}),
+        ('핀', {'fields': ['pin',]})
+    ]
+    # filter_horizontal = ('pin', ) #ManyToMany 일때 ..
+
+class DrinkPartInline(FieldsetsInlineMixin, admin.StackedInline):
+    model = DrinkPart
     extra = 1
 
-class FunPartInline(admin.StackedInline):
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['biztimeko', 'biztimeeng', 'biztimeven']}),
+        ('일반정보', {'fields': ['menuko', 'menueng', 'menuven']}),
+        ('핀', {'fields': ['pin',]})
+    ]
+
+class FunPartInline(FieldsetsInlineMixin, admin.StackedInline):
     model = FunPart
     extra = 1
+
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['biztimeko', 'biztimeeng', 'biztimeven']}),
+        ('일반정보', {'fields': ['programko', 'programeng', 'programven']}),
+        ('핀', {'fields': ['pin',]})
+    ]
 
 class SeePartInline(admin.StackedInline):
     model = SeePart
@@ -53,9 +80,15 @@ class SleepPartInline(admin.StackedInline):
     model = SleepPart
     extra = 1
 
-class BuyPartInline(admin.StackedInline):
+class BuyPartInline(FieldsetsInlineMixin, admin.StackedInline):
     model = BuyPart
     extra = 1
+
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['biztimeko', 'biztimeeng', 'biztimeven']}),
+        ('일반정보', {'fields': ['saleitemsko', 'saleitemseng', 'saleitemsven']}),
+        ('핀', {'fields': ['pin',]})
+    ]
 
 class TCImageInline(admin.StackedInline):
     model = TCImage
@@ -127,7 +160,7 @@ class InfoTavelAdmin(ImportExportModelAdmin):
     # autocomplete_fields = ('ibname', 'city')
     list_display = ('companyko', 'picture_tag', 'part', 'itdate', 'typeit', 'categorysmall', 'asset')
     search_fields = ('companyko', 'companyeng', 'companyven',)
-    inlines = [EatDrinkPartInline, FunPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
+    inlines = [EatPartInline, DrinkPartInline, FunPartInline, SeePartInline, SleepPartInline, BuyPartInline,]
     list_per_page = 10
     list_filter = ('part','city',StartNullFilterSpec, )
     # radio_fields = {'asset': admin.VERTICAL} # HORIZONTAL, VERTICAL
@@ -164,6 +197,9 @@ class TravelCuratorAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     form = TForm
     list_display = ('titleko', 'created')
     icon_name = 'departure_board'
+
+    # filter_horizontal = ('infotravel',) # 좌측 리스트에서 우측 선택리스트로 보내면서 선택하기..
+
     # inlines = [TCImageInline]
     fieldsets_with_inlines = [
         ('기본정보', {'fields': ['city', 'titleko', 'titleeng', 'titleven', 'created', 'writter']}),
@@ -206,14 +242,34 @@ class POIpointAdmin(admin.ModelAdmin):
             return db_field.formfield(**kwargs)
         return super(POIpointAdmin,self).formfield_for_dbfield(db_field, **kwargs)
 
+class TourPlanAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
+    icon_name = 'edit_location'
+    filter_horizontal = ('pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp')
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['user', 'city', 'room', 'start_date', 'end_date']}),
+        ('일반정보', {'fields': ['pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp']})
+    ]
+
+# class EatPartAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
+#     icon_name = 'edit_location'
+#     filter_horizontal = ('pin', )
+#     fieldsets_with_inlines = [
+#         ('기본정보', {'fields': ['part', 'biztimeko', 'biztimeeng', 'biztimeven']}),
+#         ('일반정보', {'fields': ['menuko', 'menueng', 'menuven']}),
+#         ('pin', {'fields': ['pin',]})
+#     ]
+
 admin.site.register(City, CityAdmin)
 admin.site.register(InfoTravel, InfoTavelAdmin)
 admin.site.register(TravelCurator, TravelCuratorAdmin)
 admin.site.register(TravelPlan, TravelPlanAdmin)
+admin.site.register(TourPlan, TourPlanAdmin)
 
 admin.site.register(POIpoint, POIpointAdmin)
 admin.site.register(TCImage, TCImageAdmin)
 
 admin.site.register(Likeit)
+# admin.site.register(EatPart, EatPartAdmin)
+
 # admin.site.unregister(Site)
 # admin.site.unregister(Tag)

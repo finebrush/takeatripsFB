@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django import forms
 
-from .models import Category, CLarge, CMedium, CSmall, TmpTest, TmpAdd, TmpTag
+from backendapp.travels.widgets import AdminImageWidget
+
+from .models import ( Category, CLarge, CMedium, CSmall, PinEat, PinDrink, PinFun, PinBuy,
+                        TmpTest, TmpAdd, TmpTag )
 
 # @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -20,6 +23,55 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(CSmall)
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('categorylarge', 'categorymedium', 'name',)
+
+
+@admin.register(PinEat)
+class PinEatAdmin(admin.ModelAdmin):
+    list_display = ('nameko', 'picture', 'ordering')
+
+    # form 안에 이미지 나타내기..
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'picture':
+            kwargs.pop("request", None)
+            kwargs['widget'] = AdminImageWidget
+            return db_field.formfield(**kwargs)
+        return super(PinEatAdmin,self).formfield_for_dbfield(db_field, **kwargs)
+
+@admin.register(PinDrink)
+class PinDrinkAdmin(admin.ModelAdmin):
+    list_display = ('nameko', 'picture', 'ordering')
+
+    # form 안에 이미지 나타내기..
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'picture':
+            kwargs.pop("request", None)
+            kwargs['widget'] = AdminImageWidget
+            return db_field.formfield(**kwargs)
+        return super(PinDrinkAdmin,self).formfield_for_dbfield(db_field, **kwargs)
+
+@admin.register(PinFun)
+class PinFunAdmin(admin.ModelAdmin):
+    list_display = ('nameko', 'picture', 'ordering')
+
+    # form 안에 이미지 나타내기..
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'picture':
+            kwargs.pop("request", None)
+            kwargs['widget'] = AdminImageWidget
+            return db_field.formfield(**kwargs)
+        return super(PinFunAdmin,self).formfield_for_dbfield(db_field, **kwargs)
+
+@admin.register(PinBuy)
+class PinBuyAdmin(admin.ModelAdmin):
+    list_display = ('nameko', 'picture', 'ordering')
+
+    # form 안에 이미지 나타내기..
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'picture':
+            kwargs.pop("request", None)
+            kwargs['widget'] = AdminImageWidget
+            return db_field.formfield(**kwargs)
+        return super(PinBuyAdmin,self).formfield_for_dbfield(db_field, **kwargs)
 
 # ----------------------------------------TEST-----------------------------
 

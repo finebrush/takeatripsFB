@@ -1,0 +1,65 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+}
+
+#site_wrap{
+    background-color: red;
+    height: 100vmax;
+    display: grid;
+    grid-template-columns: 
+        1fr
+        repeat(4, minmax(0, 272))
+        1fr
+    ;
+    /* grid-gap: 5px; */
+    grid-template-rows: 
+        104px
+        215px
+        373px
+        373px
+        1fr
+    ;
+    grid-template-areas: 
+        "header header header header header header"
+        "featured_header featured_header featured_header featured_header featured_header featured_header"
+        ". featured_main featured_main featured_main featured_profile ."
+        ". content content content content ."
+        "footer footer footer footer footer footer"
+    ;
+}
+
+.header {
+    position: fixed;
+    background-color: green;
+    /* grid-area: header; */
+    height: 104px;
+    width: 100%;
+}
+
+.featured_header {
+    background-color: purple;
+    grid-area: featured_header;
+}
+
+.featured_main {
+    background-color: orange;
+    grid-area: featured_main;
+}
+
+.featured_profile {
+    background-color: blue;
+    grid-area: featured_profile;
+}
+
+.content {
+    background-color: yellowgreen;
+    grid-area: content;
+}
+
+.footer {
+    background-color: gray;
+    grid-area: footer;
+}
