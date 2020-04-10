@@ -1,0 +1,661 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+        <style>
+            .card {
+                border-radius: 13px;
+            }
+            .card-img {
+                border-radius: 12px;
+            }
+            .card-imgsm {
+                height: 118px;
+                width: 150px;
+                float: left;
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 13px;
+                border-top-left-radius: 13px;
+                border-top-right-radius: 0px;
+            }
+            a {
+                text-decoration: none!important;
+            }
+        </style>
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header-detail">
+
+            <div class="logo">
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytrip' %}" class="card-link p-2 text-dark">
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+        
+                <div style="padding-left: 20px;">
+                    <h3 class="font-weight-bold" style="margin-bottom: 0px;">
+                        <a href="#" class="card-link text-dark">{{ tourplan.room }}&middot;{% trans "서울특별시" %}</a>
+                    </h3>
+                    <div style="margin-bottom: 0px;color:#adadad;">
+                        <small> {{ tourplan.start_date }} ~ {{ tourplan.end_date }}</small>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="loginout">
+                <!-- 다국어..  -->
+                <div class="droplang" style="display: contents;">
+                    <select name="language" id="selectlang" style="width: 110px; margin-right: 10px;">
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                    </select>
+                </div>
+
+
+                <div>
+                <!-- 로그인,아웃 -->
+                    {% if user.is_authenticated %}
+                    <!-- 만약 로그인이 되어있으면 로그아웃 버튼이 나타나도록 -->
+                    <div class="dropdown" style="margin: 0 10px;">
+                        <a href="javascript:myFunction()" style="background: none;">
+                            {% if sns_picture == '' %} 
+                            <img src="{% static 'img/sub_top_more.png' %}" /> <!-- 일반로그인 -->
+                            {% else %}
+                            <img class="snspicture" src="{{ sns_picture }}" /> <!-- sns 로그인 -->
+                            {% endif %}
+                        </a>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
+                            <a href="{% url 'account:logout' %}">{% trans '로그아웃' %}</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- 로그인되어 있지 않으면 기존 버튼 그대로 -->
+                    <div class="dropdown" style="margin: 0 10px;">
+                        <a href="javascript:myFunction()" style="background: none;">
+                            <!-- <img src="{% static 'img/sub_top_more.png' %}" /> -->
+                            <button class="button button-redrect">로그인</button>
+                        </a>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
+                            <a href="{% url 'account:login' %}">{% trans '로그인' %}</a>
+                            <a href="{% url 'account:signup' %}">{% trans '회원가입' %}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="detailmenu">
+                <div class="tourplan2">
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP 100
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_hottrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        HOT TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_musttrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        MUST TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP GUIDE
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        AR TRIP
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        TRIP CURATOR
+                    </button>
+                    <button class="btnTourplan">
+                        <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
+                        GO TO CITY
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="linepartitionsub"></div>
+
+        <!-- 도시 대표 이미지  4개.. -->
+        <div class="detail-content1">
+            <div class="detail-content1-img" style="height: 100%;">
+                <div class="detail-img-four" style="height: 100%;">
+                    <div class="card text-center p-0" style="height: 100%;">
+                        <img class="detail-pic" src="{{ citydetails.picture1.url }}" alt="Card image">
+                    </div>
+                    <div class="card text-center p-0" style="height: 100%;">
+                        <img class="detail-pic" src="{{ citydetails.picture2.url }}" alt="Card image">
+                    </div>
+                    <div class="card text-center p-0" style="height: 100%;">
+                        <img class="detail-pic" src="{{ citydetails.picture3.url }}" alt="Card image">
+                    </div>
+                    <div class="card text-center p-0" style="height: 100%;">
+                        <img class="detail-pic" src="{{ citydetails.picture4.url }}" alt="Card image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-content1-text">
+                <!-- 도시 이름과 설명..  -->
+                <div class="card" style="padding: 0 25px 28px 25px;border: none;">
+                    <div class="card-body" style="padding: 1.25rem 0px;">
+
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <h5 class="card-title">{{ citydetails.nameko }}</h5>
+                        <p class="card-text"> {{ citydetails.titleko | safe }}</p>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 class="card-title">{{ citydetails.nameeng }}</h5>
+                        <p class="card-text"> {{ citydetails.titleeng | safe }}</p>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 class="card-title">{{ citydetails.nameven }}</h5>
+                        <p class="card-text"> {{ citydetails.titleven | safe }}</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Trip 100 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">Trip 100</h5>
+                    <a href="#" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;"> 
+                            Trip 100 {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                        </small>
+                    </a>
+                </div> 
+            </div>
+
+            <div class="detail-content1-img">
+                <div class="detail-img-four">
+                        {% for itmust in itmusts|slice:":4" %}
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ itmust.picture1.url }}" alt="Card image">
+                                    <div class="media" style="padding: 20px;color: black;display: grid;">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h5 class="media-heading">{{ itmust.companyko }}</h5> 
+                                            <small style="color:blue;">{{ itmust.get_part_display }}</small><br>
+                                            <!-- <small>{{ itmust.introko|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h5 class="media-heading">{{ itmust.companyeng }}</h5> 
+                                            <small style="color:blue;">{{ itmust.part }}</small><br>
+                                            <!-- <small>{{ itmust.introeng|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h5 class="media-heading">{{ itmust.companyven }}</h5> 
+                                            <small style="color:blue;">{{ itmust.part }}</small><br>
+                                            <!-- <small>{{ itmust.introven|truncatewords:7 }}</small>  -->
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Trip Guide 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">Trip Guide</h5>
+                </div> 
+            </div>
+            
+            <!-- 먹다/마시다/놀다/보다 대표 이미지  3개.. -->
+            <div class="detail-content1-img">
+                <div class="detail-img-four sm">
+                    
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body text-center p-0">
+                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Eat' %}">
+                                    <img class="card-imgsm smcardimg" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
+                                    <div class="graydiv"></div>
+                                    <div class="smcardiv">
+                                            <h4 class="card-title" style="color: white;">{% trans "먹다" %}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body text-center p-0">
+                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Drink' %}">
+                                    <img class="card-imgsm smcardimg" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
+                                    <div class="graydiv"></div>
+                                    <div class="smcardiv">
+                                        <h4 class="card-title" style="color: white;">{% trans "마시다" %}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body text-center p-0">
+                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Fun' %}">
+                                    <img class="card-imgsm smcardimg" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
+                                    
+                                    <div class="graydiv"></div><div class="smcardiv">
+                                        <h4 class="card-title" style="color: white;">{% trans "놀다" %}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body text-center p-0">
+                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Buy' %}">
+                                    <img class="card-imgsm smcardimg" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
+                                    <div class="graydiv"></div>
+                                    <div class="smcardiv">
+                                        <h4 class="card-title" style="color: white;">{% trans "사다" %}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Hot Trip 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">Hot Trip</h5>
+                    <a href="#" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;"> 
+                            Hot Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                        </small>
+                    </a>
+                </div> 
+            </div>
+
+            <div class="detail-content1-img">
+                <div class="detail-img-four">
+                        {% for ithot in ithots|slice:":8" %}
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ ithot.picture1.url }}" alt="Card image">
+                                    <div class="media" style="padding: 20px;color: black;display: grid;">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h5 class="media-heading">{{ ithot.companyko }}</h5> 
+                                            <small style="color:blue;">{{ ithot.get_part_display }}</small><br>
+                                            <!-- <small>{{ ithot.introko|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h5 class="media-heading">{{ ithot.companyeng }}</h5> 
+                                            <small style="color:blue;">{{ ithot.part }}</small><br>
+                                            <!-- <small>{{ ithot.introeng|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h5 class="media-heading">{{ ithot.companyven }}</h5> 
+                                            <small style="color:blue;">{{ ithot.part }}</small><br>
+                                            <!-- <small>{{ ithot.introven|truncatewords:7 }}</small>  -->
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Trip Curator 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">Trip Curator</h5>
+                    <a href="#" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;"> 
+                            Trip Curator {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                        </small>
+                    </a>
+                </div> 
+            </div>
+
+            <div class="detail-content1-img">
+                <div class="detail-img-four two">
+                    {% for travelplan in travelplans|slice:":4" %}
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <img class="card-imgsm imgsize" src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt="Card image">
+                                    <div class="media" style="padding: 20px;color: black;display: grid;height: 240px;">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
+                                            <small>{{ travelplan.courseinfoko|truncatewords:20 }}</small>
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
+                                            <small>{{ travelplan.courseinfoeng|truncatewords:20 }}</small>
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
+                                            <small>{{ travelplan.courseinfoven|truncatewords:20 }}</small>
+                                            {% endif %}
+
+                                            <div style="display: flex;justify-content: flex-end;font-style:italic;color:#adadad;">
+                                                <small> {% trans "작성자" %} : {{ travelplan.writer }}</small>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <img src="{% static 'img/sub_poi.png' %}" />
+                                            <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelplan.inlinecount }} {% trans "개" %}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- My Pick Trip 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">My Pick Trip</h5>
+                    <a href="#" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;"> 
+                            My Pick Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                        </small>
+                    </a>
+                </div> 
+            </div>
+
+            <div class="detail-content1-img">
+                <div class="detail-img-four">
+                        {% for userlike_it in userlike_its|slice:":8" %}
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ userlike_it.infotravel.picture1.url }}" alt="Card image">
+                                    <div class="media" style="padding: 20px;color: black;display: grid;">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h5 class="media-heading">{{ userlike_it.infotravel.companyko }}</h5> 
+                                            <small style="color:blue;">{{ userlike_it.infotravel.get_part_display }}</small><br>
+                                            <!-- <small>{{ userlike_it.infotravel.introko|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h5 class="media-heading">{{ userlike_it.infotravel.companyeng }}</h5> 
+                                            <small style="color:blue;">{{ userlike_it.infotravel.part }}</small><br>
+                                            <!-- <small>{{ userlike_it.infotravel.introeng|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h5 class="media-heading">{{ userlike_it.infotravel.companyven }}</h5> 
+                                            <small style="color:blue;">{{ userlike_it.infotravel.part }}</small><br>
+                                            <!-- <small>{{ userlike_it.infotravel.introven|truncatewords:7 }}</small>  -->
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- 배너 -->
+        <!-- <div class="card" style="padding: 0 45px;border: none;">
+            <img class="card-img" src="{% static 'img/sub_banner.png' %}" alt="Card image">
+        </div> -->
+
+
+
+        <!-- Trip Coordinator 시작 -->
+        <!-- <h5 class="card-title" style="padding: 30px 45px 0px 45px;">Trip Coordinator</h5>
+
+        <div class="card-deck" style="padding: 0 45px;">
+            {% for travelplan in travelplans|slice:":4" %}
+            <div class="card">
+                <div class="card-body p-0">
+                    <a href="{% url 'clientapp:tripcoursedetail' citydetails_id=citydetails.id tripcourse_id=travelplan.id %}">
+                        <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt="Card image">
+                        <div class="media" style="padding: 20px;color: black;display: grid;">
+                            <div class="media-body" style="margin-bottom: 40px;">
+
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
+                                <small>{{ travelplan.courseinfoko|truncatewords:20 }}</small>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
+                                <small>{{ travelplan.courseinfoeng|truncatewords:20 }}</small>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
+                                <small>{{ travelplan.courseinfoven|truncatewords:20 }}</small>
+                                {% endif %}
+
+                            </div>
+                            <div class="media-body" style="bottom: 20px;position: absolute;">
+                                <img src="{% static 'img/sub_poi.png' %}" />
+                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "추천장소" %} : {{ travelplan.inlinecount }} {% trans "개" %}</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="padding: 10px 45px;">
+            <a href="{% url 'clientapp:tripcourse' citydetails_id=citydetails.id %}">
+                <small style="color:#c83a54;text-decoration: underline;"> 
+                    Trip Coordinator {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                </small>
+            </a>
+        </div>  -->
+
+        
+        <!-- AR Trip -->
+        <!-- <h5 class="card-title" style="padding: 30px 45px 0px 45px;">AR Trip</h5>
+
+        {% for arcontent in arcontents|slice:":6" %}
+        {% if forloop.counter == 1 %}
+            <div class="card-deck" style="padding: 0 45px 30px 45px;"> 
+        {% elif forloop.counter == 4 %}
+            <div class="card-deck" style="padding: 0 45px 30px 45px;"> 
+        {% endif %}
+
+                <div class="card" sstyle="height: 120px;">
+                    <div class="card-body text-center p-0"> 
+                        <a href="#layer2" class="btn-example">
+                            <img class="card-imgsm" src="{{ arcontent.picture.url }}" />
+                        
+                            <div style="text-align: left; padding: 31px 0px 31px 170px;">
+
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleko }}</h6>
+                                <p class="card-text" style="font-size: 0.8em;">{{ arcontent.get_category_display }}</p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleeng }}</h6>
+                                <p class="card-text" style="font-size: 0.8em;">{{ arcontent.category }}</p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <h6 class="card-title" style="margin-bottom: 0px; color:blue;">{{ arcontent.titleven }}</h6>
+                                <p class="card-text" style="font-size: 0.8em;">{{ arcontent.category }}</p>
+                                {% endif %}
+                                
+                            </div>
+                            <div style="position: absolute;top: 27px;right: 35px;">
+                                <img src="{% static 'img/sub_aricon.png' %}" />
+                            </div>
+                        </a>
+                    </div>
+                </div> 
+
+        {% if forloop.counter == 3 or forloop.counter == 6 %}    
+        </div>
+        {% endif %}
+        {% endfor %} -->
+
+
+        <!-- 팝업창 띄우기 -->
+        <!-- <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer">
+                <div class="pop-container">
+                    <div class="pop-conts" style="text-align: center;">
+                        <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
+                        <h6 style="text-align: center;">
+                            {% trans "AR Trip은 Take a trips APP에서" %} <br> 
+                            {% trans "실행이 가능한 서비스 입니다." %}
+                        </h6>
+                        <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
+                            {% trans "Take a trips APP을 설치하시겠습니까?" %}
+                        </p>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
+                        </a>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_apple.png' %}" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
+            <div style="display: flex; justify-content: center;">
+                <div class="footer-menu">의견 보내기</div>
+                <div class="footer-menu">개인정보처리방침</div>
+                <div class="footer-menu">서비스 약관</div>
+            </div>
+            <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
+        </footer>
+
+
+
+        <script>
+            
+            // itdetail 클릭시 tripguidedetail 로 넘어가기..
+            function itdetailpath(part, citydetails_id, itdetail_id) {
+                switch(part){
+                    case "Eat":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Eat/"+itdetail_id;
+                        break;
+                    case "Drink":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Drink/"+itdetail_id;
+                        break;
+                    case "Fun":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Fun/"+itdetail_id;
+                        break;
+                    case "See":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/See/"+itdetail_id;
+                        break;
+                    case "Sleep":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Sleep/"+itdetail_id;
+                        break;
+                    case "Buy":
+                        location.href = "/citymain/"+citydetails_id+"/tripguidedetail/Buy/"+itdetail_id;
+                        break;
+                }
+            }
+
+            // 팝업창 띄우기..
+            $('.btn-example').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href);
+            });
+
+            function layer_popup(el){
+
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight /2,
+                        marginLeft: -$elWidth/2
+                    })
+                } else {
+                    $el.css({top: 0, left: 0});
+                }
+
+                $el.find('a.btn-layerClose').click(function(){
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    return false;
+                });
+
+                // $('.layer .dimBg').click(function(){
+                //     $('.dim-layer').fadeOut();
+                //     return false;
+                // });
+                $('.dimBg').click(function(){
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+
+            }
+        </script>
+
+    </body>
+</html>

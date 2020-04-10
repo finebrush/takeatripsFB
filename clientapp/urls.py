@@ -18,7 +18,7 @@ urlpatterns = [
     path('mytrip_tourplan03/', views.mytrip_tourplan03, name='mytrip_tourplan03'),
     path('mytrip_tourplan04/', views.mytrip_tourplan04, name='mytrip_tourplan04'),
     path('mytrip_tourplan05/', views.mytrip_tourplan05, name='mytrip_tourplan05'),
-    path('mytrip_save/', views.apiTourplan, name='apiTourplan'),
+    path('mytrip_detail/<int:tourplan_id>/', views.mytrip_detail, name='mytrip_detail'),
 
     path('trips/', views.trips, name='trips'),
     path('trip100/', views.trip100, name='trip100'),

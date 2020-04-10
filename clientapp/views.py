@@ -96,14 +96,53 @@ def mytrip_tourplan05(request):
     
     return render(request, 'client/mytrip_tourplan05.html', {'citydetails':citydetails, 'current_user': current_user, 'pinbuys':pinbuys})
 
-def apiTourplan(request):
-    if request.method == 'POST':
-        print(request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return HttpResponse('success!')
-    return HttpResponse('success!')
+def mytrip_detail(request, tourplan_id):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    artrips = ARTrip.objects.filter(share=True)
+    arcontents = artrips.random(8)
+    travelcurators = TravelCurator.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+
+    # 먹다/마시다/놀다/사다 대표 이미지..
+    eat_itdetail = itdetails.filter(part='Eat').last()
+    drink_itdetail = itdetails.filter(part='Drink').last()
+    fun_itdetail = itdetails.filter(part='Fun').last()
+    buy_itdetail = itdetails.filter(part='Buy').last()
+
+    # infotravel likes..
+    itcitylikes = Likeit.objects.filter(infotravel__city_id=city_id) # 해당 도시의 likes
+    userlike_its = itcitylikes.filter(user=request.user)# 해당 도시의 likes 중 user의 likes
+    # travelplan likes..
+    tpcitylikes = Liketp.objects.filter(travelplan__city_id=city_id) 
+    userlike_tps = tpcitylikes.filter(user=request.user)
+
+    picture_url = ''
+    
+    if request.user.is_authenticated: # 로그인 했다면..
+        social = SocialAccount.objects.filter(user=request.user)
+        # 유저가 생성한 여행계획 중 한개..
+        tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+        if social.exists(): # social 로그인 했는지 체크..   
+            if social[0].provider == 'facebook':
+                picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
+            elif social[0].provider == 'google':
+                picture_url = social[0].extra_data.picture
+
+    # 도시마다 must 구분..
+    if city_id == 1: # if seoul..
+        itmusts = InfoTravel.objects.filter( Q(city_id=1) & Q(typeit=1) & Q(asset__isnull=False)) # tripguide 중 seoul 이고 must 이고 asset true 인것..
+        ithots = InfoTravel.objects.filter( Q(city_id=1) & Q(typeit=2) & Q(asset__isnull=False))
+    elif city_id == 2: # if busan..
+        itmusts = InfoTravel.objects.filter( Q(city_id=2) & Q(typeit=1) & Q(asset__isnull=False))
+        ithots = InfoTravel.objects.filter( Q(city_id=2) & Q(typeit=2) & Q(asset__isnull=False))
+    
+    return render(request, 'client/mytrip_detail.html', {'city_id':city_id, 'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
+            'travelcurators':travelcurators, 'itmusts':itmusts, 'travelplans':travelplans, 'sns_picture':picture_url, 'tourplan':tourplan,
+            'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'buy_itdetail':buy_itdetail, 'ithots':ithots,
+            'userlike_its':userlike_its, 'userlike_tps':userlike_tps })
 
 def trips(request):
     city_id = 1 # 서울을 기준으로 ..

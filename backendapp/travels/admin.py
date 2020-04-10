@@ -244,6 +244,9 @@ class POIpointAdmin(admin.ModelAdmin):
 
 class TourPlanAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     icon_name = 'edit_location'
+    list_per_page = 10
+    search_fields = ('room',)
+
     filter_horizontal = ('pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp')
     fieldsets_with_inlines = [
         ('기본정보', {'fields': ['user', 'city', 'room', 'start_date', 'end_date']}),
