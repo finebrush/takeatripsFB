@@ -1,0 +1,749 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <title>TAKE A TRIPS</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <link rel=stylesheet href="{% static 'css/youtubesearch.css' %}">
+        <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+        <script src="{% static 'js/youtubesearch.js' %}"></script>
+        <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+        <style>
+            /* Set the size of the div element that contains the map */
+            #map {
+                height: 450px;  /* The height is 400 pixels */
+                width: 100%;  /* The width is the width of the web page */
+            }
+            /* The popup bubble styling. */
+            .popup-bubble {
+                /* Position the bubble centred-above its parent. */
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -100%);
+                /* Style the bubble. */
+                background-color: white;
+                padding: 5px;
+                border-radius: 5px;
+                font-family: sans-serif;
+                overflow-y: auto;
+                max-height: 60px;
+                box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+            }
+            /* The parent of the bubble. A zero-height div at the top of the tip. */
+            .popup-bubble-anchor {
+                /* Position the div a fixed distance above the tip. */
+                position: absolute;
+                width: 100%;
+                bottom: /* TIP_HEIGHT= */ 8px;
+                left: 0;
+            }
+            /* This element draws the tip. */
+            .popup-bubble-anchor::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                /* Center the tip horizontally. */
+                transform: translate(-50%, 0);
+                /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+                width: 0;
+                height: 0;
+                /* The tip is 8px high, and 12px wide. */
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: /* TIP_HEIGHT= */ 8px solid white;
+            }
+            /* JavaScript will position this div at the bottom of the popup tip. */
+            .popup-container {
+                cursor: auto;
+                height: 0;
+                position: absolute;
+                /* The max width of the info window. */
+                width: 200px;
+            }
+            .pict {
+                border-radius: 12px;
+            }
+            .linepart{
+                border-bottom: solid 0.5px #00000022;
+                width: 100%;
+                background-color: white;
+                position: fixed;
+                height: 71px;
+                top:0px;
+            }
+         </style>
+    </head>
+
+
+    <body>
+
+        <!-- header -->
+        <div class="header-guidedetail">
+            <div class="leftitem">
+                <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
+                {% if fromhtml %}
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytrip_detail' city_id tourplan_id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% else %}
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytrip' %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% endif %}
+                <div id="back2" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+        
+                <div style="padding-left: 20px;">
+                    <h3 class="font-weight-bold" style="margin-bottom: 0px;">
+        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyko }}</a>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyeng }}</a>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyven }}</a>
+                        {% endif %}
+                        
+                        <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
+                    </h3>
+                    <div style="margin-bottom: 0px;font-size: 14px;"> {{ itdetail.get_part_display }} 
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <font style="color: black;"> &middot; {{ itdetail.categorymedium.name }}</font>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <font style="color: black;"> &middot; {{ itdetail.categorymedium.nameeng }}</font>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <font style="color: black;"> &middot; {{ itdetail.categorymedium.nameven }}</font>
+                        {% endif %}
+        
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightitem">
+                <div>
+                    <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
+                        <i class="fa fa-map-o" style="font-size:24px;"></i>
+                    </a> -->
+                    <a href="#youtube" id="btnyt" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
+                    </a>
+                    <!-- 인스타 링크가 DB 에 있는 경우/없는 경우 -->
+                    {% if itdetail.linkinsta %}
+                    <a href="{{ itdetail.linkinsta }}" target="_blank" id="btninsta" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                    </a>
+                    {% else %}
+                    <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                    </a>
+                    {% endif %}
+        
+                    <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                        {% if user in itdetail.like_infotravel.all %}
+                        <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                        {% else %}
+                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                        {% endif %}
+                    </a> 
+                </div>
+            </div>
+        </div>
+
+        <div class="linepart"></div>
+      
+
+        <div id="detailbase">
+            <!-- 대표 이미지 .. -->
+            <div class="imggallery" style="margin-top: 100px;">
+                <div class="imgcontainer">
+                    <div class="img3grid">
+                        {% if itdetail.picture1 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p1">
+                                    <img class="pict" src="{{ itdetail.picture1.url }}" id="picture1" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture2 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p2">
+                                    <img class="pict" src="{{ itdetail.picture2.url }}" id="picture2" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture3 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p3">
+                                    <img class="pict" src="{{ itdetail.picture3.url }}" id="picture3" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture4 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p4">
+                                    <img class="pict" src="{{ itdetail.picture4.url }}" id="picture4" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture5 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p5">
+                                    <img class="pict" src="{{ itdetail.picture5.url }}" id="picture5" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture6 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p6">
+                                    <img class="pict" src="{{ itdetail.picture6.url }}" id="picture6" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                    </div>
+                    <div class="img2grid">
+                        {% if itdetail.picture7 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p7">
+                                    <img class="pict" src="{{ itdetail.picture7.url }}" id="picture7" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture8 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p8">
+                                    <img class="pict" src="{{ itdetail.picture8.url }}" id="picture8" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture9 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p9">
+                                    <img class="pict" src="{{ itdetail.picture9.url }}" id="picture9" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                        {% if itdetail.picture10 %}
+                            <figure class="img-container marginzero">
+                                <a href="#layer2" class="btn-example" id="p10">
+                                    <img class="pict" src="{{ itdetail.picture10.url }}" id="picture10" />
+                                </a>
+                            </figure>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+    
+    
+            <!-- 소개정보 / 일반정보.. -->
+            <div class="infointro">
+                <div class="infointro-in">
+                    <div class="card" style="max-height: 450px; border:0px;">
+                        <div class="card-body p-0">
+                            <h5 class="card-title" style="font-weight:600; color:black;">{% trans "소개" %}</h5>
+                            <hr style="border: solid 1px #000000;">
+        
+                            {% if LANGUAGE_CODE == 'ko' %}
+                            <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introko }}</p>
+                            {% elif LANGUAGE_CODE == 'en' %}
+                            <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introeng }}</p>
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                            <p class="card-text" style="white-space:pre-line;"> {{ itdetail.introven }}</p>
+                            {% endif %}
+        
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="max-height: 450px; border:0px;">
+                        <div class="card-body p-0">
+                            <h5 class="card-title" style="font-weight:600; color:black;">{% trans "일반정보" %}</h5>
+                            <hr style="border: solid 1px #000000;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon01.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "주소" %} </span>
+        
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.addressko }}</p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.addresseng }}</p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.addressven }}</p>
+                                {% endif %}
+        
+                            </div>
+                            <hr style="border: solid 0.5px #969696b3;">
+                            {% if itdetail.part == 'Eat' or itdetail.part == 'Drink' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon02.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "대표메뉴" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menueng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuven }} </p>
+                                {% endif %}
+        
+                            </div>
+                                <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeven }} </p>
+                                {% endif %}
+        
+                            </div>
+                            {% elif itdetail.part == 'Fun' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon08.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "프로그램" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.programven }} </p>
+                                {% endif %}
+        
+                            </div>
+                                <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.funpart.biztimeven }} </p>
+                                {% endif %}
+        
+                            </div>
+                            {% elif itdetail.part == 'See' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.seepart.operationtimeven }} </p>
+                                {% endif %}
+        
+                            </div>
+                            {% elif itdetail.part == 'Sleep' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon05.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "포함사항" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusionko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusioneng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.inclusionven }} </p>
+                                {% endif %}
+        
+                            </div>
+                                <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon06.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "객실타입" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.sleeppart.roomtypeven }} </p>
+                                {% endif %}
+        
+                            </div>  
+                            {% elif itdetail.part == 'Buy' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon07.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "판매상품" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemsko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemseng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.saleitemsven }} </p>
+                                {% endif %}
+        
+                            </div>
+                                <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.buypart.biztimeven }} </p>
+                                {% endif %}
+        
+                            </div>
+                            {% endif %}
+                            <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon04.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "교통정보" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.trafficko }}</p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.trafficeng }}</p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.trafficven }}</p>
+                                {% endif %}
+        
+                            </div>
+                            <hr style="border: solid 0.5px #969696b3;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    
+            
+            <!-- 팝업창 띄우기 -->
+            <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+            <div class="dim-layer">
+                <div class="dimBg"></div>
+                <div id="layer2" class="pop-layer" style="width: fit-content;height: fit-content;margin-top: -250px;margin-left: -275px;">
+                    <div class="pop-container" style="height: 100%;">
+                        <div class="pop-conts">
+                            <!--content //-->
+                            <a href="#" class="layerClose">
+                                <img src="{{ itdetail.picture1.url }}" style="height: 100%; width: auto;" id="picture" />
+                            </a>
+                            <!--// content-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- googlemap.. -->
+            <!-- <div class="infointro">
+                <div class="infointro-in map">
+                    <div id="map"></div>
+                    <div id="content" style="display: contents; text-align: center; overflow:hidden;">
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <h5 style="margin: 0px 20px;">{{ itdetail.companyko }}</h5>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 style="margin: 0px 20px;">{{ itdetail.companyeng }}</h5>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 style="margin: 0px 20px;">{{ itdetail.companyven }}</h5>
+                        {% endif %}
+            
+                        <p style="margin: 0px!important;"> {{ itdetail.get_part_display }}</p>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- django-waterfall 이미지 들어가는 부분.. 
+                imggallery2.css 때문에 다른 페이지의 waterfall 하고 다르게 <lu / <li 태그 안쓰고 style 다름-->
+            <div class="infointro">
+                <div class="infointro-in water">
+                    <h4 class="card-title" style="color: black;">{% trans "유사한 여행 정보 보기" %}</h4>
+            
+                    <div class="card" style="padding-top: 0px!important; border:0px;">
+                        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                            <div class=waterfall> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+            <script id=waterfall-template type=text/template>
+                {% for itdetail in itdetails %}
+                <div class="list-group">
+                    <div class="list-group-up">
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}"> 
+                            <img src="{{ itdetail.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> </a>
+                    </div>
+                    <!-- <li class="list-group-item">
+                        <span class="fa fa-heart" style="font-size:16px; float:right;">
+                            <span>{{ itdetail.like_count }}</span>
+                        </span>
+                    </li> -->
+                    <div class="list-group-it">
+                        <div class="media">
+                            <!-- <div class="media-left">
+                                <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                            </div> -->
+                            <div class="media-body">
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
+                                <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                                <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <h5 class="media-heading">{{ itdetail.companyeng }}</h5> 
+                                <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <h5 class="media-heading">{{ itdetail.companyven }}</h5> 
+                                <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </script>   
+    
+        </div>  <!-- end detailbase -->   
+    
+       
+    
+    
+        <!-- youtube search -->
+        <div class="infointro">
+            <div class="infointro-in map">
+                <div id="youtubsearch" style="padding:0 40px;margin-top: 70px;">
+                    <nav class="navbar navbar-light bg-faded">
+                        <div class="row" style="width: 100%;">
+                                <div class="col-sm-2">
+                                    <h4 class="logo" style="width: 100%;"><i class="fa fa-youtube yt"></i><span>youtube search</span></h4>
+                                </div>
+                            <div class="col-sm-10">
+                                <form class="form-inline " id="search-form" name="search-form" onSubmit="return search()">
+                                    <table width="100%">
+                                        <tr>
+                                            <td width="100%">
+                                                <div class="d3 float-right" style="width:100%;" >	
+                                                    <input class="form-control search-field" type="search" id="query" style="width:100%;"  placeholder="Search Youtube">
+                                                    <span class="focus-border">
+                                                        <i></i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-outline-danger my-2 my-sm-0 " type="submit" id="search-btn"  name="search-btn" value="">Search</button>
+                                            </td>
+                                        </tr>                
+                                    </table>  
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </nav>
+                    
+                    <div class="content-youtube">
+                    <div class="container-fluid" id="results">               
+                        
+                    </div> <!-- ENd of container fluid -->
+            
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12"><div id="btn-cnt"></div> </div>
+                        </div>
+                    </div>
+                    </div> <!-- End of content -->
+                </div> <!-- Ene of youtubesearch -->
+            </div>
+        </div>
+
+    
+        <!-- Footer -->
+        <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
+            <div style="display: flex; justify-content: center;">
+                <div class="footer-menu">의견 보내기</div>
+                <div class="footer-menu">개인정보처리방침</div>
+                <div class="footer-menu">서비스 약관</div>
+            </div>
+            <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
+        </footer>
+        <!-- Footer -->
+
+
+        <script type="text/javascript">
+            $('.waterfall')
+                .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+                .on('finishing.mystist.waterfall', function() {
+                    setTimeout(function() { // simulate ajax
+                        $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                    }, 2000);
+                })
+                .waterfall()
+        
+            // hide-unhide contents
+            $('#back2').hide();
+            $('#map').show();
+            $('#youtubsearch').hide();
+    
+            $('#btnyt').click(function(){
+                $('#detailbase').hide();
+                $('#back1').hide();
+                $('#back2').show();
+                // $('#map').hide();
+                $('#youtubsearch').show();
+
+                //Set form input
+                document.getElementById("query").value = "{{ itdetail.companyko }}";
+                search();
+                
+            });
+    
+            // Initialize and add the map
+            function initMap() {
+                // console.log("{{ itdetail.itlocation.x }}");
+                
+                // The location of Uluru
+                var uluru = {lat: {{ itdetail.itlocation.y }}, lng: {{ itdetail.itlocation.x }}};
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                    document.getElementById('map'), {zoom: 16, center: uluru});
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({position: uluru, map: map});
+    
+                // Info Window
+                var infoWindow = new google.maps.InfoWindow({
+                        pixelOffset: new google.maps.Size(0,-50),
+                        content: document.getElementById('content')
+                });
+                infoWindow.setPosition(uluru);
+                // infoWindow.setContent("{{ itdetail.companyko }}");
+                infoWindow.open(map);
+            }
+    
+            // 팝업창 띄우기..
+            $('.btn-example').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href);
+    
+                // 클릭한 이미지를 새창으로 띄운다..
+                var $id = $(this).attr('id');
+                // console.log($id);
+                switch($id){
+                    case 'p1':
+                        var $picture = $(document.getElementById('picture1')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p2':
+                        var $picture = $(document.getElementById('picture2')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p3':
+                        var $picture = $(document.getElementById('picture3')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p4':
+                        var $picture = $(document.getElementById('picture4')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p5':
+                        var $picture = $(document.getElementById('picture5')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p6':
+                        var $picture = $(document.getElementById('picture6')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p7':
+                        var $picture = $(document.getElementById('picture7')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p8':
+                        var $picture = $(document.getElementById('picture8')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p9':
+                        var $picture = $(document.getElementById('picture9')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p10':
+                        var $picture = $(document.getElementById('picture10')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+    
+                }
+            });
+    
+            function layer_popup(el){
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+                
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+    
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+    
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight /2,
+                        marginLeft: -$elWidth/2
+                    })
+                } else {
+                    $el.css({top: 0, left: 0});
+                }
+    
+                $el.find('a.layerClose').click(function(){
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    return false;
+                });
+    
+                $('.dimBg').click(function(){
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+            }
+    
+        </script>
+    
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
+        </script>
+        
+        
+        </body>
+    </html>
+
+

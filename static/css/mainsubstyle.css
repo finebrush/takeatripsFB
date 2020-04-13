@@ -197,6 +197,8 @@ header {
 .show {display: block;}
 
 /* fb add */
+
+/***** myTrip_detail.html *****/
 .header-detail {
     display: grid;
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
@@ -235,7 +237,7 @@ header {
 .detail-content1 {
     display: grid;
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
-    grid-template-rows: 1.2fr 0.8fr;
+    grid-template-rows: 1.2fr 0fr; /* 0fr 는 없어도 됨 rows 지정하지 않으면 content에 fit 됨 */
     grid-template-areas: 
         ". detail-content1-img detail-content1-img detail-content1-img detail-content1-img ."
         ". detail-content1-text detail-content1-text detail-content1-text detail-content1-text ."
@@ -251,7 +253,7 @@ header {
 .detail-content2 {
     display: grid;
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
-    grid-template-rows: 0fr 1fr;
+    grid-template-rows: 0fr 1fr; /* 앞쪽의 content에 fit 할려면 0fr 넣어준다.  */
     grid-template-areas: 
         ". detail-content1-text detail-content1-text detail-content1-text detail-content1-text ."
         ". detail-content1-img detail-content1-img detail-content1-img detail-content1-img ."
@@ -266,14 +268,16 @@ header {
 .detail-img-four {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* grid-template-rows: 20rem; */
+    grid-template-rows: 20rem;
     grid-gap: 1.5em;
     background-color: white;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 .detail-img-four.two {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr;
 }
 .detail-img-four.sm {
     grid-template-rows: 8rem;
@@ -333,8 +337,9 @@ div.graydiv {
 }
 
 .card-imgsm.imgsize {
-    width: 300px;
+    width: 15rem;
     height: 240px;
+    object-fit: cover;
 }
 
 .footer-menu {
@@ -348,6 +353,152 @@ div.graydiv {
     padding: 5px 0;
 }
 
+/***** myTripguide_detail.html *****/
+.header-guidedetail {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px;
+    grid-template-areas: 
+        ". leftitem leftitem rightitem rightitem ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.leftitem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: leftitem;
+    margin-left: 20px;
+}
+.rightitem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+    grid-area: rightitem;
+    margin-right: 20px;
+}
+
+.imggallery {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+            ". imgcontainer imgcontainer imgcontainer imgcontainer ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    /* margin-top: 100px; */
+}
+.imgcontainer {
+    display: grid;
+    grid-gap: 1rem;
+    background-color: white;
+    grid-area: imgcontainer;
+    padding: 0px 1rem;
+}
+.img3grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+.img2grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+}
+.img-container.marginzero {
+    margin: 0px;
+}
+.infointro {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+            ". infointro-in infointro-in infointro-in infointro-in ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+}
+.infointro-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    background-color: white;
+    grid-area: infointro-in;
+    padding: 2rem 1rem;
+}
+.infointro-in.map {
+    grid-template-columns: 1fr;
+}
+.infointro-in.water {
+    grid-template-columns: 1fr;
+    grid-gap: 0px;
+}
+
+/***** curator_detail.html *****/
+.header-curator {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px;
+    grid-template-areas: 
+        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.header-curator.detail {
+    grid-template-areas: 
+    ". leftitem-c leftitem-c leftitem-c rightitem-c ."
+;
+}
+.leftitem-c {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: leftitem-c;
+    margin-left: 20px;
+}
+.rightitem-c {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+    grid-area: rightitem-c;
+    margin-right: 20px;
+}
+.infointro.curator {
+    padding-top: 80px;
+}
+
+@media screen and (max-width: 900px){
+    .detail-img-four.two {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .detail-img-four {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
 @media screen and (max-width: 640px){
     .header-detail {
         grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
@@ -359,16 +510,16 @@ div.graydiv {
         ;
     }
     .linepartitionsub {
-        height: 231px;
+        height: 251px;
     }
 
     .detailmenu {
         display: flex;
     }
     .detail-content1 {
-        padding-top: 200px;
-        grid-template-rows: 1fr 0.3fr;
+        padding-top: 270px;
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr 0.3fr;
     }
     .detail-img-four {
         grid-template-columns: repeat(2, 1fr);
@@ -387,6 +538,23 @@ div.graydiv {
         height: 240px;
         border-bottom-left-radius: 0px;
         border-top-right-radius: 13px;
+    }
+
+    .img3grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+    }
+    .img2grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+    }
+    h3.font-weight-bold {
+        font-size: 1.5rem;
+    }
+    a>img.wd120 {
+        width: 120px;
     }
 
     .footer-menu {
@@ -411,5 +579,34 @@ div.graydiv {
     .detail-content2 {
         grid-template-rows: 0fr 1fr;
         padding-bottom: 30px;
+    }
+
+    .header-guidedetail {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) ;
+        grid-template-rows: 70px;
+        grid-template-areas: "leftitem leftitem rightitem rightitem";
+    }
+    h3.font-weight-bold {
+        font-size: 1.5rem;
+    }
+    h3.font-weight-bold-c {
+        font-size: 1.2rem;
+    }
+    a>img.wd120 {
+        width: 120px;
+    }
+    .rightitem {
+        margin-right: 30px;
+    }
+    .header-curator.md {
+        grid-template-rows: 70px 70px;
+        grid-template-areas:
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
+    }
+
+    .infointro.curator {
+        padding-top: 150px;
     }
 }

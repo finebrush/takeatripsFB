@@ -1,5 +1,5 @@
 from django import forms
-from backendapp.travels.models import City, InfoTravel, TravelCurator
+from backendapp.travels.models import City, InfoTravel, TravelCurator, TravelPlan
 
 from dal import autocomplete
 from mapwidgets.widgets import GooglePointFieldWidget
@@ -24,7 +24,17 @@ class CityForm(forms.ModelForm):
 			'titleeng': SummernoteWidget(),
 			'titleven': SummernoteWidget(),
         }
-		
+
+class TravelPlanForm(forms.ModelForm):
+	class Meta:
+		model = TravelPlan
+		fields = '__all__'
+		widgets = {
+			'courseinfoko': SummernoteWidget(),
+			'courseinfoeng': SummernoteWidget(),
+			'courseinfoven': SummernoteWidget(),
+		}
+
 # class POIpointAdminForm(forms.ModelForm):
 # 	class Meta:
 # 		model = POIpoint

@@ -99,6 +99,29 @@
         {% endblock %}    
     
         <script>
+
+            // 다국어 변경..
+            $("#selectlang").change(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'set_language' %}",
+                    dataType: "text",
+                    data:{
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        create_token: "create_token",
+                        // next: "redirect_to",
+                        language: $(this).val(),
+
+                    },
+                    error: function(){
+                        console.log("error!!");
+                    },
+                    success: function(){
+                        location.reload();
+                    }
+                })
+            })
+                
             /* When the user clicks on the button, 
             toggle between hiding and showing the dropdown content */
             function myFunction() {

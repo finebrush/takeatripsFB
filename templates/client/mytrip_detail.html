@@ -40,6 +40,7 @@
                 border-bottom-left-radius: 13px;
                 border-top-left-radius: 13px;
                 border-top-right-radius: 0px;
+                object-fit: cover;
             }
             a {
                 text-decoration: none!important;
@@ -47,6 +48,7 @@
         </style>
 
     </head>
+
     <body>
         
         <!-- header -->
@@ -61,10 +63,10 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <a href="#" class="card-link text-dark">{{ tourplan.room }}&middot;{% trans "서울특별시" %}</a>
+                        <a href="#" class="card-link text-dark">{{ tourplan.room }}&middot;{{ citydetails.nameko }}</a>
                     </h3>
                     <div style="margin-bottom: 0px;color:#adadad;">
-                        <small> {{ tourplan.start_date }} ~ {{ tourplan.end_date }}</small>
+                        <small> {{ tourplan.start_date }}({{ wstart }}) ~ {{ tourplan.end_date }}({{ wend }})</small>
                     </div>
                 </div>
             </div>
@@ -203,7 +205,7 @@
                 <div class="detail-title">
                     <h5 class="card-title">Trip 100</h5>
                     <a href="#" style="position: absolute; right: 30px;">
-                        <small style="color:#c83a54;text-decoration: underline;"> 
+                        <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Trip 100 {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
                     </a>
@@ -215,7 +217,7 @@
                         {% for itmust in itmusts|slice:":4" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="#">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itmust.id %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ itmust.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -313,7 +315,7 @@
                 <div class="detail-title">
                     <h5 class="card-title">Hot Trip</h5>
                     <a href="#" style="position: absolute; right: 30px;">
-                        <small style="color:#c83a54;text-decoration: underline;"> 
+                        <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Hot Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
                     </a>
@@ -325,7 +327,7 @@
                         {% for ithot in ithots|slice:":8" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="#">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id ithot.id %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ ithot.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -355,13 +357,61 @@
         </div>
 
 
+        <!-- Must Trip 시작 -->
+        <div class="detail-content2">
+            <div class="detail-content1-text">
+                <div class="detail-title">
+                    <h5 class="card-title">Must Trip</h5>
+                    <a href="#" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
+                            Must Trip {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
+                        </small>
+                    </a>
+                </div> 
+            </div>
+
+            <div class="detail-content1-img">
+                <div class="detail-img-four">
+                        {% for itmust in itmusts|slice:":8" %}
+                        <div class="card" style="height: 100%;">
+                            <div class="card-body p-0">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itmust.id %}">
+                                    <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ itmust.picture1.url }}" alt="Card image">
+                                    <div class="media" style="padding: 20px;color: black;display: grid;">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h5 class="media-heading">{{ itmust.companyko }}</h5> 
+                                            <small style="color:blue;">{{ itmust.get_part_display }}</small><br>
+                                            <!-- <small>{{ itmust.introko|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h5 class="media-heading">{{ itmust.companyeng }}</h5> 
+                                            <small style="color:blue;">{{ itmust.part }}</small><br>
+                                            <!-- <small>{{ itmust.introeng|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h5 class="media-heading">{{ itmust.companyven }}</h5> 
+                                            <small style="color:blue;">{{ itmust.part }}</small><br>
+                                            <!-- <small>{{ itmust.introven|truncatewords:7 }}</small>  -->
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
         <!-- Trip Curator 시작 -->
         <div class="detail-content2">
             <div class="detail-content1-text">
                 <div class="detail-title">
                     <h5 class="card-title">Trip Curator</h5>
-                    <a href="#" style="position: absolute; right: 30px;">
-                        <small style="color:#c83a54;text-decoration: underline;"> 
+                    <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="position: absolute; right: 30px;">
+                        <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Trip Curator {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
                     </a>
@@ -373,7 +423,7 @@
                     {% for travelplan in travelplans|slice:":4" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="#">
+                                <a href="{% url 'clientapp:mycurator_detail' citydetails.id tourplan.id travelplan.id %}">
                                     <img class="card-imgsm imgsize" src="{{ travelplan.poipoint_totals.first.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;height: 240px;">
                                         <div class="media-body">
@@ -413,7 +463,7 @@
                 <div class="detail-title">
                     <h5 class="card-title">My Pick Trip</h5>
                     <a href="#" style="position: absolute; right: 30px;">
-                        <small style="color:#c83a54;text-decoration: underline;"> 
+                        <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             My Pick Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
                     </a>
@@ -425,7 +475,7 @@
                         {% for userlike_it in userlike_its|slice:":8" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="#">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id userlike_it.infotravel.id %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ userlike_it.infotravel.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -655,6 +705,49 @@
                 });
 
             }
+
+            // 다국어 변경..
+            $("#selectlang").change(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'set_language' %}",
+                    dataType: "text",
+                    data:{
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                        create_token: "create_token",
+                        // next: "redirect_to",
+                        language: $(this).val(),
+
+                    },
+                    error: function(){
+                        console.log("error!!");
+                    },
+                    success: function(){
+                        location.reload();
+                    }
+                })
+            })
+
+            /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it /* popup menu.. */
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
         </script>
 
     </body>

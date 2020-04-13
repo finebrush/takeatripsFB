@@ -18,10 +18,15 @@ urlpatterns = [
     path('mytrip_tourplan03/', views.mytrip_tourplan03, name='mytrip_tourplan03'),
     path('mytrip_tourplan04/', views.mytrip_tourplan04, name='mytrip_tourplan04'),
     path('mytrip_tourplan05/', views.mytrip_tourplan05, name='mytrip_tourplan05'),
-    path('mytrip_detail/<int:tourplan_id>/', views.mytrip_detail, name='mytrip_detail'),
+    path('mytrip_detail/<int:city_id>/<int:tourplan_id>/', views.mytrip_detail, name='mytrip_detail'),
+    path('mytrip_detail/<int:city_id>/tripguidedetail/<int:tourplan_id>/<int:tripguide_id>/', views.mytripguide_detail, name='mytripguide_detail'),
+    path('mytrip_detail/<int:city_id>/tripguidedetail/<int:tourplan_id>/<int:tripguide_id>/like/', views.mytripguide_like, name='mytripguide_like'),
+    path('mycurator/<int:city_id>/<int:tourplan_id>/', views.mycurator, name='mycurator'),
+    path('mycurator/<int:city_id>/<int:tourplan_id>/<int:mycurator_id>/', views.mycurator_detail, name='mycurator_detail'),
 
     path('trips/', views.trips, name='trips'),
     path('trip100/', views.trip100, name='trip100'),
+
 
     path('citymain/<int:city_id>/', views.citymain, name='citymain'),
     path('citymain/<int:citydetails_id>/tripguide/<str:partnum>/', views.tripguide, name='tripguide'),

@@ -1,0 +1,743 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <title>TAKE A TRIPS</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <link rel=stylesheet href="{% static 'css/youtubesearch.css' %}">
+        <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+        <script src="{% static 'js/youtubesearch.js' %}"></script>
+        
+        <style>
+            /* Set the size of the div element that contains the map */
+            #map {
+                height: 450px;  /* The height is 400 pixels */
+                width: 100%;  /* The width is the width of the web page */
+            }
+            /* The popup bubble styling. */
+            .popup-bubble {
+                /* Position the bubble centred-above its parent. */
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -100%);
+                /* Style the bubble. */
+                background-color: white;
+                padding: 5px;
+                border-radius: 5px;
+                font-family: sans-serif;
+                overflow-y: auto;
+                max-height: 60px;
+                box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+            }
+            /* The parent of the bubble. A zero-height div at the top of the tip. */
+            .popup-bubble-anchor {
+                /* Position the div a fixed distance above the tip. */
+                position: absolute;
+                width: 100%;
+                bottom: /* TIP_HEIGHT= */ 8px;
+                left: 0;
+            }
+            /* This element draws the tip. */
+            .popup-bubble-anchor::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                /* Center the tip horizontally. */
+                transform: translate(-50%, 0);
+                /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+                width: 0;
+                height: 0;
+                /* The tip is 8px high, and 12px wide. */
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: /* TIP_HEIGHT= */ 8px solid white;
+            }
+            /* JavaScript will position this div at the bottom of the popup tip. */
+            .popup-container {
+                cursor: auto;
+                height: 0;
+                position: absolute;
+                /* The max width of the info window. */
+                width: 200px;
+            }
+            .pict {
+                border-radius: 12px;
+            }
+            .linepart{
+                border-bottom: solid 0.5px #00000022;
+                width: 100%;
+                background-color: white;
+                position: fixed;
+                height: 71px;
+                top:0px;
+            }
+         </style>
+    </head>
+
+
+    <body>
+
+        <!-- header -->
+        <div class="header-curator detail">
+            <div class="leftitem-c">
+                <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                <!-- <div id="back2" style="align-self: center;">
+                    <a href="{% url 'clientapp:mycurator_detail' citydetails.id tourplan.id travelplan.id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div> -->
+        
+                <div style="padding-left: 20px;">
+                    <div style="display: flex;">
+                        <h3 class="font-weight-bold-c" style="margin-bottom: 0px;">
+                            {% if LANGUAGE_CODE == 'ko' %}
+                            <span class="text-dark">{{ travelplan.titleko }}</span>
+                            {% elif LANGUAGE_CODE == 'en' %}
+                            <span class="text-dark">{{ travelplan.titleeng }}</span>
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                            <span class="text-dark">{{ travelplan.titleven }}</span>
+                            {% endif %}
+                        </h3>
+                        <div style="display: flex;align-items: flex-end;margin-left: 5px;font-style: italic; margin-bottom: 0px;font-size: 14px;color: #c1223f;"> 
+                            <font> by : {{ travelplan.writer }}</font>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> 
+                        <font> {% trans "코스타입" %} :</font>
+                
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <font> {{ travelplan.get_course_display }}</font>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <font> {{ travelplan.course }}</font>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <font> {{ travelplan.course }}</font>
+                        {% endif %}
+        
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightitem-c">
+                <div>
+                    <!-- <a href="#youtube" id="btnyt" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
+                    </a> -->
+                    <!-- 인스타 링크가 DB 에 있는 경우/없는 경우 -->
+                    <!-- {% if itdetail.linkinsta %}
+                    <a href="{{ itdetail.linkinsta }}" target="_blank" id="btninsta" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                    </a>
+                    {% else %}
+                    <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
+                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                    </a>
+                    {% endif %} -->
+        
+                    <a href="#" id="btnlike" style="text-decoration: none;">
+                        {% if user in travelplan.like_travelplan.all %}
+                        <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                        {% else %}
+                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                        {% endif %}
+                    </a> 
+                </div>
+            </div>
+        </div>
+
+        <div class="linepart"></div>
+      
+
+
+        <div id="detailbase">
+
+            <!-- 소개정보 .. -->
+            <div class="infointro" style="padding-top: 70px;">
+                <div class="infointro-in map">
+                    <div class="card" style="border:0px;">
+                        <div class="card-body p-0">
+            
+                            {% if LANGUAGE_CODE == 'ko' %}
+                            <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoko | safe }}</p>
+                            {% elif LANGUAGE_CODE == 'en' %}
+                            <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoeng | safe }}</p>
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                            <p class="card-text" style="margin-top: 15px;"> {{ travelplan.courseinfoven | safe }}</p>
+                            {% endif %}
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 대표 이미지 .. -->
+            <!-- <div class="imggallery">
+                <div class="imgcontainer">
+                    <div class="img3grid">
+                        {% for poipoint_total in travelplan.poipoint_totals %}
+
+                            {% if poipoint_total.picture1.url != null %}
+                            <figure class="img-container">
+                                <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture1.url }}">
+                                    <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture1.url }}" />
+                                </a>
+                            </figure>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div> -->
+    
+            
+            <!-- 팝업창 띄우기 -->
+            <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+            <div class="dim-layer">
+                <div class="dimBg"></div>
+                <div id="layer2" class="pop-layer" style="width: fit-content;height: fit-content;margin-top: -250px;margin-left: -275px;">
+                    <div class="pop-container" style="height: 100%;">
+                        <div class="pop-conts">
+                            <!--content //-->
+                            <a href="#" class="layerClose">
+                                <img src="{{ itdetail.picture1.url }}" style="height: 100%; width: auto;" id="picture" />
+                            </a>
+                            <!--// content-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- googlemap.. -->
+            <div class="infointro">
+                <div class="infointro-in map">
+                    <div id="map"></div>
+                    <div id="msg"></div>
+                </div>
+            </div>
+
+
+            <!-- 코디네이터 정보 -->
+            <div class="infointro">
+                <div class="infointro-in water" style="padding-top: 0px;">
+                    <h4 class="card-title" style="color: black;">{% trans "추천 여행 정보" %}</h4>
+                    <div class="linepartblk"></div>
+
+                    {% for poipoint_total in travelplan.poipoint_totals %}
+                    <div style="padding: 20 45px 20px 45px; display: inline-flex; align-items: center;"> 
+                        
+                        {% if forloop.counter == 1 %}
+                        <img src="{% static 'img/t01.png' %}" /> 
+                        {% elif forloop.counter == 2 %}
+                        <img src="{% static 'img/t02.png' %}" /> 
+                        {% elif forloop.counter == 3 %}
+                        <img src="{% static 'img/t03.png' %}" /> 
+                        {% elif forloop.counter == 4 %}
+                        <img src="{% static 'img/t04.png' %}" /> 
+                        {% elif forloop.counter == 5 %}
+                        <img src="{% static 'img/t05.png' %}" /> 
+                        {% elif forloop.counter == 6 %}
+                        <img src="{% static 'img/t06.png' %}" /> 
+                        {% elif forloop.counter == 7 %}
+                        <img src="{% static 'img/t07.png' %}" /> 
+                        {% elif forloop.counter == 8 %}
+                        <img src="{% static 'img/t08.png' %}" /> 
+                        {% elif forloop.counter == 9 %}
+                        <img src="{% static 'img/t09.png' %}" /> 
+                        {% endif %}
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameko }}</h5>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameeng }}</h5>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameven }}</h5>
+                        {% endif %}
+
+                    </div>
+
+                    <!-- 업체 대표 이미지 .. -->
+                    <section class="gallery" style="padding: 20px 0px;">
+                        <div class="imgcontainer" style="padding:0px">
+                            <div class="grid" style="grid-gap: 30px;">
+
+                                {% if poipoint_total.picture1.url != null %}
+                                <div class="column-xs-12 column-md-4">
+                                    <figure class="img-container">
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture1.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture1.url }}" />
+                                        </a>
+                                    </figure>
+                                </div>
+                                {% endif %}
+                                {% if poipoint_total.picture2.url != null %}
+                                <div class="column-xs-12 column-md-4">
+                                    <figure class="img-container">
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture2.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture2.url }}" />
+                                        </a>
+                                    </figure>
+                                </div>
+                                {% endif %}
+                                {% if poipoint_total.picture3.url != null %}
+                                <div class="column-xs-12 column-md-4">
+                                    <figure class="img-container">
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture3.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture3.url }}" />
+                                        </a>
+                                    </figure>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+
+            <!-- django-waterfall 이미지 들어가는 부분.. 
+                    imggallery2.css 때문에 다른 페이지의 waterfall 하고 다르게 <lu / <li 태그 안쓰고 style 다름-->
+            <div class="infointro">
+                <div class="infointro-in water" style="padding-top: 0px;">
+                    <h4 class="card-title" style="color: black;">{% trans "유사한 여행 정보 보기" %}</h4>
+            
+                    <div class="card" style="padding-top: 0px!important; border:0px;">
+                        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                            <div class=waterfall> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+            <script id=waterfall-template type=text/template>
+                {% for itdetail in itdetails %}
+                <div class="list-group">
+                    <div class="list-group-up">
+                        <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                            <img src="{{ itdetail.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> </a>
+                    </div>
+                    <!-- <li class="list-group-item">
+                        <span class="fa fa-heart" style="font-size:16px; float:right;">
+                            <span>{{ itdetail.like_count }}</span>
+                        </span>
+                    </li> -->
+                    <div class="list-group-it">
+                        <div class="media">
+                            <!-- <div class="media-left">
+                                <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                            </div> -->
+                            <div class="media-body">
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <h5 class="media-heading">{{ itdetail.companyko }}</h5> 
+                                <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                                <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <h5 class="media-heading">{{ itdetail.companyeng }}</h5> 
+                                <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <h5 class="media-heading">{{ itdetail.companyven }}</h5> 
+                                <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </script>   
+
+        </div>  <!-- end detailbase -->   
+
+
+        <!-- youtube search -->
+        <!-- <div class="infointro">
+            <div class="infointro-in map">
+                <div id="youtubsearch" style="padding:0 40px;margin-top: 70px;">
+                    <nav class="navbar navbar-light bg-faded">
+                        <div class="row" style="width: 100%;">
+                                <div class="col-sm-2">
+                                    <h4 class="logo" style="width: 100%;"><i class="fa fa-youtube yt"></i><span>youtube search</span></h4>
+                                </div>
+                            <div class="col-sm-10">
+                                <form class="form-inline " id="search-form" name="search-form" onSubmit="return search()">
+                                    <table width="100%">
+                                        <tr>
+                                            <td width="100%">
+                                                <div class="d3 float-right" style="width:100%;" >	
+                                                    <input class="form-control search-field" type="search" id="query" style="width:100%;"  placeholder="Search Youtube">
+                                                    <span class="focus-border">
+                                                        <i></i>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-outline-danger my-2 my-sm-0 " type="submit" id="search-btn"  name="search-btn" value="">Search</button>
+                                            </td>
+                                        </tr>                
+                                    </table>  
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </nav>
+                    
+                    <div class="content-youtube">
+                        <div class="container-fluid" id="results">               
+                            
+                        </div> 
+                
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12"><div id="btn-cnt"></div> </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+        </div> -->
+
+            
+        <!-- Footer -->
+        <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
+            <div style="display: flex; justify-content: center;">
+                <div class="footer-menu">의견 보내기</div>
+                <div class="footer-menu">개인정보처리방침</div>
+                <div class="footer-menu">서비스 약관</div>
+            </div>
+            <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
+        </footer>
+        <!-- Footer -->
+
+
+        <script type="text/javascript">
+            $('.waterfall')
+                .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+                .on('finishing.mystist.waterfall', function() {
+                    setTimeout(function() { // simulate ajax
+                        $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                    }, 2000);
+                })
+                .waterfall()
+             
+            // hide-unhide contents
+            // $('#back2').hide();
+            // $('#map').show();
+            // $('#youtubsearch').hide();
+    
+            // $('#btnyt').click(function(){
+            //     $('#detailbase').hide();
+            //     $('#back1').hide();
+            //     $('#back2').show();
+            //     $('#youtubsearch').show();
+
+            //     //Set form input
+            //     document.getElementById("query").value = "{{ travelplan.titleko }}";
+            //     search();
+                
+            // });
+    
+            // google map Start..
+            // var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay, directionsService;
+            var map;
+            var polyline;
+
+            var locations = new Array();
+            locations = {{ locations|safe }};
+            // console.log(locations);
+            var numicon= [
+                "{% static 'img/num1.png' %}",
+                "{% static 'img/num2.png' %}",
+                "{% static 'img/num3.png' %}",
+                "{% static 'img/num4.png' %}",
+                "{% static 'img/num5.png' %}",
+                "{% static 'img/num6.png' %}",
+                "{% static 'img/num7.png' %}",
+                "{% static 'img/num8.png' %}",
+                "{% static 'img/num9.png' %}"
+            ]
+
+            // 위경도의 두점 사이의 거리 계산..
+            function haversine_distance(lat1, lat2, lng1, lng2) {
+                var R = 6371.0710; // Radius of the Earth in miles
+                var rlat1 = lat1 * (Math.PI/180); // Convert degrees to radians
+                var rlat2 = lat2 * (Math.PI/180); // Convert degrees to radians
+                var difflat = rlat2-rlat1; // Radian difference (latitudes)
+                var difflon = (lng2-lng1) * (Math.PI/180); // Radian difference (longitudes)
+
+                var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+                return d;
+            }
+
+            // Initialize and add the map
+            function initMap() {
+                directionsService = new google.maps.DirectionsService();
+                // The map, centered at.. 
+                //여러 위치의 중심값을 map의 center 로..
+                var locations_x = 0.0;
+                var locations_y = 0.0;
+
+                for(var i = 0; i < locations.length; i++){
+                    locations_x = locations_x + locations[i][1];
+                    locations_y = locations_y + locations[i][2];
+                }
+                var locations_avgx = locations_x / locations.length;
+                var locations_avgy = locations_y / locations.length;
+
+                var centerLatLng = {lat: locations_avgy, lng: locations_avgx};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18, 
+                    center: centerLatLng
+                });
+
+                for(var count = 0; count < locations.length; count++){ 
+
+                    var contentString = '<div id="content" style="text-align: center;">' + 
+                        '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                    
+                    var icon = {
+                        url: numicon[count], // url
+                        scaledSize: new google.maps.Size(40, 40), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(20, 20) // anchor
+                    };
+
+                    // The marker, positioned at Uluru
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[count][2], locations[count][1]),
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: icon
+                    });
+
+                    marker.info = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {  
+                        // this = marker
+                        var marker_map = this.getMap();
+                        this.info.open(marker_map, this);
+                        // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+                    });
+
+                    // // 두점 사이의 직선..count가 2가 되면 location[3] 되면서 존재하지 않음으로 문제 됨..
+                    // if(count != 2){
+                    //     const firstpoint = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                    //     const secondpoint = new google.maps.LatLng(locations[count+1][2], locations[count+1][1]);
+                        // // Draw a line showing the straight distance between the markers
+                        // var line = new google.maps.Polyline({
+                        //     path: [firstpoint, secondpoint], 
+                        //     geodesic: true,
+                        //     strokeColor: '#FF0000',
+                        //     strokeOpacity: 1.0,
+                        //     strokeWeight: 2,
+                        //     map: map
+                        // });
+                        // // Calculate and display the distance between markers
+                        // var distance = haversine_distance(locations[count][2], locations[count+1][2], locations[count][1], locations[count+1][1]);
+                        // // document.getElementById('msg').innerHTML += "Distance between markers: " + distance + " km.";
+                        // // console.log(distance);
+
+                        // // 길찾기 경로 표시 .. TRANSIT 만 됨
+                        // // var start = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                        // //var end = new google.maps.LatLng(locations[count][2], locations[count][1]);
+                        // // console.log(start);
+                        
+                        // // plotDirections(start, end);
+                    // }
+                }
+
+                // 테스트로 마포에서 종로까지 경로.. https://jsfiddle.net/upsidown/9jb2nvt8/ 여기서는 잘됨..
+                // var start = new google.maps.LatLng(37.5592722, 126.9281438);
+                // var end = new google.maps.LatLng(37.570016, 126.999006); 
+                // // console.log(start);
+                
+                // plotDirections(start, end);
+
+            }
+
+            // 길 찾기 함수..
+            function plotDirections(start, end) {
+
+                var method = 'TRANSIT'; // DRIVING, BICYCLING, TRANSIT, WALKING -> TRANSIT 만 활성화 됨..
+
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.DirectionsTravelMode[method],
+                    provideRouteAlternatives: true
+                };
+                // console.log(destination);
+
+                directionsService.route(request, function(response, status) {
+
+                    if (status == google.maps.DirectionsStatus.OK) {
+
+                        var routes = response.routes;
+                        var colors = ['red', 'green', 'blue', 'orange', 'yellow', 'black'];
+                        var directionsDisplays = [];
+
+                        // Reset the start and end variables to the actual coordinates
+                        start = response.routes[0].legs[0].start_location;
+                        end = response.routes[0].legs[0].end_location;
+
+                            // Loop through each route
+                        for (var i = 0; i < routes.length; i++) {
+                            var directionsDisplay = new google.maps.DirectionsRenderer({
+                                map: map,
+                                directions: response,
+                                routeIndex: i,
+                                draggable: true,
+                                polylineOptions: {
+
+                                strokeColor: colors[i],
+                                strokeWeight: 4,
+                                strokeOpacity: .3
+                                }
+                            });
+
+                            // Push the current renderer to an array
+                            directionsDisplays.push(directionsDisplay);
+
+                            // Listen for the directions_changed event for each route
+                            google.maps.event.addListener(directionsDisplay, 'directions_changed', (function(directionsDisplay, i) {
+                                return function() {
+                                    var directions = directionsDisplay.getDirections();
+                                    var new_start = directions.routes[0].legs[0].start_location;
+                                    var new_end = directions.routes[0].legs[0].end_location;
+
+                                    if ((new_start.toString() !== start.toString()) || (new_end.toString() !== end.toString())) {
+                                        // Remove every route from map
+                                        for (var j = 0; j < directionsDisplays.length; j++) {
+                                            directionsDisplays[j].setMap(null);
+                                        }
+                                        // Redraw routes with new start/end coordinates
+                                        plotDirections(new_start, new_end);
+                                    }
+                                }
+                            })(directionsDisplay, i)); // End listener
+                        } // End route loop
+                    }
+                });
+            }
+    
+            // 팝업창 띄우기..
+            $('.btn-example').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href);
+    
+                // 클릭한 이미지를 새창으로 띄운다..
+                var $id = $(this).attr('id');
+                // console.log($id);
+                switch($id){
+                    case 'p1':
+                        var $picture = $(document.getElementById('picture1')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p2':
+                        var $picture = $(document.getElementById('picture2')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p3':
+                        var $picture = $(document.getElementById('picture3')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p4':
+                        var $picture = $(document.getElementById('picture4')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p5':
+                        var $picture = $(document.getElementById('picture5')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p6':
+                        var $picture = $(document.getElementById('picture6')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p7':
+                        var $picture = $(document.getElementById('picture7')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p8':
+                        var $picture = $(document.getElementById('picture8')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p9':
+                        var $picture = $(document.getElementById('picture9')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+                    case 'p10':
+                        var $picture = $(document.getElementById('picture10')).attr('src');
+                        $(document.getElementById('picture')).attr('src', $picture);
+                        break;
+    
+                }
+            });
+    
+            function layer_popup(el){
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+                
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+    
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+    
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight /2,
+                        marginLeft: -$elWidth/2
+                    })
+                } else {
+                    $el.css({top: 0, left: 0});
+                }
+    
+                $el.find('a.layerClose').click(function(){
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    return false;
+                });
+    
+                $('.dimBg').click(function(){
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+            }
+    
+        </script>
+    
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
+        </script>
+        
+        
+    </body>
+</html>

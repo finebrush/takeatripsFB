@@ -1,0 +1,163 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <title>TAKE A TRIPS</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+        <style>
+            .linepart{
+                border-bottom: solid 0.5px #00000022;
+                width: 100%;
+                background-color: white;
+                position: fixed;
+                height: 71px;
+                top:0px;
+            }
+         </style>
+    </head>
+
+
+    <body>
+
+        <!-- header -->
+        <div class="header-curator md">
+            <div class="leftitem-c">
+                <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytrip_detail' city_id=citydetails.id tourplan_id=tourplan.id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+        
+                <div style="padding-left: 20px;">
+                    <h3 class="font-weight-bold" style="margin-bottom: 0px;">
+                        <span class="text-dark">Trip Curator</span>
+                    </h3>
+                    <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <font> &middot; {{ citydetails.nameko }}</font>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <font> &middot; {{ citydetails.nameeng }}</font>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <font> &middot; {{ citydetails.nameven }}</font>
+                        {% endif %}
+        
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightitem-c">
+                <div style="    display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; margin-right: 10px;">
+                    <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
+                        <i class="fa fa-map-o" style="font-size:24px;"></i>
+                    </a> -->
+                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                        <img class="wd120" src="{% static 'img/icon_arbtn.png' %}" />
+                    </a>
+        
+                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                        <img class="wd120" src="{% static 'img/icon_mypickbtn.png' %}" />
+                    </a> 
+                </div>
+            </div>
+        </div>
+
+        <div class="linepart"></div>
+      
+        <!-- django-waterfall 이미지 들어가는 부분.. -->
+        <div class="infointro curator">
+            <div class="infointro-in water">
+                <div class="card" style="padding-top: 0px!important; border:0px;">
+                    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                        <div class=waterfall> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DB 에서 tripcourse(travelplan) 가져오기... -->
+        <script id=waterfall-template type=text/template>
+            {% for travelplan in travelplans %}
+            <ul class="list-group" style="position:relative">
+                <a href="{% url 'clientapp:mycurator_detail' citydetails.id tourplan.id travelplan.id %}" style="text-decoration: none;list-style: none;"> 
+                    <li class="list-group-up">
+                            <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> 
+                    </li>
+                    <li class="list-group-it">
+                        <div class="media" style="color: black;display: grid;">
+                            <div class="media-body">
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
+                                <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
+                                <!-- <small style="color:blue;">{{ travelplan.get_course_display }}</small>  -->
+                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </small>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
+                                <small>{{ travelplan.courseinfoeng|truncatewords:10 }}</small><br>
+                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
+                                <small>{{ travelplan.courseinfoven|truncatewords:10 }}</small><br>
+                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small> 
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
+                    <a href="#like"> 
+                        <img src="{% static 'img/icon_mypick57off.png' %}" alt=""> </a>
+                    <!-- <span class="fa fa-map-marker" style="font-size:16px; float:left;">
+                        <span>{{ travelplan.inlinecount }}</span>
+                    </span> -->
+                </li>
+            </ul>
+            {% endfor %}
+        </script>
+
+            
+        <!-- Footer -->
+        <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
+            <div style="display: flex; justify-content: center;">
+                <div class="footer-menu">의견 보내기</div>
+                <div class="footer-menu">개인정보처리방침</div>
+                <div class="footer-menu">서비스 약관</div>
+            </div>
+            <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
+        </footer>
+        <!-- Footer -->
+
+
+        <script type="text/javascript">
+            $('.waterfall')
+                .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+                .on('finishing.mystist.waterfall', function() {
+                    setTimeout(function() { // simulate ajax
+                        $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+                    }, 2000);
+                })
+                .waterfall()
+      
+        </script>
+ 
+        
+    </body>
+</html>

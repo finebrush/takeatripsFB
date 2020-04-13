@@ -7,7 +7,7 @@ from django.contrib.gis import admin
 from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
 
 from .widgets import AdminImageWidget
-from .forms import TForm, CityForm
+from .forms import TForm, CityForm, TravelPlanForm
 
 from leaflet.admin import LeafletGeoAdmin
 
@@ -222,6 +222,7 @@ class TCImageAdmin(admin.ModelAdmin):
         return super(TCImageAdmin,self).formfield_for_dbfield(db_field, **kwargs)
 
 class TravelPlanAdmin(admin.ModelAdmin):
+    form = TravelPlanForm
     icon_name = 'edit_location'
     list_display = ('titleko', 'inlinecount', 'created')
     inlines = [POIpointInline]

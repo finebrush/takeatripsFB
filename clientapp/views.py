@@ -96,8 +96,8 @@ def mytrip_tourplan05(request):
     
     return render(request, 'client/mytrip_tourplan05.html', {'citydetails':citydetails, 'current_user': current_user, 'pinbuys':pinbuys})
 
-def mytrip_detail(request, tourplan_id):
-    city_id = 1 # 서울을 기준으로 ..
+def mytrip_detail(request, city_id, tourplan_id):
+    # city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
@@ -120,17 +120,20 @@ def mytrip_detail(request, tourplan_id):
     userlike_tps = tpcitylikes.filter(user=request.user)
 
     picture_url = ''
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
     
     if request.user.is_authenticated: # 로그인 했다면..
         social = SocialAccount.objects.filter(user=request.user)
         # 유저가 생성한 여행계획 중 한개..
         tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+        wstart = weekday[tourplan.start_date.weekday()]
+        wend = weekday[tourplan.end_date.weekday()]
         if social.exists(): # social 로그인 했는지 체크..   
             if social[0].provider == 'facebook':
                 picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
             elif social[0].provider == 'google':
                 picture_url = social[0].extra_data.picture
-
+    
     # 도시마다 must 구분..
     if city_id == 1: # if seoul..
         itmusts = InfoTravel.objects.filter( Q(city_id=1) & Q(typeit=1) & Q(asset__isnull=False)) # tripguide 중 seoul 이고 must 이고 asset true 인것..
@@ -142,7 +145,81 @@ def mytrip_detail(request, tourplan_id):
     return render(request, 'client/mytrip_detail.html', {'city_id':city_id, 'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
             'travelcurators':travelcurators, 'itmusts':itmusts, 'travelplans':travelplans, 'sns_picture':picture_url, 'tourplan':tourplan,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'buy_itdetail':buy_itdetail, 'ithots':ithots,
-            'userlike_its':userlike_its, 'userlike_tps':userlike_tps })
+            'userlike_its':userlike_its, 'userlike_tps':userlike_tps, 'wstart':wstart, 'wend':wend })
+
+def mytripguide_detail(request, city_id, tourplan_id, tripguide_id):
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    itdetail = InfoTravel.objects.get(id=tripguide_id)
+    # print(itdetail.like_infotravel.all())
+    if tourplan_id == 0:
+        fromhtml = False # mytrips에서 mytripguide_detail 로 바로 진입..
+    else:
+        fromhtml = True # mytrip_detail에서 mytripguide_detail 로 진입..
+    
+    return render(request, 'client/mytripguide_detail.html', {'city_id':city_id, 'tourplan_id':tourplan_id, 'itdetails':itdetails, 'itdetail':itdetail, 'fromhtml':fromhtml })
+
+@login_required
+def mytripguide_like(request, city_id, tourplan_id, tripguide_id):
+    post = get_object_or_404(InfoTravel, pk=tripguide_id)
+    # print(post.like_infotravel.all())
+    if request.user in post.like_infotravel.all():
+        deltrip = Likeit.objects.get(infotravel_id=tripguide_id, user=request.user)
+        deltrip.delete()
+        # print(Likeit.objects.get(infotravel_id=tripguide_id, user=request.user))
+    else:
+        savetrip = Likeit.objects.create(infotravel_id=tripguide_id, user_id=request.user.id)
+        savetrip.save()
+        # print(Likeit.objects.get(user=request.user))
+    
+    return redirect('/mytrip_detail/'+str(city_id)+'/tripguidedetail/'+str(tourplan_id)+'/'+str(tripguide_id))
+
+def mycurator(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+    
+    return render(request, 'client/mycurator.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'travelplans':travelplans, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend })
+
+def mycurator_detail(request, city_id, tourplan_id, mycurator_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+    travelplans = TravelPlan.objects.filter(city_id=city_id)
+    travelplan = TravelPlan.objects.get(id=mycurator_id)
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    locations = []
+    for poipoint in travelplan.poipoint_totals:
+        point = []
+        point.append(poipoint.pnameko)
+        point.append(poipoint.point.x)
+        point.append(poipoint.point.y)
+
+        locations.append(point)
+
+    pictures = []
+    for poipoint in travelplan.poipoint_totals:
+        picture = []
+        picture.append(poipoint.picture1.name) # path 저장시 name 으로..
+        picture.append(poipoint.picture2.name)
+        picture.append(poipoint.picture3.name)
+        picture.append(poipoint.picture4.name)
+        # print(picture)
+        pictures.append(picture)
+    
+    return render(request, 'client/mycurator_detail.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
+                            'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })
 
 def trips(request):
     city_id = 1 # 서울을 기준으로 ..

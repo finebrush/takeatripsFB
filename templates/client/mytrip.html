@@ -41,7 +41,7 @@
                         </div>
                         <div style="font-size: 2rem; display: flex; justify-content: center;">
                             <button class="button button-white" style="margin-right: 10px;">
-                                <a href="{% url 'clientapp:mytrip_detail' tourplan.id %}" style="text-decoration: none;">세부 정보 보기</a>
+                                <a href="{% url 'clientapp:mytrip_detail' citydetails.id tourplan.id %}" style="text-decoration: none;">세부 정보 보기</a>
                             </button>
                             <button class="button button-white">
                                 <a href="#" style="text-decoration: none;">내 숙소 찾기</a>
@@ -147,7 +147,8 @@
             {% for itdetail in itdetails %}
             <ul class="list-group">
                 <li class="list-group-up">
-                    <a href="javascript:itdetailpath('{{ itdetail.part }}', {{ citydetails.id }}, {{ itdetail.id }});"> 
+                    <!-- '0' 는 mytrip.html(home) 에서 바로 mytripguide_detail 로 진입한다는 의미..여행 계획만들어 그안에서 진입하게 되면 tourplan.id 로 진입.. -->
+                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id %}"> 
                         <img src="{{ itdetail.picture1.url }}" alt=""> </a>
                 </li>
                 <!-- <li class="list-group-it">
