@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div class="btnTourplanNext">
-                <a id="btnnextlink" style="background: none;"  href="{% url 'clientapp:mytrip' %}">
+                <a id="btnnextlink" style="background: none;"  href="#">
                     <button id="btnnext" class="button button-redrect" onclick="esselected()">다음</button>
                 </a>
             </div>
@@ -252,6 +252,8 @@
                         xhr.setRequestHeader("postman-token", "1f7d9a63-2608-f001-1df1-96d22f40fc7d");
 
                         xhr.send(data);
+
+                        location.href="{% url 'clientapp:mytrip' %}";
                         
                     },
                     error : function(xhr,errmsg,err) {

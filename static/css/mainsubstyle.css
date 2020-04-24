@@ -453,7 +453,7 @@ div.graydiv {
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
     grid-template-rows: 70px;
     grid-template-areas: 
-        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
+        ". leftitem-c rightitem-c rightitem-c rightitem-c ."
     ;
     align-items: center;
     justify-content: center;
@@ -486,6 +486,42 @@ div.graydiv {
 }
 .infointro.curator {
     padding-top: 80px;
+}
+
+/***** trip1_list *****/
+.wd120 {
+    width: 8em;
+}
+.tripinfoarea {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    /* grid-template-rows: 70px; */
+    grid-template-areas: 
+        "triplist tripmap"
+    ;
+    align-items: center;
+    justify-content: center;
+    /* position: fixed; */
+    background-color: white;
+    width: 100%;
+    /* z-index: 9999;
+    top:0px; */
+}
+.triplist {
+    display: grid;
+    /* align-items: center;
+    justify-content: flex-start; */
+    background-color: white;
+    grid-area: triplist;
+    /* margin-left: 20px; */
+}
+.tripmap {
+    display: block;
+    /* align-items: center;
+    justify-content: flex-end;
+    background-color: white; */
+    grid-area: tripmap;
+    /* margin-right: 20px; */
 }
 
 @media screen and (max-width: 900px){
@@ -609,4 +645,46 @@ div.graydiv {
     .infointro.curator {
         padding-top: 150px;
     }
+}
+
+/* mytrip list */
+.tripguideList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tripguideList .list-group {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 12px;
+    position: relative;
+}
+
+.tripguideList .list-group .list-group-up {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group .list-group-it {
+    padding: 15px;
+    background-color: white;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.tripguideList .list-group>li:first-child {
+    padding: 0;
+    background-color: #fff;
+}
+
+.tripguideList .list-group>li:first-child img {
+    width: 100%;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group>li {
+    background-color: #f5f5f5;
+    list-style:none;
 }

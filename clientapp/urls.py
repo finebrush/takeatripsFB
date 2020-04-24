@@ -23,6 +23,11 @@ urlpatterns = [
     path('mytrip_detail/<int:city_id>/tripguidedetail/<int:tourplan_id>/<int:tripguide_id>/like/', views.mytripguide_like, name='mytripguide_like'),
     path('mycurator/<int:city_id>/<int:tourplan_id>/', views.mycurator, name='mycurator'),
     path('mycurator/<int:city_id>/<int:tourplan_id>/<int:mycurator_id>/', views.mycurator_detail, name='mycurator_detail'),
+    path('mytrip100_eat/<int:city_id>/<int:tourplan_id>/', views.mytrip100_eat, name='mytrip100_eat'),
+    path('pagelist/<int:city_id>/<int:tourplan_id>/', views.post_list_ajax, name='post_list_ajax'),
+    path('mytrip100_drink/<int:city_id>/<int:tourplan_id>/', views.mytrip100_drink, name='mytrip100_drink'),
+    path('mytrip100_fun/<int:city_id>/<int:tourplan_id>/', views.mytrip100_fun, name='mytrip100_fun'),
+    path('mytrip100_buy/<int:city_id>/<int:tourplan_id>/', views.mytrip100_buy, name='mytrip100_buy'),
 
     path('trips/', views.trips, name='trips'),
     path('trip100/', views.trip100, name='trip100'),

@@ -9,6 +9,7 @@ from django.http import *
 from django.core import serializers
 import random
 from django.utils import translation
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.http import HttpResponse
 from backendapp.travels.models import ( POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, 
@@ -220,6 +221,151 @@ def mycurator_detail(request, city_id, tourplan_id, mycurator_id):
     return render(request, 'client/mycurator_detail.html', {'citydetails':citydetails, 'current_user': current_user,
                             'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
                             'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })
+
+def mytrip100_eat(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    # itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) #-> tripguide 모두.데이터부족으로 테스트하기위해..
+
+    ## 페이지로 넘길때 사용.
+    # paginator = Paginator(itdetails, 6)
+    # page = request.POST.get('page')
+    # eat_itdetails = paginator.get_page(page)
+
+    eat_itdetails = itdetails
+
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytrip100_eat.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'eat_itdetails':eat_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
+
+# 페이지로 넘길때 사용...
+def post_list_ajax(request, city_id, tourplan_id): #Ajax 로 호출하는 함수
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+
+    # itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) #-> tripguide 모두.데이터부족으로 테스트하기위해..
+    paginator = Paginator(itdetails, 6)
+    page = request.POST.get('page')
+    if int(page) <= paginator.num_pages: # 마지막 페이지 체크하여 크면 빈 데이터 넘긴다..
+        eat_itdetails = paginator.get_page(page)
+    else:
+        eat_itdetails = ""
+
+    return render(request, 'client/post_list_ajax.html', { 'citydetails':citydetails, 'current_user': current_user,
+                            'eat_itdetails':eat_itdetails, 'tourplan':tourplan, 'page':page }) #Ajax 로 호출하는 템플릿은 _ajax로 표시.
+
+def mytrip100_drink(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    drink_itdetails = itdetails
+
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytrip100_drink.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'drink_itdetails':drink_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
+
+def mytrip100_fun(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    fun_itdetails = itdetails
+
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytrip100_fun.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'fun_itdetails':fun_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
+
+def mytrip100_buy(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    buy_itdetails = itdetails
+    
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytrip100_buy.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'buy_itdetails':buy_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
 
 def trips(request):
     city_id = 1 # 서울을 기준으로 ..

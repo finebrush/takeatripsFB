@@ -86,6 +86,7 @@
                 position: fixed;
                 height: 71px;
                 top:0px;
+                z-index: 999;
             }
          </style>
     </head>
@@ -629,27 +630,27 @@
                 
             });
     
-            // Initialize and add the map
-            function initMap() {
-                // console.log("{{ itdetail.itlocation.x }}");
+            // // Initialize and add the map
+            // function initMap() {
+            //     // console.log("{{ itdetail.itlocation.x }}");
                 
-                // The location of Uluru
-                var uluru = {lat: {{ itdetail.itlocation.y }}, lng: {{ itdetail.itlocation.x }}};
-                // The map, centered at Uluru
-                var map = new google.maps.Map(
-                    document.getElementById('map'), {zoom: 16, center: uluru});
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({position: uluru, map: map});
+            //     // The location of Uluru
+            //     var uluru = {lat: {{ itdetail.itlocation.y }}, lng: {{ itdetail.itlocation.x }}};
+            //     // The map, centered at Uluru
+            //     var map = new google.maps.Map(
+            //         document.getElementById('map'), {zoom: 16, center: uluru});
+            //     // The marker, positioned at Uluru
+            //     var marker = new google.maps.Marker({position: uluru, map: map});
     
-                // Info Window
-                var infoWindow = new google.maps.InfoWindow({
-                        pixelOffset: new google.maps.Size(0,-50),
-                        content: document.getElementById('content')
-                });
-                infoWindow.setPosition(uluru);
-                // infoWindow.setContent("{{ itdetail.companyko }}");
-                infoWindow.open(map);
-            }
+            //     // Info Window
+            //     var infoWindow = new google.maps.InfoWindow({
+            //             pixelOffset: new google.maps.Size(0,-50),
+            //             content: document.getElementById('content')
+            //     });
+            //     infoWindow.setPosition(uluru);
+            //     // infoWindow.setContent("{{ itdetail.companyko }}");
+            //     infoWindow.open(map);
+            // }
     
             // 팝업창 띄우기..
             $('.btn-example').click(function(){
@@ -738,9 +739,9 @@
     
         </script>
     
-        <script async defer
+        <!-- <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
-        </script>
+        </script> -->
         
         
         </body>

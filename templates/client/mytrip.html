@@ -50,34 +50,48 @@
                     </div>
                 </div>
                 <div class="tourplan2">
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
-                        TRIP 100
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_hottrip24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        HOT TRIP
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_musttrip24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        MUST TRIP
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        TRIP GUIDE
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        AR TRIP
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        TRIP CURATOR
-                    </button>
-                    <button class="btnTourplan">
-                        <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
-                        GO TO CITY
-                    </button>
+                    <a href="{% url 'clientapp:mytrip100_eat' citydetails.id tourplan.id %}" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
+                            TRIP 100
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">    
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_hottrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            HOT TRIP
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_musttrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            MUST TRIP
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            TRIP GUIDE
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            AR TRIP
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            TRIP CURATOR
+                        </button>
+                    </a>
+                    <a href="#" style="display: contents;">
+                        <button class="btnTourplan">
+                            <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
+                            GO TO CITY
+                        </button>
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -195,7 +209,7 @@
 
     function tourplanDelet(num){
         var settings = {
-            "async": true,
+            "async": false, // 동기식으로 변경.. 기본 비동기로 true 임..서버의 결과를 기달렸다 진행..
             "crossDomain": true,
             "url": "http://localhost:8000/api/tourplan/"+num+"/",
             "method": "DELETE",
