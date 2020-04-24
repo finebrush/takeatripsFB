@@ -50,7 +50,7 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <span class="text-dark">Trip100</span>
+                        <span class="text-dark">Trip Guide</span>
                     </h3>
                     <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
                         
@@ -64,12 +64,19 @@
         
                     </div>
                 </div>
+                <!-- 상단 좌측 메뉴 / search -->
+                <div class="pull-left" style="padding-top: 6px;margin-left: 1em;">
+                    <form id="demo-1" method="POST" action="{% url 'clientapp:searchtrips' citydetails.id tourplan.id %}">
+                    {% csrf_token %}
+                    <input type="search" name="srhwd" placeholder="Search Tag">
+                    </form>
+                </div>
             </div>
 
             <div class="rightitem-c">
                 <div class="submenu">
                     <div class="tab">
-                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip100_eat' citydetails.id tourplan.id %}';" >먹다</button>
+                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytripguide_eat' citydetails.id tourplan.id %}';" >먹다</button>
                         <button style="cursor: pointer;" class="tablinks2" onclick="window.location.href = '{% url 'clientapp:mytrip100_drink' citydetails.id tourplan.id %}';">마시다</button>
                         <button style="cursor: pointer;" class="tablinks3" onclick="window.location.href = '{% url 'clientapp:mytrip100_fun' citydetails.id tourplan.id %}';">놀다</button>
                         <button style="cursor: pointer;" class="tablinks4" onclick="window.location.href = '{% url 'clientapp:mytrip100_buy' citydetails.id tourplan.id %}';">사다</button>

@@ -1,4 +1,4 @@
-{% extends 'client/mytrip100_head.html' %}
+{% extends 'client/mytripguide_head.html' %}
 
 {% load i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -11,13 +11,14 @@
         <div class="card" style="padding-top: 0px!important; border:0px;">
             <div class=container style="margin:0px; padding:0px; max-width:1920px;">
                 <div class="col-md-7 col-sm-7">
+                    <div style="position: absolute;top: -35px;font-size: 1.2em;"> Search Result </div>
                     <!-- 이전 상위 컨텐츠 목록 -->
                     <div id="tripguideBeforeList" class="tripguideList">
-                        {% for drink_itdetail in drink_itdetails %}
-                        <ul class="list-group" name="ul{{ drink_itdetail.id }}">
+                        {% for match in matchs %}
+                        <ul class="list-group" name="ul{{ match.id }}">
                             <li class="list-group-up">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id drink_itdetail.id %}"> 
-                                    <img id="{{ drink_itdetail.id }}" src="{{ drink_itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id match.id %}"> 
+                                    <img id="{{ match.id }}" src="{{ match.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
                                 </a>
                             </li>
                             <li class="list-group-it">
@@ -25,25 +26,25 @@
                                     <div class="media-body">
 
                                         {% if LANGUAGE_CODE == 'ko' %}
-                                        <h6 class="media-heading">{{ drink_itdetail.companyko }}</h6> 
-                                        <small style="color:blue;">{{ drink_itdetail.get_part_display }}</small><br>
-                                        <!-- <small>{{ drink_itdetail.introko|truncatewords:7 }}</small>  -->
+                                        <h6 class="media-heading">{{ match.companyko }}</h6> 
+                                        <small style="color:blue;">{{ match.get_part_display }}</small><br>
+                                        <!-- <small>{{ match.introko|truncatewords:7 }}</small>  -->
                                         {% elif LANGUAGE_CODE == 'en' %}
-                                        <h6 class="media-heading">{{ drink_itdetail.companyeng }}</h6> 
-                                        <small style="color:blue;">{{ drink_itdetail.part }}</small><br>
-                                        <!-- <small>{{ drink_itdetail.introeng|truncatewords:7 }}</small>  -->
+                                        <h6 class="media-heading">{{ match.companyeng }}</h6> 
+                                        <small style="color:blue;">{{ match.part }}</small><br>
+                                        <!-- <small>{{ match.introeng|truncatewords:7 }}</small>  -->
                                         {% elif LANGUAGE_CODE == 'vi' %}
-                                        <h6 class="media-heading">{{ drink_itdetail.companyven }}</h6> 
-                                        <small style="color:blue;">{{ drink_itdetail.part }}</small><br>
-                                        <!-- <small>{{ drink_itdetail.introven|truncatewords:7 }}</small>  -->
+                                        <h6 class="media-heading">{{ match.companyven }}</h6> 
+                                        <small style="color:blue;">{{ match.part }}</small><br>
+                                        <!-- <small>{{ match.introven|truncatewords:7 }}</small>  -->
                                         {% endif %}
 
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                                <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id drink_itdetail.id %}" id="btnlike" style="text-decoration: none;">
-                                    {% if user in drink_itdetail.like_infotravel.all %}
+                                <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id match.id %}" id="btnlike" style="text-decoration: none;">
+                                    {% if user in match.like_infotravel.all %}
                                     <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                                     {% else %}
                                     <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
@@ -73,9 +74,9 @@
 
 
 <script type="text/javascript">
-    var tablinks;
-    tablinks = document.getElementsByClassName("tablinks2");
-    tablinks[0].className += " active";
+    // var tablinks;
+    // tablinks = document.getElementsByClassName("tablinks1");
+    // tablinks[0].className += " active";
 
 
     // google map Start..
@@ -122,6 +123,8 @@
             var contentString = '<div id="content" style="text-align: center;">' + 
                 '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
             
+                console.log(locations[count][3]);
+                
             // like or unlike 에 따라 poi 선택..
             if (locations[count][3] == 1) {
                 var icon = {
@@ -167,10 +170,11 @@
                 this.info.open(marker_map, this);
                 
                 var ul = document.getElementsByName('ul'+this.id);
+                
                 if (ul.length > 0){
                     ul[0].classList.add("boxshadow");
                 }
-                
+
                 var newIcon = {
                     url: this.icon.url, // url
                     scaledSize: new google.maps.Size(40, 52), // scaled size

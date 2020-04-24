@@ -453,7 +453,7 @@ div.graydiv {
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
     grid-template-rows: 70px;
     grid-template-areas: 
-        ". leftitem-c rightitem-c rightitem-c rightitem-c ."
+        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
     ;
     align-items: center;
     justify-content: center;

@@ -17,6 +17,7 @@ from backendapp.travels.models import ( POIpoint, City, InfoTravel, Likeit, Trav
 from backendapp.arcontent.models import ARTrip
 from backendapp.common.models import PinEat, PinDrink, PinFun, PinBuy
 
+### ------ home / myTrips ----------------------------------------------------------------------------------------------------
 def mytrip(request):
     city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -97,6 +98,36 @@ def mytrip_tourplan05(request):
     
     return render(request, 'client/mytrip_tourplan05.html', {'citydetails':citydetails, 'current_user': current_user, 'pinbuys':pinbuys})
 
+### ------ myTripGuide ----------------------------------------------------------------------------------------------------
+def mytripguide_eat(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
+  
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytripguide_eat.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
+
 def mytrip_detail(request, city_id, tourplan_id):
     # city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -174,6 +205,7 @@ def mytripguide_like(request, city_id, tourplan_id, tripguide_id):
     
     return redirect('/mytrip_detail/'+str(city_id)+'/tripguidedetail/'+str(tourplan_id)+'/'+str(tripguide_id))
 
+### ------ myCurator ----------------------------------------------------------------------------------------------------
 def mycurator(request, city_id, tourplan_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
@@ -222,6 +254,7 @@ def mycurator_detail(request, city_id, tourplan_id, mycurator_id):
                             'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
                             'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })
 
+### ------ myTrip100 ----------------------------------------------------------------------------------------------------
 def mytrip100_eat(request, city_id, tourplan_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
@@ -367,6 +400,8 @@ def mytrip100_buy(request, city_id, tourplan_id):
     return render(request, 'client/mytrip100_buy.html', {'citydetails':citydetails, 'current_user': current_user,
                             'buy_itdetails':buy_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
 
+
+### ------ Trips ----------------------------------------------------------------------------------------------------------
 def trips(request):
     city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -389,6 +424,8 @@ def trips(request):
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
             'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
 
+
+### ------ Trip100 ----------------------------------------------------------------------------------------------------
 def trip100(request):
     city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -411,7 +448,62 @@ def trip100(request):
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'see_itdetail':see_itdetail, 
             'sleep_itdetail':sleep_itdetail, 'buy_itdetail':buy_itdetail, 'topmenuoff':topmenuoff, 'travelcurators':travelcurators, 'travelplans':travelplans })
 
-# 기존...
+### ------ 기타.. ----------------------------------------------------------------------------------------------------
+def searchtrips(request, city_id, tourplan_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+    
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+
+    locations = []
+    if request.method=='POST':
+        srch = request.POST['srhwd']
+        if srch:
+            # 한단어만 넣어야 결과가 나옴..한 도시에서만 검색하기 위함..전체->InfoTravel.objects.filter로..
+            # matchs = itdetails.filter(Q(tagko__name__icontains=srch) |
+            #                                     Q(tageng__name__icontains=srch) |
+            #                                     Q(tagven__name__icontains=srch)
+            #                                     )
+
+            # 여러 단어 넣으도 결과 나옴, 단 단어가 포함된 결과는 안나오고 딱! 일치한 것만..
+            searchwords=srch.split(' ')
+            matchs = itdetails.filter(Q(tagko__name__in=searchwords) |
+                                                Q(tageng__name__in=searchwords) |
+                                                Q(tagven__name__in=searchwords)
+                                                ).distinct()
+
+            if matchs:
+                for match in matchs:
+                    point = []
+                    point.append(match.companyko)
+                    point.append(match.itlocation.x)
+                    point.append(match.itlocation.y)
+                    # 좋아요 체크 여부..
+                    if current_user in match.like_infotravel.all():
+                        point.append(1)
+                    else:
+                        point.append(0)
+                    point.append(match.id)
+
+                    locations.append(point)
+                    
+                return render(request, 'client/mytripguide_search.html', {'citydetails':citydetails, 'tourplan':tourplan,
+                                    'locations':locations, 'current_user':current_user, 'matchs':matchs })
+            else:
+                messages.error(request, 'no result found!')
+        else:
+            return HttpResponseRedirect('search/'+city_id+'/')
+
+    return render(request, 'client/mytripguide_search.html', {'citydetails':citydetails, 'tourplan':tourplan, 
+                            'locations':locations, 'current_user':current_user, })
+
+
+### 기존 ...................................................................................................................
 def home(request):
     city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)

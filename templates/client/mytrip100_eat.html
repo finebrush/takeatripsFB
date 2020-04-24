@@ -82,8 +82,11 @@
     // var directionsService = new google.maps.DirectionsService();
     var directionsDisplay, directionsService;
     var map;
-    var locations = new Array();
     locations = {{ locations|safe }};
+    // console.log(locations);
+    if (locations.length < 1){
+        locations = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
+    }
     var markers = [];
 
     var numicon= [
@@ -120,14 +123,21 @@
                 '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
             
             // like or unlike 에 따라 poi 선택..
-            if (locations[count][3]){
+            if (locations[count][3] == 1) {
                 var icon = {
                     url: numicon[3], // url
                     scaledSize: new google.maps.Size(30, 38), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(15, 38) // anchor
                 };
-            }else{
+            }else if (locations[count][3] == 2) {
+                var icon = {
+                    url: numicon[0], // url
+                    scaledSize: new google.maps.Size(30, 38), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                    anchor: new google.maps.Point(15, 38) // anchor
+                };
+            }else {
                 var icon = {
                     url: numicon[2], // url
                     scaledSize: new google.maps.Size(30, 38), // scaled size
@@ -157,7 +167,9 @@
                 this.info.open(marker_map, this);
                 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.add("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.add("boxshadow");
+                }
                 
                 var newIcon = {
                     url: this.icon.url, // url
@@ -174,7 +186,9 @@
                 this.info.close(marker_map, this);
 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.remove("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.remove("boxshadow");
+                }
 
                 var newIcon = {
                     url: this.icon.url, // url
