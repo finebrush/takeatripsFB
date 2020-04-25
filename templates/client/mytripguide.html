@@ -13,7 +13,7 @@
                 <div class="col-md-7 col-sm-7">
                     <!-- 이전 상위 컨텐츠 목록 -->
                     <div id="tripguideBeforeList" class="tripguideList">
-                        {% for itdetail in itdetails %}
+                        {% for itdetail in itdetails|slice:":9" %}
                         <ul class="list-group" name="ul{{ itdetail.id }}">
                             <li class="list-group-up">
                                 <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
@@ -53,8 +53,31 @@
                         </ul>
                         {% endfor %}
                     </div>
-                    <div id="tripguideScroll"></div>
-                    <input id="page" type="hidden" value="2"> 
+
+                    <div style="text-align: center;margin: 2em;">
+                        <a href="{% url 'clientapp:mytripguide_list' citydetails.id tourplan.id 1 0 %}">
+                            <button class="btn btn-default" style="border-radius: 30px;background-color: #c01d39;color: white;border: none;padding: 10px 30px;outline: none;">
+                                여행정보 모두 보기
+                            </button>
+                        </a>
+                    </div>
+
+                    <!-- pineat / tourplan 생성시 선택한 취향.. -->
+                    <div class="col-md-12"> 내 취향별 여행 정보 </div>
+                    {% for pinstyle in pinstyles %}
+                    <div class="col-md-4" style="padding: 10px;">
+                        <div class="card-body text-center p-0">
+                            <a class="smcard" href="{% url 'clientapp:mytripguide_list' citydetails.id tourplan.id pinnum pinstyle.id %}">
+                                <img class="card-imgsm smcardimg" src="{{ pinstyle.picture.url }}" style="height: 120px;">
+                                <div class="graydiv"></div>
+                                <div class="smcardiv">
+                                        <h4 class="card-title" style="color: white;">{{ pinstyle.nameko }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
                 </div>
 
                 <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
@@ -73,10 +96,6 @@
 
 
 <script type="text/javascript">
-    var tablinks;
-    tablinks = document.getElementsByClassName("tablinks1");
-    tablinks[0].className += " active";
-
 
     // google map Start..
     // var directionsService = new google.maps.DirectionsService();
@@ -179,7 +198,7 @@
                     anchor: new google.maps.Point(20, 52) // anchor
                 }
                 this.setIcon(newIcon);
-                // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+                
             });
             google.maps.event.addListener(marker, 'mouseout', function() {  
                 // this = marker
@@ -199,7 +218,6 @@
                 }
                 this.setIcon(newIcon);
 
-                // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
             });
             
         }
@@ -217,48 +235,6 @@
     // tripguide 스크롤 start..
     $(function() {
 
-        // // 스크롤 감지하여 페이지로 가져올때...start...
-        // var didScroll = false;
-            
-        // $(window).on('scroll', function() { didScroll = true; });
-
-        // setInterval(function() {
-        //     var bottomHeight = $(window).scrollTop() + $(window).height() + 600;
-        //     var docHeight = $(document).height();
-
-        //     if (didScroll) {
-        //         didScroll = false;
-        //         if (bottomHeight > docHeight) {
-        //             var page = $('#page').val();
-        //             callMorePostAjax(page);
-        //             $('#page').val(parseInt(page)+1);
-        //         }
-        //     }
-        // }, 250);
-
-        // // 다음 페이지 가져오기..
-        // function callMorePostAjax(page) {
-        //     $.ajax( {
-        //         type : "POST",
-        //         url: "{% url 'clientapp:post_list_ajax' citydetails.id tourplan.id %}",
-        //         data: {
-        //             csrfmiddlewaretoken: '{{ csrf_token }}',
-        //                         create_token: 'create_token',
-        //             "page": page,
-        //         },
-        //         success: addMorePostAjax,
-        //         dataType: "html",
-        //         // async:false,
-        //     });
-        // }
-
-        // // 다음페이지 붙여 넣기...
-        // function addMorePostAjax(data, textStatus, jqXHR) {
-        //     $("#tripguideScroll").append(data);
-        // } 
-        //// 스크롤 감지하여 페이지로 가져올때...end...
-
-
         $('img').hover(function(){
             console.log($(this).attr('id'));
             var id = $(this).attr('id');
@@ -266,9 +242,6 @@
             // console.log(ul[0].classList);
            
             if (id != undefined ){
-                // console.log(markers[0].icon.scaledSize.width);
-                // markers[id].icon.scaledSize.width = 40;
-                // markers[id].icon.scaledSize.height = 50;
                 ul[0].classList.add("boxshadow");
                 // console.log(markers[id]);
                 markers[id].setAnimation(google.maps.Animation.BOUNCE);

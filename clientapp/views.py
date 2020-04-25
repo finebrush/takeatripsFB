@@ -13,7 +13,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.http import HttpResponse
 from backendapp.travels.models import ( POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, 
-                            TCImage, TravelPlan, Liketp, POIpoint, TourPlan )
+                            TCImage, TravelPlan, Liketp, POIpoint, TourPlan, EatPart, DrinkPart, FunPart, BuyPart )
 from backendapp.arcontent.models import ARTrip
 from backendapp.common.models import PinEat, PinDrink, PinFun, PinBuy
 
@@ -98,36 +98,6 @@ def mytrip_tourplan05(request):
     
     return render(request, 'client/mytrip_tourplan05.html', {'citydetails':citydetails, 'current_user': current_user, 'pinbuys':pinbuys})
 
-### ------ myTripGuide ----------------------------------------------------------------------------------------------------
-def mytripguide_eat(request, city_id, tourplan_id):
-    citydetails = get_object_or_404(City, pk=city_id)
-    current_user = request.user
-
-    weekday = ['월', '화', '수', '목', '금', '토', '일']
-    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
-    wstart = weekday[tourplan.start_date.weekday()]
-    wend = weekday[tourplan.end_date.weekday()]
-
-    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
-  
-    locations = []
-    for itdetail in itdetails:
-        point = []
-        point.append(itdetail.companyko)
-        point.append(itdetail.itlocation.x)
-        point.append(itdetail.itlocation.y)
-        # 좋아요 체크 여부..
-        if current_user in itdetail.like_infotravel.all():
-            point.append(1)
-        else:
-            point.append(0)
-        point.append(itdetail.id)
-
-        locations.append(point)
-    
-    return render(request, 'client/mytripguide_eat.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
-
 def mytrip_detail(request, city_id, tourplan_id):
     # city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -178,6 +148,120 @@ def mytrip_detail(request, city_id, tourplan_id):
             'travelcurators':travelcurators, 'itmusts':itmusts, 'travelplans':travelplans, 'sns_picture':picture_url, 'tourplan':tourplan,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'buy_itdetail':buy_itdetail, 'ithots':ithots,
             'userlike_its':userlike_its, 'userlike_tps':userlike_tps, 'wstart':wstart, 'wend':wend })
+
+
+### ------ myTripGuide ----------------------------------------------------------------------------------------------------
+def mytripguide(request, city_id, tourplan_id, pinnum):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    if pinnum == 0: # 0선택없음 / 1먹다 / 2마시다 / 3놀다 / 4사다..선택했을 경우..
+        pinstyles = tourplan.pineat.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) 
+    elif pinnum == 1:
+        pinstyles = tourplan.pineat.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False))
+    elif pinnum == 2:
+        pinstyles = tourplan.pindrink.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False))
+    elif pinnum == 3:
+        pinstyles = tourplan.pinfun.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False))
+    elif pinnum == 4:
+        pinstyles = tourplan.pinbuy.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False)) 
+        
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+    
+    return render(request, 'client/mytripguide.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
+                            'pinstyles':pinstyles , 'pinnum':pinnum })
+
+def mytripguide_list(request, city_id, tourplan_id, pinnum, style_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.none() # 빈 쿼리셋 만듬기..
+    temparts = EatPart.objects.filter(pin__id=style_id) # pineat id 로 EatPart 모델 가져오기..
+    if pinnum == 0: # 0선택없음 / 1먹다 / 2마시다 / 3놀다 / 4사다..선택했을 경우..
+        pinstyles = tourplan.pineat.all()
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) 
+    elif pinnum == 1:
+        pinstyles = tourplan.pineat.all()
+        if style_id == 0: # style 이 선택되지 않았을 경우..
+            itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False))
+        else: # style 이 선택 되어졌을 경우..
+            ittemps = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False))
+            for tempart in temparts: # 가져온 EatPart 도델이 해당하는 InfoTravel 모델 가져와서 병합...
+                itdetails = itdetails.union(ittemps.filter(eatpart__id=tempart.id))
+    elif pinnum == 2:
+        pinstyles = tourplan.pindrink.all() 
+        if style_id == 0:
+            itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False))
+        else:
+            ittemps = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False))
+            for tempart in temparts: # 가져온 EatPart 도델이 해당하는 InfoTravel 모델 가져와서 병합...
+                itdetails = itdetails.union(ittemps.filter(drinkpart__id=tempart.id)) 
+    elif pinnum == 3:
+        pinstyles = tourplan.pinfun.all() 
+        if style_id == 0:
+            itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False))
+        else:
+            ittemps = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False))
+            for tempart in temparts: # 가져온 EatPart 도델이 해당하는 InfoTravel 모델 가져와서 병합...
+                itdetails = itdetails.union(ittemps.filter(funpart__id=tempart.id)) 
+    elif pinnum == 4:
+        pinstyles = tourplan.pinbuy.all()
+        if style_id == 0:
+            itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False)) 
+        else:
+            ittemps = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False))
+            for tempart in temparts: # 가져온 EatPart 도델이 해당하는 InfoTravel 모델 가져와서 병합...
+                itdetails = itdetails.union(ittemps.filter(buypart__id=tempart.id)) 
+  
+    print(itdetails)
+
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+
+    return render(request, 'client/mytripguide_list.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
+                            'pinstyles':pinstyles, 'pinnum':pinnum, 'style_id':style_id })
 
 def mytripguide_detail(request, city_id, tourplan_id, tripguide_id):
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))

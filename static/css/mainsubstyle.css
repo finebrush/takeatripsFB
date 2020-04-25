@@ -446,6 +446,30 @@ div.graydiv {
     grid-template-columns: 1fr;
     grid-gap: 0px;
 }
+.header-tripguide{
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px 50px;
+    grid-template-areas: 
+        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
+        ". triptype triptype triptype triptype ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.triptype {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: triptype;
+    margin-left: 20px;
+}
 
 /***** curator_detail.html *****/
 .header-curator {

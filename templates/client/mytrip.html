@@ -68,7 +68,7 @@
                             MUST TRIP
                         </button>
                     </a>
-                    <a href="{% url 'clientapp:mytripguide_eat' citydetails.id tourplan.id %}" style="display: contents;">
+                    <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP GUIDE
@@ -80,7 +80,7 @@
                             AR TRIP
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP CURATOR

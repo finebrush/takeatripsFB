@@ -141,7 +141,7 @@
                             MUST TRIP
                         </button>
                     </a>
-                    <a href="{% url 'clientapp:mytripguide_eat' citydetails.id tourplan.id %}" style="display: contents;">
+                    <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_tripguide24.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP GUIDE
@@ -153,7 +153,7 @@
                             AR TRIP
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_tripcurator24.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP CURATOR
@@ -275,7 +275,7 @@
                     
                         <div class="card" style="height: 100%;">
                             <div class="card-body text-center p-0">
-                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Eat' %}">
+                                <a class="smcard" href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
                                     <img class="card-imgsm smcardimg" src="{{ eat_itdetail.picture1.url }}" alt="Card image">
                                     <div class="graydiv"></div>
                                     <div class="smcardiv">
@@ -286,7 +286,7 @@
                         </div>
                         <div class="card" style="height: 100%;">
                             <div class="card-body text-center p-0">
-                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Drink' %}">
+                                <a class="smcard" href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 2 %}">
                                     <img class="card-imgsm smcardimg" src="{{ drink_itdetail.picture1.url }}" alt="Card image">
                                     <div class="graydiv"></div>
                                     <div class="smcardiv">
@@ -297,7 +297,7 @@
                         </div>
                         <div class="card" style="height: 100%;">
                             <div class="card-body text-center p-0">
-                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Fun' %}">
+                                <a class="smcard" href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 3 %}">
                                     <img class="card-imgsm smcardimg" src="{{ fun_itdetail.picture1.url }}" alt="Card image">
                                     
                                     <div class="graydiv"></div><div class="smcardiv">
@@ -308,7 +308,7 @@
                         </div>
                         <div class="card" style="height: 100%;">
                             <div class="card-body text-center p-0">
-                                <a class="smcard" href="{% url 'clientapp:tripguide' citydetails_id=citydetails.id partnum='Buy' %}">
+                                <a class="smcard" href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 4 %}">
                                     <img class="card-imgsm smcardimg" src="{{ buy_itdetail.picture1.url }}" alt="Card image">
                                     <div class="graydiv"></div>
                                     <div class="smcardiv">
