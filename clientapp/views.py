@@ -190,7 +190,7 @@ def mytripguide(request, city_id, tourplan_id, pinnum):
         point.append(itdetail.id)
 
         locations.append(point)
-    
+
     return render(request, 'client/mytripguide.html', {'citydetails':citydetails, 'current_user': current_user,
                             'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
                             'pinstyles':pinstyles , 'pinnum':pinnum })
@@ -242,7 +242,7 @@ def mytripguide_list(request, city_id, tourplan_id, pinnum, style_id):
             for tempart in temparts: # 가져온 EatPart 도델이 해당하는 InfoTravel 모델 가져와서 병합...
                 itdetails = itdetails.union(ittemps.filter(buypart__id=tempart.id)) 
   
-    print(itdetails)
+    # print(itdetails)
 
     locations = []
     for itdetail in itdetails:
@@ -262,6 +262,52 @@ def mytripguide_list(request, city_id, tourplan_id, pinnum, style_id):
     return render(request, 'client/mytripguide_list.html', {'citydetails':citydetails, 'current_user': current_user,
                             'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
                             'pinstyles':pinstyles, 'pinnum':pinnum, 'style_id':style_id })
+
+def mytripguide_pick(request, city_id, tourplan_id, pinnum):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+
+    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
+    wstart = weekday[tourplan.start_date.weekday()]
+    wend = weekday[tourplan.end_date.weekday()]
+
+    itdetails = InfoTravel.objects.none() # 빈 쿼리 생성..
+    tmplikes = Likeit.objects.filter(user=request.user) # 유저의 like 여행정보..
+    
+    if pinnum == 1:
+        for tmplike in tmplikes: # like 모델에 있는 여행정보 id 로 여행정보 모델 가져오기..
+            itdetails = itdetails.union(InfoTravel.objects.filter(Q(id=tmplike.infotravel.id) & Q(part='Eat')))
+    elif pinnum == 2:
+        for tmplike in tmplikes: # like 모델에 있는 여행정보 id 로 여행정보 모델 가져오기..
+            itdetails = itdetails.union(InfoTravel.objects.filter(Q(id=tmplike.infotravel.id) & Q(part='Drink')))
+    elif pinnum == 3:
+        for tmplike in tmplikes: # like 모델에 있는 여행정보 id 로 여행정보 모델 가져오기..
+            itdetails = itdetails.union(InfoTravel.objects.filter(Q(id=tmplike.infotravel.id) & Q(part='Fun')))
+    elif pinnum == 4:
+        for tmplike in tmplikes: # like 모델에 있는 여행정보 id 로 여행정보 모델 가져오기..
+            itdetails = itdetails.union(InfoTravel.objects.filter(Q(id=tmplike.infotravel.id) & Q(part='Buy')))
+  
+    # print(itdetails)
+
+    locations = []
+    for itdetail in itdetails:
+        point = []
+        point.append(itdetail.companyko)
+        point.append(itdetail.itlocation.x)
+        point.append(itdetail.itlocation.y)
+        # 좋아요 체크 여부..
+        if current_user in itdetail.like_infotravel.all():
+            point.append(1)
+        else:
+            point.append(0)
+        point.append(itdetail.id)
+
+        locations.append(point)
+
+    return render(request, 'client/mytripguide_pick.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
+                            'pinnum':pinnum })
 
 def mytripguide_detail(request, city_id, tourplan_id, tripguide_id):
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
@@ -287,7 +333,7 @@ def mytripguide_like(request, city_id, tourplan_id, tripguide_id):
         savetrip.save()
         # print(Likeit.objects.get(user=request.user))
     
-    return redirect('/mytrip_detail/'+str(city_id)+'/tripguidedetail/'+str(tourplan_id)+'/'+str(tripguide_id))
+    return redirect('/mytripguide_detail/'+str(city_id)+'/'+str(tourplan_id)+'/'+str(tripguide_id))
 
 ### ------ myCurator ----------------------------------------------------------------------------------------------------
 def mycurator(request, city_id, tourplan_id):
@@ -303,12 +349,12 @@ def mycurator(request, city_id, tourplan_id):
     return render(request, 'client/mycurator.html', {'citydetails':citydetails, 'current_user': current_user,
                             'travelplans':travelplans, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend })
 
-def mycurator_detail(request, city_id, tourplan_id, mycurator_id):
+def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
     travelplans = TravelPlan.objects.filter(city_id=city_id)
-    travelplan = TravelPlan.objects.get(id=mycurator_id)
+    travelplan = TravelPlan.objects.get(id=travelplan_id)
 
     weekday = ['월', '화', '수', '목', '금', '토', '일']
     tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
@@ -338,8 +384,23 @@ def mycurator_detail(request, city_id, tourplan_id, mycurator_id):
                             'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
                             'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })
 
+@login_required
+def mycurator_like(request, city_id, tourplan_id, travelplan_id):
+    post = get_object_or_404(TravelPlan, pk=travelplan_id)
+    # print(post.like_infotravel.all())
+    if request.user in post.like_travelplan.all():
+        deltrip = Liketp.objects.get(travelplan_id=travelplan_id, user=request.user)
+        deltrip.delete()
+        # print(Likeit.objects.get(infotravel_id=tripguide_id, user=request.user))
+    else:
+        savetrip = Liketp.objects.create(travelplan_id=travelplan_id, user_id=request.user.id)
+        savetrip.save()
+        # print(Likeit.objects.get(user=request.user))
+    
+    return redirect('/mycurator_detail/'+str(city_id)+'/'+str(tourplan_id)+'/'+str(travelplan_id))
+
 ### ------ myTrip100 ----------------------------------------------------------------------------------------------------
-def mytrip100_eat(request, city_id, tourplan_id):
+def mytrip100(request, city_id, tourplan_id, pinnum):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
 
@@ -348,15 +409,21 @@ def mytrip100_eat(request, city_id, tourplan_id):
     wstart = weekday[tourplan.start_date.weekday()]
     wend = weekday[tourplan.end_date.weekday()]
 
-    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
-    # itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) #-> tripguide 모두.데이터부족으로 테스트하기위해..
+    if pinnum == 0: # 0선택없음 / 1먹다 / 2마시다 / 3놀다 / 4사다..선택했을 경우..
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False)) 
+    elif pinnum == 1:
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Eat') & Q(asset__isnull=False)) #-> eat tripguide 만..
+    elif pinnum == 2:
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False))
+    elif pinnum == 3:
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False))
+    elif pinnum == 4:
+        itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False)) 
 
     ## 페이지로 넘길때 사용.
     # paginator = Paginator(itdetails, 6)
     # page = request.POST.get('page')
-    # eat_itdetails = paginator.get_page(page)
-
-    eat_itdetails = itdetails
+    # itdetails = paginator.get_page(page)
 
     locations = []
     for itdetail in itdetails:
@@ -373,8 +440,8 @@ def mytrip100_eat(request, city_id, tourplan_id):
 
         locations.append(point)
     
-    return render(request, 'client/mytrip100_eat.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'eat_itdetails':eat_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
+    return render(request, 'client/mytrip100.html', {'citydetails':citydetails, 'current_user': current_user, 'pinnum':pinnum,
+                            'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
 
 # 페이지로 넘길때 사용...
 def post_list_ajax(request, city_id, tourplan_id): #Ajax 로 호출하는 함수
@@ -394,7 +461,8 @@ def post_list_ajax(request, city_id, tourplan_id): #Ajax 로 호출하는 함수
     return render(request, 'client/post_list_ajax.html', { 'citydetails':citydetails, 'current_user': current_user,
                             'eat_itdetails':eat_itdetails, 'tourplan':tourplan, 'page':page }) #Ajax 로 호출하는 템플릿은 _ajax로 표시.
 
-def mytrip100_drink(request, city_id, tourplan_id):
+### ------ my gotocity ----------------------------------------------------------------------------------------------------------
+def mygotocity(request, city_id, tourplan_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
 
@@ -403,87 +471,8 @@ def mytrip100_drink(request, city_id, tourplan_id):
     wstart = weekday[tourplan.start_date.weekday()]
     wend = weekday[tourplan.end_date.weekday()]
 
-    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Drink') & Q(asset__isnull=False)) #-> eat tripguide 만..
-    drink_itdetails = itdetails
-
-    locations = []
-    for itdetail in itdetails:
-        point = []
-        point.append(itdetail.companyko)
-        point.append(itdetail.itlocation.x)
-        point.append(itdetail.itlocation.y)
-        # 좋아요 체크 여부..
-        if current_user in itdetail.like_infotravel.all():
-            point.append(1)
-        else:
-            point.append(0)
-        point.append(itdetail.id)
-
-        locations.append(point)
-    
-    return render(request, 'client/mytrip100_drink.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'drink_itdetails':drink_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
-
-def mytrip100_fun(request, city_id, tourplan_id):
-    citydetails = get_object_or_404(City, pk=city_id)
-    current_user = request.user
-
-    weekday = ['월', '화', '수', '목', '금', '토', '일']
-    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
-    wstart = weekday[tourplan.start_date.weekday()]
-    wend = weekday[tourplan.end_date.weekday()]
-
-    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Fun') & Q(asset__isnull=False)) #-> eat tripguide 만..
-    fun_itdetails = itdetails
-
-    locations = []
-    for itdetail in itdetails:
-        point = []
-        point.append(itdetail.companyko)
-        point.append(itdetail.itlocation.x)
-        point.append(itdetail.itlocation.y)
-        # 좋아요 체크 여부..
-        if current_user in itdetail.like_infotravel.all():
-            point.append(1)
-        else:
-            point.append(0)
-        point.append(itdetail.id)
-
-        locations.append(point)
-    
-    return render(request, 'client/mytrip100_fun.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'fun_itdetails':fun_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
-
-def mytrip100_buy(request, city_id, tourplan_id):
-    citydetails = get_object_or_404(City, pk=city_id)
-    current_user = request.user
-
-    weekday = ['월', '화', '수', '목', '금', '토', '일']
-    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
-    wstart = weekday[tourplan.start_date.weekday()]
-    wend = weekday[tourplan.end_date.weekday()]
-
-    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(part='Buy') & Q(asset__isnull=False)) #-> eat tripguide 만..
-    buy_itdetails = itdetails
-    
-    locations = []
-    for itdetail in itdetails:
-        point = []
-        point.append(itdetail.companyko)
-        point.append(itdetail.itlocation.x)
-        point.append(itdetail.itlocation.y)
-        # 좋아요 체크 여부..
-        if current_user in itdetail.like_infotravel.all():
-            point.append(1)
-        else:
-            point.append(0)
-        point.append(itdetail.id)
-
-        locations.append(point)
-    
-    return render(request, 'client/mytrip100_buy.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'buy_itdetails':buy_itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations })
-
+    return render(request, 'client/mygotocity.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'tourplan':tourplan, 'wstart':wstart, 'wend':wend })
 
 ### ------ Trips ----------------------------------------------------------------------------------------------------------
 def trips(request):

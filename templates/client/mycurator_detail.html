@@ -155,7 +155,7 @@
                     </a>
                     {% endif %} -->
         
-                    <a href="#" id="btnlike" style="text-decoration: none;">
+                    <a href="{% url 'clientapp:mycurator_like' citydetails.id tourplan.id travelplan.id %}" id="btnlike" style="text-decoration: none;">
                         {% if user in travelplan.like_travelplan.all %}
                         <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                         {% else %}

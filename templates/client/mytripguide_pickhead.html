@@ -33,6 +33,9 @@
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
          </style>
+         {% block header %}
+         
+         {% endblock %}
     </head>
 
 
@@ -50,7 +53,7 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <span class="text-dark">Trip100</span>
+                        <span class="text-dark">Pick My Trip</span>
                     </h3>
                     <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
                         
@@ -64,15 +67,22 @@
         
                     </div>
                 </div>
+                <!-- 상단 좌측 메뉴 / search -->
+                <!-- <div class="pull-left" style="padding-top: 6px;margin-left: 1em;">
+                    <form id="demo-1" method="POST" action="{% url 'clientapp:searchtrips' citydetails.id tourplan.id %}">
+                    {% csrf_token %}
+                    <input type="search" name="srhwd" placeholder="Search Tag" style="border-radius: 30px;">
+                    </form>
+                </div> -->
             </div>
 
             <div class="rightitem-c">
                 <div class="submenu">
                     <div class="tab">
-                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 1 %}';" >먹다</button>
-                        <button style="cursor: pointer;" class="tablinks2" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 2 %}';">마시다</button>
-                        <button style="cursor: pointer;" class="tablinks3" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 3 %}';">놀다</button>
-                        <button style="cursor: pointer;" class="tablinks4" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 4 %}';">사다</button>
+                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 1 %}';" >먹다</button>
+                        <button style="cursor: pointer;" class="tablinks2" onclick="window.location.href = '{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 2 %}';">마시다</button>
+                        <button style="cursor: pointer;" class="tablinks3" onclick="window.location.href = '{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 3 %}';">놀다</button>
+                        <button style="cursor: pointer;" class="tablinks4" onclick="window.location.href = '{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 4 %}';">사다</button>
                     </div>
                 </div>
 
@@ -84,9 +94,9 @@
                         <img class="wd120" src="{% static 'img/icon_arbtn.png' %}" />
                     </a>
         
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                    <!-- <a href="#" style="text-decoration: none; cursor: pointer;">
                         <img class="wd120" src="{% static 'img/icon_mypickbtn.png' %}" />
-                    </a> 
+                    </a>  -->
                 </div>
             </div>
         </div>
@@ -108,7 +118,7 @@
             <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
         </footer>
         <!-- Footer -->
-
+        
         <script>
             var tablinks;
             var pinnum = {{ pinnum }};
@@ -118,7 +128,6 @@
 
   
         </script>
-
         
     </body>
 </html>

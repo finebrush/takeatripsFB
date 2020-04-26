@@ -63,7 +63,7 @@
             </div>
 
             <div class="rightitem-c">
-                <div style="    display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; margin-right: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; margin-right: 10px;">
                     <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                         <i class="fa fa-map-o" style="font-size:24px;"></i>
                     </a> -->
@@ -71,7 +71,7 @@
                         <img class="wd120" src="{% static 'img/icon_arbtn.png' %}" />
                     </a>
         
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                    <a href="{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 1 %}" style="text-decoration: none; cursor: pointer;">
                         <img class="wd120" src="{% static 'img/icon_mypickbtn.png' %}" />
                     </a> 
                 </div>
@@ -124,8 +124,13 @@
                     </li>
                 </a>
                 <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                    <a href="#like"> 
-                        <img src="{% static 'img/icon_mypick57off.png' %}" alt=""> </a>
+                    <a href="{% url 'clientapp:mycurator_like' citydetails.id tourplan.id travelplan.id %}"> 
+                        {% if user in travelplan.like_travelplan.all %}
+                        <img src="{% static 'img/icon_mypick57on.png' %}" alt=""> 
+                        {% else %}
+                        <img src="{% static 'img/icon_mypick57off.png' %}" alt=""> 
+                        {% endif %}
+                    </a>
                     <!-- <span class="fa fa-map-marker" style="font-size:16px; float:left;">
                         <span>{{ travelplan.inlinecount }}</span>
                     </span> -->

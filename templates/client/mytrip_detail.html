@@ -123,7 +123,7 @@
 
             <div class="detailmenu">
                 <div class="tourplan2">
-                    <a href="{% url 'clientapp:mytrip100_eat' citydetails.id tourplan.id %}" style="display: contents;">
+                    <a href="{% url 'clientapp:mytrip100' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP 100
@@ -159,7 +159,7 @@
                             TRIP CURATOR
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:mygotocity' citydetails.id tourplan.id %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
                             GO TO CITY
@@ -218,7 +218,7 @@
             <div class="detail-content1-text">
                 <div class="detail-title">
                     <h5 class="card-title">Trip 100</h5>
-                    <a href="{% url 'clientapp:mytrip100_eat' citydetails.id tourplan.id %}" style="position: absolute; right: 30px;">
+                    <a href="{% url 'clientapp:mytrip100' citydetails.id tourplan.id 1 %}" style="position: absolute; right: 30px;">
                         <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Trip 100 {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>

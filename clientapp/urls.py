@@ -23,16 +23,17 @@ urlpatterns = [
     path('mytripguide/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mytripguide, name='mytripguide'),
     path('mytripguide_list/<int:city_id>/<int:tourplan_id>/<int:pinnum>/<int:style_id>/', views.mytripguide_list, name='mytripguide_list'),
     path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/', views.mytripguide_detail, name='mytripguide_detail'),
+    path('mytripguide_pick/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mytripguide_pick, name='mytripguide_pick'),
     path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/like/', views.mytripguide_like, name='mytripguide_like'),
     
     path('mycurator/<int:city_id>/<int:tourplan_id>/', views.mycurator, name='mycurator'),
-    path('mycurator/<int:city_id>/<int:tourplan_id>/<int:mycurator_id>/', views.mycurator_detail, name='mycurator_detail'),
+    path('mycurator_detail/<int:city_id>/<int:tourplan_id>/<int:travelplan_id>/', views.mycurator_detail, name='mycurator_detail'),
+    path('mycurator_detail/<int:city_id>/<int:tourplan_id>/<int:travelplan_id>/like', views.mycurator_like, name='mycurator_like'),
     
-    path('mytrip100_eat/<int:city_id>/<int:tourplan_id>/', views.mytrip100_eat, name='mytrip100_eat'),
+    path('mytrip100/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mytrip100, name='mytrip100'),
     path('pagelist/<int:city_id>/<int:tourplan_id>/', views.post_list_ajax, name='post_list_ajax'),
-    path('mytrip100_drink/<int:city_id>/<int:tourplan_id>/', views.mytrip100_drink, name='mytrip100_drink'),
-    path('mytrip100_fun/<int:city_id>/<int:tourplan_id>/', views.mytrip100_fun, name='mytrip100_fun'),
-    path('mytrip100_buy/<int:city_id>/<int:tourplan_id>/', views.mytrip100_buy, name='mytrip100_buy'),
+
+    path('mygotocity/<int:city_id>/<int:tourplan_id>/', views.mygotocity, name='mygotocity'),
 
     path('trips/', views.trips, name='trips'),
     path('trip100/', views.trip100, name='trip100'),

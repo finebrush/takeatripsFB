@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="tourplan2">
-                    <a href="{% url 'clientapp:mytrip100_eat' citydetails.id tourplan.id %}" style="display: contents;">
+                    <a href="{% url 'clientapp:mytrip100' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_trip10024.png' %}" style="width: 16px;margin-right: 10px;" />
                             TRIP 100
@@ -86,7 +86,7 @@
                             TRIP CURATOR
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:mygotocity' citydetails.id tourplan.id %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_gotocity24.png' %}" style="width: 16px;margin-right: 10px;" />
                             GO TO CITY

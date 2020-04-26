@@ -50,7 +50,7 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <span class="text-dark">Trip100</span>
+                        <span class="text-dark">Trip Guide</span>
                     </h3>
                     <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
                         
@@ -69,25 +69,11 @@
             <div class="rightitem-c">
                 <div class="submenu">
                     <div class="tab">
-                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 1 %}';" >먹다</button>
-                        <button style="cursor: pointer;" class="tablinks2" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 2 %}';">마시다</button>
-                        <button style="cursor: pointer;" class="tablinks3" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 3 %}';">놀다</button>
-                        <button style="cursor: pointer;" class="tablinks4" onclick="window.location.href = '{% url 'clientapp:mytrip100' citydetails.id tourplan.id 4 %}';">사다</button>
+                        <button style="cursor: pointer;" class="tablinks1" onclick="show_airplane();">공항철도</button>
+                        <button style="cursor: pointer;" class="tablinks2" onclick="show_bus();">버스</button>
                     </div>
                 </div>
 
-                <div style="margin-right: 10px;">
-                    <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
-                        <i class="fa fa-map-o" style="font-size:24px;"></i>
-                    </a> -->
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
-                        <img class="wd120" src="{% static 'img/icon_arbtn.png' %}" />
-                    </a>
-        
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
-                        <img class="wd120" src="{% static 'img/icon_mypickbtn.png' %}" />
-                    </a> 
-                </div>
             </div>
         </div>
 
@@ -108,17 +94,6 @@
             <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
         </footer>
         <!-- Footer -->
-
-        <script>
-            var tablinks;
-            var pinnum = {{ pinnum }};
-            
-            tablinks = document.getElementsByClassName("tablinks"+pinnum);
-            tablinks[0].className += " active";
-
-  
-        </script>
-
         
     </body>
 </html>
