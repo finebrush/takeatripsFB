@@ -17,7 +17,7 @@
         {% if user.is_authenticated %}
             {% for tourplan in tourplans %}
             <div class="tourplan" style="margin: 10px;">
-                <div class="tourplan1" style="background-image: url({{ citydetails.picture1.url }});">
+                <div class="tourplan1" style="background-image: url({{ tourplan.pic_url }});">
                     <div class="darkplan"></div>
                     <div style="display: flex; justify-content: flex-end;">
                         <div class="dropdown" style="margin: 0 10px;">
@@ -239,7 +239,6 @@
     var tablinks;
     tablinks = document.getElementsByClassName("tablinks1");
     tablinks[0].className += " active";
-
 
     function mytripDropdown(num) {
         document.getElementById("tripDropdown"+num).classList.toggle("show");

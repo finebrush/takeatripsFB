@@ -101,12 +101,15 @@
 
         <script>
             // 여행 스타일 저장값들..
-            console.log(localStorage.getItem("room"));
-            console.log(localStorage.getItem("startdate"));
-            console.log(localStorage.getItem("enddate"));
-            console.log("pineat : " + localStorage.getItem("pineatnumber"));
-            console.log("pindrink : " + localStorage.getItem("pindrinknumber"));
-            console.log("pinfun : " + localStorage.getItem("pinfunnumber"));
+            // console.log(localStorage.getItem("room"));
+            // console.log(localStorage.getItem("startdate"));
+            // console.log(localStorage.getItem("enddate"));
+            // console.log("pineat : " + localStorage.getItem("pineatnumber"));
+            // console.log("pindrink : " + localStorage.getItem("pindrinknumber"));
+            // console.log("pinfun : " + localStorage.getItem("pinfunnumber"));
+            
+            var url_pic = ['{{ citydetails.picture1.url }}','{{ citydetails.picture2.url }}', '{{ citydetails.picture3.url }}', '{{ citydetails.picture4.url }}']
+            // console.log(url_pic[tourplan_id%4]);
 
             if(localStorage.pinbuynumber != null){ // 선택된게 있으면 다시 페이지 열때 선택되게 함..
                 var pinnumber = JSON.parse(localStorage.pinbuynumber);
@@ -215,9 +218,9 @@
                     dataType: "json", 
                     data : {
                         csrfmiddlewaretoken: '{{ csrf_token }}',
+                        "room": tmpStringArrayroom,
                         "start_date": tmpStart,
                         "end_date": tmpEnd,
-                        "room": tmpStringArrayroom,
                         "user": "{{ current_user.id }}",
                         "city": "{{ citydetails.id}}",
                         // "pineat", "pindrink"..등 ManyToMany 는 바로 생성이 안됨. 연계를 해야 하는 부분..
@@ -228,6 +231,7 @@
 
                         // 위에서 Tourplan DB 생성이 성공하면 ManyToMany 와 연계를 해야함..
                         var data = JSON.stringify({
+                            "pic_url": url_pic[createdTourplanID%4],
                             "pineat": tmpStringArraypineat,
                             "pindrink": tmpStringArraypindrink,
                             "pinfun": tmpStringArraypinfun,

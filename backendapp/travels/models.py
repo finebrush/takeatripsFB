@@ -422,6 +422,7 @@ class TourPlan(models.Model):
     room = models.CharField(_('숙소명'), max_length=64, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
+    pic_url = models.CharField(_('배경이미지'), max_length=128, null=True)
     pineat = models.ManyToManyField(PinEat, verbose_name=_('먹다 핀'), related_name='pineat', blank=True)
     pindrink = models.ManyToManyField(PinDrink, verbose_name=_('마시다 핀'), related_name='pindrink', blank=True)
     pinfun = models.ManyToManyField(PinFun, verbose_name=_('놀다 핀'), related_name='pinfun', blank=True)

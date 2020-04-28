@@ -250,7 +250,7 @@ class TourPlanAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
 
     filter_horizontal = ('pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp')
     fieldsets_with_inlines = [
-        ('기본정보', {'fields': ['user', 'city', 'room', 'start_date', 'end_date']}),
+        ('기본정보', {'fields': ['user', 'city', 'room', 'start_date', 'end_date', 'pic_url']}),
         ('일반정보', {'fields': ['pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp']})
     ]
 

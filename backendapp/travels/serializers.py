@@ -53,7 +53,7 @@ class TourPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = TourPlan
         # fields = '__all__'
-        fields = ('id', 'city', 'user', 'room', 'start_date', 'end_date', 'pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp',)
+        fields = ('id', 'city', 'user', 'room', 'start_date', 'end_date', 'pic_url', 'pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp',)
         extra_kwargs = {'pineat': {'required': False}, 'pindrink': {'required': False}, 'pinfun': {'required': False}, 
                 'pinbuy': {'required': False}, 'pickit': {'required': False}, 'picktp': {'required': False}}
 

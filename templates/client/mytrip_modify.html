@@ -513,6 +513,9 @@
 
             function esselected(){
                 var tourplan_id = {{ tourplan.id}};
+                var url_pic = ['{{ citydetails.picture1.url }}','{{ citydetails.picture2.url }}', '{{ citydetails.picture3.url }}', '{{ citydetails.picture4.url }}']
+                // console.log(url_pic[tourplan_id%4]);
+                
                 var tempsel_eat = [];
                 var tempsel_drink = [];
                 var tempsel_fun = [];
@@ -543,6 +546,7 @@
                     "room": tags.value,
                     "start_date": startdate,
                     "end_date": enddate,
+                    "pic_url": url_pic[tourplan_id%4],
                     "user": "{{ current_user.id }}",
                     "city": "{{ citydetails.id}}",
                     "pineat": tempsel_eat.map(Number),
@@ -563,7 +567,7 @@
                 // Tourplan 생성된 ID 로 PATCH 하기 위한 URL..
                 var patchURL = "http://localhost:8000/api/tourplan/"+tourplan_id.toString()+"/";
 
-                xhr.open("PATCH", patchURL);
+                xhr.open("PATCH", patchURL, false);
                 xhr.setRequestHeader("content-type", "application/json");
                 xhr.setRequestHeader("cache-control", "no-cache");
                 xhr.setRequestHeader("postman-token", "1f7d9a63-2608-f001-1df1-96d22f40fc7d");
