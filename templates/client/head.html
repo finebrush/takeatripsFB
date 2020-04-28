@@ -37,8 +37,8 @@
             <div class="submenu">
                 <div class="tab">
                     <button class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip' %}';" >My Trip</button>
-                    <button class="tablinks2" onclick="window.location.href = '{% url 'clientapp:trips' %}';">Trips</button>
-                    <button class="tablinks3" onclick="window.location.href = '{% url 'clientapp:tripstore' %}';">Trip Store</button>
+                    <button class="tablinks2" onclick="window.location.href = '{% url 'clientapp:trips' 1 %}';">Trips</button>
+                    <button class="tablinks3" onclick="window.location.href = '{% url 'clientapp:tripstore' 1 %}';">Trip Store</button>
                 </div>
             </div>
 

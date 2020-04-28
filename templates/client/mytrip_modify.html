@@ -1,0 +1,591 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% load socialaccount %} 
+{% providers_media_js %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TAKE A TRIPS</title>
+        <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
+        
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        
+        <link rel=stylesheet href="{% static 'css/main.css' %}">
+        <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+        <script src="{% static 'js/easySelectable.js' %}"></script>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+        <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <style>
+            /*Don't forget to add Font Awesome CSS : "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"*/
+            input[type="text"] {
+                width: 100%;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                margin: 1px 0;
+                outline: none;
+                padding: 8px;
+                box-sizing: border-box;
+                transition: 0.3s;
+            }
+
+            input[type="text"]:focus {
+                border-color: dodgerBlue;
+                box-shadow: 0 0 8px 0 dodgerBlue;
+            }
+
+            .inputWithIcon input[type="text"] {
+                padding-left: 40px;
+            }
+
+            .inputWithIcon {
+                position: relative;
+            }
+
+            .inputWithIcon i {
+                position: absolute;
+                left: 0;
+                top: 8px;
+                padding: 9px 8px;
+                color: #aaa;
+                transition: 0.3s;
+            }
+
+            .inputWithIcon input[type="text"]:focus + i {
+                color: dodgerBlue;
+            }
+
+            .inputWithIcon.inputIconBg i {
+                background-color: #aaa;
+                color: #fff;
+                padding: 9px 4px;
+                border-radius: 4px 0 0 4px;
+            }
+
+            .inputWithIcon.inputIconBg input[type="text"]:focus + i {
+                color: #fff;
+                background-color: dodgerBlue;
+            }
+            
+            .icircle-gray {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #00000082;
+            }
+            .icircle-red {
+                display: contents;
+                position: absolute;
+                font-size: 8.5rem;
+                color: #bf1d39;
+            }
+            .easySelectable {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-gap: 20px;
+                padding: 0px;
+                flex-wrap: wrap;
+            }
+            .easySelectable li {
+                /* margin: 0 10px 10px 0; */
+                background: #fff;
+                transition: background 0.2s;
+                width: 100%;
+                height: 150px;
+                color: #222;
+                font-weight: bold;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                box-shadow: 0px 1px 1px #ccc;
+                border-radius: 12px;
+            }
+
+        </style>
+
+        <script type="text/javascript">
+            var availableTags = {{itdetail_names|safe}}; // 검색할 타이틀을 배열로 보내온걸 받는다.
+            $( function() {
+                $( "#tags" ).autocomplete({
+                    source: availableTags
+                });
+            } );
+        </script>
+
+    </head>
+    <body>
+        
+        <!-- header -->
+        <div class="header">
+            <div class="btnTourplanBack">
+                <a href="{% url 'clientapp:mytrip' %}" style="background: none; color: black;">
+                    <i class="material-icons" style="font-size: 40px;">arrow_back</i>
+                </a>
+            </div>
+            <div class="btnTourplanNext">
+                <a href="#" id="btnnextlink" style="background: none;">
+                    <button id="btnnext" class="button button-redrect" onclick="esselected();">저장하기</button>
+                </a>
+            </div>
+
+        </div>
+
+       
+        <!-- contents -->
+        <div class="linepartition"></div>
+
+        <!-- mytrip part -->
+        <div class="tabcontent" style="display: block;">
+            <!-- room -->
+            <div class="mytrip_header" style="padding-top: 100px;">
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="">
+                            <p class="plan-place-text">Step 01. place : <span style="font-size: 1.5rem; color: #bf1d38;">숙소</span>가 어디인가요?</p>
+                        </div> 
+                        <div>
+                            <div class="inputWithIcon">
+                                <input id="tags" type="text" placeholder="숙소가 어디인가요?">
+                                <img src="{% static 'img/tg_icon04.png' %}" style="position: absolute;left: 5;top: 10;" />
+                            </div>
+                        </div> 
+                        <div>
+                            <div class="inputWithIcon">
+                                <input id="inputdate" type="text" name="datefilter" placeholder="여행 기간은 어떻게 되나요?">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="position: absolute;left: 5;top: 10;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- food -->
+            <div class="col-md-12" style="margin-top: 50px;text-align: -webkit-center;">
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 02. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">음식</span>을 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="content" style="width: 85%;">
+                    <ul id="easySelectable-eat" class="easySelectable">
+                        {% for pineat in pineats %}
+                        <li style="background-image: url({{ pineat.picture.url }});"> 
+                            <div style="position: relative; display: contents;">
+                                <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                                <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                                <i name='selectable_eat' class='fas fa-circle icircle-gray' itemnumber='eat-{{ pineat.id }}'>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pineat.nameko }} </p>
+                                </i>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- drink -->
+            <div class="col-md-12" style="margin-top: 50px;text-align: -webkit-center;">
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 03. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">디저트</span>를 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="content" style="width: 85%;">
+                    <ul id="easySelectable-drink" class="easySelectable">
+                        {% for pindrink in pindrinks %}
+                        <li style="background-image: url({{ pindrink.picture.url }});"> 
+                            <div style="position: relative; display: contents;">
+                                <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                                <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                                <i name="selectable_drink" class='fas fa-circle icircle-gray' itemnumber='drink-{{ pindrink.id }}'>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pindrink.nameko }} </p>
+                                </i>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- place -->
+            <div class="col-md-12" style="margin-top: 50px;text-align: -webkit-center;">
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 04. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">장소</span>를 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="content" style="width: 85%;">
+                    <ul id="easySelectable-fun" class="easySelectable">
+                        {% for pinfun in pinfuns %}
+                        <li style="background-image: url({{ pinfun.picture.url }});"> 
+                            <div style="position: relative; display: contents;">
+                                <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                                <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                                <i name="selectable_fun" class='fas fa-circle icircle-gray' itemnumber='fun-{{ pinfun.id }}'>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pinfun.nameko }} </p>
+                                </i>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- shopping -->
+            <div class="col-md-12" style="margin-top: 50px;text-align: -webkit-center;">
+                <div class="card-deck" style="margin: 10px;">
+                    <div class="container plan-place">
+                        <div style="display: block; text-align: center; line-height: 8px;">
+                            <p class="plan-place-text">Step 05. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">쇼핑</span>을 좋아하나요?</p>
+                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="content" style="width: 85%;">
+                    <ul id="easySelectable-buy" class="easySelectable">
+                        {% for pinbuy in pinbuys %}
+                        <li style="background-image: url({{ pinbuy.picture.url }});"> 
+                            <div style="position: relative; display: contents;">
+                                <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
+                                <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
+                                <i name="selectable_buy" class='fas fa-circle icircle-gray' itemnumber='buy-{{ pinbuy.id }}'>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pinbuy.nameko }} </p>
+                                </i>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+        <script>
+            // input 필드에 모두 채워지면 다음 버튼 변경 및 링크 생성..
+            const tags = document.getElementById('tags');
+            const inputdate = document.getElementById('inputdate');
+            const btnnext = document.getElementById('btnnext');
+            const btnnextlink = document.getElementById('btnnextlink');
+
+            // 시작일자와 끝나는일자 저장 변수..
+            var startdate = '';
+            var enddate = '';
+
+            // 숙소와 여행날짜 inpurt 에 넣기..
+            tags.value = '{{ tourplan.room }}';
+
+            var start_date = new Date("{{ tourplan.start_date|date:'Y' }}", "{{ tourplan.start_date|date:'m' }}"-1, "{{ tourplan.start_date|date:'d' }}");
+            var end_date = new Date("{{ tourplan.end_date|date:'Y' }}", "{{ tourplan.end_date|date:'m' }}"-1, "{{ tourplan.end_date|date:'d' }}");
+            inputdate.value = getFormatDate(start_date) + ' - ' + getFormatDate(end_date);
+            
+            // 필드값을 저장해야 daterangepicker 로 지정을 안해도 기존 날짜가 저장 됨..아니면 빈 날짜가 됨..
+            startdate = getFormatDate2(start_date);
+            enddate = getFormatDate2(end_date);
+
+            function getFormatDate(date){
+                var year = date.getFullYear();              //yyyy
+                var month = (1 + date.getMonth());          //M
+                month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+                var day = date.getDate();                   //d
+                day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+                return  month + '/' + day + '/' + year  ;
+            }
+
+            function getFormatDate2(date){
+                var year = date.getFullYear();              //yyyy
+                var month = (1 + date.getMonth());          //M
+                month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+                var day = date.getDate();                   //d
+                day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+                return  year + '-' + month + '-' + day;
+            }
+            
+            // 아래  daterangepicker 에서 설정한
+            // $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY')); 맞게 Date 포멧을 맞춰야 함..
+
+            // 선택된 항목들 체크하기...
+            var pineatnumber = {{ totalnumbers }};
+            for(k = 0; k < 4; k++){
+                if(pineatnumber[k] != null){ 
+                    
+                    for (i = 0; i < pineatnumber[k].length; i++){ // pinnumber 가 2,3,10 일때 '2', ',', '3', '1', '0' 인식..
+
+                        checkSelect(pineatnumber[k][i], k);
+
+                    }
+                }
+            }
+
+            function checkSelect(pinnumber, k){ // for 문 횟수 줄이기..
+                if(k == 0)
+                    var selecteditems = document.getElementsByName('selectable_eat');
+                if(k == 1)
+                    var selecteditems = document.getElementsByName('selectable_drink');
+                if(k == 2)
+                    var selecteditems = document.getElementsByName('selectable_fun');
+                if(k == 3)
+                    var selecteditems = document.getElementsByName('selectable_buy');
+
+                for (j = 0; j < selecteditems.length; j++){
+                    var temp = selecteditems[j].getAttribute("itemnumber");
+                    var tempnum = temp.split('-');
+                    
+                    if (pinnumber == tempnum[1] ){
+                        selecteditems[j].classList.add("es-selected");
+                        selecteditems[j].classList.add("icircle-red");
+                        selecteditems[j].classList.remove("icircle-gray");
+                        break;
+                    }
+
+                }
+            }
+
+            // 수정하는 데이터 입력..
+            $(function() {
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+                
+                $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                    startdate = picker.startDate.format('YYYY-MM-DD');
+                    enddate = picker.endDate.format('YYYY-MM-DD');
+                    console.log("startdate in picker : " + startdate);
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                    $(this).val('');
+                });
+            });
+
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable-eat').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable-drink').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable-fun').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+            $(function(){
+                var i = 0;
+                
+                $('#easySelectable-buy').easySelectable({
+                    'item': 'i', // 'li'->'i' 변경하여 클릭 했을 경우 item 으로 지정된 태그의 es-selectable class 추가 됨..
+                    'state': true,
+                    onSelecting: function(el){
+                        // do something
+                    },
+                    onSelected: function(el){
+                        // do something
+                        if ( i < 6 ){
+                            el.removeClass('icircle-gray'); // removeClass 와 classList.remove 차이..
+                            el.addClass('icircle-red');
+                            i++;
+                        }else{
+                            el.removeClass('es-selected');
+                        }
+                        // console.log(i);
+                    },
+                    onUnSelected: function(el){
+                        // do something
+                        el.removeClass('icircle-red');
+                        el.addClass('icircle-gray');
+                        i--;
+                        // console.log(i);
+                    }
+
+                });
+            })
+
+            function esselected(){
+                var tourplan_id = {{ tourplan.id}};
+                var tempsel_eat = [];
+                var tempsel_drink = [];
+                var tempsel_fun = [];
+                var tempsel_buy = [];
+                var selected = document.getElementsByClassName('es-selected');
+
+                for(i=0; i < selected.length; i++){
+                    if(selected[i].getAttribute('itemnumber')){
+                        var tempnum = selected[i].getAttribute('itemnumber').split('-');
+                        if(tempnum[0] == 'eat'){
+                            tempsel_eat.push(tempnum[1]);
+                        }
+                        if(tempnum[0] == 'drink'){
+                            tempsel_drink.push(tempnum[1]);
+                        }
+                        if(tempnum[0] == 'fun'){
+                            tempsel_fun.push(tempnum[1]);
+                        }
+                        if(tempnum[0] == 'buy'){
+                            tempsel_buy.push(tempnum[1]);
+                        }
+                    }
+                    // console.log(selected[i].getAttribute('itemnumber'));
+                }
+
+                // 위에서 Tourplan DB 생성이 성공하면 ManyToMany 와 연계를 해야함..
+                var data = JSON.stringify({
+                    "room": tags.value,
+                    "start_date": startdate,
+                    "end_date": enddate,
+                    "user": "{{ current_user.id }}",
+                    "city": "{{ citydetails.id}}",
+                    "pineat": tempsel_eat.map(Number),
+                    "pindrink": tempsel_drink.map(Number),
+                    "pinfun": tempsel_fun.map(Number),
+                    "pinbuy": tempsel_buy.map(Number),
+                });
+
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+
+                xhr.addEventListener("readystatechange", function () {
+                    if (this.readyState === 4) {
+                        console.log(this.responseText);
+                    }
+                });
+
+                // Tourplan 생성된 ID 로 PATCH 하기 위한 URL..
+                var patchURL = "http://localhost:8000/api/tourplan/"+tourplan_id.toString()+"/";
+
+                xhr.open("PATCH", patchURL);
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.setRequestHeader("cache-control", "no-cache");
+                xhr.setRequestHeader("postman-token", "1f7d9a63-2608-f001-1df1-96d22f40fc7d");
+
+                xhr.send(data);
+
+                location.href="{% url 'clientapp:mytrip' %}";
+   
+            }
+
+
+            // history.goback() 으로 하면 사파리에서 안되고, 위 함수 pageshow 도 안됨, 아래와 같이 백버튼 함수로 적용해야 함..
+            function goback(){
+                if(document.referrer) {
+                    window.open(document.referrer,'_self');
+                } else {
+                    history.go(-1);
+                } 
+                return false;
+            }
+
+        </script>
+    
+    </body>
+</html>

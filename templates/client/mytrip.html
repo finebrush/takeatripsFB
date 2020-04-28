@@ -27,7 +27,7 @@
                                 </button> 
                             </a>
                             <div id="tripDropdown{{ tourplan.id }}" class="dropdown-content">
-                                <a href="#">수정</a>
+                                <a href="{% url 'clientapp:mytrip_modify' tourplan.id %}">수정</a>
                                 <a href="{% url 'clientapp:mytrip' %}" onclick="tourplanDelet({{ tourplan.id }})">삭제</a>
                             </div>
                         </div>

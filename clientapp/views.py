@@ -26,10 +26,11 @@ def mytrip(request):
     # print(tourplans)
     picture_url = ''
     tourplans = ''
-    
+
     if request.user.is_authenticated: # 로그인 했다면..
         social = SocialAccount.objects.filter(user=request.user)
         tourplans = TourPlan.objects.filter(user=request.user)
+        
         if social.exists(): # social 로그인 했는지 체크..   
             if social[0].provider == 'facebook':
                 picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
@@ -40,6 +41,53 @@ def mytrip(request):
     
     return render(request, 'client/mytrip.html', {'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails,
                 'sns_picture':picture_url, 'tourplans':tourplans })
+
+def mytrip_modify(request, tourplan_id):
+    city_id = 1 # 서울을 기준으로 ..
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    tourplan = TourPlan.objects.get(id=tourplan_id)
+    itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
+
+    sleep_itdetails = itdetails.filter(part='Sleep')
+    pineats = PinEat.objects.all()
+    pindrinks = PinDrink.objects.all()
+    pinfuns = PinFun.objects.all()
+    pinbuys = PinBuy.objects.all()
+
+    totalnumbers = []
+    numbers = []
+    tp_pineats = tourplan.pineat.all()
+    for tp_pineat in tp_pineats:
+        numbers.append(tp_pineat.id)
+    totalnumbers.append(numbers)
+
+    numbers = []
+    tp_pindrinks = tourplan.pindrink.all()
+    for tp_pindrink in tp_pindrinks:
+        numbers.append(tp_pindrink.id)
+    totalnumbers.append(numbers)
+    
+    numbers = []
+    tp_pinfuns = tourplan.pinfun.all()
+    for tp_pinfun in tp_pinfuns:
+        numbers.append(tp_pinfun.id)
+    totalnumbers.append(numbers)
+    
+    numbers = []
+    tp_pinbuys = tourplan.pinbuy.all()
+    for tp_pinbuy in tp_pinbuys:
+        numbers.append(tp_pinbuy.id)
+    totalnumbers.append(numbers)
+    
+    # 검색할 타이틀을 배열로 저장..
+    itdetail_names = []
+    for sleep_itdetail in sleep_itdetails:
+        itdetail_names.append(sleep_itdetail.companyko)
+    
+    return render(request, 'client/mytrip_modify.html', {'citydetails':citydetails, 'current_user': current_user, 
+            'itdetails':itdetails, 'tourplan':tourplan, 'sleep_itdetails':sleep_itdetails, 'itdetail_names':itdetail_names,
+            'pineats':pineats, 'pindrinks':pindrinks, 'pinfuns':pinfuns, 'pinbuys':pinbuys, 'totalnumbers':totalnumbers })
 
 def mytrip_tourplan01(request):
     city_id = 1 # 서울을 기준으로 ..
@@ -580,8 +628,8 @@ def mygotocity(request, city_id, tourplan_id):
                             'tourplan':tourplan, 'wstart':wstart, 'wend':wend })
 
 ### ------ Trips ----------------------------------------------------------------------------------------------------------
-def trips(request):
-    city_id = 1 # 서울을 기준으로 ..
+def trips(request, city_id):
+    # city_id = 1 # 서울을 기준으로 ..
     citys = City.objects.all()
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
@@ -605,8 +653,8 @@ def trips(request):
                 'sns_picture':picture_url, 'tourplans':tourplans })
 
 ### ------ Trip100 ----------------------------------------------------------------------------------------------------
-def tripstore(request):
-    city_id = 1 # 서울을 기준으로 ..
+def tripstore(request, city_id):
+    # city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
