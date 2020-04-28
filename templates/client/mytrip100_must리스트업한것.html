@@ -1,4 +1,4 @@
-{% extends 'client/mytripguide_listhead.html' %}
+{% extends 'client/mytrip100_head.html' %}
 
 {% load i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -6,7 +6,7 @@
 {% block contents %}
       
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="infointro curator" style="padding-top: 130px;">
+<div class="infointro curator">
     <div class="infointro-in water">
         <div class="card" style="padding-top: 0px!important; border:0px;">
             <div class=container style="margin:0px; padding:0px; max-width:1920px;">
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
-                    <div style="background-color: #cecece;height: 73vh;position: fixed;width: 35%;border-radius: 12px;">
+                    <div style="background-color: #cecece;height: 80vh;position: fixed;width: 35%;border-radius: 12px;">
                         <!-- googlemap.. -->
                         <div id="map" style="height: 100%;border-radius: 12px;"></div>
                         <div id="msg"></div>
@@ -74,12 +74,13 @@
 
 <script type="text/javascript">
 
+
     // google map Start..
     // var directionsService = new google.maps.DirectionsService();
     var directionsDisplay, directionsService;
     var map;
-    var locations = new Array();
     locations = {{ locations|safe }};
+    // console.log(locations);
     if (locations.length < 1){
         locations = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
     }
@@ -117,7 +118,7 @@
 
             var contentString = '<div id="content" style="text-align: center;">' + 
                 '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
-            
+
             // like or unlike 에 따라 poi 선택..
             if (locations[count][3] == 1) {
                 var icon = {
@@ -163,7 +164,9 @@
                 this.info.open(marker_map, this);
                 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.add("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.add("boxshadow");
+                }
                 
                 var newIcon = {
                     url: this.icon.url, // url
@@ -180,7 +183,9 @@
                 this.info.close(marker_map, this);
 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.remove("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.remove("boxshadow");
+                }
 
                 var newIcon = {
                     url: this.icon.url, // url
@@ -192,7 +197,7 @@
 
                 // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
             });
-            
+
         }
 
         // google.maps.event.addDomListener(document.getElementById('2'), 'mouseover', function() {  

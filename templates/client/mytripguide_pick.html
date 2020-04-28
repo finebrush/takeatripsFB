@@ -26,251 +26,509 @@
 
 {% block contents %}
 
-<!-- pick 한 tripguide 가 있을때와 없을때.. -->
-{% if itdetails %}
-<!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="infointro curator">
-    <div class="infointro-in water">
-        <div class="card" style="padding-top: 0px!important; border:0px;">
-            <div class=container style="margin:0px; padding:0px; max-width:1920px;">
-                
-                <div class="col-md-7 col-sm-7">
-                    <!-- 이전 상위 컨텐츠 목록 -->
-                    <div id="tripguideBeforeList" class="tripguideList">
-                        {% for itdetail in itdetails %}
-                        <ul class="list-group" name="ul{{ itdetail.id }}">
-                            <li class="list-group-up">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
-                                    <img id="{{ itdetail.id }}" src="{{ itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
-                                </a>
-                            </li>
-                            <li class="list-group-it">
-                                <div class="media">
-                                    <div class="media-body">
+<!-- pick 한 tripguide, tripcurator 가 있을때와 없을때.. -->
+{% if itdetails or tpdetails %}
+    {% if itdetails %}  <!-- My Pick tripguide -->
 
-                                        {% if LANGUAGE_CODE == 'ko' %}
-                                        <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
-                                        <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
-                                        <!-- <small>{{ itdetail.introko|truncatewords:7 }}</small>  -->
-                                        {% elif LANGUAGE_CODE == 'en' %}
-                                        <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
-                                        <small style="color:blue;">{{ itdetail.part }}</small><br>
-                                        <!-- <small>{{ itdetail.introeng|truncatewords:7 }}</small>  -->
-                                        {% elif LANGUAGE_CODE == 'vi' %}
-                                        <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
-                                        <small style="color:blue;">{{ itdetail.part }}</small><br>
-                                        <!-- <small>{{ itdetail.introven|truncatewords:7 }}</small>  -->
-                                        {% endif %}
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class="infointro curator">
+        <div class="infointro-in water">
+            <div class="card" style="padding-top: 0px!important; border:0px;">
+                <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                    
+                    <div class="col-md-7 col-sm-7">
+                        <!-- 이전 상위 컨텐츠 목록 -->
+                        <div id="tripguideBeforeList" class="tripguideList">
+                            {% for itdetail in itdetails %}
+                            <ul class="list-group" name="ul{{ itdetail.id }}">
+                                <li class="list-group-up">
+                                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                                        <img id="{{ itdetail.id }}" src="{{ itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
+                                    </a>
+                                </li>
+                                <li class="list-group-it">
+                                    <div class="media">
+                                        <div class="media-body">
 
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
+                                            <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                                            <!-- <small>{{ itdetail.introko|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
+                                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                            <!-- <small>{{ itdetail.introeng|truncatewords:7 }}</small>  -->
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
+                                            <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                            <!-- <small>{{ itdetail.introven|truncatewords:7 }}</small>  -->
+                                            {% endif %}
+
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                                <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id %}" id="btnlike" style="text-decoration: none;">
-                                    {% if user in itdetail.like_infotravel.all %}
-                                    <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
-                                    {% else %}
-                                    <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
-                                    {% endif %}
-                                </a> 
-                            </li>
-                        </ul>
-                        {% endfor %}
+                                </li>
+                                <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
+                                    <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                                        {% if user in itdetail.like_infotravel.all %}
+                                        <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                                        {% else %}
+                                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                                        {% endif %}
+                                    </a> 
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
+                        <div style="background-color: #cecece;height: 80vh;position: fixed;width: 35%;border-radius: 12px;">
+                            <!-- googlemap.. -->
+                            <div id="map" style="height: 100%;border-radius: 12px;"></div>
+                            <div id="msg"></div>
+                        </div>
                     </div>
                     
                 </div>
-
-                <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
-                    <div style="background-color: #cecece;height: 80vh;position: fixed;width: 35%;border-radius: 12px;">
-                        <!-- googlemap.. -->
-                        <div id="map" style="height: 100%;border-radius: 12px;"></div>
-                        <div id="msg"></div>
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
-</div>
 
+    <script type="text/javascript">
 
-<script type="text/javascript">
-
-    // google map Start..
-    // var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay, directionsService;
-    var map;
-    var locations = new Array();
-    locations = {{ locations|safe }};
-    // console.log(locations);
-    if (locations.length < 1){
-        locations = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
-    }
-    var markers = [];
-
-    var numicon= [
-        "{% static 'img/poi_unselected.png' %}",
-        "{% static 'img/poi_selected.png' %}",
-        "{% static 'img/poi_like_unselected.png' %}",
-        "{% static 'img/poi_like_selected.png' %}"
-    ]
-
-    // Initialize and add the map
-    function initMap() {
-        directionsService = new google.maps.DirectionsService();
-        // The map, centered at.. 
-        //여러 위치의 중심값을 map의 center 로..
-        var locations_x = 0.0;
-        var locations_y = 0.0;
-
-        for(var i = 0; i < locations.length; i++){
-            locations_x = locations_x + locations[i][1];
-            locations_y = locations_y + locations[i][2];
+        // google map Start..
+        // var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay, directionsService;
+        var map;
+        var locations = new Array();
+        locations = {{ locations|safe }};
+        // console.log(locations);
+        if (locations.length < 1){
+            locations = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
         }
-        var locations_avgx = locations_x / locations.length;
-        var locations_avgy = locations_y / locations.length;
+        var markers = [];
+    
+        var numicon= [
+            "{% static 'img/poi_unselected.png' %}",
+            "{% static 'img/poi_selected.png' %}",
+            "{% static 'img/poi_like_unselected.png' %}",
+            "{% static 'img/poi_like_selected.png' %}"
+        ]
+    
+        // Initialize and add the map
+        function initMap() {
+            directionsService = new google.maps.DirectionsService();
+            // The map, centered at.. 
+            //여러 위치의 중심값을 map의 center 로..
+            var locations_x = 0.0;
+            var locations_y = 0.0;
+            
+            // locations -> [['상암국밥', 126.88939010000001, 37.5808116, 1, 3]]
+            for(var i = 0; i < locations.length; i++){
+                locations_x = locations_x + locations[i][1];
+                locations_y = locations_y + locations[i][2];
+            }
+            var locations_avgx = locations_x / locations.length;
+            var locations_avgy = locations_y / locations.length;
+    
+            var centerLatLng = {lat: locations_avgy, lng: locations_avgx}; //{lat: 37.56268, lng: 126.98469 }; 
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, 
+                center: centerLatLng,
+            });
 
-        var centerLatLng = {lat: locations_avgy, lng: locations_avgx}; //{lat: 37.56268, lng: 126.98469 }; 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12, 
-            center: centerLatLng,
+            bounds  = new google.maps.LatLngBounds(); //bounds 생성..
+    
+            for(var count = 0; count < locations.length; count++){ 
+    
+                var contentString = '<div id="content" style="text-align: center;">' + 
+                    '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                
+                // like or unlike 에 따라 poi 선택..
+                if (locations[count][3] == 1) {
+                    var icon = {
+                        url: numicon[3], // url
+                        scaledSize: new google.maps.Size(30, 38), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(15, 38) // anchor
+                    };
+                }else if (locations[count][3] == 2) {
+                    var icon = {
+                        url: numicon[0], // url
+                        scaledSize: new google.maps.Size(30, 38), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(15, 38) // anchor
+                    };
+                }else {
+                    var icon = {
+                        url: numicon[2], // url
+                        scaledSize: new google.maps.Size(30, 38), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(15, 38) // anchor
+                    };
+                }
+    
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[count][2], locations[count][1]),
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: icon,
+                    id: locations[count][4], // tripguide 의 id 를 받아서 마커 id 로 지정...
+                });
+
+                bounds.extend(marker.position);
+
+                map.fitBounds(bounds); // bounds 에 fit ..
+                // map.panToBounds(bounds); 
+
+                // zoom 레벨이 18 이상이면 더 zoom 이 안되도록 하기 위한 기준 레벨..
+                var zoom_level_for_one_marker = 16; 
+                google.maps.event.addListenerOnce(map, 'bounds_changed', function(event){
+                    if (this.getZoom() >= zoom_level_for_one_marker){  
+                        this.setZoom(zoom_level_for_one_marker) 
+                    }
+                });
+    
+                markers[locations[count][4]] = marker;
+    
+                marker.info = new google.maps.InfoWindow({
+                    content: contentString
+                });
+    
+                google.maps.event.addListener(marker, 'mouseover', function() {  
+                    // this = marker
+                    var marker_map = this.getMap();
+                    this.info.open(marker_map, this);
+                    
+                    var ul = document.getElementsByName('ul'+this.id);
+                    if (ul.length > 0){
+                        ul[0].classList.add("boxshadow");
+                    }
+                    
+                    var newIcon = {
+                        url: this.icon.url, // url
+                        scaledSize: new google.maps.Size(40, 52), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(20, 52) // anchor
+                    }
+                    this.setIcon(newIcon);
+                    
+                });
+                google.maps.event.addListener(marker, 'mouseout', function() {  
+                    // this = marker
+                    var marker_map = this.getMap();
+                    this.info.close(marker_map, this);
+    
+                    var ul = document.getElementsByName('ul'+this.id);
+                    if (ul.length > 0){
+                        ul[0].classList.remove("boxshadow");
+                    }
+    
+                    var newIcon = {
+                        url: this.icon.url, // url
+                        scaledSize: new google.maps.Size(30, 38), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(15, 38) // anchor
+                    }
+                    this.setIcon(newIcon);
+    
+                });
+                
+            }
+    
+            // google.maps.event.addDomListener(document.getElementById('2'), 'mouseover', function() {  
+            //     // 해당 marker 를 찾아서 효과(크기 변화.등) 적용
+            //     // var marker_map = this.getMap();
+            //     // this.info.open(marker_map, this);
+            //     console.log("ok..");
+                
+            // });
+            
+        }
+    
+        // tripguide hover to map ..
+        $(function() {
+    
+            $('img').hover(function(){
+                console.log($(this).attr('id'));
+                var id = $(this).attr('id');
+                var ul = document.getElementsByName('ul'+id);
+                // console.log(ul[0].classList);
+               
+                if (id != undefined ){
+                    ul[0].classList.add("boxshadow");
+                    // console.log(markers[id]);
+                    markers[id].setAnimation(google.maps.Animation.BOUNCE);
+                    
+                }
+            });
+    
+            $('img').mouseout(function(){
+                console.log($(this).attr('id'));
+                var id = $(this).attr('id');
+                var ul = document.getElementsByName('ul'+id);
+               
+                if (id != undefined ){
+                    ul[0].classList.remove("boxshadow");
+                    // console.log(markers[id]);
+                    markers[id].setAnimation(null);;
+                    
+                }
+            });
+    
         });
+    
+    
+    </script>
 
-        for(var count = 0; count < locations.length; count++){ 
+    {% else %}  <!-- My Pick 큐레이터-->
+
+    <!-- django-waterfall 이미지 들어가는 부분.. -->
+    <div class="infointro curator">
+        <div class="infointro-in water">
+            <div class="card" style="padding-top: 0px!important; border:0px;">
+                <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                    
+                    <div class="col-md-7 col-sm-7">
+                        <!-- 이전 상위 컨텐츠 목록 -->
+                        <div id="tripguideBeforeList" class="tripguideList">
+                            {% for tpdetail in tpdetails %}
+                            <ul class="list-group" name="ul{{ tpdetail.id }}">
+                                <li class="list-group-up">
+                                    <a href="{% url 'clientapp:mycurator_detail' citydetails.id tourplan.id tpdetail.id %}"> 
+                                        <img id="{{ tpdetail.id }}" src="{{ tpdetail.poipoint_totals.first.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
+                                    </a>
+                                </li>
+                                <li class="list-group-it">
+                                    <div class="media">
+                                        <div class="media-body">
+
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                            <h6 class="media-heading">{{ tpdetail.titleko }}</h6> 
+                                            <small style="color:blue;">{{ tpdetail.get_course_display }}</small><br>
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                            <h6 class="media-heading">{{ tpdetail.titleeng }}</h6> 
+                                            <small style="color:blue;">{{ tpdetail.course }}</small><br>
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                            <h6 class="media-heading">{{ tpdetail.titleven }}</h6> 
+                                            <small style="color:blue;">{{ tpdetail.course }}</small><br>
+                                            {% endif %}
+                                            <div onclick="clickMap({{ tpdetail.id }});">
+                                                <button class="btnTourplan" style="width: 100%;margin: 10px 0px 0px 0px;height: 30px;">
+                                                    지도에서 보기 
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
+                                    <a href="{% url 'clientapp:mycurator_like' citydetails.id tourplan.id tpdetail.id %}" id="btnlike" style="text-decoration: none;">
+                                        {% if user in tpdetail.like_travelplan.all %}
+                                        <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                                        {% else %}
+                                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                                        {% endif %}
+                                    </a> 
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
+                        <div style="background-color: #cecece;height: 80vh;position: fixed;width: 35%;border-radius: 12px;">
+                            <!-- googlemap.. -->
+                            <div id="map" style="height: 100%;border-radius: 12px;"></div>
+                            <div id="msg"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        // google map Start..
+        // var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay, directionsService;
+        var map;
+        var locations = new Array();
+        locations = {{ locations|safe }};
+        // console.log(locations);
+        if (locations.length < 1){
+            initloca = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
+        }
+        var markers = [];
+    
+        var numicon= [
+            "{% static 'img/poi_unselected.png' %}",
+            "{% static 'img/poi_selected.png' %}",
+            "{% static 'img/poi_like_unselected.png' %}",
+            "{% static 'img/poi_like_selected.png' %}"
+        ]
+
+        function initMap(){
+            directionsService = new google.maps.DirectionsService();
+            
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, 
+                center: {lat: 37.56668, lng: 126.97829},
+            });
+
+            var icon = {
+                url: numicon[0], // url
+                scaledSize: new google.maps.Size(30, 38), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(15, 38) // anchor
+            };
 
             var contentString = '<div id="content" style="text-align: center;">' + 
-                '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                        '<h6 style="margin: 0px;">Trip Curator 선택하세요.</h6></div>';
             
-            // like or unlike 에 따라 poi 선택..
-            if (locations[count][3] == 1) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(37.56668, 126.97829),
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: icon,
+            });
+
+            infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            infowindow.open(map, marker);
+        }
+
+        // Initialize and add the map
+        function clickMap(tc_id) {
+            directionsService = new google.maps.DirectionsService();
+
+            var locationspoi = []
+            for(var n = 0; n < locations.length; n++){
+                if (locations[n][3] == tc_id){
+                    locationspoi = locations[n][1];
+                }
+            }
+            console.log(locationspoi);
+            
+            // The map, centered at.. 
+            //여러 위치의 중심값을 map의 center 로..
+            var locations_x = 0.0;
+            var locations_y = 0.0;
+            var lengthcount = 0;
+            
+            // locations -> [['광장시장 1시간 투어', [['순희네 빈데떡', 126.97796919999996, 37.566535]], 1, 3]]
+            for(var i = 0; i < locationspoi.length; i++){
+                locations_x = locations_x + locationspoi[i][1];
+                locations_y = locations_y + locationspoi[i][2];
+                lengthcount++;
+            }
+            console.log(lengthcount);
+            var locations_avgx = locations_x / lengthcount;
+            var locations_avgy = locations_y / lengthcount;
+    
+            var centerLatLng = {lat: locations_avgy, lng: locations_avgx}; //{lat: 37.56268, lng: 126.98469 }; 
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, 
+                center: centerLatLng,
+            });
+
+            bounds  = new google.maps.LatLngBounds(); //bounds 생성..
+    
+            for(var count = 0; count < locationspoi.length; count++){ 
+    
+                var contentString = '<div id="content" style="text-align: center;">' + 
+                    '<h6 style="margin: 0px;">' + locationspoi[count][0] + '</h6></div>';
+            
                 var icon = {
                     url: numicon[3], // url
                     scaledSize: new google.maps.Size(30, 38), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(15, 38) // anchor
                 };
-            }else if (locations[count][3] == 2) {
-                var icon = {
-                    url: numicon[0], // url
-                    scaledSize: new google.maps.Size(30, 38), // scaled size
-                    origin: new google.maps.Point(0, 0), // origin
-                    anchor: new google.maps.Point(15, 38) // anchor
-                };
-            }else {
-                var icon = {
-                    url: numicon[2], // url
-                    scaledSize: new google.maps.Size(30, 38), // scaled size
-                    origin: new google.maps.Point(0, 0), // origin
-                    anchor: new google.maps.Point(15, 38) // anchor
-                };
-            }
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locationspoi[count][2], locationspoi[count][1]),
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: icon,
+                });
+    
+                bounds.extend(marker.position); // bounds 에 마커 위치 추가..
+    
+                marker.info = new google.maps.InfoWindow({
+                    content: contentString
+                });
 
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[count][2], locations[count][1]),
-                map: map,
-                animation: google.maps.Animation.DROP,
-                icon: icon,
-                id: locations[count][4], // tripguide 의 id 를 받아서 마커 id 로 지정...
-            });
+                map.fitBounds(bounds); // bounds 에 fit ..
+                // map.panToBounds(bounds); 
 
-            markers[locations[count][4]] = marker;
+                // zoom 레벨이 18 이상이면 더 zoom 이 안되도록 하기 위한 기준 레벨..
+                var zoom_level_for_one_marker = 16; 
+                google.maps.event.addListenerOnce(map, 'bounds_changed', function(event){
+                    if (this.getZoom() >= zoom_level_for_one_marker){  
+                        this.setZoom(zoom_level_for_one_marker) 
+                    }
+                });
+    
+                google.maps.event.addListener(marker, 'mouseover', function() {  
+                    // this = marker
+                    var marker_map = this.getMap();
+                    this.info.open(marker_map, this);
+                    
+                    var ul = document.getElementsByName('ul'+tc_id);
+                    if (ul.length > 0){
+                        ul[0].classList.add("boxshadow");
+                    }
+                    
+                    var newIcon = {
+                        url: this.icon.url, // url
+                        scaledSize: new google.maps.Size(40, 52), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(20, 52) // anchor
+                    }
+                    this.setIcon(newIcon);
+                    
+                });
 
-            marker.info = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            google.maps.event.addListener(marker, 'mouseover', function() {  
-                // this = marker
-                var marker_map = this.getMap();
-                this.info.open(marker_map, this);
-                
-                var ul = document.getElementsByName('ul'+this.id);
-                if (ul.length > 0){
-                    ul[0].classList.add("boxshadow");
-                }
-                
-                var newIcon = {
-                    url: this.icon.url, // url
-                    scaledSize: new google.maps.Size(40, 52), // scaled size
-                    origin: new google.maps.Point(0, 0), // origin
-                    anchor: new google.maps.Point(20, 52) // anchor
-                }
-                this.setIcon(newIcon);
-                
-            });
-            google.maps.event.addListener(marker, 'mouseout', function() {  
-                // this = marker
-                var marker_map = this.getMap();
-                this.info.close(marker_map, this);
-
-                var ul = document.getElementsByName('ul'+this.id);
-                if (ul.length > 0){
-                    ul[0].classList.remove("boxshadow");
-                }
-
-                var newIcon = {
-                    url: this.icon.url, // url
-                    scaledSize: new google.maps.Size(30, 38), // scaled size
-                    origin: new google.maps.Point(0, 0), // origin
-                    anchor: new google.maps.Point(15, 38) // anchor
-                }
-                this.setIcon(newIcon);
-
-            });
+                google.maps.event.addListener(marker, 'mouseout', function() {  
+                    // this = marker
+                    var marker_map = this.getMap();
+                    this.info.close(marker_map, this);
+    
+                    var ul = document.getElementsByName('ul'+tc_id);
+                    if (ul.length > 0){
+                        ul[0].classList.remove("boxshadow");
+                    }
+    
+                    var newIcon = {
+                        url: this.icon.url, // url
+                        scaledSize: new google.maps.Size(30, 38), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(15, 38) // anchor
+                    }
+                    this.setIcon(newIcon);
+    
+                }); 
             
+            }
         }
+    
+    </script>
 
-        // google.maps.event.addDomListener(document.getElementById('2'), 'mouseover', function() {  
-        //     // 해당 marker 를 찾아서 효과(크기 변화.등) 적용
-        //     // var marker_map = this.getMap();
-        //     // this.info.open(marker_map, this);
-        //     console.log("ok..");
-            
-        // });
-        
-    }
+    {% endif %}
 
-    // tripguide 스크롤 start..
-    $(function() {
-
-        $('img').hover(function(){
-            console.log($(this).attr('id'));
-            var id = $(this).attr('id');
-            var ul = document.getElementsByName('ul'+id);
-            // console.log(ul[0].classList);
-           
-            if (id != undefined ){
-                ul[0].classList.add("boxshadow");
-                // console.log(markers[id]);
-                markers[id].setAnimation(google.maps.Animation.BOUNCE);
-                
-            }
-        });
-
-        $('img').mouseout(function(){
-            console.log($(this).attr('id'));
-            var id = $(this).attr('id');
-            var ul = document.getElementsByName('ul'+id);
-           
-            if (id != undefined ){
-                ul[0].classList.remove("boxshadow");
-                // console.log(markers[id]);
-                markers[id].setAnimation(null);;
-                
-            }
-        });
-
-    });
-
-
-</script>
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
 </script>
 
-{% else %}
+{% else %} <!-- My Pick 한 tripguide/tripcurator 없는경우..-->
 
 <div class="infointro curator">
     <div class="infointro-in water">
@@ -291,12 +549,12 @@
                                 </div> 
                                 <div class="mytrip-btn" style="display: flex;">
                                     <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
-                                        <button class="btn btn-default btnRed">
+                                        <button class="btn btn-default btnRed" style="outline: none;">
                                             Trip Guide
                                         </button>
                                     </a>
                                     <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="margin-left: 10px;">
-                                        <button class="btn btn-default btnBlack">
+                                        <button class="btn btn-default btnBlack" style="outline: none;">
                                             Trip Curator
                                         </button>
                                     </a>

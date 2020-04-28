@@ -80,11 +80,11 @@
                     <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                         <i class="fa fa-map-o" style="font-size:24px;"></i>
                     </a> -->
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                    <a href="#layer2" class="btn-example" style="text-decoration: none; cursor: pointer;">
                         <img class="wd120" src="{% static 'img/icon_arbtn.png' %}" />
                     </a>
         
-                    <a href="#" style="text-decoration: none; cursor: pointer;">
+                    <a href="{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 1 %}" style="text-decoration: none; cursor: pointer;">
                         <img class="wd120" src="{% static 'img/icon_mypickbtn.png' %}" />
                     </a> 
                 </div>
@@ -92,6 +92,39 @@
         </div>
 
         <div class="linepart"></div>
+
+        <!-- 팝업창 띄우기 -->
+        <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+        <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer">
+                <div class="pop-container">
+                    <div class="pop-conts" style="text-align: center;">
+                        <!--content //-->
+                        <!-- <h4 style="text-align: center;"> TAKE A TRIPS </h4> -->
+                        <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
+                        <h6 style="text-align: center;">
+                            {% trans "AR Trip은 Take a trips APP에서" %} <br> 
+                            {% trans "실행이 가능한 서비스 입니다." %}
+                        </h6>
+                        <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
+                            {% trans "Take a trips APP을 설치하시겠습니까?" %}
+                        </p>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
+                        </a>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_apple.png' %}" />
+                        </a>
+                        
+                        <!-- <div class="btn-r">
+                            <a href="#" class="btn-layerClose">Close</a>
+                        </div> -->
+                        <!--// content-->
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {% block contents %}
 
@@ -117,6 +150,48 @@
             tablinks[0].className += " active";
 
   
+            // 팝업창 띄우기..
+            $('.btn-example').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href);
+            });
+
+            function layer_popup(el){
+
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight /2,
+                        marginLeft: -$elWidth/2
+                    })
+                } else {
+                    $el.css({top: 0, left: 0});
+                }
+
+                $el.find('a.btn-layerClose').click(function(){
+                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    return false;
+                });
+
+                // $('.layer .dimBg').click(function(){
+                //     $('.dim-layer').fadeOut();
+                //     return false;
+                // });
+                $('.dimBg').click(function(){
+                    $('.dim-layer').fadeOut();
+                    return false;
+                });
+            }
         </script>
 
         

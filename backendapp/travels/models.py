@@ -56,7 +56,7 @@ class City(models.Model):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
         db_table = 'city'
-        ordering = ('nameko',)
+        ordering = ('id',)
 
     def __str__(self):
         return self.nameko

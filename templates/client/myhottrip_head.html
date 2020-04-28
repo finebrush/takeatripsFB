@@ -12,6 +12,7 @@
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
         <link rel=stylesheet href="{% static 'css/main.css' %}">
         <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mainstyle.css' %}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -28,7 +29,13 @@
                 top:0px;
                 z-index: 999;
             }
+            .boxshadow {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
          </style>
+         {% block header %}
+         
+         {% endblock %}
     </head>
 
 
@@ -46,7 +53,7 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <span class="text-dark">Trip Curator</span>
+                        <span class="text-dark">Hot Trip</span>
                     </h3>
                     <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
                         
@@ -60,10 +67,26 @@
         
                     </div>
                 </div>
+                <!-- 상단 좌측 메뉴 / search -->
+                <!-- <div class="pull-left" style="padding-top: 6px;margin-left: 1em;">
+                    <form id="demo-1" method="POST" action="{% url 'clientapp:searchtrips' citydetails.id tourplan.id %}">
+                    {% csrf_token %}
+                    <input type="search" name="srhwd" placeholder="Search Tag" style="border-radius: 30px;">
+                    </form>
+                </div> -->
             </div>
 
             <div class="rightitem-c">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; margin-right: 10px;">
+                <div class="submenu">
+                    <div class="tab">
+                        <button style="cursor: pointer;" class="tablinks1" onclick="window.location.href = '{% url 'clientapp:myhottrip' citydetails.id tourplan.id 1 %}';" >먹다</button>
+                        <button style="cursor: pointer;" class="tablinks2" onclick="window.location.href = '{% url 'clientapp:myhottrip' citydetails.id tourplan.id 2 %}';">마시다</button>
+                        <button style="cursor: pointer;" class="tablinks3" onclick="window.location.href = '{% url 'clientapp:myhottrip' citydetails.id tourplan.id 3 %}';">놀다</button>
+                        <button style="cursor: pointer;" class="tablinks4" onclick="window.location.href = '{% url 'clientapp:myhottrip' citydetails.id tourplan.id 4 %}';">사다</button>
+                    </div>
+                </div>
+
+                <div style="margin-right: 10px;">
                     <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                         <i class="fa fa-map-o" style="font-size:24px;"></i>
                     </a> -->
@@ -79,7 +102,6 @@
         </div>
 
         <div class="linepart"></div>
-
 
         <!-- 팝업창 띄우기 -->
         <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
@@ -113,66 +135,11 @@
                 </div>
             </div>
         </div>
-      
-        <!-- django-waterfall 이미지 들어가는 부분.. -->
-        <div class="infointro curator">
-            <div class="infointro-in water">
-                <div class="card" style="padding-top: 0px!important; border:0px;">
-                    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
-                        <div class=waterfall> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- DB 에서 tripcourse(travelplan) 가져오기... -->
-        <script id=waterfall-template type=text/template>
-            {% for travelplan in travelplans %}
-            <ul class="list-group" style="position:relative">
-                <a href="{% url 'clientapp:mycurator_detail' citydetails.id tourplan.id travelplan.id %}" style="text-decoration: none;list-style: none;"> 
-                    <li class="list-group-up">
-                            <img src="{{ travelplan.poipoint_totals.first.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> 
-                    </li>
-                    <li class="list-group-it">
-                        <div class="media" style="color: black;display: grid;">
-                            <div class="media-body">
-                                
-                                {% if LANGUAGE_CODE == 'ko' %}
-                                <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
-                                <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
-                                <!-- <small style="color:blue;">{{ travelplan.get_course_display }}</small>  -->
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </small>
-                                {% elif LANGUAGE_CODE == 'en' %}
-                                <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
-                                <small>{{ travelplan.courseinfoeng|truncatewords:10 }}</small><br>
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small>
-                                {% elif LANGUAGE_CODE == 'vi' %}
-                                <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
-                                <small>{{ travelplan.courseinfoven|truncatewords:10 }}</small><br>
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small> 
-                                {% endif %}
+        {% block contents %}
 
-                            </div>
-                        </div>
-                    </li>
-                </a>
-                <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                    <a href="{% url 'clientapp:mycurator_like' citydetails.id tourplan.id travelplan.id %}"> 
-                        {% if user in travelplan.like_travelplan.all %}
-                        <img src="{% static 'img/icon_mypick57on.png' %}" alt=""> 
-                        {% else %}
-                        <img src="{% static 'img/icon_mypick57off.png' %}" alt=""> 
-                        {% endif %}
-                    </a>
-                    <!-- <span class="fa fa-map-marker" style="font-size:16px; float:left;">
-                        <span>{{ travelplan.inlinecount }}</span>
-                    </span> -->
-                </li>
-            </ul>
-            {% endfor %}
-        </script>
-
+        {% endblock %}
+    
             
         <!-- Footer -->
         <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
@@ -184,19 +151,15 @@
             <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
         </footer>
         <!-- Footer -->
+        
+        <script>
+            var tablinks;
+            var pinnum = {{ pinnum }};
+            
+            tablinks = document.getElementsByClassName("tablinks"+pinnum);
+            tablinks[0].className += " active";
 
-
-        <script type="text/javascript">
-            $('.waterfall')
-                .data('bootstrap-waterfall-template', $('#waterfall-template').html())
-                .on('finishing.mystist.waterfall', function() {
-                    setTimeout(function() { // simulate ajax
-                        $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
-                    }, 2000);
-                })
-                .waterfall()
-      
-
+  
             // 팝업창 띄우기..
             $('.btn-example').click(function(){
                 var $href = $(this).attr('href');
@@ -239,8 +202,8 @@
                     return false;
                 });
             }
+
         </script>
- 
         
     </body>
 </html>

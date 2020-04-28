@@ -158,7 +158,23 @@ header {
     width: 100%;
     background-color: white;
     z-index: 2000;
-    top: 0px;
+    top: 1px;
+}
+.btnRed {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    background-color: #bf1d38;
+    color: white;
+    border: none;
+    width: 120px;
+}
+.btnBlack {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    width: 120px;
+    border: none;
 }
 /* popup menu.. */
 .dropbtn {
@@ -273,7 +289,7 @@ header {
     background-color: white;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .detail-img-four.two {
     grid-template-columns: repeat(2, 1fr);
@@ -470,7 +486,28 @@ div.graydiv {
     grid-area: triptype;
     margin-left: 20px;
 }
-
+.btntype {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    border: 1px solid #00000059;
+    border-radius: 12px;
+    height: 45px;
+    width: 10em;
+    font-size: 1.1em;
+    background-color: white;
+}
+.btntype-on {
+    background-color: #c01d39;
+    color: white;
+    border: none;
+}
+.btntype-off {
+    color: #d8d8d8;
+    border: 1px solid #d8d8d8;
+    cursor: default!important;
+}
 /***** curator_detail.html *****/
 .header-curator {
     display: grid;

@@ -129,13 +129,13 @@
                             TRIP 100
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:myhottrip' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_hottrip24.png' %}" style="width: 16px;margin-right: 10px;" />
                             HOT TRIP
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="{% url 'clientapp:mymusttrip' citydetails.id tourplan.id 1 %}" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_musttrip24.png' %}" style="width: 16px;margin-right: 10px;" />
                             MUST TRIP
@@ -147,7 +147,7 @@
                             TRIP GUIDE
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="#layer2" class="btn-example" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
                             AR TRIP
@@ -172,10 +172,43 @@
 
         <div class="linepartitionsub"></div>
 
+        <!-- 팝업창 띄우기 -->
+        <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+        <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer">
+                <div class="pop-container">
+                    <div class="pop-conts" style="text-align: center;">
+                        <!--content //-->
+                        <!-- <h4 style="text-align: center;"> TAKE A TRIPS </h4> -->
+                        <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
+                        <h6 style="text-align: center;">
+                            {% trans "AR Trip은 Take a trips APP에서" %} <br> 
+                            {% trans "실행이 가능한 서비스 입니다." %}
+                        </h6>
+                        <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
+                            {% trans "Take a trips APP을 설치하시겠습니까?" %}
+                        </p>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
+                        </a>
+                        <a href="#" role="button">
+                            <img src="{% static 'img/appbtn_apple.png' %}" />
+                        </a>
+                        
+                        <!-- <div class="btn-r">
+                            <a href="#" class="btn-layerClose">Close</a>
+                        </div> -->
+                        <!--// content-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 도시 대표 이미지  4개.. -->
         <div class="detail-content1">
             <div class="detail-content1-img" style="height: 100%;">
-                <div class="detail-img-four" style="height: 100%;">
+                <div class="detail-img-four" style="height: 100%;cursor: auto;">
                     <div class="card text-center p-0" style="height: 100%;">
                         <img class="detail-pic" src="{{ citydetails.picture1.url }}" alt="Card image">
                     </div>
@@ -227,37 +260,45 @@
             </div>
 
             <div class="detail-content1-img">
-                <div class="detail-img-four">
-                        {% for itmust in itmusts|slice:":4" %}
-                        <div class="card" style="height: 100%;">
-                            <div class="card-body p-0">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itmust.id %}">
-                                    <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ itmust.picture1.url }}" alt="Card image">
-                                    <div class="media" style="padding: 20px;color: black;display: grid;">
-                                        <div class="media-body">
-
-                                            {% if LANGUAGE_CODE == 'ko' %}
-                                            <h5 class="media-heading">{{ itmust.companyko }}</h5> 
-                                            <small style="color:blue;">{{ itmust.get_part_display }}</small><br>
-                                            <!-- <small>{{ itmust.introko|truncatewords:7 }}</small>  -->
-                                            {% elif LANGUAGE_CODE == 'en' %}
-                                            <h5 class="media-heading">{{ itmust.companyeng }}</h5> 
-                                            <small style="color:blue;">{{ itmust.part }}</small><br>
-                                            <!-- <small>{{ itmust.introeng|truncatewords:7 }}</small>  -->
-                                            {% elif LANGUAGE_CODE == 'vi' %}
-                                            <h5 class="media-heading">{{ itmust.companyven }}</h5> 
-                                            <small style="color:blue;">{{ itmust.part }}</small><br>
-                                            <!-- <small>{{ itmust.introven|truncatewords:7 }}</small>  -->
-                                            {% endif %}
-
+                <div class="infointro-in water">
+                    <div class="card" style="padding-top: 0px!important; border:0px;">
+                        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                            
+                            <div class="col-md-12 col-sm-12">
+                                
+                                <div class="card-deck" style="margin: 10px;">
+                                    <div class="card p-5 bgbanner" style="    background-image: none;border: 1px solid #00000030;">
+                                        <div class="container plan">
+                                            <div style="margin-right: 20px;">
+                                                <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
+                                            </div> 
+                                            <div>
+                                                <h5 style="margin: 0px;"><span style="color: #bf1d37;">상품 준비 중</span>입니다. </h5>
+                                                <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                            </div> 
+                                            <div class="mytrip-btn" style="display: flex;">
+                                                <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
+                                                    <button class="btn btn-default btnRed" style="outline: none;">
+                                                        Trip Guide
+                                                    </button>
+                                                </a>
+                                                <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="margin-left: 10px;">
+                                                    <button class="btn btn-default btnBlack" style="outline: none;">
+                                                        Trip Curator
+                                                    </button>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
+            
                             </div>
+                            
                         </div>
-                        {% endfor %}
+                    </div>
                 </div>
             </div>
+            
         </div>
 
 
@@ -328,7 +369,7 @@
             <div class="detail-content1-text">
                 <div class="detail-title">
                     <h5 class="card-title">Hot Trip</h5>
-                    <a href="#" style="position: absolute; right: 30px;">
+                    <a href="{% url 'clientapp:myhottrip' citydetails.id tourplan.id 1 %}" style="position: absolute; right: 30px;">
                         <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Hot Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
@@ -376,7 +417,7 @@
             <div class="detail-content1-text">
                 <div class="detail-title">
                     <h5 class="card-title">Must Trip</h5>
-                    <a href="#" style="position: absolute; right: 30px;">
+                    <a href="{% url 'clientapp:mymusttrip' citydetails.id tourplan.id 1 %}" style="position: absolute; right: 30px;">
                         <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             Must Trip {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
@@ -476,7 +517,7 @@
             <div class="detail-content1-text">
                 <div class="detail-title">
                     <h5 class="card-title">My Pick Trip</h5>
-                    <a href="#" style="position: absolute; right: 30px;">
+                    <a href="{% url 'clientapp:mytripguide_pick' citydetails.id tourplan.id 1 %}" style="position: absolute; right: 30px;">
                         <small style="color:#c83a54;text-decoration: underline;cursor: pointer;"> 
                             My Pick Trips {% trans "모두보기" %} <i class="fa fa-caret-right" style="font-size: 16px;"></i>
                         </small>
@@ -484,6 +525,7 @@
                 </div> 
             </div>
 
+            {% if userlike_its %}
             <div class="detail-content1-img">
                 <div class="detail-img-four">
                         {% for userlike_it in userlike_its|slice:":8" %}
@@ -516,6 +558,48 @@
                         {% endfor %}
                 </div>
             </div>
+            {% else %}
+            <div class="detail-content1-img">
+                <div class="infointro-in water">
+                    <div class="card" style="padding-top: 0px!important; border:0px;">
+                        <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                            
+                            <div class="col-md-12 col-sm-12">
+                                
+                                <div class="card-deck" style="margin: 10px;">
+                                    <div class="card p-5 bgbanner" style="    background-image: none;border: 1px solid #00000030;">
+                                        <div class="container plan">
+                                            <div style="margin-right: 20px;">
+                                                <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
+                                            </div> 
+                                            <div>
+                                                <h5 style="margin: 0px;"> Pick한 여행 정보가 아직 없으시군요? </h5>
+                                                <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                            </div> 
+                                            <div class="mytrip-btn" style="display: flex;">
+                                                <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
+                                                    <button class="btn btn-default btnRed" style="outline: none;">
+                                                        Trip Guide
+                                                    </button>
+                                                </a>
+                                                <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="margin-left: 10px;">
+                                                    <button class="btn btn-default btnBlack" style="outline: none;">
+                                                        Trip Curator
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
         </div>
 
 

@@ -1,15 +1,37 @@
-{% extends 'client/mytripguide_listhead.html' %}
+{% extends 'client/myhottrip_head.html' %}
 
 {% load i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
 
+{% block header %}
+<style>
+    .btnRed {
+        padding: 0.5rem 1.2rem;
+        border-radius: 20px;
+        background-color: #bf1d38;
+        color: white;
+        border: none;
+        width: 120px;
+    }
+    .btnBlack {
+        padding: 0.5rem 1.2rem;
+        border-radius: 20px;
+        background-color: black;
+        color: white;
+        width: 120px;
+        border: none;
+    }
+</style>
+{% endblock %}
+
 {% block contents %}
-      
+
 <!-- django-waterfall 이미지 들어가는 부분.. -->
-<div class="infointro curator" style="padding-top: 130px;">
+<div class="infointro curator">
     <div class="infointro-in water">
         <div class="card" style="padding-top: 0px!important; border:0px;">
             <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                
                 <div class="col-md-7 col-sm-7">
                     <!-- 이전 상위 컨텐츠 목록 -->
                     <div id="tripguideBeforeList" class="tripguideList">
@@ -53,23 +75,21 @@
                         </ul>
                         {% endfor %}
                     </div>
-                    <div id="tripguideScroll"></div>
-                    <input id="page" type="hidden" value="2"> 
+                    
                 </div>
 
                 <div class="col-md-5 col-sm-5" style="position: relative;height: 100vh;"> 
-                    <div style="background-color: #cecece;height: 73vh;position: fixed;width: 35%;border-radius: 12px;">
+                    <div style="background-color: #cecece;height: 80vh;position: fixed;width: 35%;border-radius: 12px;">
                         <!-- googlemap.. -->
                         <div id="map" style="height: 100%;border-radius: 12px;"></div>
                         <div id="msg"></div>
                     </div>
                 </div>
-
+                
             </div>
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -80,6 +100,7 @@
     var map;
     var locations = new Array();
     locations = {{ locations|safe }};
+    // console.log(locations);
     if (locations.length < 1){
         locations = [["Seoul", 126.97829, 37.56668, 2, 0]]; 
     }
@@ -163,7 +184,9 @@
                 this.info.open(marker_map, this);
                 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.add("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.add("boxshadow");
+                }
                 
                 var newIcon = {
                     url: this.icon.url, // url
@@ -172,7 +195,7 @@
                     anchor: new google.maps.Point(20, 52) // anchor
                 }
                 this.setIcon(newIcon);
-                // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+                
             });
             google.maps.event.addListener(marker, 'mouseout', function() {  
                 // this = marker
@@ -180,7 +203,9 @@
                 this.info.close(marker_map, this);
 
                 var ul = document.getElementsByName('ul'+this.id);
-                ul[0].classList.remove("boxshadow");
+                if (ul.length > 0){
+                    ul[0].classList.remove("boxshadow");
+                }
 
                 var newIcon = {
                     url: this.icon.url, // url
@@ -190,7 +215,6 @@
                 }
                 this.setIcon(newIcon);
 
-                // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
             });
             
         }
@@ -208,48 +232,6 @@
     // tripguide 스크롤 start..
     $(function() {
 
-        // // 스크롤 감지하여 페이지로 가져올때...start...
-        // var didScroll = false;
-            
-        // $(window).on('scroll', function() { didScroll = true; });
-
-        // setInterval(function() {
-        //     var bottomHeight = $(window).scrollTop() + $(window).height() + 600;
-        //     var docHeight = $(document).height();
-
-        //     if (didScroll) {
-        //         didScroll = false;
-        //         if (bottomHeight > docHeight) {
-        //             var page = $('#page').val();
-        //             callMorePostAjax(page);
-        //             $('#page').val(parseInt(page)+1);
-        //         }
-        //     }
-        // }, 250);
-
-        // // 다음 페이지 가져오기..
-        // function callMorePostAjax(page) {
-        //     $.ajax( {
-        //         type : "POST",
-        //         url: "{% url 'clientapp:post_list_ajax' citydetails.id tourplan.id %}",
-        //         data: {
-        //             csrfmiddlewaretoken: '{{ csrf_token }}',
-        //                         create_token: 'create_token',
-        //             "page": page,
-        //         },
-        //         success: addMorePostAjax,
-        //         dataType: "html",
-        //         // async:false,
-        //     });
-        // }
-
-        // // 다음페이지 붙여 넣기...
-        // function addMorePostAjax(data, textStatus, jqXHR) {
-        //     $("#tripguideScroll").append(data);
-        // } 
-        //// 스크롤 감지하여 페이지로 가져올때...end...
-
-
         $('img').hover(function(){
             console.log($(this).attr('id'));
             var id = $(this).attr('id');
@@ -257,9 +239,6 @@
             // console.log(ul[0].classList);
            
             if (id != undefined ){
-                // console.log(markers[0].icon.scaledSize.width);
-                // markers[id].icon.scaledSize.width = 40;
-                // markers[id].icon.scaledSize.height = 50;
                 ul[0].classList.add("boxshadow");
                 // console.log(markers[id]);
                 markers[id].setAnimation(google.maps.Animation.BOUNCE);
@@ -280,16 +259,14 @@
             }
         });
 
-
     });
 
-        
-    
 
 </script>
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9P6UvbrGzl1-ooprZXq4HghPXX27Q7Po&callback=initMap">
 </script>
+
  
 {% endblock %}

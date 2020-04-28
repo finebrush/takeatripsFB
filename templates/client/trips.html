@@ -1,34 +1,163 @@
 {% extends 'client/head.html'%}
-{% load i18n static %}
+{% load static i18n %}
 
 {% block headers %}
+<link rel=stylesheet href="{% static 'css/main.css' %}">
+<link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+<script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+
+<style>
+    .linepartition-trips{
+        position:fixed; 
+        border-bottom: solid 0.5px #00000022;
+        height: 130px; 
+        width: 100%;
+        background-color: white;
+        z-index: 99;
+        top: 1px;
+    }
+    .headtrips {
+        display: grid;
+        grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+        grid-template-rows: 50px;
+        grid-template-areas:
+            ". triptype triptype triptype triptype ."
+        ;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        background-color: white;
+        width: 100%;
+        z-index: 9999;
+        top: 70px;
+    }
+
+</style>
 {% endblock %}
 
 {% block contents %}
-<!-- trips part -->
-<div id="trips" class="tabcontent active">
-    <div class="hottrip">
-        HOT TRIP
+<div class="headtrips">
+    <div class="triptype">
+
+        {% for city in citys %}
+        <a href="#" style="display: contents;text-decoration: none;">
+            <button id="city{{ city.id }}" class="btntype" style="outline: none;">
+                {{ city.nameko }}
+            </button>
+        </a>
+        {% endfor %}
+
+        <a href="#" style="display: contents;text-decoration: none;">
+            <button id="city3" class="btntype btntype-off" style="outline: none;">
+                제주도
+            </button>
+        </a>
+        <a href="#" style="display: contents;text-decoration: none;">
+            <button id="city3" class="btntype btntype-off" style="outline: none;">
+                광주광역시
+            </button>
+        </a>
+        <a href="#" style="display: contents;text-decoration: none;">
+            <button id="city3" class="btntype btntype-off" style="outline: none;">
+                대구광역시
+            </button>
+        </a>
+        <a href="#" style="display: contents;text-decoration: none;">
+            <button id="city3" class="btntype btntype-off" style="outline: none;">
+                대전광역시
+            </button>
+        </a>
+
     </div>
-    <div class="musttrip">
-        MUST TRIP
-    </div>
-    <div class="tripcurator">
-        TRIP CURATOR
-    </div>
-    <div class="artrip">
-        AR TRIP
-    </div>
-    <div class="footer">
-        FOOTER
+</div>
+
+<div class="linepartition-trips"></div>
+
+<!-- waterfall 여행정보 리스트.. -->
+<div class="infointro curator" style="padding-top: 130px;">
+    <div class="infointro-in water">
+        <div class="card" style="padding-top: 0px!important; border:0px;">
+            <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                
+                <div class="col-md-12 col-sm-12" style="padding:0px;">
+                    
+                    <div class=container style="margin:0px; padding:0px; max-width:1920px;">
+                        <div class=waterfall> 
+                        </div>
+                    </div>
+
+                    <!-- DB 에서 tripguide(InfoTravel) 가져오기... -->
+                    <script id=waterfall-template type=text/template>
+                        {% for itdetail in itdetails %}
+                        <ul class="list-group">
+                            <li class="list-group-up">
+                                <!-- '0' 는 mytrip.html(home) 에서 바로 mytripguide_detail 로 진입한다는 의미..여행 계획만들어 그안에서 진입하게 되면 tourplan.id 로 진입.. -->
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id %}"> 
+                                    <img src="{{ itdetail.picture1.url }}" alt=""> </a>
+                            </li>
+                            <!-- <li class="list-group-it">
+                                <span class="fa fa-heart" style="font-size:16px; float:right;">
+                                    <span>{{ itdetail.like_count }}</span>
+                                </span>
+                            </li> -->
+                            <li class="list-group-it">
+                                <div class="media">
+                                    <!-- <div class="media-left">
+                                        <a href="javascript:;"> <img class="media-object img-rounded" style="width: 30px; height: 30px;" src="{% static 'images/avatar_30.png' %}" /> </a>
+                                    </div> -->
+                                    <div class="media-body">
+
+                                        {% if LANGUAGE_CODE == 'ko' %}
+                                        <h6 class="media-heading">{{ itdetail.companyko }}</h6> 
+                                        <small style="color:blue;">{{ itdetail.get_part_display }}</small><br>
+                                        <small>{{ itdetail.introko|truncatewords:7 }}</small> 
+                                        {% elif LANGUAGE_CODE == 'en' %}
+                                        <h6 class="media-heading">{{ itdetail.companyeng }}</h6> 
+                                        <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                        <small>{{ itdetail.introeng|truncatewords:7 }}</small> 
+                                        {% elif LANGUAGE_CODE == 'vi' %}
+                                        <h6 class="media-heading">{{ itdetail.companyven }}</h6> 
+                                        <small style="color:blue;">{{ itdetail.part }}</small><br>
+                                        <small>{{ itdetail.introven|truncatewords:7 }}</small> 
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </script>
+
+                </div>
+                
+            </div>
+        </div>
     </div>
 </div>
 
 
 <script>
+    // 상단 메뉴 선택 여부..
     var tablinks;
     tablinks = document.getElementsByClassName("tablinks2");
     tablinks[0].className += " active";
+
+    // 도시 list..
+    var city1, city2;
+    city1 = document.getElementById('city1');
+    city2 = document.getElementById('city2');
+    city1.classList.add('btntype-on');
+    city2.classList.add('btntype-off');
+
+
+    $('.waterfall')
+        .data('bootstrap-waterfall-template', $('#waterfall-template').html())
+        .on('finishing.mystist.waterfall', function() {
+            setTimeout(function() { // simulate ajax
+                $('.waterfall').data('mystist.waterfall').addPins($($('#another-template').html()))
+            }, 2000);
+        })
+        .waterfall()
 
     
 </script>

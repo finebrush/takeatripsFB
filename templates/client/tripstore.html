@@ -1,10 +1,16 @@
-{% extends 'client/mytrip100_head.html' %}
+{% extends 'client/head.html'%}
+{% load static i18n %}
 
-{% load i18n static %}
-{% get_current_language as LANGUAGE_CODE %}
+{% block headers %}
+<link rel=stylesheet href="{% static 'css/main.css' %}">
+<link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+
+{% endblock %}
 
 {% block contents %}
-   
+<div class="linepartition"></div>
+
+
 <div class="infointro curator">
     <div class="infointro-in water">
         <div class="card" style="padding-top: 0px!important; border:0px;">
@@ -23,12 +29,12 @@
                                     <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
                                 </div> 
                                 <div class="mytrip-btn" style="display: flex;">
-                                    <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
+                                    <a href="#">
                                         <button class="btn btn-default btnRed" style="outline: none;">
                                             Trip Guide
                                         </button>
                                     </a>
-                                    <a href="{% url 'clientapp:mycurator' citydetails.id tourplan.id %}" style="margin-left: 10px;">
+                                    <a href="#" style="margin-left: 10px;">
                                         <button class="btn btn-default btnBlack" style="outline: none;">
                                             Trip Curator
                                         </button>
@@ -46,4 +52,18 @@
 </div>
 
 
+
+<script>
+    // 상단 메뉴 선택 여부..
+    var tablinks;
+    tablinks = document.getElementsByClassName("tablinks3");
+    tablinks[0].className += " active";
+
+
+    
+</script>
+
+{% endblock %}
+
+{% block footers %}
 {% endblock %}
