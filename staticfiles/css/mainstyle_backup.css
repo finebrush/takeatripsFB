@@ -1,0 +1,273 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 
+        1fr
+        repeat(4, minmax(0px, 320px))
+        1fr
+    ;
+    grid-template-rows: 
+        70px
+    ;
+    grid-template-areas:
+        ". logo submenu submenu loginout ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: green;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: teal;
+    grid-area: logo;
+    margin-left: 20px;
+}
+
+.submenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: thistle;
+    grid-area: submenu;
+}
+/* Style the tab */
+.tab {
+    overflow: hidden;
+}
+/* Style the buttons inside the tab */
+.tab button {
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+    background: none;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+    color: red;
+}
+.tab button:focus{
+    outline: none;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+    color: red;
+    text-decoration: underline;
+}
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    /* padding: 6px 12px;
+    border: 1px solid #ccc; */
+    border-top: none;
+}
+
+.loginout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: tomato;
+    grid-area: loginout;
+    margin-right: 20px;
+}
+
+/* mytrip of submenu */
+#mytrip{
+    background-color: white;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 
+        1fr
+        repeat(4, minmax(0px, 320px))
+        1fr
+    ;
+    /* grid-gap: 5px; */
+    grid-template-rows: 
+        70px
+        215px
+        1fr
+    ;
+    grid-template-areas: 
+        ". . . . . ."
+        ". mytrip_header mytrip_header mytrip_header mytrip_header ."
+        ". content content content content ."
+    ;
+}
+#mytrip > div {
+    padding: 10px;
+}
+.mytrip_header {
+    background-color: purple;
+    grid-area: mytrip_header;
+}
+.content {
+    background-color: yellowgreen;
+    grid-area: content;
+}
+.footer {
+    background-color: gray;
+    grid-area: footer;
+}
+
+/* trips of submenu */
+#trips{
+    background-color: white;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 
+        1fr
+        repeat(4, minmax(0px, 320px))
+        1fr
+    ;
+    /* grid-gap: 5px; */
+    grid-template-rows: 
+        70px
+        300px
+        300px
+        300px
+        300px
+        100px
+    ;
+    grid-template-areas: 
+        ". . . . . ."
+        ". hottrip hottrip hottrip hottrip ."
+        ". musttrip musttrip musttrip musttrip ."
+        ". tripcurator tripcurator tripcurator tripcurator ."
+        ". artrip artrip artrip artrip ."
+        ". footer footer footer footer ."
+    ;
+}
+#trips > div {
+    padding: 10px;
+}
+.hottrip {
+    background-color: purple;
+    grid-area: hottrip;
+}
+.musttrip {
+    background-color: yellowgreen;
+    grid-area: musttrip;
+}
+.tripcurator {
+    background-color: yellow;
+    grid-area: tripcurator;
+}
+.artrip {
+    background-color: rgb(19, 34, 121);
+    grid-area: artrip;
+}
+
+/* trips of submenu */
+#trip100{
+    background-color: white;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 
+        1fr
+        repeat(4, minmax(0px, 320px))
+        1fr
+    ;
+    /* grid-gap: 5px; */
+    grid-template-rows: 
+        70px
+        100px
+        1fr
+        100px
+    ;
+    grid-template-areas: 
+        ". . . . . ."
+        ". categorymenu categorymenu categorymenu categorymenu ."
+        ". tripinfo tripinfo mapcontent mapcontent ."
+        ". footer footer footer footer ."
+    ;
+}
+#trip100 > div {
+    padding: 10px;
+}
+.categorymenu {
+    background-color: purple;
+    grid-area: categorymenu;
+}
+.tripinfo {
+    background-color: yellowgreen;
+    grid-area: tripinfo;
+}
+.mapcontent {
+    background-color: yellow;
+    grid-area: mapcontent;
+}
+
+@media screen and (max-width: 600px){
+    .header {
+        grid-template-columns: 
+            1fr 1fr
+        ;
+        grid-template-rows: 
+            70px
+            70px
+        ;
+        grid-template-areas:
+            "logo loginout"
+            "submenu submenu"
+        ;
+    }
+    
+    .logo {
+        height: 70px;
+    }
+    
+    .submenu {
+        height: 70px;
+    }
+
+    .loginout {
+        height: 70px;
+    }
+
+    #mytrip {
+        grid-template-rows: 
+            140px
+            215px
+            1fr
+        ;
+    }
+
+    #trips {
+        grid-template-rows: 
+            140px
+            300px
+            300px
+            300px
+            300px
+            100px
+        ;
+    }
+
+    #trip100 {
+        grid-template-rows: 
+            140px
+            100px
+            300px
+            500px
+            100px
+        ;
+        grid-template-areas: 
+            ". . . . . ."
+            ". categorymenu categorymenu categorymenu categorymenu ."
+            ". mapcontent mapcontent mapcontent mapcontent ."
+            ". tripinfo tripinfo tripinfo tripinfo ."
+            ". footer footer footer footer ."
+        ;
+    }
+}

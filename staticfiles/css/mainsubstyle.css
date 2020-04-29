@@ -1,0 +1,751 @@
+/* search */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.searchbase {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #4e595a;
+    border-right: none;
+    padding: 5px;
+    height: 30px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus{
+    color: #00B4CC;
+}
+
+.searchButton {
+    width: 40px;
+    height: 30px;
+    border: 1px solid #4e595a;
+    background: #4e595a;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+    display: inline-grid;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrapsh{
+    width: 500px;
+    position: relative;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    padding: 6px;
+}
+
+
+input {
+    outline: none;
+}
+#demo-1 input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+    height: 14px;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none; 
+}
+#demo-1 input[type=search] {
+    background: #ffffff url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 7px center;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 32px;
+    width: 300px;
+    
+    -webkit-border-radius: .3em;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+#demo-1 input[type=search]:focus {
+    width: 300px;
+    background-color: #fff;
+    border-color: #66CC75;
+    
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+#demo-1 input:-moz-placeholder {
+    color: #999;
+}
+#demo-1 input::-webkit-input-placeholder {
+    color: #999;
+}
+
+header {
+    position: fixed;
+    /* border: 1px solid black; */
+    padding: 12px 0px;
+    z-index: 2014;
+    left: 45px;
+    right: 45px;
+    top: 0;
+    height: 70px;
+}
+.pull-left, .pull-right {
+    /* border: 1px solid red; */
+    padding: 8px 5px;
+    margin-right: 5px;
+}
+.pull-right {
+    margin-right:0;
+}
+.menuadd {
+    /* border: 1px solid blue; */
+    /* z-index: 2014; */
+    margin-top: 70px;
+    height: 120px;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    max-width: 1920px;
+}
+@media screen and (max-width: 600px) {
+    .menuadd {
+        margin-top: 180px;
+    }
+    header {
+        padding: 12px;
+        left: 0;
+        right: 0;
+    }
+    .pull-right {
+        margin-top: 10px;
+    }
+    .linepartition{
+        height: 180px!important; 
+    }
+}
+.centerdiv {
+    margin: auto;
+    /* border: 3px solid #73AD21; */
+    padding: 10px;
+}
+.centerdiv a {
+    text-decoration: none;
+}
+.pull-center{
+    padding: 0 10px;
+}
+.submenu1, .submenu2, .submenu3 {
+    /* height: 40px; */
+    padding: 5px 20px;
+}
+.linepartition{
+    position:fixed; 
+    border-bottom: solid 0.5px #00000022;
+    height: 70px; 
+    width: 100%;
+    background-color: white;
+    z-index: 2000;
+    top: 1px;
+}
+.btnRed {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    background-color: #bf1d38;
+    color: white;
+    border: none;
+    width: 120px;
+}
+.btnBlack {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    width: 120px;
+    border: none;
+}
+/* popup menu.. */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+.dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown a:hover {background-color: #ddd;}
+.show {display: block;}
+
+/* fb add */
+
+/***** myTrip_detail.html *****/
+.header-detail {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px 50px;
+    grid-template-areas: 
+        ". logo logo loginout loginout ."
+        ". detailmenu detailmenu detailmenu detailmenu ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    padding-bottom: 10px;
+}
+.detailmenu {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    grid-area: detailmenu;
+    padding: 0px 20px 0px 5px;
+}
+
+.linepartitionsub {
+    position: fixed;
+    border-bottom: solid 0.5px #00000022;
+    height: 131px;
+    width: 100%;
+    background-color: white;
+    z-index: 2000;
+    top: 0px;
+}
+
+.detail-content1 {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 1.2fr 0fr; /* 0fr 는 없어도 됨 rows 지정하지 않으면 content에 fit 됨 */
+    grid-template-areas: 
+        ". detail-content1-img detail-content1-img detail-content1-img detail-content1-img ."
+        ". detail-content1-text detail-content1-text detail-content1-text detail-content1-text ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    z-index: 0;
+    padding-bottom: 10px;
+    padding-top: 180px;
+}
+.detail-content2 {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 0fr 1fr; /* 앞쪽의 content에 fit 할려면 0fr 넣어준다.  */
+    grid-template-areas: 
+        ". detail-content1-text detail-content1-text detail-content1-text detail-content1-text ."
+        ". detail-content1-img detail-content1-img detail-content1-img detail-content1-img ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    z-index: 0;
+    padding-bottom: 60px;
+}
+.detail-img-four {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 20rem;
+    grid-gap: 1.5em;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    /* cursor: pointer; */
+}
+.detail-img-four.two {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+.detail-img-four.sm {
+    grid-template-rows: 8rem;
+}
+.detail-pic {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+.detail-content1-img {
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    grid-area: detail-content1-img;
+    padding: 0px 20px;
+}
+.detail-content1-text {
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    grid-area: detail-content1-text;
+    height: 100%;
+}
+.detail-title {
+    display: flex;
+    padding: 0 25px;
+    position: relative;
+}
+a.smcard {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+div.smcardiv {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img.smcardimg {
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+div.graydiv {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    border-radius: 12px;
+}
+
+.card-imgsm.imgsize {
+    width: 15rem;
+    height: 240px;
+    object-fit: cover;
+}
+
+.footer-menu {
+    margin: 0 2rem;
+}
+.footer-copyrights {
+    display: flex;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    font-size: 0.8rem;
+    padding: 5px 0;
+}
+
+/***** myTripguide_detail.html *****/
+.header-guidedetail {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px;
+    grid-template-areas: 
+        ". leftitem leftitem rightitem rightitem ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.leftitem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: leftitem;
+    margin-left: 20px;
+}
+.rightitem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+    grid-area: rightitem;
+    margin-right: 20px;
+}
+
+.imggallery {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+            ". imgcontainer imgcontainer imgcontainer imgcontainer ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    /* margin-top: 100px; */
+}
+.imgcontainer {
+    display: grid;
+    grid-gap: 1rem;
+    background-color: white;
+    grid-area: imgcontainer;
+    padding: 0px 1rem;
+}
+.img3grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+.img2grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+}
+.img-container.marginzero {
+    margin: 0px;
+}
+.infointro {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+            ". infointro-in infointro-in infointro-in infointro-in ."
+    ;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+}
+.infointro-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    background-color: white;
+    grid-area: infointro-in;
+    padding: 2rem 1rem;
+}
+.infointro-in.map {
+    grid-template-columns: 1fr;
+}
+.infointro-in.water {
+    grid-template-columns: 1fr;
+    grid-gap: 0px;
+}
+.header-tripguide{
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px 50px;
+    grid-template-areas: 
+        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
+        ". triptype triptype triptype triptype ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.triptype {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: triptype;
+    margin-left: 20px;
+}
+.btntype {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    border: 1px solid #00000059;
+    border-radius: 12px;
+    height: 45px;
+    width: 10em;
+    font-size: 1.1em;
+    background-color: white;
+}
+.btntype-on {
+    background-color: #c01d39;
+    color: white;
+    border: none;
+}
+.btntype-off {
+    color: #d8d8d8;
+    border: 1px solid #d8d8d8;
+    cursor: default!important;
+}
+/***** curator_detail.html *****/
+.header-curator {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 70px;
+    grid-template-areas: 
+        ". leftitem-c leftitem-c rightitem-c rightitem-c ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 9999;
+    top:0px;
+}
+.header-curator.detail {
+    grid-template-areas: 
+    ". leftitem-c leftitem-c leftitem-c rightitem-c ."
+;
+}
+.leftitem-c {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    grid-area: leftitem-c;
+    margin-left: 20px;
+}
+.rightitem-c {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: white;
+    grid-area: rightitem-c;
+    margin-right: 20px;
+}
+.infointro.curator {
+    padding-top: 80px;
+}
+
+/***** trip1_list *****/
+.wd120 {
+    width: 8em;
+}
+.tripinfoarea {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    /* grid-template-rows: 70px; */
+    grid-template-areas: 
+        "triplist tripmap"
+    ;
+    align-items: center;
+    justify-content: center;
+    /* position: fixed; */
+    background-color: white;
+    width: 100%;
+    /* z-index: 9999;
+    top:0px; */
+}
+.triplist {
+    display: grid;
+    /* align-items: center;
+    justify-content: flex-start; */
+    background-color: white;
+    grid-area: triplist;
+    /* margin-left: 20px; */
+}
+.tripmap {
+    display: block;
+    /* align-items: center;
+    justify-content: flex-end;
+    background-color: white; */
+    grid-area: tripmap;
+    /* margin-right: 20px; */
+}
+
+@media screen and (max-width: 900px){
+    .detail-img-four.two {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+    .detail-img-four {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media screen and (max-width: 640px){
+    .header-detail {
+        grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+        grid-template-rows: 70px 70px 100px;
+        grid-template-areas: 
+            ". logo logo logo logo ."
+            ". loginout loginout loginout loginout ."
+            ". detailmenu detailmenu detailmenu detailmenu ."
+        ;
+    }
+    .linepartitionsub {
+        height: 251px;
+    }
+
+    .detailmenu {
+        display: flex;
+    }
+    .detail-content1 {
+        padding-top: 270px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 0.3fr;
+    }
+    .detail-img-four {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 20rem 20rem;
+    }
+    .detail-img-four.sm {
+        grid-template-rows: 8rem 8rem;
+    }
+    .detail-img-four.two {
+        grid-template-columns: 1fr;
+        grid-template-rows: 30rem 30rem 30rem 30rem;
+    }
+
+    .card-imgsm.imgsize {
+        width: 100%;
+        height: 240px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 13px;
+    }
+
+    .img3grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+    }
+    .img2grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+    }
+    h3.font-weight-bold {
+        font-size: 1.5rem;
+    }
+    a>img.wd120 {
+        width: 120px;
+    }
+
+    .footer-menu {
+        margin: 0 1rem;
+        font-size: 0.8rem;
+    }
+    .footer-copyrights {
+        font-size: 0.4rem;
+    }
+}
+
+/* mobile.. */
+@media screen and (max-width: 450px){
+    .detail-img-four {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: 20rem 20rem 20rem 20rem;
+    }
+    .detail-img-four.sm {
+        grid-template-rows: 8rem 8rem 8rem 8rem;
+    }
+
+    .detail-content2 {
+        grid-template-rows: 0fr 1fr;
+        padding-bottom: 30px;
+    }
+
+    .header-guidedetail {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) ;
+        grid-template-rows: 70px;
+        grid-template-areas: "leftitem leftitem rightitem rightitem";
+    }
+    h3.font-weight-bold {
+        font-size: 1.5rem;
+    }
+    h3.font-weight-bold-c {
+        font-size: 1.2rem;
+    }
+    a>img.wd120 {
+        width: 120px;
+    }
+    .rightitem {
+        margin-right: 30px;
+    }
+    .header-curator.md {
+        grid-template-rows: 70px 70px;
+        grid-template-areas:
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
+    }
+
+    .infointro.curator {
+        padding-top: 150px;
+    }
+}
+
+/* mytrip list */
+.tripguideList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tripguideList .list-group {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 12px;
+    position: relative;
+}
+
+.tripguideList .list-group .list-group-up {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group .list-group-it {
+    padding: 15px;
+    background-color: white;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.tripguideList .list-group>li:first-child {
+    padding: 0;
+    background-color: #fff;
+}
+
+.tripguideList .list-group>li:first-child img {
+    width: 100%;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group>li {
+    background-color: #f5f5f5;
+    list-style:none;
+}
