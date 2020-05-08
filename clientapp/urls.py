@@ -23,9 +23,9 @@ urlpatterns = [
 
     path('mytripguide/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mytripguide, name='mytripguide'),
     path('mytripguide_list/<int:city_id>/<int:tourplan_id>/<int:pinnum>/<int:style_id>/', views.mytripguide_list, name='mytripguide_list'),
-    path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/', views.mytripguide_detail, name='mytripguide_detail'),
+    path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/<str:fromwhere>/', views.mytripguide_detail, name='mytripguide_detail'),
     path('mytripguide_pick/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mytripguide_pick, name='mytripguide_pick'),
-    path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/like/', views.mytripguide_like, name='mytripguide_like'),
+    path('mytripguide_detail/<int:city_id>/<int:tourplan_id>/<int:tripguide_id>/<str:fromwhere>/like/', views.mytripguide_like, name='mytripguide_like'),
     
     path('myhottrip/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.myhottrip, name='myhottrip'),
     path('mymusttrip/<int:city_id>/<int:tourplan_id>/<int:pinnum>/', views.mymusttrip, name='mymusttrip'),

@@ -98,9 +98,35 @@
         <div class="header-guidedetail">
             <div class="leftitem">
                 <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
-                {% if fromhtml %}
+                {% if fromwhere == 'tourplan' %}
                 <div id="back1" style="align-self: center;">
                     <a href="{% url 'clientapp:mytrip_detail' city_id tourplan_id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% elif fromwhere == 'trips' %}
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:trips' city_id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% elif fromwhere == 'mycurator' %}
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mycurator' city_id tourplan_id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% elif fromwhere == 'mytripguide' %}
+                <div id="back1" style="align-self: center;">
+                    <!-- <a href="{% url 'clientapp:mytripguide' city_id tourplan_id 1 %}">  pinnum = 1 는 eat -->
+                    <a href="#" onclick="history.back(); return false;">
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+                {% elif fromwhere == 'mytripguidelike' %}
+                <div id="back1" style="align-self: center;">
+                    <!-- <a href="{% url 'clientapp:mytripguide' city_id tourplan_id 1 %}">  pinnum = 1 는 eat -->
+                    <a href="#" onclick="history.go(-2); return false;">
                         <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
                     </a>
                 </div>
@@ -110,9 +136,10 @@
                         <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
                     </a>
                 </div>
+                <!-- 유튜브 뒤로가기.. -->
                 {% endif %}
                 <div id="back2" style="align-self: center;">
-                    <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}"> 
+                    <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id 'mytripguide' %}"> 
                         <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
                     </a>
                 </div>
@@ -121,11 +148,11 @@
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
         
                         {% if LANGUAGE_CODE == 'ko' %}
-                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyko }}</a>
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id 'mytripguide' %}" class="card-link text-dark">{{ itdetail.companyko }}</a>
                         {% elif LANGUAGE_CODE == 'en' %}
-                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyeng }}</a>
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id 'mytripguide' %}" class="card-link text-dark">{{ itdetail.companyeng }}</a>
                         {% elif LANGUAGE_CODE == 'vi' %}
-                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}" class="card-link text-dark">{{ itdetail.companyven }}</a>
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id 'mytripguide' %}" class="card-link text-dark">{{ itdetail.companyven }}</a>
                         {% endif %}
                         
                         <small class="font-italic" style="margin-top: 14px;margin-bottom: 0px;margin-left: 5px;color: #c1223f;font-size: 16px;">{{ itdetail.get_typeit_display }}</small> 
@@ -163,7 +190,7 @@
                     </a>
                     {% endif %}
         
-                    <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                    <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id 'mytripguidelike' %}" id="btnlike" style="text-decoration: none;">
                         {% if user in itdetail.like_infotravel.all %}
                         <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                         {% else %}
@@ -296,17 +323,17 @@
         
                             </div>
                             <hr style="border: solid 0.5px #969696b3;">
-                            {% if itdetail.part == 'Eat' or itdetail.part == 'Drink' %}
+                            {% if itdetail.part == 'Eat' %}
                             <div style="display: flex;">
                                 <img src="{% static 'img/tg_icon02.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
                                 <span style="color: black; width: 100px;"> {% trans "대표메뉴" %} </span>
                                 
                                 {% if LANGUAGE_CODE == 'ko' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuko }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.menuko }} </p>
                                 {% elif LANGUAGE_CODE == 'en' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menueng }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.menueng }} </p>
                                 {% elif LANGUAGE_CODE == 'vi' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.menuven }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.menuven }} </p>
                                 {% endif %}
         
                             </div>
@@ -316,11 +343,39 @@
                                 <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
                                 
                                 {% if LANGUAGE_CODE == 'ko' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeko }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.biztimeko }} </p>
                                 {% elif LANGUAGE_CODE == 'en' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeeng }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.biztimeeng }} </p>
                                 {% elif LANGUAGE_CODE == 'vi' %}
-                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatdrinkpart.biztimeven }} </p>
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.eatpart.biztimeven }} </p>
+                                {% endif %}
+        
+                            </div>
+                            {% elif itdetail.part == 'Drink' %}
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon02.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "대표메뉴" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.menuko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.menueng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.menuven }} </p>
+                                {% endif %}
+        
+                            </div>
+                                <hr style="border: solid 0.5px #969696b3;">
+                            <div style="display: flex;">
+                                <img src="{% static 'img/tg_icon03.png' %}" style="width: 25px;height: 25px;margin-right: 10px;"/>
+                                <span style="color: black; width: 100px;"> {% trans "운영시간" %} </span>
+                                
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.biztimeko }} </p>
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.biztimeeng }} </p>
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                <p class="card-text" style="width: 540px;"> {{ itdetail.drinkpart.biztimeven }} </p>
                                 {% endif %}
         
                             </div>
@@ -501,7 +556,7 @@
                 {% for itdetail in itdetails %}
                 <div class="list-group">
                     <div class="list-group-up">
-                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id %}"> 
+                        <a href="{% url 'clientapp:mytripguide_detail' city_id tourplan_id itdetail.id 'mytripguide' %}"> 
                             <img src="{{ itdetail.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> </a>
                     </div>
                     <!-- <li class="list-group-item">

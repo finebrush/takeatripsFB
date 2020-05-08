@@ -5,6 +5,9 @@
 
 {% block header %}
 <style>
+    .gm-ui-hover-effect {
+        display: none!important;
+    }
     .btnRed {
         padding: 0.5rem 1.2rem;
         border-radius: 20px;
@@ -42,7 +45,7 @@
                             {% for itdetail in itdetails %}
                             <ul class="list-group" name="ul{{ itdetail.id }}">
                                 <li class="list-group-up">
-                                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id 'mytripguide' %}"> 
                                         <img id="{{ itdetail.id }}" src="{{ itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
                                     </a>
                                 </li>
@@ -68,13 +71,13 @@
                                     </div>
                                 </li>
                                 <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                                    <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                                    <!-- <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id 'mytripguide' %}" id="btnlike" style="text-decoration: none;"> -->
                                         {% if user in itdetail.like_infotravel.all %}
                                         <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                                         {% else %}
                                         <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
                                         {% endif %}
-                                    </a> 
+                                    <!-- </a>  -->
                                 </li>
                             </ul>
                             {% endfor %}
@@ -143,7 +146,7 @@
             for(var count = 0; count < locations.length; count++){ 
     
                 var contentString = '<div id="content" style="text-align: center;">' + 
-                    '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                    '<h6 style="margin: 0px;font-size: 0.8rem;">' + locations[count][0] + '</h6></div>';
                 
                 // like or unlike 에 따라 poi 선택..
                 if (locations[count][3] == 1) {
@@ -317,7 +320,7 @@
                                             {% endif %}
                                             <div onclick="clickMap({{ tpdetail.id }});">
                                                 <button class="btnTourplan" style="width: 100%;margin: 10px 0px 0px 0px;height: 30px;">
-                                                    지도에서 보기 
+                                                    {% trans '지도에서 보기' %} 
                                                 </button>
                                             </div>
 
@@ -443,7 +446,7 @@
             for(var count = 0; count < locationspoi.length; count++){ 
     
                 var contentString = '<div id="content" style="text-align: center;">' + 
-                    '<h6 style="margin: 0px;">' + locationspoi[count][0] + '</h6></div>';
+                    '<h6 style="margin: 0px;font-size: 0.8rem;">' + locationspoi[count][0] + '</h6></div>';
             
                 var icon = {
                     url: numicon[3], // url
@@ -544,8 +547,8 @@
                                     <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
                                 </div> 
                                 <div>
-                                    <h5 style="margin: 0px;"> Pick한 여행 정보가 아직 없으시군요? </h5>
-                                    <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                    <h5 style="margin: 0px;"> {% trans 'Pick한 여행 정보가 아직 없으시군요?' %} </h5>
+                                    <p style="font-size: 0.9rem; margin:0px;"> {% trans 'Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다.' %} </p>
                                 </div> 
                                 <div class="mytrip-btn" style="display: flex;">
                                     <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">

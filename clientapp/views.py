@@ -170,14 +170,19 @@ def mytrip_detail(request, city_id, tourplan_id):
     userlike_tps = tpcitylikes.filter(user=request.user)
 
     picture_url = ''
-    weekday = ['월', '화', '수', '목', '금', '토', '일']
+    weekdayko = ['월', '화', '수', '목', '금', '토', '일']
+    weekdayeng = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
     
     if request.user.is_authenticated: # 로그인 했다면..
         social = SocialAccount.objects.filter(user=request.user)
         # 유저가 생성한 여행계획 중 한개..
         tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
-        wstart = weekday[tourplan.start_date.weekday()]
-        wend = weekday[tourplan.end_date.weekday()]
+
+        wstartko = weekdayko[tourplan.start_date.weekday()]
+        wendko = weekdayko[tourplan.end_date.weekday()]
+        wstarteng = weekdayeng[tourplan.start_date.weekday()]
+        wendeng = weekdayeng[tourplan.end_date.weekday()]
+
         if social.exists(): # social 로그인 했는지 체크..   
             if social[0].provider == 'facebook':
                 picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
@@ -195,7 +200,7 @@ def mytrip_detail(request, city_id, tourplan_id):
     return render(request, 'client/mytrip_detail.html', {'city_id':city_id, 'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails, 'arcontents':arcontents,
             'travelcurators':travelcurators, 'itmusts':itmusts, 'travelplans':travelplans, 'sns_picture':picture_url, 'tourplan':tourplan,
             'eat_itdetail':eat_itdetail, 'drink_itdetail':drink_itdetail, 'fun_itdetail':fun_itdetail, 'buy_itdetail':buy_itdetail, 'ithots':ithots,
-            'userlike_its':userlike_its, 'userlike_tps':userlike_tps, 'wstart':wstart, 'wend':wend })
+            'userlike_its':userlike_its, 'userlike_tps':userlike_tps, 'wstartko':wstartko, 'wendko':wendko, 'wstarteng':wstarteng, 'wendeng':wendeng })
 
 
 ### ------ myTripGuide ----------------------------------------------------------------------------------------------------
@@ -382,7 +387,7 @@ def mytripguide_pick(request, city_id, tourplan_id, pinnum):
                             'itdetails':itdetails, 'tourplan':tourplan, 'wstart':wstart, 'wend':wend, 'locations':locations,
                             'pinnum':pinnum, 'tpdetails':tpdetails })
 
-def mytripguide_detail(request, city_id, tourplan_id, tripguide_id):
+def mytripguide_detail(request, city_id, tourplan_id, tripguide_id, fromwhere):
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
     itdetail = InfoTravel.objects.get(id=tripguide_id)
     # print(itdetail.like_infotravel.all())
@@ -391,10 +396,10 @@ def mytripguide_detail(request, city_id, tourplan_id, tripguide_id):
     else:
         fromhtml = True # mytrip_detail에서 mytripguide_detail 로 진입..
     
-    return render(request, 'client/mytripguide_detail.html', {'city_id':city_id, 'tourplan_id':tourplan_id, 'itdetails':itdetails, 'itdetail':itdetail, 'fromhtml':fromhtml })
+    return render(request, 'client/mytripguide_detail.html', {'city_id':city_id, 'tourplan_id':tourplan_id, 'itdetails':itdetails, 'itdetail':itdetail, 'fromwhere':fromwhere })
 
 @login_required
-def mytripguide_like(request, city_id, tourplan_id, tripguide_id):
+def mytripguide_like(request, city_id, tourplan_id, tripguide_id, fromwhere):
     post = get_object_or_404(InfoTravel, pk=tripguide_id)
     # print(post.like_infotravel.all())
     if request.user in post.like_infotravel.all():
@@ -406,7 +411,7 @@ def mytripguide_like(request, city_id, tourplan_id, tripguide_id):
         savetrip.save()
         # print(Likeit.objects.get(user=request.user))
     
-    return redirect('/mytripguide_detail/'+str(city_id)+'/'+str(tourplan_id)+'/'+str(tripguide_id))
+    return redirect('/mytripguide_detail/'+str(city_id)+'/'+str(tourplan_id)+'/'+str(tripguide_id)+'/'+str(fromwhere)+'/')
 
 ### ------ my HotTrip ----------------------------------------------------------------------------------------------------
 def myhottrip(request, city_id, tourplan_id, pinnum):

@@ -21,8 +21,157 @@
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         
+        
         {% block headers %}
         {% endblock %}
+
+        <style>
+            .login-box{
+                position:relative;
+                margin: 10px auto;
+                width: 300px;
+                height: 380px;
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 3px;
+                /* -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+                -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+                box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33); */
+            }
+            .lb-header{
+                position:relative;
+                color: #00415d;
+                margin: 5px 5px 10px 5px;
+                padding-bottom:10px;
+                border-bottom: 1px solid #eee;
+                text-align:center;
+                height:28px;
+            }
+            .lb-header a{
+                margin: 0 18px;
+                padding: 0 10px;
+                text-decoration: none;
+                color: #666;
+                font-weight: bold;
+                font-size: 15px;
+                -webkit-transition: all 0.1s linear;
+                -moz-transition: all 0.1s linear;
+                transition: all 0.1s linear;
+            }
+            .lb-header .active{
+                color: #029f5b;
+                font-size: 18px;
+            }
+            .social-login{
+                position:relative;
+                display: grid;
+                float: left;
+                width: 100%;
+                height:auto;
+                padding: 10px 0 15px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .social-login a{
+                position:relative;
+                float: left;
+                width:94%;
+                text-decoration: none;
+                color: #fff;
+                border: 1px solid rgba(0,0,0,0.05);
+                padding: 12px;
+                border-radius: 2px;
+                font-size: 12px;
+                text-transform: uppercase;
+                margin: 10px 3%;
+                text-align:center;
+            }
+            .social-login a i{
+                position: relative;
+                float: left;
+                width: 20px;
+                top: 2px;
+            }
+            .social-login a:first-child{
+                background-color: #49639F;
+            }
+            .social-login a:last-child{
+                background-color: #DF4A32;
+            }
+            .email-login,.email-signup{
+                position:relative;
+                float: left;
+                width: 100%;
+                height:auto;
+                margin-top: 20px;
+                text-align:center;
+            }
+            .u-form-group{
+                width:100%;
+                margin-bottom: 10px;
+            }
+            .u-form-group input[type="text"],
+            .u-form-group input[type="email"],
+            .u-form-group input[type="password"]{
+                width: calc(90% - 22px);
+                height:45px;
+                outline: none;
+                border: 1px solid #ddd;
+                padding: 0 10px;
+                border-radius: 2px;
+                color: #333;
+                font-size:0.8rem;
+                -webkit-transition:all 0.1s linear;
+                -moz-transition:all 0.1s linear;
+                transition:all 0.1s linear;
+            }
+            .u-form-group input:focus{
+                border-color: #358efb;
+            }
+            .u-form-group button{
+                width:50%;
+                background-color: #1CB94E;
+                border: none;
+                outline: none;
+                color: #fff;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 14px 0;
+                border-radius: 2px;
+                text-transform: uppercase;
+            }
+            .forgot-password{
+                width:50%;
+                text-align: left;
+                text-decoration: underline;
+                color: #888;
+                font-size: 0.75rem;
+            }
+            .dim-layer1 {
+                display: none;
+                position: fixed;
+                _position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 100;
+            }
+        
+            .dim-layer1 .dimBg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                opacity: .5;
+                filter: alpha(opacity=50);
+            }
+        
+            .dim-layer1 .pop-layer {
+                display: block;
+            }
+          </style>
 
     </head>
     <body>
@@ -79,16 +228,82 @@
                     <div class="dropdown" style="margin: 0 10px;">
                         <a href="javascript:myFunction()" style="background: none;">
                             <!-- <img src="{% static 'img/sub_top_more.png' %}" /> -->
-                            <button class="button button-redrect">로그인</button>
+                            <button class="button button-redrect">{% trans '로그인' %}</button>
                         </a>
                         <div id="myDropdown" class="dropdown-content">
                             <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
-                            <a href="{% url 'account:login' %}">{% trans '로그인' %}</a>
-                            <a href="{% url 'account:signup' %}">{% trans '회원가입' %}</a>
+                            <a id="click_login1" href="#layer2" class="btn-example">{% trans '로그인' %}</a>
+                            <a id="click_sign1" href="#layer2" class="btn-example">{% trans '회원가입' %}</a>
                         </div>
                     </div>
                     {% endif %}
                 </div>
+            </div>
+        </div>
+
+
+        <!-- 로그인 팝업창 띄우기 -->
+        <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+        <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer" style="width: 400px;">
+                
+                <div class="login-box">
+                    {% if error %}
+                        {{error}}
+                    {%endif%}
+                    <div class="lb-header">
+                        <a href="#" class="active" id="login-box-link">Login</a>
+                        <a href="#" id="signup-box-link">Sign Up</a>
+                    </div>
+                    
+                    <div class="social-login">
+                        <a href="{% provider_login_url 'facebook' %}">
+                            <i class="fa fa-facebook fa-lg"></i>
+                            Login in with facebook
+                        </a>
+                        <a href="{% provider_login_url 'google' %}">
+                            <i class="fa fa-google-plus fa-lg"></i>
+                            log in with Google
+                        </a>
+                    </div>
+                    <form class="email-login" method="POST" action="{% url 'account:login' %}">
+                        {% csrf_token %}
+                        <div class="u-form-group">
+                            <!-- <input type="email" placeholder="Email"/> -->
+                            <input name="username" type="text" placeholder="Name">
+                        </div>
+                        <div class="u-form-group">
+                            <input name="password" type="password" placeholder="Password"/>
+                        </div>
+                        <div class="u-form-group">
+                            <button>Log in</button>
+                        </div>
+                        <div class="u-form-group">
+                            <a href="#" class="forgot-password">Forgot password?</a>
+                        </div>
+                    </form>
+
+                    <form class="email-signup" method="POST" action="{% url 'account:signup' %}">
+                        {% csrf_token %}
+                        <div class="u-form-group">
+                            <!-- <input type="email" placeholder="Email"/> -->
+                            <input name="username" type="text" placeholder="Name">
+                        </div>
+                        <div class="u-form-group">
+                            <input name="password1" type="password" placeholder="Password"/>
+                        </div>
+                        <div class="u-form-group">
+                            <input name="password2" type="password" placeholder="Confirm Password"/>
+                        </div>
+                        <div class="u-form-group">
+                            <button>Sign Up</button>
+                        </div>
+                    </form>
+                    
+                </div>
+
+                
             </div>
         </div>
 
@@ -99,6 +314,127 @@
         {% endblock %}    
     
         <script>
+
+            // 로그인 관련..
+            $(".email-signup").hide();
+            $("#signup-box-link").click(function(){
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+            $("#login-box-link").click(function(){
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+
+            var box_login = document.getElementById("login-box-link");
+            var box_sign = document.getElementById("signup-box-link");
+
+            $("#click_login").click(function(){
+                box_sign.classList.remove('active');
+                box_login.classList.add('active');
+
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+            $("#click_sign").click(function(){
+                box_login.classList.remove('active');
+                box_sign.classList.add('active');
+
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+
+            // head.html 안에 있는 버튼...
+            $("#click_login1").click(function(){
+                box_sign.classList.remove('active');
+                box_login.classList.add('active');
+
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+            $("#click_sign1").click(function(){
+                box_login.classList.remove('active');
+                box_sign.classList.add('active');
+
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+
+
+            // AR 팝업창 띄우기..
+            $('.btn-examplear').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href, 1);
+            });
+
+            // 로그인 팝업창 띄우기..
+            $('.btn-example').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href, 0);
+            });
+
+            function layer_popup(el, n){
+                console.log($(el));
+                var $el = $(el);        //레이어의 id를 $el 변수에 저장
+                var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+                
+                if(n == 0){
+                    isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+                }
+                if(n == 1) {
+                    console.log(isDim);
+                    isDim ? $('.dim-layer1').fadeIn() : $el.fadeIn();
+                }
+
+                var $elWidth = ~~($el.outerWidth()),
+                    $elHeight = ~~($el.outerHeight()),
+                    docWidth = $(document).width(),
+                    docHeight = $(document).height();
+
+                // 화면의 중앙에 레이어를 띄운다.
+                if ($elHeight < docHeight || $elWidth < docWidth) {
+                    $el.css({
+                        marginTop: -$elHeight /2,
+                        marginLeft: -$elWidth/2
+                    })
+                } else {
+                    $el.css({top: 0, left: 0});
+                }
+
+                $el.find('a.btn-layerClose').click(function(){
+                    if(n == 0){
+                        isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    }
+                    if(n == 1) {
+                        isDim ? $('.dim-layer1').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    }
+                    
+                    return false;
+                });
+
+                // $('.layer .dimBg').click(function(){
+                //     $('.dim-layer').fadeOut();
+                //     return false;
+                // });
+                $('.dimBg').click(function(){ // popup 창 제외 영역을 어두운배경(dimBg)으로 처한 부분 클릭시..
+                    $('.dim-layer').fadeOut();
+                    $('.dim-layer1').fadeOut();
+                    return false;
+                });
+
+            }
 
             // 다국어 변경..
             $("#selectlang").change(function(){

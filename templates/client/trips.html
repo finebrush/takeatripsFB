@@ -4,6 +4,7 @@
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
 <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+<link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
 
 <style>
@@ -28,7 +29,7 @@
         position: fixed;
         background-color: white;
         width: 100%;
-        z-index: 9999;
+        z-index: 999;
         top: 70px;
     }
 
@@ -40,31 +41,39 @@
     <div class="triptype">
 
         {% for city in citys %}
-        <a href="#" style="display: contents;text-decoration: none;">
+        <a href="{% url 'clientapp:trips' city.id %}" style="display: contents;text-decoration: none;">
             <button id="city{{ city.id }}" class="btntype" style="outline: none;">
-                {{ city.nameko }}
+
+                {% if LANGUAGE_CODE == 'ko' %}
+                    {{ city.nameko }}
+                {% elif LANGUAGE_CODE == 'en' %}
+                    {{ city.nameeng }}
+                {% elif LANGUAGE_CODE == 'vi' %}
+                    {{ city.nameven }}
+                {% endif %}
+                
             </button>
         </a>
         {% endfor %}
 
         <a href="#" style="display: contents;text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
-                제주도
+                {% trans '제주도' %}
             </button>
         </a>
         <a href="#" style="display: contents;text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
-                광주광역시
+                {% trans '광주광역시' %}
             </button>
         </a>
         <a href="#" style="display: contents;text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
-                대구광역시
+                {% trans '대구광역시' %}
             </button>
         </a>
         <a href="#" style="display: contents;text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
-                대전광역시
+                {% trans '대전광역시' %}
             </button>
         </a>
 
@@ -92,7 +101,7 @@
                         <ul class="list-group">
                             <li class="list-group-up">
                                 <!-- '0' 는 mytrip.html(home) 에서 바로 mytripguide_detail 로 진입한다는 의미..여행 계획만들어 그안에서 진입하게 되면 tourplan.id 로 진입.. -->
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id %}"> 
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id 'trips' %}"> 
                                     <img src="{{ itdetail.picture1.url }}" alt=""> </a>
                             </li>
                             <!-- <li class="list-group-it">
@@ -143,11 +152,19 @@
     tablinks[0].className += " active";
 
     // 도시 list..
-    var city1, city2;
-    city1 = document.getElementById('city1');
-    city2 = document.getElementById('city2');
-    city1.classList.add('btntype-on');
-    city2.classList.add('btntype-off');
+    var cityid = {{ citydetails.id }};
+
+    if(cityid){
+        citylinks = document.getElementById("city"+cityid);
+        citylinks.classList.add("btntype-on");
+        // console.log(stylelinks); 
+    }
+
+    // var city1, city2;
+    // city1 = document.getElementById('city1');
+    // city2 = document.getElementById('city2');
+    // city1.classList.add('btntype-on');
+    // city2.classList.add('btntype-unsel');
 
 
     $('.waterfall')

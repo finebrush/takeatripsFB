@@ -28,6 +28,9 @@
                 height: 450px;  /* The height is 400 pixels */
                 width: 100%;  /* The width is the width of the web page */
             }
+            .gm-ui-hover-effect {
+                display: none!important;
+            }
             /* The popup bubble styling. */
             .popup-bubble {
                 /* Position the bubble centred-above its parent. */
@@ -337,7 +340,7 @@
                 {% for itdetail in itdetails %}
                 <div class="list-group">
                     <div class="list-group-up">
-                        <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                        <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id 'mycurator' %}"> 
                             <img src="{{ itdetail.picture1.url }}" style="border-top-right-radius: 12px;border-top-left-radius: 12px;"> </a>
                     </div>
                     <!-- <li class="list-group-item">
@@ -427,9 +430,9 @@
         <!-- Footer -->
         <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
             <div style="display: flex; justify-content: center;">
-                <div class="footer-menu">의견 보내기</div>
-                <div class="footer-menu">개인정보처리방침</div>
-                <div class="footer-menu">서비스 약관</div>
+                <div class="footer-menu">{% trans '의견 보내기' %}</div>
+                <div class="footer-menu">{% trans '개인정보처리방침' %}</div>
+                <div class="footer-menu">{% trans '서비스 약관' %}</div>
             </div>
             <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
         </footer>
@@ -517,10 +520,12 @@
                     center: centerLatLng
                 });
 
+                bounds  = new google.maps.LatLngBounds(); //bounds 생성..
+
                 for(var count = 0; count < locations.length; count++){ 
 
                     var contentString = '<div id="content" style="text-align: center;">' + 
-                        '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                        '<h6 style="margin: 0px;font-size: 0.8rem;">' + locations[count][0] + '</h6></div>';
                     
                     var icon = {
                         url: numicon[count], // url
@@ -537,13 +542,33 @@
                         icon: icon
                     });
 
+                    bounds.extend(marker.position); // bounds 에 마커 위치 추가..
+
                     marker.info = new google.maps.InfoWindow({
                         content: contentString
                     });
-                    google.maps.event.addListener(marker, 'click', function() {  
+
+                    map.fitBounds(bounds); // bounds 에 fit ..
+                    // map.panToBounds(bounds); 
+
+                    // zoom 레벨이 18 이상이면 더 zoom 이 안되도록 하기 위한 기준 레벨..
+                    var zoom_level_for_one_marker = 18; 
+                    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event){
+                        if (this.getZoom() >= zoom_level_for_one_marker){  
+                            this.setZoom(zoom_level_for_one_marker) 
+                        }
+                    });
+
+                    google.maps.event.addListener(marker, 'mouseover', function() {  
                         // this = marker
                         var marker_map = this.getMap();
                         this.info.open(marker_map, this);
+                        // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
+                    });
+                    google.maps.event.addListener(marker, 'mouseout', function() {  
+                        // this = marker
+                        var marker_map = this.getMap();
+                        this.info.close(marker_map, this);
                         // Note: If you call open() without passing a marker, the InfoWindow will use the position specified upon construction through the InfoWindowOptions object literal.
                     });
 

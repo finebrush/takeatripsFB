@@ -63,10 +63,40 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <a href="#" class="card-link text-dark">{{ tourplan.room }}&middot;{{ citydetails.nameko }}</a>
+                        <a href="#" class="card-link text-dark">
+
+                            {% if LANGUAGE_CODE == 'ko' %}
+                                {{ tourplan.room }}&middot;{{ citydetails.nameko }}
+                            {% elif LANGUAGE_CODE == 'en' %}
+                                {{ tourplan.room }}&middot;{{ citydetails.nameeng }}
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                                {{ tourplan.room }}&middot;{{ citydetails.nameven }}
+                            {% endif %}
+                            
+                        </a>
                     </h3>
                     <div style="margin-bottom: 0px;color:#adadad;">
-                        <small> {{ tourplan.start_date }}({{ wstart }}) ~ {{ tourplan.end_date }}({{ wend }})</small>
+                        <small> {{ tourplan.start_date }}(
+
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                    {{ wstartko }}
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                    {{ wstarteng }}
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                    {{ wstarteng }}
+                                {% endif %}
+                                
+                            ) ~ {{ tourplan.end_date }}(
+
+                                {% if LANGUAGE_CODE == 'ko' %}
+                                    {{ wendko }}
+                                {% elif LANGUAGE_CODE == 'en' %}
+                                    {{ wendeng }}
+                                {% elif LANGUAGE_CODE == 'vi' %}
+                                    {{ wendeng }}
+                                {% endif %}
+                                
+                            )</small>
                     </div>
                 </div>
             </div>
@@ -273,8 +303,8 @@
                                                 <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
                                             </div> 
                                             <div>
-                                                <h5 style="margin: 0px;"><span style="color: #bf1d37;">상품 준비 중</span>입니다. </h5>
-                                                <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                                <h5 style="margin: 0px;"><span style="color: #bf1d37;">{% trans "상품 준비 중" %}</span>{% trans "입니다." %} </h5>
+                                                <p style="font-size: 0.9rem; margin:0px;"> {% trans "Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다." %} </p>
                                             </div> 
                                             <div class="mytrip-btn" style="display: flex;">
                                                 <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
@@ -382,7 +412,7 @@
                         {% for ithot in ithots|slice:":8" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id ithot.id %}">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id ithot.id 'tourplan' %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ ithot.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -430,7 +460,7 @@
                         {% for itmust in itmusts|slice:":8" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itmust.id %}">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itmust.id 'tourplan' %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ itmust.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -531,7 +561,7 @@
                         {% for userlike_it in userlike_its|slice:":8" %}
                         <div class="card" style="height: 100%;">
                             <div class="card-body p-0">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id userlike_it.infotravel.id %}">
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id userlike_it.infotravel.id 'tourplan' %}">
                                     <img class="card-imgsm" style="width: 100%;height: 240px;border-top-right-radius: 13px;border-bottom-left-radius: 0px;" src="{{ userlike_it.infotravel.picture1.url }}" alt="Card image">
                                     <div class="media" style="padding: 20px;color: black;display: grid;">
                                         <div class="media-body">
@@ -573,8 +603,8 @@
                                                 <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
                                             </div> 
                                             <div>
-                                                <h5 style="margin: 0px;"> Pick한 여행 정보가 아직 없으시군요? </h5>
-                                                <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                                <h5 style="margin: 0px;"> {% trans 'Pick한 여행 정보가 아직 없으시군요?' %} </h5>
+                                                <p style="font-size: 0.9rem; margin:0px;"> {% trans 'Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다.' %} </p>
                                             </div> 
                                             <div class="mytrip-btn" style="display: flex;">
                                                 <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
@@ -725,9 +755,9 @@
 
         <footer class="page-footer font-small" style="background-color:#ffffff; margin-top:0px; ">
             <div style="display: flex; justify-content: center;">
-                <div class="footer-menu">의견 보내기</div>
-                <div class="footer-menu">개인정보처리방침</div>
-                <div class="footer-menu">서비스 약관</div>
+                <div class="footer-menu">{% trans "의견 보내기" %}</div>
+                <div class="footer-menu">{% trans "개인정보처리방침" %}</div>
+                <div class="footer-menu">{% trans "서비스 약관" %}</div>
             </div>
             <div class="footer-copyrights">© 2019 Copyright : TAKEBO All rights reserved.</div>
         </footer>

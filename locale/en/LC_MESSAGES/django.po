@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-29 11:14+0900\n"
+"POT-Creation-Date: 2020-05-08 11:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: backendapp/arcontent/models.py:22
+#: backendapp/arcontent/models.py:24 backendapp/travels/models.py:56
+#: backendapp/travels/models.py:78 backendapp/travels/models.py:251
+#: backendapp/travels/models.py:330 backendapp/travels/models.py:420
+msgid "City"
+msgstr ""
+
+#: backendapp/arcontent/models.py:26
 msgid "공개여부"
 msgstr ""
 
-#: backendapp/arcontent/models.py:23 backendapp/travels/models.py:28
-#: backendapp/travels/models.py:304
+#: backendapp/arcontent/models.py:27 backendapp/travels/models.py:30
+#: backendapp/travels/models.py:332
 msgid "소개타이틀(한국어)"
 msgstr ""
 
-#: backendapp/arcontent/models.py:24 backendapp/travels/models.py:29
-#: backendapp/travels/models.py:305
+#: backendapp/arcontent/models.py:28 backendapp/travels/models.py:31
+#: backendapp/travels/models.py:333
 msgid "소개타이틀(영어)"
 msgstr ""
 
-#: backendapp/arcontent/models.py:25 backendapp/travels/models.py:30
-#: backendapp/travels/models.py:306
+#: backendapp/arcontent/models.py:29 backendapp/travels/models.py:32
+#: backendapp/travels/models.py:334
 msgid "소개타이틀(베트남어)"
 msgstr ""
 
-#: backendapp/arcontent/models.py:26 backendapp/travels/models.py:32
-#: backendapp/travels/models.py:228 backendapp/travels/models.py:307
+#: backendapp/arcontent/models.py:30 backendapp/travels/models.py:34
+#: backendapp/travels/models.py:256 backendapp/travels/models.py:336
 msgid "Created"
 msgstr ""
 
-#: backendapp/arcontent/models.py:27 backendapp/travels/models.py:92
+#: backendapp/arcontent/models.py:31 backendapp/travels/models.py:94
 msgid "구분"
 msgstr ""
 
-#: backendapp/arcontent/models.py:28
+#: backendapp/arcontent/models.py:32 backendapp/common/models.py:79
+#: backendapp/common/models.py:107 backendapp/common/models.py:135
+#: backendapp/common/models.py:163
 msgid "Picture"
 msgstr ""
 
-#: backendapp/arcontent/models.py:29
+#: backendapp/arcontent/models.py:33
 msgid "AR File"
 msgstr ""
 
-#: backendapp/arcontent/models.py:47 backendapp/arcontent/models.py:48
+#: backendapp/arcontent/models.py:51 backendapp/arcontent/models.py:52
 msgid "ARTrip"
 msgstr ""
 
@@ -62,68 +70,94 @@ msgstr ""
 msgid "Common"
 msgstr ""
 
-#: backendapp/common/models.py:8 backendapp/common/models.py:26
-#: backendapp/common/models.py:27
+#: backendapp/common/models.py:11 backendapp/common/models.py:29
+#: backendapp/common/models.py:30
 msgid "대분류"
 msgstr ""
 
-#: backendapp/common/models.py:9 backendapp/common/models.py:40
-#: backendapp/common/models.py:41
+#: backendapp/common/models.py:12 backendapp/common/models.py:43
+#: backendapp/common/models.py:44
 msgid "중분류"
 msgstr ""
 
-#: backendapp/common/models.py:10 backendapp/common/models.py:63
-#: backendapp/common/models.py:64
+#: backendapp/common/models.py:13 backendapp/common/models.py:66
+#: backendapp/common/models.py:67
 msgid "소분류"
 msgstr ""
 
-#: backendapp/common/models.py:13 backendapp/common/models.py:14
+#: backendapp/common/models.py:16 backendapp/common/models.py:17
 msgid "카테고리"
 msgstr ""
 
-#: backendapp/settings.py:228
-msgid "Korean"
+#: backendapp/common/models.py:94 backendapp/common/models.py:95
+msgid "PinEat"
 msgstr ""
 
-#: backendapp/settings.py:229
-msgid "English"
+#: backendapp/common/models.py:122 backendapp/common/models.py:123
+msgid "PinDrink"
+msgstr ""
+
+#: backendapp/common/models.py:150 backendapp/common/models.py:151
+msgid "PinFun"
+msgstr ""
+
+#: backendapp/common/models.py:178 backendapp/common/models.py:179
+msgid "PinBuy"
 msgstr ""
 
 #: backendapp/settings.py:230
+msgid "Korean"
+msgstr ""
+
+#: backendapp/settings.py:231
+msgid "English"
+msgstr ""
+
+#: backendapp/settings.py:232
 msgid "Vietnamese"
 msgstr ""
 
 #: backendapp/travels/choices.py:4 templates/client/base.html:324
-#: templates/client/citydetail.html:102 templates/client/topbak.html:102
-#: templates/client/topbak.html:109 templates/client/topbak.html:116
-#: templates/client/topbak.html:123 templates/client/topbak.html:130
-#: templates/client/topbak.html:137
+#: templates/client/citydetail.html:102 templates/client/myhottrip_head.html:82
+#: templates/client/mymusttrip_head.html:82
+#: templates/client/mytrip100_head.html:72
+#: templates/client/mytrip_detail.html:353
+#: templates/client/mytripguide_head.html:82
+#: templates/client/mytripguide_listhead.html:82
+#: templates/client/mytripguide_pickhead.html:82
+#: templates/client/topbak.html:102 templates/client/topbak.html:109
+#: templates/client/topbak.html:116 templates/client/topbak.html:123
+#: templates/client/topbak.html:130 templates/client/topbak.html:137
 msgid "먹다"
 msgstr "Eat"
 
 #: backendapp/travels/choices.py:5 templates/client/base.html:333
-#: templates/client/citydetail.html:112 templates/client/topbak.html:103
-#: templates/client/topbak.html:110 templates/client/topbak.html:117
-#: templates/client/topbak.html:124 templates/client/topbak.html:131
-#: templates/client/topbak.html:138
+#: templates/client/citydetail.html:112 templates/client/myhottrip_head.html:83
+#: templates/client/mymusttrip_head.html:83
+#: templates/client/mytrip100_head.html:73
+#: templates/client/mytrip_detail.html:364
+#: templates/client/mytripguide_head.html:83
+#: templates/client/mytripguide_listhead.html:83
+#: templates/client/mytripguide_pickhead.html:83
+#: templates/client/topbak.html:103 templates/client/topbak.html:110
+#: templates/client/topbak.html:117 templates/client/topbak.html:124
+#: templates/client/topbak.html:131 templates/client/topbak.html:138
 msgid "마시다"
 msgstr "Drink"
 
 #: backendapp/travels/choices.py:6 templates/client/base.html:342
-#: templates/client/citydetail.html:122 templates/client/topbak.html:104
-#: templates/client/topbak.html:111 templates/client/topbak.html:118
-#: templates/client/topbak.html:125 templates/client/topbak.html:132
-#: templates/client/topbak.html:139
+#: templates/client/citydetail.html:122 templates/client/myhottrip_head.html:84
+#: templates/client/mymusttrip_head.html:84
+#: templates/client/mytrip100_head.html:74
+#: templates/client/mytrip_detail.html:375
+#: templates/client/mytripguide_head.html:84
+#: templates/client/mytripguide_listhead.html:84
+#: templates/client/mytripguide_pickhead.html:84
+#: templates/client/topbak.html:104 templates/client/topbak.html:111
+#: templates/client/topbak.html:118 templates/client/topbak.html:125
+#: templates/client/topbak.html:132 templates/client/topbak.html:139
 msgid "놀다"
 msgstr "Fun"
-
-#: backendapp/travels/choices.py:7 templates/client/base.html:351
-#: templates/client/citydetail.html:136 templates/client/topbak.html:105
-#: templates/client/topbak.html:112 templates/client/topbak.html:119
-#: templates/client/topbak.html:126 templates/client/topbak.html:133
-#: templates/client/topbak.html:140
-msgid "보다"
-msgstr "See"
 
 #: backendapp/travels/choices.py:8 templates/client/base.html:360
 #: templates/client/citydetail.html:146 templates/client/topbak.html:106
@@ -134,10 +168,16 @@ msgid "자다"
 msgstr "Sleep"
 
 #: backendapp/travels/choices.py:9 templates/client/base.html:369
-#: templates/client/citydetail.html:156 templates/client/topbak.html:107
-#: templates/client/topbak.html:114 templates/client/topbak.html:121
-#: templates/client/topbak.html:128 templates/client/topbak.html:135
-#: templates/client/topbak.html:142
+#: templates/client/citydetail.html:156 templates/client/myhottrip_head.html:85
+#: templates/client/mymusttrip_head.html:85
+#: templates/client/mytrip100_head.html:75
+#: templates/client/mytrip_detail.html:386
+#: templates/client/mytripguide_head.html:85
+#: templates/client/mytripguide_listhead.html:85
+#: templates/client/mytripguide_pickhead.html:85
+#: templates/client/topbak.html:107 templates/client/topbak.html:114
+#: templates/client/topbak.html:121 templates/client/topbak.html:128
+#: templates/client/topbak.html:135 templates/client/topbak.html:142
 msgid "사다"
 msgstr "Buy"
 
@@ -178,6 +218,7 @@ msgid "문화유적"
 msgstr ""
 
 #: backendapp/travels/choices.py:31 backendapp/travels/choices.py:44
+#: backendapp/travels/choices.py:93
 msgid "랜드마크"
 msgstr ""
 
@@ -217,11 +258,9 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: backendapp/travels/choices.py:53
-#, fuzzy
-#| msgid "추천장소"
+#: backendapp/travels/choices.py:53 templates/client/mytrip_modify.html:262
 msgid "장소"
-msgstr "Recommended place"
+msgstr "place"
 
 #: backendapp/travels/choices.py:57
 msgid "Seoul"
@@ -231,377 +270,574 @@ msgstr ""
 msgid "Busan"
 msgstr ""
 
-#: backendapp/travels/models.py:24
-msgid "Name(한국어)"
+#: backendapp/travels/choices.py:62
+msgid "담백한"
 msgstr ""
 
-#: backendapp/travels/models.py:25
-msgid "Name(영어)"
+#: backendapp/travels/choices.py:63
+msgid "화끈한"
+msgstr ""
+
+#: backendapp/travels/choices.py:64
+msgid "새콤달콤한"
+msgstr ""
+
+#: backendapp/travels/choices.py:65
+msgid "전통적인"
+msgstr ""
+
+#: backendapp/travels/choices.py:66
+msgid "국물이있는"
+msgstr ""
+
+#: backendapp/travels/choices.py:67
+msgid "볶음요리"
+msgstr ""
+
+#: backendapp/travels/choices.py:68
+msgid "해산물"
+msgstr ""
+
+#: backendapp/travels/choices.py:69
+msgid "BBQ"
+msgstr ""
+
+#: backendapp/travels/choices.py:70
+msgid "채식"
+msgstr ""
+
+#: backendapp/travels/choices.py:74
+msgid "커피"
+msgstr ""
+
+#: backendapp/travels/choices.py:75
+msgid "차"
+msgstr ""
+
+#: backendapp/travels/choices.py:76
+msgid "쥬스"
+msgstr ""
+
+#: backendapp/travels/choices.py:77
+msgid "분위기있는"
+msgstr ""
+
+#: backendapp/travels/choices.py:78
+msgid "조용한"
+msgstr ""
+
+#: backendapp/travels/choices.py:79
+msgid "풍경이좋은"
+msgstr ""
+
+#: backendapp/travels/choices.py:80
+msgid "케이크"
+msgstr ""
+
+#: backendapp/travels/choices.py:81
+msgid "도너츠"
+msgstr ""
+
+#: backendapp/travels/choices.py:82
+msgid "베이커리"
+msgstr ""
+
+#: backendapp/travels/choices.py:86
+msgid "체험여행"
+msgstr ""
+
+#: backendapp/travels/choices.py:87
+msgid "문화여행"
+msgstr ""
+
+#: backendapp/travels/choices.py:88
+msgid "역사여행"
+msgstr ""
+
+#: backendapp/travels/choices.py:89
+msgid "아웃도어"
+msgstr ""
+
+#: backendapp/travels/choices.py:90
+msgid "전망이좋은"
+msgstr ""
+
+#: backendapp/travels/choices.py:91
+msgid "야경이좋은"
+msgstr ""
+
+#: backendapp/travels/choices.py:92
+msgid "놀이공원"
+msgstr ""
+
+#: backendapp/travels/choices.py:94
+msgid "산책"
+msgstr ""
+
+#: backendapp/travels/choices.py:98
+msgid "패션"
+msgstr ""
+
+#: backendapp/travels/choices.py:99
+msgid "화장품"
+msgstr ""
+
+#: backendapp/travels/choices.py:100
+msgid "과자"
+msgstr ""
+
+#: backendapp/travels/choices.py:101
+msgid "전통시장"
+msgstr ""
+
+#: backendapp/travels/choices.py:102
+msgid "특산물"
+msgstr ""
+
+#: backendapp/travels/choices.py:103
+msgid "김"
+msgstr ""
+
+#: backendapp/travels/choices.py:104
+msgid "아몬드"
+msgstr ""
+
+#: backendapp/travels/choices.py:105
+msgid "기념품"
+msgstr ""
+
+#: backendapp/travels/choices.py:106
+msgid "대형마트"
 msgstr ""
 
 #: backendapp/travels/models.py:26
-msgid "Name(베트남어)"
+msgid "Name(한국어)"
 msgstr ""
 
 #: backendapp/travels/models.py:27
+msgid "Name(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:28
+msgid "Name(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:29
 msgid "Logo-Image"
 msgstr ""
 
-#: backendapp/travels/models.py:28 backendapp/travels/models.py:29
-#: backendapp/travels/models.py:30 backendapp/travels/models.py:126
-#: backendapp/travels/models.py:127 backendapp/travels/models.py:128
-#: backendapp/travels/models.py:230 backendapp/travels/models.py:231
-#: backendapp/travels/models.py:232
+#: backendapp/travels/models.py:30 backendapp/travels/models.py:31
+#: backendapp/travels/models.py:32 backendapp/travels/models.py:128
+#: backendapp/travels/models.py:129 backendapp/travels/models.py:130
+#: backendapp/travels/models.py:258 backendapp/travels/models.py:259
+#: backendapp/travels/models.py:260
 msgid "이곳을 소개해 주세요."
 msgstr ""
 
-#: backendapp/travels/models.py:31
+#: backendapp/travels/models.py:33
 msgid "Select City"
 msgstr ""
 
-#: backendapp/travels/models.py:33 backendapp/travels/models.py:81
-#: backendapp/travels/models.py:358
+#: backendapp/travels/models.py:35 backendapp/travels/models.py:83
+#: backendapp/travels/models.py:387
 msgid "Picture1"
 msgstr ""
 
-#: backendapp/travels/models.py:34 backendapp/travels/models.py:82
-#: backendapp/travels/models.py:359
+#: backendapp/travels/models.py:36 backendapp/travels/models.py:84
+#: backendapp/travels/models.py:388
 msgid "Picture2"
 msgstr ""
 
-#: backendapp/travels/models.py:35 backendapp/travels/models.py:83
-#: backendapp/travels/models.py:360
+#: backendapp/travels/models.py:37 backendapp/travels/models.py:85
+#: backendapp/travels/models.py:389
 msgid "Picture3"
 msgstr ""
 
-#: backendapp/travels/models.py:36 backendapp/travels/models.py:84
-#: backendapp/travels/models.py:361
+#: backendapp/travels/models.py:38 backendapp/travels/models.py:86
+#: backendapp/travels/models.py:390
 msgid "Picture4"
 msgstr ""
 
-#: backendapp/travels/models.py:54 backendapp/travels/models.py:76
-#: backendapp/travels/models.py:223 backendapp/travels/models.py:302
-msgid "City"
-msgstr ""
-
-#: backendapp/travels/models.py:55
+#: backendapp/travels/models.py:57
 msgid "Cities"
 msgstr ""
 
-#: backendapp/travels/models.py:78
+#: backendapp/travels/models.py:80
 msgid "업체명(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:79
+#: backendapp/travels/models.py:81
 msgid "업체명(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:80
+#: backendapp/travels/models.py:82
 msgid "업체명(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:85
+#: backendapp/travels/models.py:87
 msgid "Picture5"
 msgstr ""
 
-#: backendapp/travels/models.py:86
+#: backendapp/travels/models.py:88
 msgid "Picture6"
 msgstr ""
 
-#: backendapp/travels/models.py:87
+#: backendapp/travels/models.py:89
 msgid "Picture7"
 msgstr ""
 
-#: backendapp/travels/models.py:88
+#: backendapp/travels/models.py:90
 msgid "Picture8"
 msgstr ""
 
-#: backendapp/travels/models.py:89
+#: backendapp/travels/models.py:91
 msgid "Picture9"
 msgstr ""
 
-#: backendapp/travels/models.py:90
+#: backendapp/travels/models.py:92
 msgid "Picture10"
 msgstr ""
 
-#: backendapp/travels/models.py:91
+#: backendapp/travels/models.py:93
 msgid "정보형태"
 msgstr ""
 
-#: backendapp/travels/models.py:93
+#: backendapp/travels/models.py:95
 msgid "유형선택"
 msgstr ""
 
-#: backendapp/travels/models.py:94
+#: backendapp/travels/models.py:96
 msgid "주소(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:95
+#: backendapp/travels/models.py:97
 msgid "주소(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:96
+#: backendapp/travels/models.py:98
 msgid "주소(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:120
+#: backendapp/travels/models.py:122
 msgid "외부링크(웹사이트)"
 msgstr ""
 
-#: backendapp/travels/models.py:121
+#: backendapp/travels/models.py:123
 msgid "외부링크(인스타그램)"
 msgstr ""
 
-#: backendapp/travels/models.py:122
+#: backendapp/travels/models.py:124
 msgid "외부링크(유튜브)"
 msgstr ""
 
-#: backendapp/travels/models.py:123
+#: backendapp/travels/models.py:125
 msgid "교통정보(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:124
+#: backendapp/travels/models.py:126
 msgid "교통정보(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:125
+#: backendapp/travels/models.py:127
 msgid "교통정보(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:126
+#: backendapp/travels/models.py:128
 msgid "소개정보(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:127
+#: backendapp/travels/models.py:129
 msgid "소개정보(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:128
+#: backendapp/travels/models.py:130
 msgid "소개정보(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:129 backendapp/travels/models.py:233
-#: backendapp/travels/models.py:312
+#: backendapp/travels/models.py:131 backendapp/travels/models.py:261
+#: backendapp/travels/models.py:341
 msgid "태그(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:130 backendapp/travels/models.py:234
-#: backendapp/travels/models.py:313
+#: backendapp/travels/models.py:132 backendapp/travels/models.py:262
+#: backendapp/travels/models.py:342
 msgid "태그(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:131 backendapp/travels/models.py:235
-#: backendapp/travels/models.py:314
+#: backendapp/travels/models.py:133 backendapp/travels/models.py:263
+#: backendapp/travels/models.py:343
 msgid "태그(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:132
+#: backendapp/travels/models.py:134
 msgid "Date"
 msgstr ""
 
-#: backendapp/travels/models.py:160 backendapp/travels/models.py:161
+#: backendapp/travels/models.py:162 backendapp/travels/models.py:163
 msgid "TripGuide"
 msgstr ""
 
-#: backendapp/travels/models.py:179 backendapp/travels/models.py:188
-#: backendapp/travels/models.py:212
+#: backendapp/travels/models.py:181 backendapp/travels/models.py:192
+#: backendapp/travels/models.py:203 backendapp/travels/models.py:214
+#: backendapp/travels/models.py:240
 msgid "영업시간(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:180 backendapp/travels/models.py:189
-#: backendapp/travels/models.py:213
+#: backendapp/travels/models.py:182 backendapp/travels/models.py:193
+#: backendapp/travels/models.py:204 backendapp/travels/models.py:215
+#: backendapp/travels/models.py:241
 msgid "영업시간(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:181 backendapp/travels/models.py:190
-#: backendapp/travels/models.py:214
+#: backendapp/travels/models.py:183 backendapp/travels/models.py:194
+#: backendapp/travels/models.py:205 backendapp/travels/models.py:216
+#: backendapp/travels/models.py:242
 msgid "영업시간(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:182
+#: backendapp/travels/models.py:184 backendapp/travels/models.py:195
+#: backendapp/travels/models.py:206
 msgid "대표메뉴(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:183
+#: backendapp/travels/models.py:185 backendapp/travels/models.py:196
+#: backendapp/travels/models.py:207
 msgid "대표메뉴(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:184
+#: backendapp/travels/models.py:186 backendapp/travels/models.py:197
+#: backendapp/travels/models.py:208
 msgid "대표메뉴(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:191
-msgid "프로그램(한국어)"
+#: backendapp/travels/models.py:190 backendapp/travels/models.py:426
+msgid "먹다 핀"
 msgstr ""
 
-#: backendapp/travels/models.py:192
-msgid "프로그램(영어)"
+#: backendapp/travels/models.py:201 backendapp/travels/models.py:427
+msgid "마시다 핀"
 msgstr ""
 
-#: backendapp/travels/models.py:193
-msgid "프로그램(베트남어)"
-msgstr ""
-
-#: backendapp/travels/models.py:197
-msgid "운영시간(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:198
-msgid "운영시간(영어)"
-msgstr ""
-
-#: backendapp/travels/models.py:199
-msgid "운영시간(베트남어)"
-msgstr ""
-
-#: backendapp/travels/models.py:203
-msgid "포함사항(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:204
-msgid "포함사항(영어)"
-msgstr ""
-
-#: backendapp/travels/models.py:205
-msgid "포함사항(베트남어)"
-msgstr ""
-
-#: backendapp/travels/models.py:206
-msgid "객실타입(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:207
-msgid "객실타입(영어)"
-msgstr ""
-
-#: backendapp/travels/models.py:208
-msgid "객실타입(베트남어)"
-msgstr ""
-
-#: backendapp/travels/models.py:215
-msgid "판매상품(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:216
-msgid "판매상품(영어)"
+#: backendapp/travels/models.py:212 backendapp/travels/models.py:428
+msgid "놀다 핀"
 msgstr ""
 
 #: backendapp/travels/models.py:217
-msgid "판매상품(베트남어)"
+msgid "프로그램(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:218
+msgid "프로그램(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:219
+msgid "프로그램(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:223
+msgid "운영시간(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:224
+msgid "운영시간(영어)"
 msgstr ""
 
 #: backendapp/travels/models.py:225
-msgid "제목(한국어)"
-msgstr ""
-
-#: backendapp/travels/models.py:226
-msgid "제목(영어)"
-msgstr ""
-
-#: backendapp/travels/models.py:227
-msgid "제목(베트남어)"
+msgid "운영시간(베트남어)"
 msgstr ""
 
 #: backendapp/travels/models.py:229
-msgid "Writter"
+msgid "포함사항(한국어)"
 msgstr ""
 
 #: backendapp/travels/models.py:230
-msgid "여행정보(한국어)"
+msgid "포함사항(영어)"
 msgstr ""
 
 #: backendapp/travels/models.py:231
-msgid "여행정보(영어)"
+msgid "포함사항(베트남어)"
 msgstr ""
 
 #: backendapp/travels/models.py:232
-msgid "여행정보(베트남어)"
+msgid "객실타입(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:239
-msgid "여행장소 추가"
+#: backendapp/travels/models.py:233
+msgid "객실타입(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:256
-msgid "TripCurator"
+#: backendapp/travels/models.py:234
+msgid "객실타입(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:238 backendapp/travels/models.py:429
+msgid "사다 핀"
+msgstr ""
+
+#: backendapp/travels/models.py:243
+msgid "판매상품(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:244
+msgid "판매상품(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:245
+msgid "판매상품(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:253
+msgid "제목(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:254
+msgid "제목(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:255
+msgid "제목(베트남어)"
 msgstr ""
 
 #: backendapp/travels/models.py:257
+msgid "Writter"
+msgstr ""
+
+#: backendapp/travels/models.py:258
+msgid "여행정보(한국어)"
+msgstr ""
+
+#: backendapp/travels/models.py:259
+msgid "여행정보(영어)"
+msgstr ""
+
+#: backendapp/travels/models.py:260
+msgid "여행정보(베트남어)"
+msgstr ""
+
+#: backendapp/travels/models.py:267
+msgid "여행장소 추가"
+msgstr ""
+
+#: backendapp/travels/models.py:284
+msgid "TripCurator"
+msgstr ""
+
+#: backendapp/travels/models.py:285
 msgid "TripCurators"
 msgstr ""
 
-#: backendapp/travels/models.py:276
+#: backendapp/travels/models.py:304
 msgid "TravelCurator"
 msgstr ""
 
-#: backendapp/travels/models.py:279
+#: backendapp/travels/models.py:307
 msgid "Trave Image"
 msgstr ""
 
-#: backendapp/travels/models.py:295 backendapp/travels/models.py:296
+#: backendapp/travels/models.py:323 backendapp/travels/models.py:324
 msgid "대표이미지(TravelCulator)"
 msgstr ""
 
-#: backendapp/travels/models.py:308
+#: backendapp/travels/models.py:335
+msgid "Writer"
+msgstr ""
+
+#: backendapp/travels/models.py:337
 msgid "코스선택"
 msgstr ""
 
-#: backendapp/travels/models.py:309
+#: backendapp/travels/models.py:338
 msgid "코스정보(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:309 backendapp/travels/models.py:310
-#: backendapp/travels/models.py:311
+#: backendapp/travels/models.py:338 backendapp/travels/models.py:339
+#: backendapp/travels/models.py:340
 msgid "코스를 소개해 주세요."
 msgstr ""
 
-#: backendapp/travels/models.py:310
+#: backendapp/travels/models.py:339
 msgid "코스정보(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:311
+#: backendapp/travels/models.py:340
 msgid "코스정보(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:334 backendapp/travels/models.py:335
+#: backendapp/travels/models.py:363 backendapp/travels/models.py:364
 msgid "TravelCourse"
 msgstr ""
 
-#: backendapp/travels/models.py:353
+#: backendapp/travels/models.py:382
 msgid "TravelPlan"
 msgstr ""
 
-#: backendapp/travels/models.py:355
+#: backendapp/travels/models.py:384
 msgid "장소명(한국어)"
 msgstr ""
 
-#: backendapp/travels/models.py:356
+#: backendapp/travels/models.py:385
 msgid "장소명(영어)"
 msgstr ""
 
-#: backendapp/travels/models.py:357
+#: backendapp/travels/models.py:386
 msgid "장소명(베트남어)"
 msgstr ""
 
-#: backendapp/travels/models.py:380 backendapp/travels/models.py:381
+#: backendapp/travels/models.py:409 backendapp/travels/models.py:410
 msgid "여행코스"
 msgstr ""
 
+#: backendapp/travels/models.py:422
+msgid "숙소명"
+msgstr ""
+
+#: backendapp/travels/models.py:425
+msgid "배경이미지"
+msgstr ""
+
+#: backendapp/travels/models.py:430
+msgid "InfoTravel"
+msgstr ""
+
+#: backendapp/travels/models.py:431
+msgid "TravelPlan(Trip Culator)"
+msgstr ""
+
+#: backendapp/travels/models.py:434 backendapp/travels/models.py:435
+msgid "TourPlan"
+msgstr ""
+
 #: templates/client/base.html:266 templates/client/base.html:278
+#: templates/client/head.html:73 templates/client/head.html:85
+#: templates/client/header.html:323 templates/client/header.html:334
+#: templates/client/mytrip_detail.html:133
+#: templates/client/mytrip_detail.html:145
 msgid "이용약관 및 개인정보정책"
 msgstr "Terms of Service / Privacy policy"
 
-#: templates/client/base.html:267
+#: templates/client/base.html:267 templates/client/head.html:74
+#: templates/client/header.html:324 templates/client/mytrip_detail.html:134
 msgid "로그아웃"
 msgstr "logout"
 
-#: templates/client/base.html:279
+#: templates/client/base.html:279 templates/client/head.html:82
+#: templates/client/head.html:86 templates/client/header.html:335
+#: templates/client/mytrip.html:395 templates/client/mytrip_detail.html:146
 msgid "로그인"
 msgstr "login"
 
-#: templates/client/base.html:280
+#: templates/client/base.html:280 templates/client/head.html:87
+#: templates/client/header.html:336 templates/client/mytrip.html:398
+#: templates/client/mytrip_detail.html:147
 msgid "회원가입"
 msgstr "signup"
+
+#: templates/client/base.html:351 templates/client/citydetail.html:136
+#: templates/client/topbak.html:105 templates/client/topbak.html:112
+#: templates/client/topbak.html:119 templates/client/topbak.html:126
+#: templates/client/topbak.html:133 templates/client/topbak.html:140
+msgid "보다"
+msgstr "See"
 
 #: templates/client/cindex.html:93
 msgid "맛있고 즐거운 도시 자유여행!"
@@ -620,6 +856,15 @@ msgid "Take a Trips 소개"
 msgstr "Introduction to Take a Trips"
 
 #: templates/client/cindex.html:114 templates/client/cindex.html:158
+#: templates/client/mycurator_detail.html:435
+#: templates/client/mygotocity_head.html:92
+#: templates/client/myhottrip_head.html:149
+#: templates/client/mymusttrip_head.html:149
+#: templates/client/mytrip100_head.html:139
+#: templates/client/mytrip_detail.html:760
+#: templates/client/mytripguide_head.html:149
+#: templates/client/mytripguide_listhead.html:135
+#: templates/client/mytripguide_pickhead.html:117
 msgid "서비스 약관"
 msgstr "Terms of Service"
 
@@ -677,38 +922,66 @@ msgstr ""
 "international city that hosted the 1986 Asian Games, the 1988 Summer "
 "Olympics, and the 2010 Seoul G20 Summit. Seoul's GDP is fourth in the world."
 
-#: templates/client/citydetail.html:197 templates/client/tcbase.html:46
-#: templates/client/tripcurator.html:59
+#: templates/client/citydetail.html:197 templates/client/mytrip_detail.html:528
+#: templates/client/tcbase.html:46 templates/client/tripcurator.html:59
 msgid "작성자"
 msgstr "Writer"
 
 #: templates/client/citydetail.html:202 templates/client/citydetail.html:248
-#: templates/client/tripcurator.html:65
+#: templates/client/mytrip_detail.html:533
+#: templates/client/mytrip_detail.html:671 templates/client/tripcurator.html:65
 msgid "추천장소"
 msgstr "Recommended place"
 
 #: templates/client/citydetail.html:202 templates/client/citydetail.html:248
-#: templates/client/tripcurator.html:65
+#: templates/client/mytrip_detail.html:533
+#: templates/client/mytrip_detail.html:671 templates/client/tripcurator.html:65
 msgid "개"
 msgstr "EA"
 
 #: templates/client/citydetail.html:216 templates/client/citydetail.html:259
+#: templates/client/mytrip_detail.html:286
+#: templates/client/mytrip_detail.html:404
+#: templates/client/mytrip_detail.html:452
+#: templates/client/mytrip_detail.html:500
+#: templates/client/mytrip_detail.html:552
+#: templates/client/mytrip_detail.html:682
 msgid "모두보기"
 msgstr "All"
 
-#: templates/client/citydetail.html:318
+#: templates/client/citydetail.html:318 templates/client/mycurator.html:95
+#: templates/client/myhottrip_head.html:117
+#: templates/client/mymusttrip_head.html:117 templates/client/mytrip.html:177
+#: templates/client/mytrip100_head.html:107
+#: templates/client/mytrip_detail.html:216
+#: templates/client/mytrip_detail.html:738
+#: templates/client/mytripguide_head.html:117
 msgid "AR Trip은 Take a trips APP에서"
 msgstr "AR Trip is a service that can be run"
 
-#: templates/client/citydetail.html:319
+#: templates/client/citydetail.html:319 templates/client/mycurator.html:96
+#: templates/client/myhottrip_head.html:118
+#: templates/client/mymusttrip_head.html:118 templates/client/mytrip.html:178
+#: templates/client/mytrip100_head.html:108
+#: templates/client/mytrip_detail.html:217
+#: templates/client/mytrip_detail.html:739
+#: templates/client/mytripguide_head.html:118
 msgid "실행이 가능한 서비스 입니다."
 msgstr "from the Take a trips APP."
 
-#: templates/client/citydetail.html:322
+#: templates/client/citydetail.html:322 templates/client/mycurator.html:99
+#: templates/client/myhottrip_head.html:121
+#: templates/client/mymusttrip_head.html:121 templates/client/mytrip.html:181
+#: templates/client/mytrip100_head.html:111
+#: templates/client/mytrip_detail.html:220
+#: templates/client/mytrip_detail.html:742
+#: templates/client/mytripguide_head.html:121
 msgid "Take a trips APP을 설치하시겠습니까?"
 msgstr "Do you want to install the Take a trips APP?"
 
 #: templates/client/citydetail.html:342
+#: templates/client/mycurator_detail.html:327
+#: templates/client/mytripguide_detail.html:488
 #: templates/client/tripcoursedetail.html:167
 #: templates/client/tripcuratordetail.html:148
 #: templates/client/tripguidedetail.html:411
@@ -834,19 +1107,22 @@ msgid "부산시 지하철 노선도"
 msgstr "Busan Subway Route"
 
 #: templates/client/gotocity_seoul.html:9
+#: templates/client/mygotocity_head.html:72
 msgid "공항철도"
 msgstr "Airport Railroad"
 
 #: templates/client/gotocity_seoul.html:11
+#: templates/client/mygotocity_head.html:73
 msgid "버스"
 msgstr "Bus"
 
-#: templates/client/gotocity_seoul.html:23
+#: templates/client/gotocity_seoul.html:23 templates/client/mygotocity.html:26
+#: templates/client/mytripguide_detail.html:267
 #: templates/client/tripguidedetail.html:197
 msgid "소개"
 msgstr "Introduce"
 
-#: templates/client/gotocity_seoul.html:26
+#: templates/client/gotocity_seoul.html:26 templates/client/mygotocity.html:29
 msgid ""
 "AREX는 대한민국의 관문인 인천공항과 서울의 도심을 잇는 한국 유일의 특화된 철"
 "도입니다."
@@ -854,7 +1130,7 @@ msgstr ""
 "AREX is Korea's only specialized railway link between Incheon International "
 "Airport, the gateway to Korea, and downtown Seoul."
 
-#: templates/client/gotocity_seoul.html:27
+#: templates/client/gotocity_seoul.html:27 templates/client/mygotocity.html:30
 msgid ""
 "인천공항과 서울역을 가장 빠른 43분에 열결함으로써 여행관광객의 편리한 도심 진"
 "입을 돕는 등 인천공항 이용편의 증진에 기여하고 있습니다."
@@ -863,144 +1139,167 @@ msgstr ""
 "quickest 43 minutes, we are contributing to the enhancement of Incheon "
 "Airport's convenience by helping tourists enter the city center conveniently."
 
-#: templates/client/gotocity_seoul.html:36
+#: templates/client/gotocity_seoul.html:36 templates/client/mygotocity.html:39
+#: templates/client/mytripguide_detail.html:283
 #: templates/client/tripguidedetail.html:213
 msgid "일반정보"
 msgstr "General Information"
 
-#: templates/client/gotocity_seoul.html:41
+#: templates/client/gotocity_seoul.html:41 templates/client/mygotocity.html:44
 msgid "요금 : 성인 \\9,000 / 어린이 \\7,000"
 msgstr "Fee: Adult \\ 9,000 / Child \\ 7,000"
 
-#: templates/client/gotocity_seoul.html:46
+#: templates/client/gotocity_seoul.html:46 templates/client/mygotocity.html:49
 msgid "소요시간 : 1터미널 43분, 2터미널 51분"
 msgstr "Time required: 43 minutes in Terminal 1, 51 minutes in Terminal 2"
 
-#: templates/client/gotocity_seoul.html:57
+#: templates/client/gotocity_seoul.html:57 templates/client/mygotocity.html:60
 msgid "노선정보"
 msgstr "Route Information"
 
-#: templates/client/gotocity_seoul.html:69
+#: templates/client/gotocity_seoul.html:69 templates/client/mygotocity.html:72
 msgid "승차권 구입정보"
 msgstr "Ticket Purchase Information"
 
-#: templates/client/gotocity_seoul.html:73
+#: templates/client/gotocity_seoul.html:73 templates/client/mygotocity.html:76
 msgid "서울역 : 서울역 지하 2층 직통열차 고객안내센터"
 msgstr ""
 "Seoul Station: Seoul Station 2nd Floor Direct Train Customer Information "
 "Center"
 
-#: templates/client/gotocity_seoul.html:74
+#: templates/client/gotocity_seoul.html:74 templates/client/mygotocity.html:77
 msgid ""
 "인천공항1터미널역 : 인천공항1터미널 지하 1층 교통센터 직통열차 고객안내센터"
 msgstr ""
 "Incheon Airport Terminal 1 Station: Incheon International Airport Terminal 1 "
 "B1 Traffic Center Direct Train Customer Service Center"
 
-#: templates/client/gotocity_seoul.html:75
+#: templates/client/gotocity_seoul.html:75 templates/client/mygotocity.html:78
 msgid ""
 "인천공항2터미널역 : 인천공항2터미널 지하 1층 교통센터 직통열차 고객안내센터"
 msgstr ""
 "Incheon Airport Terminal 2 Station: Incheon International Airport Terminal 2 "
 "B1 Traffic Center Direct Train Customer Service Center"
 
-#: templates/client/gotocity_seoul.html:76
+#: templates/client/gotocity_seoul.html:76 templates/client/mygotocity.html:79
 msgid "자동발매기 : 서울역, 인천공항 1터미널역, 인천공항 2터미널역"
 msgstr ""
 "Ticket vending machines: Seoul Station, Incheon International Airport "
 "Terminal 1 Station, Incheon International Airport Terminal 2 Station"
 
-#: templates/client/gotocity_seoul.html:88
+#: templates/client/gotocity_seoul.html:88 templates/client/mygotocity.html:91
 msgid "승차권 구입 장소"
 msgstr "Ticket purchase place"
 
-#: templates/client/gotocity_seoul.html:99
+#: templates/client/gotocity_seoul.html:99 templates/client/mygotocity.html:102
 msgid "인천공항 1터미널역"
 msgstr "Incheon International Airport Terminal 1 Station"
 
 #: templates/client/gotocity_seoul.html:99
 #: templates/client/gotocity_seoul.html:109
 #: templates/client/gotocity_seoul.html:119
+#: templates/client/mygotocity.html:102 templates/client/mygotocity.html:112
+#: templates/client/mygotocity.html:122
 msgid "VR 위치보기"
 msgstr "VR location view"
 
 #: templates/client/gotocity_seoul.html:109
+#: templates/client/mygotocity.html:112
 msgid "인천공항 2터미널역"
 msgstr "Incheon International Airport Terminal 2 Station"
 
 #: templates/client/gotocity_seoul.html:119
+#: templates/client/mygotocity.html:122
 msgid "서울역"
 msgstr "Seoul Station"
 
 #: templates/client/gotocity_seoul.html:132
+#: templates/client/mygotocity.html:135
 msgid "승차권 자동발매기 구입 순서"
 msgstr "Ticket Vending Machine Purchase Order"
 
 #: templates/client/gotocity_seoul.html:142
+#: templates/client/mygotocity.html:145
 msgid "1. 언어선택"
 msgstr "1. Choose language"
 
 #: templates/client/gotocity_seoul.html:143
+#: templates/client/mygotocity.html:146
 msgid "사용 가능한 언어를 선택합니다."
 msgstr "Select the available language."
 
 #: templates/client/gotocity_seoul.html:151
+#: templates/client/mygotocity.html:154
 msgid "2. 승차권 구매 선택"
 msgstr "2. Choose to buy a ticket"
 
 #: templates/client/gotocity_seoul.html:152
+#: templates/client/mygotocity.html:155
 msgid "직통열차 승차권을 구매하기 위해여"
 msgstr "Click on the 'Buy Ticket' button"
 
 #: templates/client/gotocity_seoul.html:152
+#: templates/client/mygotocity.html:155
 msgid "'승차권 구매' 버튼을 클릭합니다."
 msgstr "to purchase a direct train ticket."
 
 #: templates/client/gotocity_seoul.html:160
+#: templates/client/mygotocity.html:163
 msgid "3. 목적지 선택"
 msgstr "3. Choose destination"
 
 #: templates/client/gotocity_seoul.html:161
+#: templates/client/mygotocity.html:164
 msgid "도착하고 싶은 목적지를 선택합니다."
 msgstr "Select the destination you want to arrive."
 
 #: templates/client/gotocity_seoul.html:171
+#: templates/client/mygotocity.html:174
 msgid "4. 열차 선택"
 msgstr "4. Select train"
 
 #: templates/client/gotocity_seoul.html:172
+#: templates/client/mygotocity.html:175
 msgid "타고 싶은 시간대의 열차를 선택합니다."
 msgstr "Select the train in the time zone you want to ride."
 
 #: templates/client/gotocity_seoul.html:180
+#: templates/client/mygotocity.html:183
 msgid "5. 인원 선택 및 승차권 결제"
 msgstr "5. Personnel selection and ticket payment"
 
 #: templates/client/gotocity_seoul.html:181
+#: templates/client/mygotocity.html:184
 msgid "탑승 할 인원수를 선택 후 발행 받을"
 msgstr "After selecting the number of people to board,"
 
 #: templates/client/gotocity_seoul.html:181
+#: templates/client/mygotocity.html:184
 msgid "승차권의 금액을 투입합니다."
 msgstr "amount of the ticket to be issued is input."
 
 #: templates/client/gotocity_seoul.html:189
+#: templates/client/mygotocity.html:192
 msgid "6. 승차권 발급 완료"
 msgstr "6. Ticket issued"
 
 #: templates/client/gotocity_seoul.html:190
+#: templates/client/mygotocity.html:193
 msgid "개찰구로 발급된 승차권을 받으신 후"
 msgstr "After you get your ticket issued to the ticket gate, "
 
 #: templates/client/gotocity_seoul.html:190
+#: templates/client/mygotocity.html:193
 msgid "거스름돈을 확인합니다."
 msgstr "check your change."
 
 #: templates/client/gotocity_seoul.html:209
+#: templates/client/mygotocity.html:210
 msgid "제 1 여객터미널 버스 정차장 안내"
 msgstr "Passenger Terminal 1 Bus Stop Information"
 
 #: templates/client/gotocity_seoul.html:213
+#: templates/client/mygotocity.html:213
 msgid ""
 "제 1 여객터미널 1층의 내부 (4, 9번 출구 옆), 외부(4, 6, 7, 8, 11, 13번 출구 "
 "근처)의 버스 매표소에서 버스 관련 안내 및\v승차권 구입이 가능합니다."
@@ -1010,10 +1309,12 @@ msgstr ""
 "(near exits 4, 6, 7, 8, 11 and 13)."
 
 #: templates/client/gotocity_seoul.html:222
+#: templates/client/mygotocity.html:222
 msgid "제 2 여객터미널 버스 정차장 안내"
 msgstr "Passenger Terminal 2 Bus Stop Information"
 
 #: templates/client/gotocity_seoul.html:226
+#: templates/client/mygotocity.html:226
 msgid ""
 "제 2 여객터미널 교통센터 지하 1층 버스터미널에서 버스 관련 안내 및 승차권 구"
 "입이 가능합니다."
@@ -1021,13 +1322,234 @@ msgstr ""
 "You can purchase bus information and purchase tickets at the 1st basement "
 "bus terminal of Passenger Terminal 2 Transportation Center."
 
-#: templates/client/tpbase.html:47 templates/client/tripcourse.html:50
-#: templates/client/tripcourse.html:54 templates/client/tripcourse.html:58
+#: templates/client/index.html:67 templates/client/index_backup.html:67
+#: templates/client/mytrip.html:410
+msgid "현지에서 인기 있는 여행 정보"
+msgstr "Locally popular travel information"
+
+#: templates/client/mycurator.html:145 templates/client/mycurator.html:149
+#: templates/client/mycurator.html:153
+#: templates/client/mycurator_detail.html:131 templates/client/tpbase.html:47
+#: templates/client/tripcourse.html:50 templates/client/tripcourse.html:54
+#: templates/client/tripcourse.html:58
 #: templates/client/tripcoursedetail.html:201
 #: templates/client/tripcoursedetail.html:205
 #: templates/client/tripcoursedetail.html:209
 msgid "코스타입"
 msgstr "Course type"
+
+#: templates/client/mycurator_detail.html:245
+#, fuzzy
+#| msgid "추천 여행정보"
+msgid "추천 여행 정보"
+msgstr "Recommended Travel Information"
+
+#: templates/client/mycurator_detail.html:433
+#: templates/client/mygotocity_head.html:90
+#: templates/client/myhottrip_head.html:147
+#: templates/client/mymusttrip_head.html:147
+#: templates/client/mytrip100_head.html:137
+#: templates/client/mytrip_detail.html:758
+#: templates/client/mytripguide_head.html:147
+#: templates/client/mytripguide_listhead.html:133
+#: templates/client/mytripguide_pickhead.html:115
+msgid "의견 보내기"
+msgstr "Send feedback"
+
+#: templates/client/mycurator_detail.html:434
+#: templates/client/mygotocity_head.html:91
+#: templates/client/myhottrip_head.html:148
+#: templates/client/mymusttrip_head.html:148
+#: templates/client/mytrip100_head.html:138
+#: templates/client/mytrip_detail.html:759
+#: templates/client/mytripguide_head.html:148
+#: templates/client/mytripguide_listhead.html:134
+#: templates/client/mytripguide_pickhead.html:116
+msgid "개인정보처리방침"
+msgstr "Personal Information Processing Policy"
+
+#: templates/client/mytrip.html:281
+msgid "수정"
+msgstr "Modify"
+
+#: templates/client/mytrip.html:282
+msgid "삭제"
+msgstr "Delete"
+
+#: templates/client/mytrip.html:303
+msgid "세부 정보 보기"
+msgstr "View detail"
+
+#: templates/client/mytrip.html:306
+msgid "내 숙소 찾기"
+msgstr "Find my hotel"
+
+#: templates/client/mytrip.html:365
+msgid "여행 계획 만들기"
+msgstr "Create a travel plan"
+
+#: templates/client/mytrip.html:366
+msgid "Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요."
+msgstr "Create a city trip plan with the help of Take a trips."
+
+#: templates/client/mytrip.html:372
+msgid "여행계획하기"
+msgstr "Plan your trip"
+
+#: templates/client/mytrip.html:380
+msgid "이 여행 계획은 본인에게만 표시됩니다."
+msgstr "This travel plan is only visible to you."
+
+#: templates/client/mytrip.html:390
+msgid "아직 Take a trips 회원이 아니신가요?"
+msgstr "Still not a member of Take a trips?"
+
+#: templates/client/mytrip.html:391
+msgid ""
+"로그인을 하거나 회원가입을 하\b면 Take a trips의 모든 혜택을 받아 볼 수 있습"
+"니다."
+msgstr "You can receive all the benefits of Take a trips by login or register."
+
+#: templates/client/mytrip100.html:22 templates/client/mytrip_detail.html:306
+#: templates/client/tripstore.html:28
+msgid "상품 준비 중"
+msgstr "The product is being prepared."
+
+#: templates/client/mytrip100.html:22 templates/client/mytrip_detail.html:306
+#: templates/client/tripstore.html:28
+msgid "입니다."
+msgstr "Thank you."
+
+#: templates/client/mytrip100.html:23 templates/client/mytrip_detail.html:307
+#: templates/client/mytrip_detail.html:607
+#: templates/client/mytripguide_pick.html:551
+#: templates/client/tripstore.html:29
+msgid "Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다."
+msgstr "You can find travel information in the Trip Guide or Trip Curator."
+
+#: templates/client/mytrip_detail.html:606
+#: templates/client/mytripguide_pick.html:550
+msgid "Pick한 여행 정보가 아직 없으시군요?"
+msgstr "Haven't you picked up any travel information yet?"
+
+#: templates/client/mytrip_modify.html:148
+msgid "저장하기"
+msgstr "Save"
+
+#: templates/client/mytrip_modify.html:165
+msgid "숙소"
+msgstr "Hotel"
+
+#: templates/client/mytrip_modify.html:165
+msgid "가 어디인가요?"
+msgstr " is where?"
+
+#: templates/client/mytrip_modify.html:169
+msgid "숙소가 어디인가요?"
+msgstr "Where is the hotel?"
+
+#: templates/client/mytrip_modify.html:175
+msgid "여행 기간은 어떻게 되나요?"
+msgstr "How long is the trip?"
+
+#: templates/client/mytrip_modify.html:188
+#: templates/client/mytrip_modify.html:225
+#: templates/client/mytrip_modify.html:262
+#: templates/client/mytrip_modify.html:299
+msgid "어떤"
+msgstr "What"
+
+#: templates/client/mytrip_modify.html:188
+msgid "음식"
+msgstr "food"
+
+#: templates/client/mytrip_modify.html:188
+#: templates/client/mytrip_modify.html:299
+msgid "을 좋아하나요?"
+msgstr " do you like?"
+
+#: templates/client/mytrip_modify.html:189
+#: templates/client/mytrip_modify.html:226
+#: templates/client/mytrip_modify.html:263
+#: templates/client/mytrip_modify.html:300
+msgid "(최대 6개까지 선택해주세요.)"
+msgstr "(Please select up to six.)"
+
+#: templates/client/mytrip_modify.html:225
+msgid "디저트"
+msgstr "dessert"
+
+#: templates/client/mytrip_modify.html:225
+#: templates/client/mytrip_modify.html:262
+msgid "를 좋아하나요?"
+msgstr " do you like?"
+
+#: templates/client/mytrip_modify.html:299
+msgid "쇼핑"
+msgstr "shopping"
+
+#: templates/client/mytrip_tourplan01.html:150
+#: templates/client/mytrip_tourplan_템플릿.html:151
+msgid "아직 숙소를 예약하지 않으셨나요?"
+msgstr "Have you booked a hotel yet?"
+
+#: templates/client/mytripguide.html:60
+msgid "여행정보 모두 보기"
+msgstr "See all"
+
+#: templates/client/mytripguide.html:66
+msgid "내 취향별 여행 정보"
+msgstr "Recommended Travel Information"
+
+#: templates/client/mytripguide_detail.html:287
+#: templates/client/tripguidedetail.html:217
+msgid "주소"
+msgstr "Address"
+
+#: templates/client/mytripguide_detail.html:302
+#: templates/client/tripguidedetail.html:232
+msgid "대표메뉴"
+msgstr "Menu"
+
+#: templates/client/mytripguide_detail.html:316
+#: templates/client/mytripguide_detail.html:344
+#: templates/client/mytripguide_detail.html:358
+#: templates/client/mytripguide_detail.html:414
+#: templates/client/tripguidedetail.html:246
+#: templates/client/tripguidedetail.html:274
+#: templates/client/tripguidedetail.html:288
+#: templates/client/tripguidedetail.html:344
+msgid "운영시간"
+msgstr "operating time"
+
+#: templates/client/mytripguide_detail.html:330
+#: templates/client/tripguidedetail.html:260
+msgid "프로그램"
+msgstr "Program"
+
+#: templates/client/mytripguide_detail.html:372
+#: templates/client/tripguidedetail.html:302
+msgid "포함사항"
+msgstr "Inclusion"
+
+#: templates/client/mytripguide_detail.html:386
+#: templates/client/tripguidedetail.html:316
+msgid "객실타입"
+msgstr "Room type"
+
+#: templates/client/mytripguide_detail.html:400
+#: templates/client/tripguidedetail.html:330
+msgid "판매상품"
+msgstr "Sale Items"
+
+#: templates/client/mytripguide_detail.html:429
+#: templates/client/tripguidedetail.html:359
+msgid "교통정보"
+msgstr "Traffic Information"
+
+#: templates/client/mytripguide_pick.html:323
+msgid "지도에서 보기"
+msgstr "View on map"
 
 #: templates/client/tripcoursedetail.html:86
 msgid "코디네이터 정보"
@@ -1037,40 +1559,21 @@ msgstr "Coordinator Information"
 msgid "추천 여행정보"
 msgstr "Recommended Travel Information"
 
-#: templates/client/tripguidedetail.html:217
-msgid "주소"
-msgstr "Address"
+#: templates/client/trips.html:60
+msgid "제주도"
+msgstr "Jeju"
 
-#: templates/client/tripguidedetail.html:232
-msgid "대표메뉴"
-msgstr "Menu"
+#: templates/client/trips.html:65
+msgid "광주광역시"
+msgstr "Gwangju"
 
-#: templates/client/tripguidedetail.html:246
-#: templates/client/tripguidedetail.html:274
-#: templates/client/tripguidedetail.html:288
-#: templates/client/tripguidedetail.html:344
-msgid "운영시간"
-msgstr "operating time"
+#: templates/client/trips.html:70
+msgid "대구광역시"
+msgstr "Daegu"
 
-#: templates/client/tripguidedetail.html:260
-msgid "프로그램"
-msgstr "Program"
-
-#: templates/client/tripguidedetail.html:302
-msgid "포함사항"
-msgstr "Inclusion"
-
-#: templates/client/tripguidedetail.html:316
-msgid "객실타입"
-msgstr "Room type"
-
-#: templates/client/tripguidedetail.html:330
-msgid "판매상품"
-msgstr "Sale Items"
-
-#: templates/client/tripguidedetail.html:359
-msgid "교통정보"
-msgstr "Traffic Information"
+#: templates/client/trips.html:75
+msgid "대전광역시"
+msgstr "Daejeon"
 
 #~ msgid "업체소개"
 #~ msgstr "Introduction"

@@ -201,7 +201,7 @@ header {
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     right: 0;
-    z-index: 1;
+    z-index: 9999;
 }
 .dropdown-content a {
     color: black;
@@ -502,6 +502,11 @@ div.graydiv {
     background-color: #c01d39;
     color: white;
     border: none;
+}
+.btntype-unsel {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #00000059;
 }
 .btntype-off {
     color: #d8d8d8;

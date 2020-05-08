@@ -5,6 +5,9 @@
 
 {% block header %}
 <style>
+    .gm-ui-hover-effect {
+        display: none!important;
+    }
     .btnRed {
         padding: 0.5rem 1.2rem;
         border-radius: 20px;
@@ -38,7 +41,7 @@
                         {% for itdetail in itdetails %}
                         <ul class="list-group" name="ul{{ itdetail.id }}">
                             <li class="list-group-up">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id 'myhottrip' %}"> 
                                     <img id="{{ itdetail.id }}" src="{{ itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
                                 </a>
                             </li>
@@ -64,13 +67,13 @@
                                 </div>
                             </li>
                             <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                                <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                                <!-- <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id 'mytripguide' %}" id="btnlike" style="text-decoration: none;"> -->
                                     {% if user in itdetail.like_infotravel.all %}
                                     <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                                     {% else %}
                                     <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
                                     {% endif %}
-                                </a> 
+                                <!-- </a>  -->
                             </li>
                         </ul>
                         {% endfor %}
@@ -134,10 +137,12 @@
             center: centerLatLng,
         });
 
+        bounds  = new google.maps.LatLngBounds(); //bounds 생성..
+
         for(var count = 0; count < locations.length; count++){ 
 
             var contentString = '<div id="content" style="text-align: center;">' + 
-                '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                '<h6 style="margin: 0px;font-size: 0.8rem;">' + locations[count][0] + '</h6></div>';
             
             // like or unlike 에 따라 poi 선택..
             if (locations[count][3] == 1) {
@@ -172,10 +177,23 @@
                 id: locations[count][4], // tripguide 의 id 를 받아서 마커 id 로 지정...
             });
 
+            bounds.extend(marker.position); // bounds 에 마커 위치 추가..
+
             markers[locations[count][4]] = marker;
 
             marker.info = new google.maps.InfoWindow({
                 content: contentString
+            });
+
+            map.fitBounds(bounds); // bounds 에 fit ..
+            // map.panToBounds(bounds); 
+
+            // zoom 레벨이 18 이상이면 더 zoom 이 안되도록 하기 위한 기준 레벨..
+            var zoom_level_for_one_marker = 16; 
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function(event){
+                if (this.getZoom() >= zoom_level_for_one_marker){  
+                    this.setZoom(zoom_level_for_one_marker) 
+                }
             });
 
             google.maps.event.addListener(marker, 'mouseover', function() {  

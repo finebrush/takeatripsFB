@@ -19,6 +19,10 @@
         <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
 
         <style>
+            #sumeditor img {
+                width: 20%!important;
+                height: auto!important;
+            }
             .linepart{
                 border-bottom: solid 0.5px #00000022;
                 width: 100%;
@@ -140,17 +144,17 @@
                                 
                                 {% if LANGUAGE_CODE == 'ko' %}
                                 <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
-                                <small>{{ travelplan.courseinfoko|truncatewords:10 }}</small><br>
+                                <div id="sumeditor" style="font-size: 0.8rem;">{{ travelplan.courseinfoko|truncatewords:10|safe }}</div><br>
                                 <!-- <small style="color:blue;">{{ travelplan.get_course_display }}</small>  -->
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </small>
+                                <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </div>
                                 {% elif LANGUAGE_CODE == 'en' %}
                                 <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
-                                <small>{{ travelplan.courseinfoeng|truncatewords:10 }}</small><br>
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small>
+                                <div style="font-size: 0.8rem;">{{ travelplan.courseinfoeng|truncatewords:10 }}</div><br>
+                                <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.course }} </div>
                                 {% elif LANGUAGE_CODE == 'vi' %}
                                 <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
-                                <small>{{ travelplan.courseinfoven|truncatewords:10 }}</small><br>
-                                <small style="color:#c83a54;text-decoration: underline;"> {% trans "코스타입" %} : {{ travelplan.course }} </small> 
+                                <div style="font-size: 0.8rem;">{{ travelplan.courseinfoven|truncatewords:10 }}</div><br>
+                                <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.course }} </div> 
                                 {% endif %}
 
                             </div>

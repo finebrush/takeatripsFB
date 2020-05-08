@@ -4,6 +4,7 @@
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
 <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+<link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {% endblock %}
 
@@ -25,8 +26,8 @@
                                     <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
                                 </div> 
                                 <div>
-                                    <h5 style="margin: 0px;"><span style="color: #bf1d37;">상품 준비 중</span>입니다. </h5>
-                                    <p style="font-size: 0.9rem; margin:0px;"> Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다. </p>
+                                    <h5 style="margin: 0px;"><span style="color: #bf1d37;">{% trans '상품 준비 중' %}</span>{% trans '입니다.' %} </h5>
+                                    <p style="font-size: 0.9rem; margin:0px;"> {% trans 'Trip Guide나 Trip Curator에서 여행정보를 찾아보실 수 있습니다.' %} </p>
                                 </div> 
                                 <div class="mytrip-btn" style="display: flex;">
                                     <a href="#">

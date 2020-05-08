@@ -178,6 +178,16 @@ DATABASES = {
 #     }
 # }
 
+SUMMERNOTE_CONFIG = {
+    # You can put custom Summernote settings
+    'summernote': {
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+    },
+
+}
+
 MAP_WIDGETS = {
     "GooglePointFieldWidget": (
         ("zoom", 11),

@@ -145,7 +145,7 @@
             </div>
             <div class="btnTourplanNext">
                 <a href="#" id="btnnextlink" style="background: none;">
-                    <button id="btnnext" class="button button-redrect" onclick="esselected();">저장하기</button>
+                    <button id="btnnext" class="button button-redrect" onclick="esselected();">{% trans '저장하기' %}</button>
                 </a>
             </div>
 
@@ -162,17 +162,17 @@
                 <div class="card-deck" style="margin: 10px;">
                     <div class="container plan-place">
                         <div style="">
-                            <p class="plan-place-text">Step 01. place : <span style="font-size: 1.5rem; color: #bf1d38;">숙소</span>가 어디인가요?</p>
+                            <p class="plan-place-text">Step 01. place : <span style="font-size: 1.5rem; color: #bf1d38;">{% trans '숙소' %}</span>{% trans '가 어디인가요?' %}</p>
                         </div> 
                         <div>
                             <div class="inputWithIcon">
-                                <input id="tags" type="text" placeholder="숙소가 어디인가요?">
+                                <input id="tags" type="text" placeholder="{% trans '숙소가 어디인가요?' %}">
                                 <img src="{% static 'img/tg_icon04.png' %}" style="position: absolute;left: 5;top: 10;" />
                             </div>
                         </div> 
                         <div>
                             <div class="inputWithIcon">
-                                <input id="inputdate" type="text" name="datefilter" placeholder="여행 기간은 어떻게 되나요?">
+                                <input id="inputdate" type="text" name="datefilter" placeholder="{% trans '여행 기간은 어떻게 되나요?' %}">
                                 <img src="{% static 'img/tg_icon03.png' %}" style="position: absolute;left: 5;top: 10;" />
                             </div>
                         </div>
@@ -185,8 +185,8 @@
                 <div class="card-deck" style="margin: 10px;">
                     <div class="container plan-place">
                         <div style="display: block; text-align: center; line-height: 8px;">
-                            <p class="plan-place-text">Step 02. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">음식</span>을 좋아하나요?</p>
-                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                            <p class="plan-place-text">Step 02. pin : {% trans '어떤' %} <span style="font-size: 1.5rem; color: #bf1d38;">{% trans '음식' %}</span>{% trans '을 좋아하나요?' %}</p>
+                            <p class="plan-sub-text">{% trans '(최대 6개까지 선택해주세요.)' %}</p>
                         </div> 
                     </div>
                 </div>
@@ -198,7 +198,17 @@
                                 <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
                                 <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
                                 <i name='selectable_eat' class='fas fa-circle icircle-gray' itemnumber='eat-{{ pineat.id }}'>
-                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pineat.nameko }} </p>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;">
+                                        
+                                        {% if LANGUAGE_CODE == 'ko' %}
+                                            {{ pineat.nameko }}
+                                        {% elif LANGUAGE_CODE == 'en' %}
+                                            {{ pineat.nameeng }}
+                                        {% elif LANGUAGE_CODE == 'vi' %}
+                                            {{ pineat.nameven }}
+                                        {% endif %}
+
+                                    </p>
                                 </i>
                             </div>
                         </li>
@@ -212,8 +222,8 @@
                 <div class="card-deck" style="margin: 10px;">
                     <div class="container plan-place">
                         <div style="display: block; text-align: center; line-height: 8px;">
-                            <p class="plan-place-text">Step 03. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">디저트</span>를 좋아하나요?</p>
-                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                            <p class="plan-place-text">Step 03. pin : {% trans '어떤' %} <span style="font-size: 1.5rem; color: #bf1d38;">{% trans '디저트' %}</span>{% trans '를 좋아하나요?' %}</p>
+                            <p class="plan-sub-text">{% trans '(최대 6개까지 선택해주세요.)' %}</p>
                         </div> 
                     </div>
                 </div>
@@ -225,7 +235,17 @@
                                 <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
                                 <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
                                 <i name="selectable_drink" class='fas fa-circle icircle-gray' itemnumber='drink-{{ pindrink.id }}'>
-                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pindrink.nameko }} </p>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> 
+                                        
+                                        {% if LANGUAGE_CODE == 'ko' %}
+                                            {{ pindrink.nameko }}
+                                        {% elif LANGUAGE_CODE == 'en' %}
+                                            {{ pindrink.nameeng }}
+                                        {% elif LANGUAGE_CODE == 'vi' %}
+                                            {{ pindrink.nameven }}
+                                        {% endif %}
+
+                                    </p>
                                 </i>
                             </div>
                         </li>
@@ -239,8 +259,8 @@
                 <div class="card-deck" style="margin: 10px;">
                     <div class="container plan-place">
                         <div style="display: block; text-align: center; line-height: 8px;">
-                            <p class="plan-place-text">Step 04. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">장소</span>를 좋아하나요?</p>
-                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                            <p class="plan-place-text">Step 04. pin : {% trans '어떤' %} <span style="font-size: 1.5rem; color: #bf1d38;">{% trans '장소' %}</span>{% trans '를 좋아하나요?' %}</p>
+                            <p class="plan-sub-text">{% trans '(최대 6개까지 선택해주세요.)' %}</p>
                         </div> 
                     </div>
                 </div>
@@ -252,7 +272,17 @@
                                 <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
                                 <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
                                 <i name="selectable_fun" class='fas fa-circle icircle-gray' itemnumber='fun-{{ pinfun.id }}'>
-                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pinfun.nameko }} </p>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> 
+                                        
+                                        {% if LANGUAGE_CODE == 'ko' %}
+                                            {{ pinfun.nameko }}
+                                        {% elif LANGUAGE_CODE == 'en' %}
+                                            {{ pinfun.nameeng }}
+                                        {% elif LANGUAGE_CODE == 'vi' %}
+                                            {{ pinfun.nameven }}
+                                        {% endif %}
+
+                                    </p>
                                 </i>
                             </div>
                         </li>
@@ -266,8 +296,8 @@
                 <div class="card-deck" style="margin: 10px;">
                     <div class="container plan-place">
                         <div style="display: block; text-align: center; line-height: 8px;">
-                            <p class="plan-place-text">Step 05. pin : 어떤 <span style="font-size: 1.5rem; color: #bf1d38;">쇼핑</span>을 좋아하나요?</p>
-                            <p class="plan-sub-text">(최대 6개까지 선택해주세요.)</p>
+                            <p class="plan-place-text">Step 05. pin : {% trans '어떤' %} <span style="font-size: 1.5rem; color: #bf1d38;">{% trans '쇼핑' %}</span>{% trans '을 좋아하나요?' %}</p>
+                            <p class="plan-sub-text">{% trans '(최대 6개까지 선택해주세요.)' %}</p>
                         </div> 
                     </div>
                 </div>
@@ -279,7 +309,17 @@
                                 <!-- material-icons 는 태그안에 태그를 넣을 수 없어서 클릭시 위 태그 때문에 클릭이 안됨 -->
                                 <!-- <i id="icircle" class="material-icons icircle-gray">lens</i> -->
                                 <i name="selectable_buy" class='fas fa-circle icircle-gray' itemnumber='buy-{{ pinbuy.id }}'>
-                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> {{ pinbuy.nameko }} </p>
+                                    <p style="position: absolute; margin: 0; font-size: 1.3rem; color: white;"> 
+                                        
+                                        {% if LANGUAGE_CODE == 'ko' %}
+                                            {{ pinbuy.nameko }}
+                                        {% elif LANGUAGE_CODE == 'en' %}
+                                            {{ pinbuy.nameeng }}
+                                        {% elif LANGUAGE_CODE == 'vi' %}
+                                            {{ pinbuy.nameven }}
+                                        {% endif %} 
+
+                                    </p>
                                 </i>
                             </div>
                         </li>

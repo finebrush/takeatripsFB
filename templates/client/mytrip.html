@@ -1,14 +1,54 @@
 {% extends 'client/head.html'%}
 <!-- {% load i18n static %} -->
+{% load socialaccount %} 
+{% providers_media_js %}
 
 {% block headers %}
 <link rel=stylesheet href="{% static 'css/main.css' %}">
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
+<link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 {% endblock %}
 
 {% block contents %}
 
 <div class="linepartition"></div>
+
+<!-- AR 팝업창 띄우기 -->
+<!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+<div class="dim-layer1">
+    <div class="dimBg"></div>
+    <div id="layer1" class="pop-layer">
+        <div class="pop-container">
+            <div class="pop-conts" style="text-align: center;">
+                <!--content //-->
+                <!-- <h4 style="text-align: center;"> TAKE A TRIPS </h4> -->
+                <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
+                <h6 style="text-align: center;">
+                    {% trans "AR Trip은 Take a trips APP에서" %} <br> 
+                    {% trans "실행이 가능한 서비스 입니다." %}
+                </h6>
+                <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
+                    {% trans "Take a trips APP을 설치하시겠습니까?" %}
+                </p>
+                <a href="#" role="button">
+                    <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
+                </a>
+                <a href="#" role="button">
+                    <img src="{% static 'img/appbtn_apple.png' %}" />
+                </a>
+                
+                <!-- <div class="btn-r">
+                    <a href="#" class="btn-layerClose">Close</a>
+                </div> -->
+                <!--// content-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- mytrip part -->
 <div id="mytrip" class="tabcontent">
@@ -27,8 +67,8 @@
                                 </button> 
                             </a>
                             <div id="tripDropdown{{ tourplan.id }}" class="dropdown-content">
-                                <a href="{% url 'clientapp:mytrip_modify' tourplan.id %}">수정</a>
-                                <a href="{% url 'clientapp:mytrip' %}" onclick="tourplanDelet({{ tourplan.id }})">삭제</a>
+                                <a href="{% url 'clientapp:mytrip_modify' tourplan.id %}">{% trans '수정' %}</a>
+                                <a href="{% url 'clientapp:mytrip' %}" onclick="tourplanDelet({{ tourplan.id }})">{% trans '삭제' %}</a>
                             </div>
                         </div>
                     </div>
@@ -37,14 +77,22 @@
                             {{ tourplan.start_date }} ~ {{ tourplan.end_date }}
                         </div>
                         <div class="tourplan1Title">
-                            {{ tourplan.room }} / {{ tourplan.city.nameko }}
+
+                            {% if LANGUAGE_CODE == 'ko' %}
+                                {{ tourplan.room }} / {{ tourplan.city.nameko }}
+                            {% elif LANGUAGE_CODE == 'en' %}
+                                {{ tourplan.room }} / {{ tourplan.city.nameeng }}
+                            {% elif LANGUAGE_CODE == 'vi' %}
+                                {{ tourplan.room }} / {{ tourplan.city.nameven }}
+                            {% endif %}
+                            
                         </div>
                         <div style="font-size: 2rem; display: flex; justify-content: center;">
                             <button class="button button-white" style="margin-right: 10px;">
-                                <a href="{% url 'clientapp:mytrip_detail' citydetails.id tourplan.id %}" style="text-decoration: none;">세부 정보 보기</a>
+                                <a href="{% url 'clientapp:mytrip_detail' citydetails.id tourplan.id %}" style="text-decoration: none;">{% trans '세부 정보 보기' %}</a>
                             </button>
                             <button class="button button-white">
-                                <a href="#layer2" class="btn-example" style="text-decoration: none;">내 숙소 찾기</a>
+                                <a href="#layer1" class="btn-examplear" style="text-decoration: none;">{% trans '내 숙소 찾기' %}</a>
                             </button>
                         </div>
                     </div>
@@ -74,7 +122,7 @@
                             TRIP GUIDE
                         </button>
                     </a>
-                    <a href="#" style="display: contents;">
+                    <a href="#layer1" class="btn-examplear" style="display: contents;">
                         <button class="btnTourplan">
                             <img src="{% static 'img/icon_artrip24.png' %}" style="width: 16px;margin-right: 10px;" />
                             AR TRIP
@@ -103,14 +151,14 @@
                         <img src="{% static 'img/icon_suitcase64.png' %}" style="width: 48px;" />
                     </div> 
                     <div>
-                        <h5 style="margin: 0px;"> 여행 계획 만들기 </h5>
-                        <p style="font-size: 0.9rem; margin:0px;"> Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요. </p>
+                        <h5 style="margin: 0px;"> {% trans '여행 계획 만들기' %} </h5>
+                        <p style="font-size: 0.9rem; margin:0px;"> {% trans 'Take a trips의 도움을 받아 도시 여행 계획을 만들어보세요.' %} </p>
                     </div> 
                     <div class="mytrip-btn">
                         <a href="{% url 'clientapp:mytrip_tourplan01' %}">
                             <button class="button button-white" style="padding: 0.5rem 1.2rem;">
                                 <img src="{% static 'img/icon_plus24.png' %}" style="width: 16px;margin-right: 10px;" />
-                                여행계획하기
+                                {% trans '여행계획하기' %}
                             </button>
                         </a>
                     </div>
@@ -118,7 +166,7 @@
             </div>
         </div>
         <div style="margin-left: 30px; font-size: 0.7rem;">
-            이 여행 계획은 본인에게만 표시됩니다.
+            {% trans '이 여행 계획은 본인에게만 표시됩니다.' %}
         </div>
         {% else %}
         <div class="card-deck" style="margin: 10px;">
@@ -128,15 +176,15 @@
                         <i class='fas fa-plane fa-flip-both' style='font-size:48px;color:blue'></i>
                     </div> 
                     <div >
-                        <h5 style="margin: 0px;"> 아직 Take a trips 회원이 아니신가요? </h5>
-                        <p style="font-size: 12px; margin:0px;"> 로그인을 하거나 회원가입을 하면 Take a trips의 모든 혜택을 받아 볼 수 있습니다. </p>
+                        <h5 style="margin: 0px;"> {% trans '아직 Take a trips 회원이 아니신가요?' %} </h5>
+                        <p style="font-size: 12px; margin:0px;"> {% trans '로그인을 하거나 회원가입을 하면 Take a trips의 모든 혜택을 받아 볼 수 있습니다.' %} </p>
                     </div> 
                     <div class="mytrip-btn">
-                        <a href="{% url 'account:login' %}">
-                            <button class="button button-red">로그인</button>
+                        <a href="#layer2" class="btn-example">
+                            <button id="click_login" class="button button-red">{% trans '로그인' %}</button>
                         </a>
-                        <a href="{% url 'account:signup' %}">
-                            <button class="button button-black">회원가입</button>
+                        <a href="#layer2" class="btn-example">
+                            <button id="click_sign" class="button button-black">{% trans '회원가입' %}</button>
                         </a>
                     </div>
                 </div>
@@ -145,38 +193,6 @@
         {% endif %}
     </div>
 
-    <!-- 팝업창 띄우기 -->
-    <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
-    <div class="dim-layer">
-        <div class="dimBg"></div>
-        <div id="layer2" class="pop-layer">
-            <div class="pop-container">
-                <div class="pop-conts" style="text-align: center;">
-                    <!--content //-->
-                    <!-- <h4 style="text-align: center;"> TAKE A TRIPS </h4> -->
-                    <img src="{% static 'img/main_logo2.png' %}" style="margin-bottom: 10px;" />
-                    <h6 style="text-align: center;">
-                        {% trans "AR Trip은 Take a trips APP에서" %} <br> 
-                        {% trans "실행이 가능한 서비스 입니다." %}
-                    </h6>
-                    <p class="ctxt mb20"  style="text-align: center; font-size: 14px;">
-                        {% trans "Take a trips APP을 설치하시겠습니까?" %}
-                    </p>
-                    <a href="#" role="button">
-                        <img src="{% static 'img/appbtn_android.png' %}" style="margin-bottom: 10px;"/>
-                    </a>
-                    <a href="#" role="button">
-                        <img src="{% static 'img/appbtn_apple.png' %}" />
-                    </a>
-                    
-                    <!-- <div class="btn-r">
-                        <a href="#" class="btn-layerClose">Close</a>
-                    </div> -->
-                    <!--// content-->
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="content">
         <!-- django-waterfall 이미지 들어가는 부분.. -->
@@ -195,7 +211,7 @@
             <ul class="list-group">
                 <li class="list-group-up">
                     <!-- '0' 는 mytrip.html(home) 에서 바로 mytripguide_detail 로 진입한다는 의미..여행 계획만들어 그안에서 진입하게 되면 tourplan.id 로 진입.. -->
-                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id %}"> 
+                    <a href="{% url 'clientapp:mytripguide_detail' citydetails.id 0 itdetail.id 'mytrip' %}"> 
                         <img src="{{ itdetail.picture1.url }}" alt=""> </a>
                 </li>
                 <!-- <li class="list-group-it">
@@ -312,50 +328,6 @@
         localStorage.removeItem("pinbuynumber");
     }
     
-
-    // 팝업창 띄우기..
-    $('.btn-example').click(function(){
-        var $href = $(this).attr('href');
-        layer_popup($href);
-    });
-
-    function layer_popup(el){
-
-        var $el = $(el);        //레이어의 id를 $el 변수에 저장
-        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
-
-        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
-
-        var $elWidth = ~~($el.outerWidth()),
-            $elHeight = ~~($el.outerHeight()),
-            docWidth = $(document).width(),
-            docHeight = $(document).height();
-
-        // 화면의 중앙에 레이어를 띄운다.
-        if ($elHeight < docHeight || $elWidth < docWidth) {
-            $el.css({
-                marginTop: -$elHeight /2,
-                marginLeft: -$elWidth/2
-            })
-        } else {
-            $el.css({top: 0, left: 0});
-        }
-
-        $el.find('a.btn-layerClose').click(function(){
-            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
-            return false;
-        });
-
-        // $('.layer .dimBg').click(function(){
-        //     $('.dim-layer').fadeOut();
-        //     return false;
-        // });
-        $('.dimBg').click(function(){
-            $('.dim-layer').fadeOut();
-            return false;
-        });
-
-    }
 
 </script>
 

@@ -16,7 +16,7 @@
                         {% for itdetail in itdetails|slice:":9" %}
                         <ul class="list-group" name="ul{{ itdetail.id }}">
                             <li class="list-group-up">
-                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id %}"> 
+                                <a href="{% url 'clientapp:mytripguide_detail' citydetails.id tourplan.id itdetail.id 'mytripguide' %}"> 
                                     <img id="{{ itdetail.id }}" src="{{ itdetail.picture1.url }}" style="height: 10em;object-fit: cover;" alt=""> 
                                 </a>
                             </li>
@@ -42,13 +42,13 @@
                                 </div>
                             </li>
                             <li class="list-group-item" style="background: none;right: 0px;position: absolute;border: none;">
-                                <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id %}" id="btnlike" style="text-decoration: none;">
+                                <!-- <a href="{% url 'clientapp:mytripguide_like' citydetails.id tourplan.id itdetail.id 'mytripguide' %}" id="btnlike" style="text-decoration: none;"> -->
                                     {% if user in itdetail.like_infotravel.all %}
                                     <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
                                     {% else %}
                                     <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
                                     {% endif %}
-                                </a> 
+                                <!-- </a>  -->
                             </li>
                         </ul>
                         {% endfor %}
@@ -57,13 +57,13 @@
                     <div style="text-align: center;margin: 2em;">
                         <a href="{% url 'clientapp:mytripguide_list' citydetails.id tourplan.id 1 0 %}">
                             <button class="btn btn-default" style="border-radius: 30px;background-color: #c01d39;color: white;border: none;padding: 10px 30px;outline: none;">
-                                여행정보 모두 보기
+                                {% trans '여행정보 모두 보기' %}
                             </button>
                         </a>
                     </div>
 
                     <!-- pineat / tourplan 생성시 선택한 취향.. -->
-                    <div class="col-md-12"> 내 취향별 여행 정보 </div>
+                    <div class="col-md-12"> {% trans '내 취향별 여행 정보' %}</div>
                     {% for pinstyle in pinstyles %}
                     <div class="col-md-4" style="padding: 10px;">
                         <div class="card-body text-center p-0">
@@ -71,7 +71,17 @@
                                 <img class="card-imgsm smcardimg" src="{{ pinstyle.picture.url }}" style="height: 120px;">
                                 <div class="graydiv"></div>
                                 <div class="smcardiv">
-                                        <h4 class="card-title" style="color: white;">{{ pinstyle.nameko }}</h4>
+                                        <h4 class="card-title" style="color: white;">
+                                            
+                                            {% if LANGUAGE_CODE == 'ko' %}
+                                                {{ pinstyle.nameko }}
+                                            {% elif LANGUAGE_CODE == 'en' %}
+                                                {{ pinstyle.nameeng }}
+                                            {% elif LANGUAGE_CODE == 'vi' %}
+                                                {{ pinstyle.nameven }}
+                                            {% endif %}
+                                            
+                                        </h4>
                                 </div>
                             </a>
                         </div>
@@ -137,10 +147,12 @@
             center: centerLatLng,
         });
 
+        bounds  = new google.maps.LatLngBounds(); //bounds 생성..
+
         for(var count = 0; count < locations.length; count++){ 
 
             var contentString = '<div id="content" style="text-align: center;">' + 
-                '<h6 style="margin: 0px;">' + locations[count][0] + '</h6></div>';
+                '<h6 style="margin: 0px;font-size: 0.8rem;">' + locations[count][0] + '</h6></div>';
             
             // like or unlike 에 따라 poi 선택..
             if (locations[count][3] == 1) {
@@ -175,10 +187,23 @@
                 id: locations[count][4], // tripguide 의 id 를 받아서 마커 id 로 지정...
             });
 
+            bounds.extend(marker.position); // bounds 에 마커 위치 추가..
+
             markers[locations[count][4]] = marker;
 
             marker.info = new google.maps.InfoWindow({
                 content: contentString
+            });
+
+            map.fitBounds(bounds); // bounds 에 fit ..
+            // map.panToBounds(bounds); 
+
+            // zoom 레벨이 18 이상이면 더 zoom 이 안되도록 하기 위한 기준 레벨..
+            var zoom_level_for_one_marker = 16; 
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function(event){
+                if (this.getZoom() >= zoom_level_for_one_marker){  
+                    this.setZoom(zoom_level_for_one_marker) 
+                }
             });
 
             google.maps.event.addListener(marker, 'mouseover', function() {  
