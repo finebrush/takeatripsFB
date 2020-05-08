@@ -1,6 +1,9 @@
 {% load i18n static %}
 {% get_current_language as LANGUAGE_CODE %}
 
+{% load socialaccount %} 
+{% providers_media_js %}
+
 <!DOCTYPE html>
 <html lang="ko-KR">
     <head>
@@ -28,6 +31,154 @@
                 height: 450px;  /* The height is 400 pixels */
                 width: 100%;  /* The width is the width of the web page */
             }
+
+            /* Set login */
+            .login-box{
+                position:relative;
+                margin: 10px auto;
+                width: 300px;
+                height: 380px;
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 3px;
+                /* -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+                -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+                box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33); */
+            }
+            .lb-header{
+                position:relative;
+                color: #00415d;
+                margin: 5px 5px 10px 5px;
+                padding-bottom:10px;
+                border-bottom: 1px solid #eee;
+                text-align:center;
+                height:28px;
+            }
+            .lb-header a{
+                margin: 0 18px;
+                padding: 0 10px;
+                text-decoration: none;
+                color: #666;
+                font-weight: bold;
+                font-size: 15px;
+                -webkit-transition: all 0.1s linear;
+                -moz-transition: all 0.1s linear;
+                transition: all 0.1s linear;
+            }
+            .lb-header .active{
+                color: #029f5b;
+                font-size: 18px;
+            }
+            .social-login{
+                position:relative;
+                display: grid;
+                float: left;
+                width: 100%;
+                height:auto;
+                padding: 10px 0 15px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .social-login a{
+                position:relative;
+                float: left;
+                width:94%;
+                text-decoration: none;
+                color: #fff;
+                border: 1px solid rgba(0,0,0,0.05);
+                padding: 12px;
+                border-radius: 2px;
+                font-size: 12px;
+                text-transform: uppercase;
+                margin: 10px 3%;
+                text-align:center;
+            }
+            .social-login a i{
+                position: relative;
+                float: left;
+                width: 20px;
+                top: 2px;
+            }
+            .social-login a:first-child{
+                background-color: #49639F;
+            }
+            .social-login a:last-child{
+                background-color: #DF4A32;
+            }
+            .email-login,.email-signup{
+                position:relative;
+                float: left;
+                width: 100%;
+                height:auto;
+                margin-top: 20px;
+                text-align:center;
+            }
+            .u-form-group{
+                width:100%;
+                margin-bottom: 10px;
+            }
+            .u-form-group input[type="text"],
+            .u-form-group input[type="email"],
+            .u-form-group input[type="password"]{
+                width: calc(90% - 22px);
+                height:45px;
+                outline: none;
+                border: 1px solid #ddd;
+                padding: 0 10px;
+                border-radius: 2px;
+                color: #333;
+                font-size:0.8rem;
+                -webkit-transition:all 0.1s linear;
+                -moz-transition:all 0.1s linear;
+                transition:all 0.1s linear;
+            }
+            .u-form-group input:focus{
+                border-color: #358efb;
+            }
+            .u-form-group button{
+                width:50%;
+                background-color: #1CB94E;
+                border: none;
+                outline: none;
+                color: #fff;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 14px 0;
+                border-radius: 2px;
+                text-transform: uppercase;
+            }
+            .forgot-password{
+                width:50%;
+                text-align: left;
+                text-decoration: underline;
+                color: #888;
+                font-size: 0.75rem;
+            }
+            .dim-layer1 {
+                display: none;
+                position: fixed;
+                _position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 100;
+            }
+        
+            .dim-layer1 .dimBg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                opacity: .5;
+                filter: alpha(opacity=50);
+            }
+        
+            .dim-layer1 .pop-layer {
+                display: block;
+            }
+
             /* The popup bubble styling. */
             .popup-bubble {
                 /* Position the bubble centred-above its parent. */
@@ -189,7 +340,8 @@
                         <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
                     </a>
                     {% endif %}
-        
+                    
+                    {% if user.is_authenticated %}
                     <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id 'mytripguidelike' %}" id="btnlike" style="text-decoration: none;">
                         {% if user in itdetail.like_infotravel.all %}
                         <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
@@ -197,6 +349,12 @@
                         <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
                         {% endif %}
                     </a> 
+                    {% else %}
+                    <a href="#layer1" class="btn-examplelogin">
+                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                    </a>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
@@ -504,12 +662,12 @@
             <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
             <div class="dim-layer">
                 <div class="dimBg"></div>
-                <div id="layer2" class="pop-layer" style="width: fit-content;height: fit-content;margin-top: -250px;margin-left: -275px;">
-                    <div class="pop-container" style="height: 100%;">
+                <div id="layer2" class="pop-layer" style="width: fit-content;">
+                    <div class="pop-container">
                         <div class="pop-conts">
                             <!--content //-->
                             <a href="#" class="layerClose">
-                                <img src="{{ itdetail.picture1.url }}" style="height: 100%; width: auto;" id="picture" />
+                                <img src="{{ itdetail.picture1.url }}" style="height: 85vh; width: auto;" id="picture" />
                             </a>
                             <!--// content-->
                         </div>
@@ -517,6 +675,71 @@
                 </div>
             </div>
     
+            <!-- 로그인 팝업창 띄우기 -->
+            <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
+            <div class="dim-layer1">
+                <div class="dimBg"></div>
+                <div id="layer1" class="pop-layer" style="width: 400px;">
+                    
+                    <div class="login-box">
+                        {% if error %}
+                            {{error}}
+                        {%endif%}
+                        <div class="lb-header">
+                            <a href="#" class="active" id="login-box-link">Login</a>
+                            <a href="#" id="signup-box-link">Sign Up</a>
+                        </div>
+                        
+                        <div class="social-login">
+                            <a href="{% provider_login_url 'facebook' %}">
+                                <i class="fa fa-facebook fa-lg"></i>
+                                Login in with facebook
+                            </a>
+                            <a href="{% provider_login_url 'google' %}">
+                                <i class="fa fa-google-plus fa-lg"></i>
+                                log in with Google
+                            </a>
+                        </div>
+                        <form class="email-login" method="POST" action="{% url 'account:login' %}">
+                            {% csrf_token %}
+                            <div class="u-form-group">
+                                <!-- <input type="email" placeholder="Email"/> -->
+                                <input name="username" type="text" placeholder="Name">
+                            </div>
+                            <div class="u-form-group">
+                                <input name="password" type="password" placeholder="Password"/>
+                            </div>
+                            <div class="u-form-group">
+                                <button>Log in</button>
+                            </div>
+                            <div class="u-form-group">
+                                <a href="#" class="forgot-password">Forgot password?</a>
+                            </div>
+                        </form>
+
+                        <form class="email-signup" method="POST" action="{% url 'account:signup' %}">
+                            {% csrf_token %}
+                            <div class="u-form-group">
+                                <!-- <input type="email" placeholder="Email"/> -->
+                                <input name="username" type="text" placeholder="Name">
+                            </div>
+                            <div class="u-form-group">
+                                <input name="password1" type="password" placeholder="Password"/>
+                            </div>
+                            <div class="u-form-group">
+                                <input name="password2" type="password" placeholder="Confirm Password"/>
+                            </div>
+                            <div class="u-form-group">
+                                <button>Sign Up</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+
+                    
+                </div>
+            </div>
+            
             <!-- googlemap.. -->
             <!-- <div class="infointro">
                 <div class="infointro-in map">
@@ -706,11 +929,74 @@
             //     // infoWindow.setContent("{{ itdetail.companyko }}");
             //     infoWindow.open(map);
             // }
+
+            // 로그인 관련..
+            $(".email-signup").hide();
+            $("#signup-box-link").click(function(){
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+            $("#login-box-link").click(function(){
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+
+            var box_login = document.getElementById("login-box-link");
+            var box_sign = document.getElementById("signup-box-link");
+
+            $("#click_login").click(function(){
+                box_sign.classList.remove('active');
+                box_login.classList.add('active');
+
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+            $("#click_sign").click(function(){
+                box_login.classList.remove('active');
+                box_sign.classList.add('active');
+
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+
+            // head.html 안에 있는 버튼...
+            $("#click_login1").click(function(){
+                box_sign.classList.remove('active');
+                box_login.classList.add('active');
+
+                $(".email-login").delay(100).fadeIn(100);;
+                $(".email-signup").fadeOut(100);
+                $("#login-box-link").addClass("active");
+                $("#signup-box-link").removeClass("active");
+            });
+            $("#click_sign1").click(function(){
+                box_login.classList.remove('active');
+                box_sign.classList.add('active');
+
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+            });
+
+            // AR 팝업창 띄우기..
+            $('.btn-examplelogin').click(function(){
+                var $href = $(this).attr('href');
+                layer_popup($href, 1);
+            });
     
             // 팝업창 띄우기..
             $('.btn-example').click(function(){
                 var $href = $(this).attr('href');
-                layer_popup($href);
+                layer_popup($href, 0);
     
                 // 클릭한 이미지를 새창으로 띄운다..
                 var $id = $(this).attr('id');
@@ -760,11 +1046,18 @@
                 }
             });
     
-            function layer_popup(el){
+            function layer_popup(el, n){
                 var $el = $(el);        //레이어의 id를 $el 변수에 저장
                 var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
                 
-                isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+                // isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+                if(n == 0){
+                    isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+                }
+                if(n == 1) {
+                    // console.log(isDim);
+                    isDim ? $('.dim-layer1').fadeIn() : $el.fadeIn();
+                }
     
                 var $elWidth = ~~($el.outerWidth()),
                     $elHeight = ~~($el.outerHeight()),
@@ -774,7 +1067,7 @@
                 // 화면의 중앙에 레이어를 띄운다.
                 if ($elHeight < docHeight || $elWidth < docWidth) {
                     $el.css({
-                        marginTop: -$elHeight /2,
+                        marginTop: -$elHeight /2 + 35,
                         marginLeft: -$elWidth/2
                     })
                 } else {
@@ -782,12 +1075,20 @@
                 }
     
                 $el.find('a.layerClose').click(function(){
-                    isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    // isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    if(n == 0){
+                        isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    }
+                    if(n == 1) {
+                        isDim ? $('.dim-layer1').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                    }
+
                     return false;
                 });
     
                 $('.dimBg').click(function(){
                     $('.dim-layer').fadeOut();
+                    $('.dim-layer1').fadeOut();
                     return false;
                 });
             }

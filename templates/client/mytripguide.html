@@ -107,6 +107,12 @@
 
 <script type="text/javascript">
 
+    if (self.name != 'reload') {
+         self.name = 'reload';
+         self.location.reload(true);
+     }
+     else self.name = ''; 
+
     // google map Start..
     // var directionsService = new google.maps.DirectionsService();
     var directionsDisplay, directionsService;
