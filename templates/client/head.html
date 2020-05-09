@@ -180,7 +180,9 @@
         <div class="header">
 
             <div class="logo">
-                <img src="{% static 'img/sub_top_logo.png' %}" />
+                <a href="{% url 'clientapp:mytrip' %}"> 
+                    <img src="{% static 'img/sub_top_logo.png' %}" />
+                </a>
             </div>
 
             <div class="submenu">
@@ -194,7 +196,7 @@
             <div class="loginout">
                 <!-- 다국어..  -->
                 <div class="droplang" style="display: contents;">
-                    <select name="language" id="selectlang" style="width: 100px; margin-right: 10px;">
+                    <select name="language" id="selectlang" style="width: 110px; margin-right: 10px;border: none;background-color: white;">
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
                     {% for language in languages %}

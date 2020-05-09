@@ -53,7 +53,9 @@
         
                 <div style="padding-left: 20px;">
                     <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                        <span class="text-dark">Trip Guide</span>
+                        <a href="{% url 'clientapp:mytripguide' citydetails.id tourplan.id 1 %}">
+                            <span class="text-dark">Trip Guide</span>
+                        </a>
                     </h3>
                     <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
                         

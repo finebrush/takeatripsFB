@@ -88,12 +88,14 @@
                             
                         </div>
                         <div style="font-size: 2rem; display: flex; justify-content: center;">
-                            <button class="button button-white" style="margin-right: 10px;">
-                                <a href="{% url 'clientapp:mytrip_detail' citydetails.id tourplan.id %}" style="text-decoration: none;">{% trans '세부 정보 보기' %}</a>
-                            </button>
-                            <button class="button button-white">
-                                <a href="#layer1" class="btn-examplear" style="text-decoration: none;">{% trans '내 숙소 찾기' %}</a>
-                            </button>
+                            
+                            <a href="{% url 'clientapp:mytrip_detail' citydetails.id tourplan.id %}" style="text-decoration: none;">
+                                <button class="button button-white" style="margin-right: 10px;">{% trans '세부 정보 보기' %}</button>
+                            </a>
+                            <a href="#layer1" class="btn-examplear" style="text-decoration: none;">
+                                <button class="button button-white">{% trans '내 숙소 찾기' %}</button>
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -194,7 +196,7 @@
     </div>
 
 
-    <div class="content">
+    <div class="content" style="padding: 10px 25px;">
         <!-- django-waterfall 이미지 들어가는 부분.. -->
         <h5 class="card-title" style="margin: 10px;">{% trans "현지에서 인기 있는 여행 정보" %}</h5>
 

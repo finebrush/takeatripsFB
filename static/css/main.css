@@ -2915,19 +2915,22 @@ tbody.collapse.in {
 
 @media (min-width:768px) {
     .waterfall .list-group {
-        width: 264px;
+        /* width: 340px; */
+        width: calc((96%-90px)/2);
     }
 }
 
 @media (min-width:992px) {
     .waterfall .list-group {
-        width: 299px;
+        /* width: 295px; */
+        width: calc((96%-90px)/3);
     }
 }
 
 @media (min-width:1200px) {
     .waterfall .list-group {
-        width: 300px;
+        /* width: 277px; */
+        width: calc((96%-90px)/4);
     }
 }
 
