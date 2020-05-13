@@ -4,12 +4,15 @@
 {% load socialaccount %} 
 {% providers_media_js %}
 
+{% load social_share %}
+
 <!DOCTYPE html>
 <html lang="ko-KR">
     <head>
         <title>TAKE A TRIPS</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
@@ -17,6 +20,7 @@
         <link rel=stylesheet href="{% static 'css/imggallery2.css' %}">
         <link rel=stylesheet href="{% static 'css/main.css' %}">
         <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
+        <link rel=stylesheet href="{% static 'css/animenu.css' %}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -24,6 +28,8 @@
         <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
 
         <script src="{% static 'js/youtubesearch.js' %}"></script>
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
         <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
         <style>
             /* Set the size of the div element that contains the map */
@@ -323,37 +329,63 @@
             </div>
 
             <div class="rightitem">
-                <div>
+                <div style="display: flex;">
                     <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                         <i class="fa fa-map-o" style="font-size:24px;"></i>
                     </a> -->
-                    <a href="#youtube" id="btnyt" style="text-decoration: none;">
-                        <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
-                    </a>
+                    <div>
+                        <a href="#youtube" id="btnyt" style="text-decoration: none;">
+                            <img src="{% static 'img/trip_detail_youtube.png' %}" style="width: 44px; height: 44px;"/>
+                        </a>
+                    </div>
+
                     <!-- 인스타 링크가 DB 에 있는 경우/없는 경우 -->
-                    {% if itdetail.linkinsta %}
-                    <a href="{{ itdetail.linkinsta }}" target="_blank" id="btninsta" style="text-decoration: none;">
-                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
-                    </a>
-                    {% else %}
-                    <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
-                        <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
-                    </a>
-                    {% endif %}
-                    
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id 'mytripguidelike' %}" id="btnlike" style="text-decoration: none;">
-                        {% if user in itdetail.like_infotravel.all %}
-                        <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                    <div>
+                        {% if itdetail.linkinsta %}
+                        <a href="{{ itdetail.linkinsta }}" target="_blank" id="btninsta" style="text-decoration: none;">
+                            <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                        </a>
                         {% else %}
-                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                        <a href="https://www.instagram.com/explore/tags/{{ itdetail.companyko }}/" target="_blank" id="btninsta" style="text-decoration: none;">
+                            <img src="{% static 'img/trip_detail_instagram.png' %}" style="width: 44px; height: 44px;margin:0 10px;"/>
+                        </a>
                         {% endif %}
-                    </a> 
-                    {% else %}
-                    <a href="#layer1" class="btn-examplelogin">
-                        <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
-                    </a>
-                    {% endif %}
+                    </div>
+
+                    <!-- 좋아요 로그인/아웃 경우 -->
+                    <div>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'clientapp:mytripguide_like' city_id tourplan_id itdetail.id 'mytripguidelike' %}" id="btnlike" style="text-decoration: none;">
+                            {% if user in itdetail.like_infotravel.all %}
+                            <img src="{% static 'img/icon_mypick57on.png' %}" style="width: 44px; height: 44px;"/>
+                            {% else %}
+                            <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                            {% endif %}
+                        </a> 
+                        {% else %}
+                        <a href="#layer1" class="btn-examplelogin">
+                            <img src="{% static 'img/icon_mypick57off.png' %}" style="width: 44px; height: 44px;"/>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div style="position: relative;width: 44px;margin-left: 10px;">
+                        <nav class="menu">
+                            <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                            <label class="menu-open-button" for="menu-open">
+                                <i class="fa fa-share-alt fbshare"></i>
+                        </label>
+                            {% post_to_facebook object_or_url "Post to Facebook!" %}
+                            <!-- <a href="#" class="menu-item red"> <i class="fa fa-google-plus" style="margin-top: 8px;"></i> </a> -->
+                            {% post_to_twitter "{{ itdetail.companyko }} : {{ itdetail.introko|safe }} http://www.takeatrips.com/media/{{ itdetail.picture1 }}" object_or_url "" %}
+                            {% post_to_telegram "{{ itdetail.companyko }} : {{ itdetail.introko|safe }} http://www.takeatrips.com/media/{{ itdetail.picture1 }}" object_or_url "" %}
+                            <a id="kakao-link-btn" class="menu-item red" href="javascript:sendLink()">
+                                <img class="fbkakao" src="{% static 'img/icon_kakaotalk.png' %}"/>
+                            </a>
+                            {% send_email "New tripguide : {{ itdetail.companyko }}" "{{ itdetail.companyko }} : {{ itdetail.introko|safe }} Check it out!" object_or_url "Share via email" %}
+                            <!-- <a href="#" class="menu-item lightblue"> <i class="fa fa-diamond" style="margin-top: 8px;"></i> </a> -->
+                        </nav>
+                    </div>
 
                 </div>
             </div>
@@ -881,6 +913,71 @@
 
 
         <script type="text/javascript">
+
+            var url = 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}'; 
+            var title = '{{ itdetail.companyko}}'; 
+            var description = '{{ itdetail.introko}}'; 
+            var imgUrl = '{{ itdetail.picture1}}'; 
+            
+            if( !$('meta[property="og:url"').attr('content') ) 
+            { 
+                $('head').append('<meta property="og:url" content="'+url+'">'); 
+            } 
+            if( !$('meta[property="og:type"').attr('content') ) 
+            { 
+                $('head').append('<meta property="og:type" content="website">');
+                $('head').append('<meta property="twitter:card" content="summary">');  
+            } 
+            if( !$('meta[property="og:title"').attr('content') ) 
+            { 
+                $('head').append('<meta property="og:title" content="'+title+'">'); 
+                $('head').append('<meta property="twitter:title" content="'+title+'">'); 
+            } 
+            if( !$('meta[property="og:description"').attr('content') ) 
+            { 
+                $('head').append('<meta property="og:description" content="'+description+'">'); 
+                $('head').append('<meta property="twitter:description" content="'+description+'">'); 
+            } 
+            if( !$('meta[property="og:image"').attr('content') ) 
+            { 
+                $('head').append('<meta property="og:image" content="http://www.takeatrips.com/media/'+imgUrl+'">'); 
+                $('head').append('<meta property="twitter:image" content="http://www.takeatrips.com/media/'+imgUrl+'">'); 
+            }
+
+            // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+            Kakao.init('22ad0a84386795c39a810264021fb375');
+            // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+            Kakao.Link.createDefaultButton({
+                container: '#kakao-link-btn',
+                objectType: 'feed',
+                content: {
+                    title: '{{ itdetail.companyko }}',
+                    description: '{{ itdetail.introko }}',
+                    imageUrl: 'http://www.takeatrips.com/media/{{ itdetail.picture1 }}',
+                    link: {
+                        mobileWebUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}',
+                        webUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}'
+                    }
+                },
+                buttons: [
+                    {
+                        title: '웹으로 보기',
+                        link: {
+                            mobileWebUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}',
+                            webUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}'
+                        }
+                    },
+                    // {
+                    //     title: '앱으로 보기',
+                    //     link: {
+                    //         mobileWebUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}',
+                    //         webUrl: 'http://www.takeatrips.com{% url "clientapp:mytripguide_detail" city_id tourplan_id itdetail.id "mytripguide" %}'
+                    //     }
+                    // }
+                ]
+            });
+
+
             $('.waterfall')
                 .data('bootstrap-waterfall-template', $('#waterfall-template').html())
                 .on('finishing.mystist.waterfall', function() {

@@ -99,6 +99,8 @@ class POIpointInline(admin.StackedInline):
     model = POIpoint
     ordering = ('id',)
     extra = 0
+    max_num = 10
+    exclude = ('picture4',) # 이미지 입력 4개에서 3개로 변경..
 
     formfield_overrides = {
         models.PointField: {"widget": GooglePointFieldInlineWidget}

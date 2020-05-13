@@ -1325,7 +1325,7 @@ msgstr ""
 #: templates/client/index.html:67 templates/client/index_backup.html:67
 #: templates/client/mytrip.html:410
 msgid "현지에서 인기 있는 여행 정보"
-msgstr "Locally popular travel information"
+msgstr "Local hot trips"
 
 #: templates/client/mycurator.html:145 templates/client/mycurator.html:149
 #: templates/client/mycurator.html:153

@@ -154,7 +154,8 @@ def mytrip_detail(request, city_id, tourplan_id):
     artrips = ARTrip.objects.filter(share=True)
     arcontents = artrips.random(8)
     travelcurators = TravelCurator.objects.filter(city_id=city_id)
-    travelplans = TravelPlan.objects.filter(city_id=city_id)
+    # travelplans = TravelPlan.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.all() # 당분간 모든 데이터 불러오기..
 
     # 먹다/마시다/놀다/사다 대표 이미지..
     eat_itdetail = itdetails.filter(part='Eat').last()
@@ -497,7 +498,8 @@ def mymusttrip(request, city_id, tourplan_id, pinnum):
 def mycurator(request, city_id, tourplan_id):
     citydetails = get_object_or_404(City, pk=city_id)
     current_user = request.user
-    travelplans = TravelPlan.objects.filter(city_id=city_id)
+    # travelplans = TravelPlan.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.all() # 당분간 모든 데이터 불러오기..
 
     weekday = ['월', '화', '수', '목', '금', '토', '일']
     tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
@@ -522,22 +524,24 @@ def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
     locations = []
     for poipoint in travelplan.poipoint_totals:
         point = []
-        point.append(poipoint.pnameko)
-        point.append(poipoint.point.x)
-        point.append(poipoint.point.y)
+        if poipoint.point and poipoint.point: # 위치가 없는건 제외
+            point.append(poipoint.pnameko)
+            point.append(poipoint.point.x)
+            point.append(poipoint.point.y)
 
-        locations.append(point)
+            locations.append(point)
 
-    pictures = []
+    pictures = [] # 사용하지 않음..
     for poipoint in travelplan.poipoint_totals:
         picture = []
-        picture.append(poipoint.picture1.name) # path 저장시 name 으로..
-        picture.append(poipoint.picture2.name)
-        picture.append(poipoint.picture3.name)
-        picture.append(poipoint.picture4.name)
-        # print(picture)
-        pictures.append(picture)
-    
+        if poipoint.point and poipoint.point: # 위치가 없는건 제외
+            picture.append(poipoint.picture1.name) # path 저장시 name 으로..
+            picture.append(poipoint.picture2.name)
+            picture.append(poipoint.picture3.name)
+            picture.append(poipoint.picture4.name)
+            # print(picture)
+            pictures.append(picture)
+
     return render(request, 'client/mycurator_detail.html', {'citydetails':citydetails, 'current_user': current_user,
                             'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
                             'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })

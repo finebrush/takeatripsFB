@@ -149,11 +149,11 @@
                                 <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.get_course_display }} </div>
                                 {% elif LANGUAGE_CODE == 'en' %}
                                 <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
-                                <div style="font-size: 0.8rem;">{{ travelplan.courseinfoeng|truncatewords:10 }}</div><br>
+                                <div id="sumeditor" style="font-size: 0.8rem;">{{ travelplan.courseinfoeng|truncatewords:10|safe }}</div><br>
                                 <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.course }} </div>
                                 {% elif LANGUAGE_CODE == 'vi' %}
                                 <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
-                                <div style="font-size: 0.8rem;">{{ travelplan.courseinfoven|truncatewords:10 }}</div><br>
+                                <div id="sumeditor" style="font-size: 0.8rem;">{{ travelplan.courseinfoven|truncatewords:10|safe }}</div><br>
                                 <div style="color:#c83a54;text-decoration: underline;font-size: 0.8rem;"> {% trans "코스타입" %} : {{ travelplan.course }} </div> 
                                 {% endif %}
 

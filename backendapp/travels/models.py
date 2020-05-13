@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
+import datetime
+import os
 from django.conf import settings
 from django.db import models
 from django.utils.html import format_html
@@ -22,6 +24,55 @@ from backendapp.common.models import CLarge, CMedium, CSmall, PinEat, PinDrink, 
 from backendapp.travels.choices import ( SELECT_PART, SELECT_TYPE, SELECT_CATEGORY, SELECT_COURSE, ASSET_CHOICES, 
                                 SELECT_GOTOCITY, SELECT_EATPIN, SELECT_DRINKPIN, SELECT_FUNPIN, SELECT_BUYPIN )
 
+def set_filename_format(now, instance, filename):
+    """
+    file format setting
+    e.g)
+        {date}-{microsecond}{extension}
+        hjh-2016-07-12-158859.png
+    """
+    return "{date}-{microsecond}{extension}".format(
+        date=str(now.date()),
+        microsecond=now.microsecond,
+        extension=os.path.splitext(filename)[1],
+    )
+
+def city_directory_path(instance, filename):
+    """
+    image upload directory setting
+    e.g)
+        images/{year}/{month}/{day}/{filename}
+        images/2016/7/12/hjh/hjh-2016-07-12-158859.png
+    """
+    now = datetime.datetime.now()
+    path = "images/city/{year}/{month}/{day}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
+def infotravel_directory_path(instance, filename):
+    now = datetime.datetime.now()
+    path = "images/infotravel/{year}/{month}/{day}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
+def travelplan_directory_path(instance, filename):
+    now = datetime.datetime.now()
+    path = "images/travelplan/{year}/{month}/{day}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
 class City(models.Model):
     nameko = models.CharField(_('Name(한국어)'), max_length=64, default='')
     nameeng = models.CharField(_('Name(영어)'), max_length=64, null=True, blank=True)
@@ -32,10 +83,10 @@ class City(models.Model):
     titleven = models.TextField(_('소개타이틀(베트남어)'), help_text=_('이곳을 소개해 주세요.'))
     gotocity = models.PositiveIntegerField(_('Select City'), choices=SELECT_GOTOCITY, null=True)
     created = models.DateField(_('Created'))
-    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to=city_directory_path, null=True, blank=True)
+    picture2 = models.ImageField(_('Picture2'), upload_to=city_directory_path, null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to=city_directory_path, null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to=city_directory_path, null=True, blank=True)
 
     location = models.PointField(verbose_name='Rocation',srid = 4326, null=True, blank=True)
     objects = GeoManager()
@@ -80,16 +131,16 @@ class InfoTravel(models.Model):
     companyko = models.CharField(_('업체명(한국어)'), max_length=64)
     companyeng = models.CharField(_('업체명(영어)'), max_length=64)
     companyven = models.CharField(_('업체명(베트남어)'), max_length=64)
-    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", default='')
-    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture5 = models.ImageField(_('Picture5'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture6 = models.ImageField(_('Picture6'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture7 = models.ImageField(_('Picture7'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture8 = models.ImageField(_('Picture8'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture9 = models.ImageField(_('Picture9'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture10 = models.ImageField(_('Picture10'), upload_to="%Y/%m/%d", null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to=infotravel_directory_path, default='')
+    picture2 = models.ImageField(_('Picture2'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture5 = models.ImageField(_('Picture5'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture6 = models.ImageField(_('Picture6'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture7 = models.ImageField(_('Picture7'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture8 = models.ImageField(_('Picture8'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture9 = models.ImageField(_('Picture9'), upload_to=infotravel_directory_path, null=True, blank=True)
+    picture10 = models.ImageField(_('Picture10'), upload_to=infotravel_directory_path, null=True, blank=True)
     asset = models.CharField(_('정보형태'), max_length=64, choices=ASSET_CHOICES, null=True)
     part = models.CharField(_('구분'), max_length=64, choices=SELECT_PART)
     typeit = models.IntegerField(_('유형선택'), choices=SELECT_TYPE)
@@ -384,10 +435,13 @@ class POIpoint(models.Model):
     pnameko = models.CharField(_('장소명(한국어)'), max_length=40, null=True)
     pnameeng = models.CharField(_('장소명(영어)'), max_length=40, null=True)
     pnameven = models.CharField(_('장소명(베트남어)'), max_length=40, null=True)
-    picture1 = models.ImageField(_('Picture1'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture2 = models.ImageField(_('Picture2'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture3 = models.ImageField(_('Picture3'), upload_to="%Y/%m/%d", null=True, blank=True)
-    picture4 = models.ImageField(_('Picture4'), upload_to="%Y/%m/%d", null=True, blank=True)
+    ptitleko = models.CharField(_('설명(한국어)'), max_length=256, null=True, blank=True)
+    ptitleeng = models.CharField(_('설명(영어)'), max_length=256, null=True, blank=True)
+    ptitleven = models.CharField(_('설명(베트남어)'), max_length=4256, null=True, blank=True)
+    picture1 = models.ImageField(_('Picture1'), upload_to=travelplan_directory_path, null=True, blank=True)
+    picture2 = models.ImageField(_('Picture2'), upload_to=travelplan_directory_path, null=True, blank=True)
+    picture3 = models.ImageField(_('Picture3'), upload_to=travelplan_directory_path, null=True, blank=True)
+    picture4 = models.ImageField(_('Picture4'), upload_to=travelplan_directory_path, null=True, blank=True)
 
     point = models.PointField(verbose_name='위치', srid=4326, null=True, blank=True)
     objects = GeoManager()
@@ -409,6 +463,7 @@ class POIpoint(models.Model):
         verbose_name = _('여행코스')
         verbose_name_plural = _('여행코스')
         db_table = 'poipoint'
+        ordering = ('id',)
 
     def __str__(self):
         return self.pnameko

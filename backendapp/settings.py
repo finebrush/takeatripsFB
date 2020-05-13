@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_summernote',
     'multiselectfield',
+    'django_social_share',
 
     'backendapp.travels',
     'backendapp.common',

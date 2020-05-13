@@ -26,6 +26,10 @@
         <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
 
         <style>
+            #sumeditor img {
+                width: 20%!important;
+                height: auto!important;
+            }
             .card {
                 border-radius: 13px;
             }
@@ -515,13 +519,13 @@
 
                                             {% if LANGUAGE_CODE == 'ko' %}
                                             <h5 class="media-heading">{{ travelplan.titleko }}</h5> 
-                                            <small>{{ travelplan.courseinfoko|truncatewords:20 }}</small>
+                                            <div  id="sumeditor">{{ travelplan.courseinfoko|truncatewords:20|safe }}</div>
                                             {% elif LANGUAGE_CODE == 'en' %}
                                             <h5 class="media-heading">{{ travelplan.titleeng }}</h5> 
-                                            <small>{{ travelplan.courseinfoeng|truncatewords:20 }}</small>
+                                            <div id="sumeditor">{{ travelplan.courseinfoeng|truncatewords:20|safe}}</div>
                                             {% elif LANGUAGE_CODE == 'vi' %}
                                             <h5 class="media-heading">{{ travelplan.titleven }}</h5> 
-                                            <small>{{ travelplan.courseinfoven|truncatewords:20 }}</small>
+                                            <div id="sumeditor">{{ travelplan.courseinfoven|truncatewords:20|safe }}</div>
                                             {% endif %}
 
                                             <div style="display: flex;justify-content: flex-end;font-style:italic;color:#adadad;">
@@ -639,7 +643,6 @@
         <!-- <div class="card" style="padding: 0 45px;border: none;">
             <img class="card-img" src="{% static 'img/sub_banner.png' %}" alt="Card image">
         </div> -->
-
 
 
         <!-- Trip Coordinator 시작 -->

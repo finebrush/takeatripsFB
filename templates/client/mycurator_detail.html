@@ -177,7 +177,7 @@
 
             <!-- 소개정보 .. -->
             <div class="infointro" style="padding-top: 70px;">
-                <div class="infointro-in map">
+                <div class="infointro-in map" style="padding-bottom: 0px;">
                     <div class="card" style="border:0px;">
                         <div class="card-body p-0">
             
@@ -266,6 +266,8 @@
                         <img src="{% static 'img/t08.png' %}" /> 
                         {% elif forloop.counter == 9 %}
                         <img src="{% static 'img/t09.png' %}" /> 
+                        {% elif forloop.counter == 10 %}
+                        <img src="{% static 'img/t10.png' %}" /> 
                         {% endif %}
                         
                         {% if LANGUAGE_CODE == 'ko' %}
@@ -276,6 +278,22 @@
                         <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameven }}</h5>
                         {% endif %}
 
+                    </div>
+
+                    <div style="padding-top: 10px;">
+                        {% if LANGUAGE_CODE == 'ko' %}
+                            {% if poipoint_total.ptitleko %}
+                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleko }}</span>
+                            {% endif %}
+                        {% elif LANGUAGE_CODE == 'en' %}
+                            {% if poipoint_total.ptitleeng %}
+                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleeng }}</span>
+                            {% endif %}
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                            {% if poipoint_total.ptitleven %}
+                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleven }}</span>
+                            {% endif %}
+                        {% endif %}
                     </div>
 
                     <!-- 업체 대표 이미지 .. -->
@@ -484,7 +502,8 @@
                 "{% static 'img/num6.png' %}",
                 "{% static 'img/num7.png' %}",
                 "{% static 'img/num8.png' %}",
-                "{% static 'img/num9.png' %}"
+                "{% static 'img/num9.png' %}",
+                "{% static 'img/num10.png' %}"
             ]
 
             // 위경도의 두점 사이의 거리 계산..
