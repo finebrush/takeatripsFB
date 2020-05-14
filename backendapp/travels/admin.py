@@ -223,11 +223,21 @@ class TCImageAdmin(admin.ModelAdmin):
             return db_field.formfield(**kwargs)
         return super(TCImageAdmin,self).formfield_for_dbfield(db_field, **kwargs)
 
-class TravelPlanAdmin(admin.ModelAdmin):
+class TravelPlanAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     form = TravelPlanForm
     icon_name = 'edit_location'
     list_display = ('titleko', 'inlinecount', 'created')
-    inlines = [POIpointInline]
+    search_fields = ('titleko', 'titleeng', 'titleven',)
+    list_per_page = 10
+    list_filter = ('city', 'writer', 'course',)
+
+    filter_horizontal = ('infotravel',)
+    fieldsets_with_inlines = [
+        ('기본정보', {'fields': ['city', 'titleko', 'titleeng', 'titleven', 'writer', 'created']}),
+        ('일반정보', {'fields': ['course', 'courseinfoko', 'courseinfoeng', 'courseinfoven', 'tagko', 'tageng', 'tagven']}),
+        ('여행코스(TripGuide)', {'fields': ['infotravel',]}),
+        POIpointInline
+    ]
 
 class POIpointAdmin(admin.ModelAdmin):
     icon_name = 'edit_location'
@@ -251,6 +261,14 @@ class TourPlanAdmin(FieldsetsInlineMixin, admin.ModelAdmin):
     search_fields = ('room',)
 
     filter_horizontal = ('pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp')
+    # fieldsets = (
+    #     ('기본정보', {
+    #         'fields': ('user', 'city', 'room', 'start_date', 'end_date', 'pic_url',),
+    #     }),
+    #     ('일반정보', {
+    #         'fields': ('pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp',),
+    #     }),
+    # )
     fieldsets_with_inlines = [
         ('기본정보', {'fields': ['user', 'city', 'room', 'start_date', 'end_date', 'pic_url']}),
         ('일반정보', {'fields': ['pineat', 'pindrink', 'pinfun', 'pinbuy', 'pickit', 'picktp']})

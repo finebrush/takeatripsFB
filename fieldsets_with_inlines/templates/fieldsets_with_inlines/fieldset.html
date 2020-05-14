@@ -1,18 +1,21 @@
 {% for line in fieldset %}
     {% if forloop.first %}
-        <fieldset class="module aligned {{ fieldset.classes }}">
-            {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
+        <fieldset class="tile aligned {{ fieldset.classes }}">
+            {% if fieldset.name %}
+            <h5>{{ fieldset.name }}</h5>
+            {% endif %}
             {% if fieldset.description %}
-                <div class="description">{{ fieldset.description|safe }}</div>
+                <p class="text-info small">{{ fieldset.description|safe }}</p>
             {% endif %}
     {% endif %}
 
-    <div class="form-row{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
+    <div class="form-group{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
         {% if line.fields|length_is:'1' %}{{ line.errors }}{% endif %}
         {% for field in line %}
 
             <div{% if not line.fields|length_is:'1' %} class="field-box{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if not field.is_readonly and field.errors %} errors{% endif %}{% if field.field.is_hidden %} hidden{% endif %}"{% elif field.is_checkbox %} class="checkbox-row"{% endif %}>
                 {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                
                 {% if field.is_checkbox %}
                     {{ field.field }}{{ field.label_tag }}
                 {% else %}
@@ -23,9 +26,11 @@
                         {{ field.field }}
                     {% endif %}
                 {% endif %}
+                
                 {% if field.field.help_text %}
                     <div class="help">{{ field.field.help_text|safe }}</div>
                 {% endif %}
+                
             </div>
         {% endfor %}
     </div>
@@ -34,3 +39,45 @@
         </fieldset>
     {% endif %}
 {% endfor %}
+
+<script>
+    var element1 = document.getElementsByClassName("vTextField");
+    var element2 = document.getElementsByClassName("vDateField");
+    var element3 = document.getElementById("id_tagko");
+    var element4 = document.getElementById("id_tageng");
+    var element5 = document.getElementById("id_tagven");
+    
+    if( element1 ){
+        for( i=0; i < element1.length; i++){
+            element1[i].classList.add("form-control");
+        }
+    }
+    if( element2 ){
+        for( i=0; i < element2.length; i++){
+            element2[i].classList.add("form-control");
+        }
+    }
+    if( element3 ){
+        element3.setAttribute('class', 'form-control');
+    }
+    if( element4 ){
+        element4.setAttribute('class', 'form-control');
+    }
+    if( element5 ){
+        element5.setAttribute('class', 'form-control');
+    }
+
+    var help = document.getElementsByClassName("help");
+
+    if( help ){
+        for(i = 0; i < help.length; i++){
+            help[i].style.margin ='0';
+            help[i].style.fontSize = '80%';
+            help[i].style.fontStyle = 'italic';
+            help[i].style.fontWeight = '400';
+            help[i].style.color = '#17a2b8';
+        }
+    }
+    
+    
+</script>

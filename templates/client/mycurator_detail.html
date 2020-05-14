@@ -245,7 +245,7 @@
                     <h4 class="card-title" style="color: black;">{% trans "추천 여행 정보" %}</h4>
                     <div class="linepartblk"></div>
 
-                    {% for poipoint_total in travelplan.poipoint_totals %}
+                    {% for poipoint in poipoints %}
                     <div style="padding: 20 45px 20px 45px; display: inline-flex; align-items: center;"> 
                         
                         {% if forloop.counter == 1 %}
@@ -271,27 +271,27 @@
                         {% endif %}
                         
                         {% if LANGUAGE_CODE == 'ko' %}
-                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameko }}</h5>
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint.pnameko }}</h5>
                         {% elif LANGUAGE_CODE == 'en' %}
-                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameeng }}</h5>
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint.pnameeng }}</h5>
                         {% elif LANGUAGE_CODE == 'vi' %}
-                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint_total.pnameven }}</h5>
+                        <h5 style="margin: 0px;padding: 0 10px;color: black;">{{ poipoint.pnameven }}</h5>
                         {% endif %}
 
                     </div>
 
                     <div style="padding-top: 10px;">
                         {% if LANGUAGE_CODE == 'ko' %}
-                            {% if poipoint_total.ptitleko %}
-                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleko }}</span>
+                            {% if poipoint.ptitleko %}
+                            <span style="margin: 10px;color: black;">{{ poipoint.ptitleko }}</span>
                             {% endif %}
                         {% elif LANGUAGE_CODE == 'en' %}
-                            {% if poipoint_total.ptitleeng %}
-                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleeng }}</span>
+                            {% if poipoint.ptitleeng %}
+                            <span style="margin: 10px;color: black;">{{ poipoint.ptitleeng }}</span>
                             {% endif %}
                         {% elif LANGUAGE_CODE == 'vi' %}
-                            {% if poipoint_total.ptitleven %}
-                            <span style="margin: 10px;color: black;">{{ poipoint_total.ptitleven }}</span>
+                            {% if poipoint.ptitleven %}
+                            <span style="margin: 10px;color: black;">{{ poipoint.ptitleven }}</span>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -301,29 +301,29 @@
                         <div class="imgcontainer" style="padding:0px">
                             <div class="grid" style="grid-gap: 30px;">
 
-                                {% if poipoint_total.picture1.url != null %}
+                                {% if poipoint.picture1.url != null %}
                                 <div class="column-xs-12 column-md-4">
                                     <figure class="img-container">
-                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture1.url }}">
-                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture1.url }}" />
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint.picture1.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint.picture1.url }}" />
                                         </a>
                                     </figure>
                                 </div>
                                 {% endif %}
-                                {% if poipoint_total.picture2.url != null %}
+                                {% if poipoint.picture2.url != null %}
                                 <div class="column-xs-12 column-md-4">
                                     <figure class="img-container">
-                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture2.url }}">
-                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture2.url }}" />
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint.picture2.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint.picture2.url }}" />
                                         </a>
                                     </figure>
                                 </div>
                                 {% endif %}
-                                {% if poipoint_total.picture3.url != null %}
+                                {% if poipoint.picture3.url != null %}
                                 <div class="column-xs-12 column-md-4">
                                     <figure class="img-container">
-                                        <a class="image-popup-vertical-fit" href="{{ poipoint_total.picture3.url }}">
-                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint_total.picture3.url }}" />
+                                        <a class="image-popup-vertical-fit" href="{{ poipoint.picture3.url }}">
+                                            <img class="pict" style="height: calc(100vh - 370px);" src="{{ poipoint.picture3.url }}" />
                                         </a>
                                     </figure>
                                 </div>

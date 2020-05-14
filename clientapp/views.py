@@ -515,19 +515,44 @@ def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
     travelplans = TravelPlan.objects.filter(city_id=city_id)
     travelplan = TravelPlan.objects.get(id=travelplan_id)
-
+    infotravel_in_tps = travelplan.infotravel.all() # travelplan 과 연결된 infotravel 
+    
     weekday = ['월', '화', '수', '목', '금', '토', '일']
     tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
     wstart = weekday[tourplan.start_date.weekday()]
     wend = weekday[tourplan.end_date.weekday()]
+    
+    poipoints = [] # travelplan의 infotravel을 poipoint 모델 필드로 만들고 travelplan의 poipoint 와 최종 모으는 변수
+    for poipoint in travelplan.poipoint_totals: # travelplan의 poipoint
+        poipoints.append(poipoint)
 
+    for infotravel_in_tp in infotravel_in_tps: # travelplan의 infotravel을 poipoint 모델 필드로 만듬
+        poipoint_tp = POIpoint(point=infotravel_in_tp.itlocation, travelplan_id=travelplan.id,
+                                picture1=infotravel_in_tp.picture1, picture2=infotravel_in_tp.picture2,
+                                picture3=infotravel_in_tp.picture3, picture4=infotravel_in_tp.picture4,
+                                pnameko=infotravel_in_tp.companyko, pnameeng=infotravel_in_tp.companyeng,
+                                pnameven=infotravel_in_tp.companyven, ptitleko=infotravel_in_tp.introko,
+                                ptitleeng=infotravel_in_tp.introeng, ptitleven=infotravel_in_tp.introven,
+                        )
+        poipoints.append(poipoint_tp)
+    # print(poipoints)
     locations = []
     for poipoint in travelplan.poipoint_totals:
         point = []
-        if poipoint.point and poipoint.point: # 위치가 없는건 제외
+        if poipoint.point: # 위치가 없는건 제외
             point.append(poipoint.pnameko)
             point.append(poipoint.point.x)
             point.append(poipoint.point.y)
+
+            locations.append(point)
+    
+    # travelplan 과 연결된 infotravel 
+    for it in travelplan.infotravel.all():
+        point = []
+        if it.itlocation:
+            point.append(it.companyko)
+            point.append(it.itlocation.x)
+            point.append(it.itlocation.y)
 
             locations.append(point)
 
@@ -544,7 +569,7 @@ def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
 
     return render(request, 'client/mycurator_detail.html', {'citydetails':citydetails, 'current_user': current_user,
                             'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
-                            'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures })
+                            'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures, 'poipoints':poipoints })
 
 @login_required
 def mycurator_like(request, city_id, tourplan_id, travelplan_id):

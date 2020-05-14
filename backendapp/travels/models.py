@@ -393,6 +393,14 @@ class TravelPlan(models.Model):
     tageng = TaggableManager(_('태그(영어)'), through=SecondTaggedItem)
     tagven = TaggableManager(_('태그(베트남어)'), through=ThirdTaggedItem)
     like_travelplan = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_travelplan', through='Liketp')
+    
+    infotravel = models.ManyToManyField(
+        'travels.InfoTravel', verbose_name=_('여행장소 추가')
+    )
+
+    @property
+    def infotravel_count(self):
+        return self.infotravel.count()
 
     # inline(장소) 생성한 개수 -> admin.py 에서 가시화..
     def inlinecount(self):
@@ -414,6 +422,7 @@ class TravelPlan(models.Model):
         verbose_name = _('TravelCourse')
         verbose_name_plural = _('TravelCourse')
         db_table = 'travelplan'
+        ordering = ('-created',)
 
     def __str__(self):
         return self.titleko
