@@ -40,9 +40,13 @@ urlpatterns = [
     path('mygotocity/<int:city_id>/<int:tourplan_id>/', views.mygotocity, name='mygotocity'),
 
     path('trips/<int:city_id>/', views.trips, name='trips'),
+    path('curator/<int:city_id>/', views.tripscurator, name='tripscurator'),
     path('tripstore/<int:city_id>/', views.tripstore, name='tripstore'),
 
     path('search/<int:city_id>/<int:tourplan_id>/', views.searchtrips, name='searchtrips'),
+
+    path('policy/', views.policy, name='policy'),
+    # path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
 
     ## ------ 이전 -----
     path('citymain/<int:city_id>/', views.citymain, name='citymain'),

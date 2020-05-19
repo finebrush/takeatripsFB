@@ -395,7 +395,7 @@ class TravelPlan(models.Model):
     like_travelplan = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_travelplan', through='Liketp')
     
     infotravel = models.ManyToManyField(
-        'travels.InfoTravel', verbose_name=_('여행장소 추가')
+        'travels.InfoTravel', verbose_name=_('여행장소 추가'), blank=True
     )
 
     @property

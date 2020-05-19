@@ -1,0 +1,22 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+
+        <title>TAKE A TRIPS</title>
+        {% block meta %}    <!-- 페이지별 메타 데이터 공간 -->
+        {% endblock meta %}
+        
+        {% block css %}        <!-- 페이지별 css -->
+        {% endblock css %}
+
+        {% block scripts %}    <!-- 페이지별 스크립트 공간 -->
+        {% endblock scripts %}
+    </head>
+
+    <body>
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>

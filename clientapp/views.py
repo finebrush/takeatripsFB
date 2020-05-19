@@ -12,7 +12,7 @@ from django.utils import translation
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.http import HttpResponse
-from backendapp.travels.models import ( POIpoint, City, InfoTravel, Likeit, TravelCurator, Liketc, 
+from backendapp.travels.models import ( City, InfoTravel, Likeit, TravelCurator, Liketc, 
                             TCImage, TravelPlan, Liketp, POIpoint, TourPlan, EatPart, DrinkPart, FunPart, BuyPart )
 from backendapp.arcontent.models import ARTrip
 from backendapp.common.models import PinEat, PinDrink, PinFun, PinBuy
@@ -392,10 +392,6 @@ def mytripguide_detail(request, city_id, tourplan_id, tripguide_id, fromwhere):
     itdetails = InfoTravel.objects.filter(Q(city_id=city_id) & Q(asset__isnull=False))
     itdetail = InfoTravel.objects.get(id=tripguide_id)
     # print(itdetail.like_infotravel.all())
-    if tourplan_id == 0:
-        fromhtml = False # mytrips에서 mytripguide_detail 로 바로 진입..
-    else:
-        fromhtml = True # mytrip_detail에서 mytripguide_detail 로 진입..
     
     return render(request, 'client/mytripguide_detail.html', {'city_id':city_id, 'tourplan_id':tourplan_id, 'itdetails':itdetails, 'itdetail':itdetail, 'fromwhere':fromwhere })
 
@@ -517,11 +513,6 @@ def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
     travelplan = TravelPlan.objects.get(id=travelplan_id)
     infotravel_in_tps = travelplan.infotravel.all() # travelplan 과 연결된 infotravel 
     
-    weekday = ['월', '화', '수', '목', '금', '토', '일']
-    tourplan = TourPlan.objects.get(Q(user=request.user) & Q(id=tourplan_id))
-    wstart = weekday[tourplan.start_date.weekday()]
-    wend = weekday[tourplan.end_date.weekday()]
-    
     poipoints = [] # travelplan의 infotravel을 poipoint 모델 필드로 만들고 travelplan의 poipoint 와 최종 모으는 변수
     for poipoint in travelplan.poipoint_totals: # travelplan의 poipoint
         poipoints.append(poipoint)
@@ -568,8 +559,8 @@ def mycurator_detail(request, city_id, tourplan_id, travelplan_id):
             pictures.append(picture)
 
     return render(request, 'client/mycurator_detail.html', {'citydetails':citydetails, 'current_user': current_user,
-                            'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'tourplan':tourplan, 
-                            'wstart':wstart, 'wend':wend, 'locations':locations, 'pictures':pictures, 'poipoints':poipoints })
+                            'travelplans':travelplans, 'travelplan':travelplan, 'itdetails':itdetails, 'locations':locations, 
+                            'pictures':pictures, 'poipoints':poipoints, 'tourplan_id':tourplan_id })
 
 @login_required
 def mycurator_like(request, city_id, tourplan_id, travelplan_id):
@@ -686,7 +677,29 @@ def trips(request, city_id):
     return render(request, 'client/trips.html', {'citys':citys, 'citydetails':citydetails, 'current_user': current_user, 'itdetails':itdetails,
                 'sns_picture':picture_url, 'tourplans':tourplans })
 
-### ------ Trip100 ----------------------------------------------------------------------------------------------------
+### ------ Curator ----------------------------------------------------------------------------------------------------
+def tripscurator(request, city_id):
+    citydetails = get_object_or_404(City, pk=city_id)
+    current_user = request.user
+    # travelplans = TravelPlan.objects.filter(city_id=city_id)
+    travelplans = TravelPlan.objects.all() # 당분간 모든 데이터 불러오기..
+    
+    picture_url = ''
+    tourplans = ''
+    
+    if request.user.is_authenticated: # 로그인 했다면..
+        social = SocialAccount.objects.filter(user=request.user)
+        tourplans = TourPlan.objects.filter(user=request.user)
+        if social.exists(): # social 로그인 했는지 체크..   
+            if social[0].provider == 'facebook':
+                picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social[0].uid, 256)
+            elif social[0].provider == 'google':
+                picture_url = social[0].extra_data.picture
+
+    return render(request, 'client/tripscurator.html', {'citydetails':citydetails, 'current_user': current_user,
+                            'sns_picture':picture_url, 'travelplans':travelplans })
+
+### ------ Trip Store ----------------------------------------------------------------------------------------------------
 def tripstore(request, city_id):
     # city_id = 1 # 서울을 기준으로 ..
     citydetails = get_object_or_404(City, pk=city_id)
@@ -763,6 +776,9 @@ def searchtrips(request, city_id, tourplan_id):
     return render(request, 'client/mytripguide_search.html', {'citydetails':citydetails, 'tourplan':tourplan, 
                             'locations':locations, 'current_user':current_user, })
 
+def policy(request):
+
+    return render(request, 'client/policy.html')
 
 ### 기존 ...................................................................................................................
 def home(request):

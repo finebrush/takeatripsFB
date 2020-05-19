@@ -9,6 +9,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="naver-site-verification" content="c70f0768a2fc0c20c63264a7cdc4c0ffd4dabe61" />
+        
         <title>TAKE A TRIPS</title>
         <!-- <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -189,7 +191,8 @@
                 <div class="tab">
                     <button class="tablinks1" onclick="window.location.href = '{% url 'clientapp:mytrip' %}';" >My Trip</button>
                     <button class="tablinks2" onclick="window.location.href = '{% url 'clientapp:trips' 1 %}';">Trips</button>
-                    <button class="tablinks3" onclick="window.location.href = '{% url 'clientapp:tripstore' 1 %}';">Trip Store</button>
+                    <button class="tablinks3" onclick="window.location.href = '{% url 'clientapp:tripscurator' 1 %}';">Curator</button>
+                    <button class="tablinks4" onclick="window.location.href = '{% url 'clientapp:tripstore' 1 %}';">Store</button>
                 </div>
             </div>
 
@@ -221,7 +224,7 @@
                             {% endif %}
                         </a>
                         <div id="myDropdown" class="dropdown-content">
-                            <a href="#">{% trans '이용약관 및 개인정보정책' %}</a>
+                            <a href="{% url 'clientapp:policy' %}">{% trans '이용약관 및 개인정보정책' %}</a>
                             <a href="{% url 'account:logout' %}">{% trans '로그아웃' %}</a>
                         </div>
                     </div>
