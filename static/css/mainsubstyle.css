@@ -102,8 +102,10 @@ header {
 }
 .pull-left, .pull-right {
     /* border: 1px solid red; */
-    padding: 8px 5px;
-    margin-right: 5px;
+    /* padding: 8px 5px;
+    margin-right: 5px; */
+    padding-top: 6px;
+    margin-left: 1em;
 }
 .pull-right {
     margin-right:0;
@@ -120,21 +122,29 @@ header {
     display: inline-flex;
     max-width: 1920px;
 }
-@media screen and (max-width: 600px) {
-    .menuadd {
-        margin-top: 180px;
-    }
-    header {
-        padding: 12px;
-        left: 0;
-        right: 0;
-    }
-    .pull-right {
-        margin-top: 10px;
-    }
-    .linepartition{
-        height: 180px!important; 
-    }
+.linepartition-trips{
+    position:fixed; 
+    border-bottom: solid 0.5px #00000022;
+    height: 130px; 
+    width: 100%;
+    background-color: white;
+    z-index: 99;
+    top: 1px;
+}
+.headtrips {
+    display: grid;
+    grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
+    grid-template-rows: 50px;
+    grid-template-areas:
+        ". triptype triptype triptype triptype ."
+    ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    z-index: 999;
+    top: 70px;
 }
 .centerdiv {
     margin: auto;
@@ -151,7 +161,7 @@ header {
     /* height: 40px; */
     padding: 5px 20px;
 }
-.linepartition{
+/* .linepartition{
     position:fixed; 
     border-bottom: solid 0.5px #00000022;
     height: 70px; 
@@ -159,7 +169,7 @@ header {
     background-color: white;
     z-index: 2000;
     top: 1px;
-}
+} */
 .btnRed {
     padding: 0.5rem 1.2rem;
     border-radius: 20px;
@@ -381,7 +391,7 @@ div.graydiv {
     justify-content: center;
     position: fixed;
     background-color: white;
-    width: 100%;
+    width: 100vw;
     z-index: 9999;
     top:0px;
 }
@@ -413,7 +423,7 @@ div.graydiv {
     justify-content: center;
     background-color: white;
     width: 100%;
-    /* margin-top: 100px; */
+    margin-top: 100px;
 }
 .imgcontainer {
     display: grid;
@@ -462,6 +472,9 @@ div.graydiv {
     grid-template-columns: 1fr;
     grid-gap: 0px;
 }
+.introinfo {
+    display: flex;
+}
 .header-tripguide{
     display: grid;
     grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
@@ -485,6 +498,7 @@ div.graydiv {
     background-color: white;
     grid-area: triptype;
     margin-left: 20px;
+    overflow-x: scroll;
 }
 .btntype {
     display: flex;
@@ -553,6 +567,15 @@ div.graydiv {
 .infointro.curator {
     padding-top: 80px;
 }
+.infointro.curator.trips {
+    padding-top: 130px;
+}
+.infointro.curator.list {
+    padding-top: 130px;
+}
+.infointro.curator.bak {
+    padding-top: 80px;
+}
 
 /***** trip1_list *****/
 .wd120 {
@@ -588,6 +611,58 @@ div.graydiv {
     background-color: white; */
     grid-area: tripmap;
     /* margin-right: 20px; */
+}
+
+/* mytrip list */
+.tripguideList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tripguideList .list-group {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 12px;
+    position: relative;
+}
+
+.tripguideList .list-group .list-group-up {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group .list-group-it {
+    padding: 15px;
+    background-color: white;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.tripguideList .list-group>li:first-child {
+    padding: 0;
+    background-color: #fff;
+}
+
+.tripguideList .list-group>li:first-child img {
+    width: 100%;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.tripguideList .list-group>li {
+    background-color: #f5f5f5;
+    list-style:none;
+}
+.mapbasic {
+    background-color: #cecece;
+    height: 80vh;
+    position: fixed;
+    width: 35%;
+    border-radius: 12px;
+}
+.mapbasic.list {
+    height: 73vh;
 }
 
 @media screen and (max-width: 900px){
@@ -666,6 +741,110 @@ div.graydiv {
     .footer-copyrights {
         font-size: 0.4rem;
     }
+    .infointro-in {
+        grid-template-columns: 1fr;
+    }
+    .introinfo{
+        display: block;
+    }
+    .menuadd {
+        margin-top: 180px;
+    }
+    header {
+        padding: 12px;
+        left: 0;
+        right: 0;
+    }
+    .pull-right {
+        margin-top: 10px;
+    }
+    /* .linepartition{
+        height: 180px!important; 
+    } */
+    .headtrips {
+        top:140px;
+    }
+    .btntype {
+        margin: 0 5px;
+        height: 35px;
+        width: 120px;
+        font-size: 1.0em;
+    }
+    .linepartition-trips {
+        height: 200px;
+    }
+    .infointro.curator {
+        padding-top: 140px;
+    }
+    .infointro.curator.trips {
+        padding-top: 190px;
+    }
+    .infointro.curator.bak {
+        padding-top: 190px;
+    }
+    .infointro.curator.guides {
+        padding-top: 210px;
+    }
+    .infointro.curator.list {
+        padding-top: 250px;
+    }
+    .infointro.curator.cur {
+        padding-top: 160px;
+    }
+    .linepart.cur {
+        height: 141px;
+    }
+    .leftitem-c {
+        display: block;
+    }
+    .rightitem-c {
+        display: block;
+    }
+    .header-curator.md {
+        grid-template-rows: 100px 100px;
+        grid-template-areas:
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
+    }
+    .header-curator.md2 {
+        grid-template-rows: 70px 100px;
+        grid-template-areas:
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
+    }
+    .header-curator.md3 {
+        grid-template-rows: 70px 70px;
+        grid-template-areas:
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
+    }
+    .pull-left, .pull-right {
+        padding-top: 10px;
+        margin-left: 0;
+    }
+    .header-tripguide{
+        grid-template-rows: 100px 100px 50px;
+        grid-template-areas: 
+            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
+            ". rightitem-c rightitem-c rightitem-c rightitem-c ."
+            ". triptype triptype triptype triptype ."
+        ;
+    }
+    .mapbasic {
+        height: 40vh;
+        position: relative;
+        width: 97%;
+        margin: 15px 0;
+    }
+    .mapbasic.list {
+        height: 40vh;
+    }
+    .tripguideList{
+        grid-template-columns: 1fr;
+    }
+    .infointro-in{
+        padding: 0px;
+    }
 }
 
 /* mobile.. */
@@ -682,12 +861,17 @@ div.graydiv {
         grid-template-rows: 0fr 1fr;
         padding-bottom: 30px;
     }
+    .imggallery {
+        margin-top: 170px;
+    }
 
     .header-guidedetail {
-        display: grid;
         grid-template-columns: repeat(4, 1fr) ;
-        grid-template-rows: 70px;
-        grid-template-areas: "leftitem leftitem rightitem rightitem";
+        grid-template-rows: 70px 70px;
+        grid-template-areas: 
+            "leftitem leftitem leftitem leftitem"
+            "rightitem rightitem rightitem rightitem"
+        ;
     }
     h3.font-weight-bold {
         font-size: 1.5rem;
@@ -701,56 +885,6 @@ div.graydiv {
     .rightitem {
         margin-right: 30px;
     }
-    .header-curator.md {
-        grid-template-rows: 70px 70px;
-        grid-template-areas:
-            ". leftitem-c leftitem-c leftitem-c leftitem-c ."
-            ". rightitem-c rightitem-c rightitem-c rightitem-c .";
-    }
 
-    .infointro.curator {
-        padding-top: 150px;
-    }
 }
 
-/* mytrip list */
-.tripguideList {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.tripguideList .list-group {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 12px;
-    position: relative;
-}
-
-.tripguideList .list-group .list-group-up {
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-}
-
-.tripguideList .list-group .list-group-it {
-    padding: 15px;
-    background-color: white;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-}
-
-.tripguideList .list-group>li:first-child {
-    padding: 0;
-    background-color: #fff;
-}
-
-.tripguideList .list-group>li:first-child img {
-    width: 100%;
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-}
-
-.tripguideList .list-group>li {
-    background-color: #f5f5f5;
-    list-style:none;
-}

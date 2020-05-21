@@ -1,0 +1,220 @@
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 450px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+    }
+
+    /* Set login */
+    .login-box{
+        position:relative;
+        margin: 10px auto;
+        width: 300px;
+        height: 380px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 3px;
+        /* -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+        -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33); */
+    }
+    .lb-header{
+        position:relative;
+        color: #00415d;
+        margin: 5px 5px 10px 5px;
+        padding-bottom:10px;
+        border-bottom: 1px solid #eee;
+        text-align:center;
+        height:28px;
+    }
+    .lb-header a{
+        margin: 0 18px;
+        padding: 0 10px;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        font-size: 15px;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    .lb-header .active{
+        color: #029f5b;
+        font-size: 18px;
+    }
+    .social-login{
+        position:relative;
+        display: grid;
+        float: left;
+        width: 100%;
+        height:auto;
+        padding: 10px 0 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .social-login a{
+        position:relative;
+        float: left;
+        width:94%;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid rgba(0,0,0,0.05);
+        padding: 12px;
+        border-radius: 2px;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin: 10px 3%;
+        text-align:center;
+    }
+    .social-login a i{
+        position: relative;
+        float: left;
+        width: 20px;
+        top: 2px;
+    }
+    .social-login a:first-child{
+        background-color: #49639F;
+    }
+    .social-login a:last-child{
+        background-color: #DF4A32;
+    }
+    .email-login,.email-signup{
+        position:relative;
+        float: left;
+        width: 100%;
+        height:auto;
+        margin-top: 20px;
+        text-align:center;
+    }
+    .u-form-group{
+        width:100%;
+        margin-bottom: 10px;
+    }
+    .u-form-group input[type="text"],
+    .u-form-group input[type="email"],
+    .u-form-group input[type="password"]{
+        width: calc(90% - 22px);
+        height:45px;
+        outline: none;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        border-radius: 2px;
+        color: #333;
+        font-size:0.8rem;
+        -webkit-transition:all 0.1s linear;
+        -moz-transition:all 0.1s linear;
+        transition:all 0.1s linear;
+    }
+    .u-form-group input:focus{
+        border-color: #358efb;
+    }
+    .u-form-group button{
+        width:50%;
+        background-color: #1CB94E;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 14px 0;
+        border-radius: 2px;
+        text-transform: uppercase;
+    }
+    .forgot-password{
+        width:50%;
+        text-align: left;
+        text-decoration: underline;
+        color: #888;
+        font-size: 0.75rem;
+    }
+    .dim-layer1 {
+        display: none;
+        position: fixed;
+        _position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+    }
+
+    .dim-layer1 .dimBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: .5;
+        filter: alpha(opacity=50);
+    }
+
+    .dim-layer1 .pop-layer {
+        display: block;
+    }
+
+    /* The popup bubble styling. */
+    .popup-bubble {
+        /* Position the bubble centred-above its parent. */
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -100%);
+        /* Style the bubble. */
+        background-color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-family: sans-serif;
+        overflow-y: auto;
+        max-height: 60px;
+        box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+    }
+    /* The parent of the bubble. A zero-height div at the top of the tip. */
+    .popup-bubble-anchor {
+        /* Position the div a fixed distance above the tip. */
+        position: absolute;
+        width: 100%;
+        bottom: /* TIP_HEIGHT= */ 8px;
+        left: 0;
+    }
+    /* This element draws the tip. */
+    .popup-bubble-anchor::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* Center the tip horizontally. */
+        transform: translate(-50%, 0);
+        /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+        width: 0;
+        height: 0;
+        /* The tip is 8px high, and 12px wide. */
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: /* TIP_HEIGHT= */ 8px solid white;
+    }
+    /* JavaScript will position this div at the bottom of the popup tip. */
+    .popup-container {
+        cursor: auto;
+        height: 0;
+        position: absolute;
+        /* The max width of the info window. */
+        width: 200px;
+    }
+    .pict {
+        border-radius: 12px;
+    }
+    .linepart{
+        border-bottom: solid 0.5px #00000022;
+        width: 100%;
+        background-color: white;
+        position: fixed;
+        height: 71px;
+        top:0px;
+        z-index: 999;
+    }
+
+    /* mobile.. */
+@media screen and (max-width: 450px){
+    .linepart{
+        height: 141px;
+    }
+}

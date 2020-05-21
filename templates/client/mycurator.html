@@ -45,35 +45,37 @@
 
 {% block content %}
     <!-- header -->
-    <div class="header-curator md">
+    <div class="header-curator md3">
         <div class="leftitem-c">
-            <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
-            <div id="back1" style="align-self: center;">
-                <a href="{% url 'clientapp:mytrip_detail' city_id=citydetails.id tourplan_id=tourplan.id %}"> 
-                    <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
-                </a>
-            </div>
-    
-            <div style="padding-left: 20px;">
-                <h3 class="font-weight-bold" style="margin-bottom: 0px;">
-                    <span class="text-dark">Trip Curator</span>
-                </h3>
-                <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
-                    
-                    {% if LANGUAGE_CODE == 'ko' %}
-                    <font> &middot; {{ citydetails.nameko }}</font>
-                    {% elif LANGUAGE_CODE == 'en' %}
-                    <font> &middot; {{ citydetails.nameeng }}</font>
-                    {% elif LANGUAGE_CODE == 'vi' %}
-                    <font> &middot; {{ citydetails.nameven }}</font>
-                    {% endif %}
-    
+            <div style="display: flex;">
+                <!-- back1 또는 back2 둘중에 하나는 hide map 버튼이 상단에 나왔을때..-->
+                <div id="back1" style="align-self: center;">
+                    <a href="{% url 'clientapp:mytrip_detail' city_id=citydetails.id tourplan_id=tourplan.id %}"> 
+                        <img src="{% static 'img/trip_detail_back.png' %}" style="width: 20px; height: 32px;"/>
+                    </a>
+                </div>
+        
+                <div style="padding-left: 20px;">
+                    <h3 class="font-weight-bold" style="margin-bottom: 0px;">
+                        <span class="text-dark">Trip Curator</span>
+                    </h3>
+                    <div style="margin-bottom: 0px;font-size: 14px;color: #848484;"> {{ tourplan.room }} 
+                        
+                        {% if LANGUAGE_CODE == 'ko' %}
+                        <font> &middot; {{ citydetails.nameko }}</font>
+                        {% elif LANGUAGE_CODE == 'en' %}
+                        <font> &middot; {{ citydetails.nameeng }}</font>
+                        {% elif LANGUAGE_CODE == 'vi' %}
+                        <font> &middot; {{ citydetails.nameven }}</font>
+                        {% endif %}
+        
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="rightitem-c">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; margin-right: 10px;">
+            <div style="margin-right: 10px;">
                 <!-- <a href="#map" class="card-link p-2 text-dark" id="btnmap" alt="위치보기">
                     <i class="fa fa-map-o" style="font-size:24px;"></i>
                 </a> -->
@@ -88,7 +90,7 @@
         </div>
     </div>
 
-    <div class="linepart"></div>
+    <div class="linepart cur"></div>
 
 
     <!-- 팝업창 띄우기 -->
@@ -125,11 +127,13 @@
     </div>
     
     <!-- django-waterfall 이미지 들어가는 부분.. -->
-    <div class="infointro curator">
+    <div class="infointro curator cur">
         <div class="infointro-in water">
             <div class="card" style="padding-top: 0px!important; border:0px;">
                 <div class=container style="margin:0px; padding:0px; max-width:1920px;">
-                    <div class=waterfall> 
+                    <div class="col-md-12 col-sm-12">
+                        <div class=waterfall> 
+                        </div>
                     </div>
                 </div>
             </div>

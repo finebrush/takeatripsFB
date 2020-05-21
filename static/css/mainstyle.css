@@ -140,6 +140,18 @@ button {
     z-index: 99;
     top: 1px;
 }
+.linepart4 {
+    border-bottom: solid 0.5px #00000022;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    height: 71px;
+    top: 0px;
+    z-index: 999;
+}
+.linepart4.list {
+    height: 131px;
+}
 
 .fa-rotate-45 {
     display: inline-block;
@@ -263,7 +275,7 @@ button {
     ;
     /* grid-gap: 5px; */
     grid-template-rows: 
-        100px
+        80px
         1fr
         1fr
     ;
@@ -527,14 +539,13 @@ button {
 .plan-sub-text {
     font-size: 0.8rem;
 }
-
 @media screen and (max-width: 640px){
     .header {
         grid-template-columns: 
             1fr 1fr
         ;
         grid-template-rows: 
-            100px
+            70px
             70px
         ;
         grid-template-areas:
@@ -548,16 +559,19 @@ button {
     }
     
     .submenu {
-        height: 70px;
+        height: 50px;
     }
 
     .loginout {
         height: 70px;
     }
+    .linepartition{
+        height: 140px;
+    }
 
     #mytrip {
         grid-template-rows: 
-            180px
+            150px
             1fr
             1fr
         ;
@@ -620,6 +634,15 @@ button {
     .btnTourplanBack {
         grid-column-start: 1;
         /* margin-left: 20px; */
+    }
+    .linepart4 {
+        height: 210px;
+    }
+    .linepart4.list {
+        height: 251px;
+    }
+    .linepart4.bak {
+        height: 171px;
     }
 }
 

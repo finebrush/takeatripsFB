@@ -6,34 +6,6 @@
 <link rel=stylesheet href="{% static 'css/mainsubstyle.css' %}">
 <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="{% static 'js/bootstrap-waterfall.js' %}"></script>
-
-<style>
-    .linepartition-trips{
-        position:fixed; 
-        border-bottom: solid 0.5px #00000022;
-        height: 130px; 
-        width: 100%;
-        background-color: white;
-        z-index: 99;
-        top: 1px;
-    }
-    .headtrips {
-        display: grid;
-        grid-template-columns: 1fr repeat(4, minmax(0px, 320px)) 1fr;
-        grid-template-rows: 50px;
-        grid-template-areas:
-            ". triptype triptype triptype triptype ."
-        ;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        background-color: white;
-        width: 100%;
-        z-index: 999;
-        top: 70px;
-    }
-
-</style>
 {% endblock %}
 
 {% block contents %}
@@ -41,7 +13,7 @@
     <div class="triptype">
 
         {% for city in citys %}
-        <a href="{% url 'clientapp:trips' city.id %}" style="display: contents;text-decoration: none;">
+        <a href="{% url 'clientapp:trips' city.id %}" style="text-decoration: none;">
             <button id="city{{ city.id }}" class="btntype" style="outline: none;">
 
                 {% if LANGUAGE_CODE == 'ko' %}
@@ -56,22 +28,22 @@
         </a>
         {% endfor %}
 
-        <a href="#" style="display: contents;text-decoration: none;">
+        <a href="#" style="text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
                 {% trans '제주도' %}
             </button>
         </a>
-        <a href="#" style="display: contents;text-decoration: none;">
+        <a href="#" style="text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
                 {% trans '광주광역시' %}
             </button>
         </a>
-        <a href="#" style="display: contents;text-decoration: none;">
+        <a href="#" style="text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
                 {% trans '대구광역시' %}
             </button>
         </a>
-        <a href="#" style="display: contents;text-decoration: none;">
+        <a href="#" style="text-decoration: none;">
             <button id="city3" class="btntype btntype-off" style="outline: none;">
                 {% trans '대전광역시' %}
             </button>
@@ -83,14 +55,14 @@
 <div class="linepartition-trips"></div>
 
 <!-- waterfall 여행정보 리스트.. -->
-<div class="infointro curator" style="padding-top: 130px;">
+<div class="infointro curator trips">
     <div class="infointro-in water">
         <div class="card" style="padding-top: 0px!important; border:0px;">
             <div class=container style="margin:0px; padding:0px; max-width:1920px;">
                 
                 <div class="col-md-12 col-sm-12" style="padding:0px;">
                     
-                    <div class=container style="margin:0px 0px 0px 15px; padding:0px; max-width:1920px;">
+                    <div class=container style="margin:0px 0px 0px 15px; padding:0px 20px 0px 0px; max-width:1920px;">
                         <div class=waterfall> 
                         </div>
                     </div>
