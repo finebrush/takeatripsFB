@@ -9,7 +9,7 @@ django-admin-vali==0.2.2
 django-allauth==0.40.0
 django-appconf==1.0.3
 django-autocomplete-light==3.4.1
-django-debug-toolbar==2.1
+django-debug-toolbar==2.2.1
 django-imagekit==4.0.2
 django-leaflet==0.25.0
 django-map-widgets==0.2.2
