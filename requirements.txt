@@ -33,7 +33,7 @@ mkl-service==2.3.0
 numpy==1.17.3
 oauthlib==3.1.0
 pilkit==2.0
-Pillow==6.2.1
+Pillow==8.3.2
 psycopg2==2.8.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.7
