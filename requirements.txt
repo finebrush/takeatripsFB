@@ -4,7 +4,7 @@ certifi==2019.9.11
 chardet==3.0.4
 dal-admin-filters==0.3.3
 defusedxml==0.6.0
-Django==2.2.7
+Django==2.2.27
 django-admin-vali==0.2.2
 django-allauth==0.40.0
 django-appconf==1.0.3
