@@ -30,7 +30,7 @@ mccabe==0.6.1
 mkl-fft==1.0.15
 mkl-random==1.1.0
 mkl-service==2.3.0
-numpy==1.17.3
+numpy==1.22.0
 oauthlib==3.1.0
 pilkit==2.0
 Pillow==6.2.1
