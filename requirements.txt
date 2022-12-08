@@ -1,6 +1,6 @@
 astroid==2.3.2
 cachetools==3.1.1
-certifi==2019.9.11
+certifi==2022.12.7
 chardet==3.0.4
 dal-admin-filters==0.3.3
 defusedxml==0.6.0
